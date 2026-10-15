@@ -6,7 +6,8 @@ import { Fonte } from '../components/Fonte';
 import { BarraCompartilhar } from '../components/BarraCompartilhar';
 import { Resultados } from '../components/Resultados';
 import { COMBUSTIVEIS } from '../dados';
-import { NOMES, VEICULOS, calcularCombustivel, efeitoTotal, tanqueCheio } from '../simuladores/combustivel';
+import { NOMES, VEICULOS, calcularCombustivel, efeitoTotal, graficoBomba, tanqueCheio } from '../simuladores/combustivel';
+import { ICONE_VEICULO, Selo } from '../icones';
 import { fonte } from '../fontes';
 import { pct, preco, reais } from '../formato';
 import { PAGINAS, dataPorExtenso } from '../site';
@@ -66,6 +67,18 @@ const compartilhar = JSON.stringify({
   <section class="secao secao--cinza" aria-labelledby="conta">
     <div class="cp-container">
       <h2 id="conta" class="cp-text-h2">A conta, litro a litro</h2>
+      <figure class="grafico-cartao cartao" data-numero>
+        <figcaption>
+          <ul class="legenda" aria-hidden="true">
+            <li><span class="legenda__cor legenda__cor--cenario"></span>Hoje</li>
+            <li><span class="legenda__cor legenda__cor--real"></span>Com o PPI</li>
+          </ul>
+        </figcaption>
+        <div class="grafico-area" set:html={graficoBomba(COMBUSTIVEIS)} />
+        <p class="cp-text-body-small">
+          Preço médio hoje <Fonte id={diesel.fontes.preco} /> mais o aumento com o PPI <span class="junto"><Fonte id={fonteAbicom} />.</span>
+        </p>
+      </figure>
       <div class="grade-combustivel">
         {
           [diesel, gasolina].map((l) => (
@@ -120,7 +133,7 @@ const compartilhar = JSON.stringify({
         {
           veiculos.map((v) => (
             <div class="cartao" data-numero data-veiculo={v.id}>
-              <h3 class="cp-text-h3">{v.nome}</h3>
+              <h3 class="cp-text-h3 card-titulo"><Selo icone={ICONE_VEICULO[v.id]} />{v.nome}</h3>
               <TextField
                 id={`litros-${v.id}`}
                 label={`Tamanho do tanque (litros de ${v.combustivel === 'diesel' ? 'diesel S10' : 'gasolina'})`}

@@ -3,11 +3,13 @@ import '@boralula/ui/styles.css';
 import '../styles/global.css';
 import { BrandStripes, Tag } from '@boralula/ui';
 import fonteTitulo from '../assets/fonts/montserrat-latin-800-normal.woff2?url';
+import fonteTexto from '../assets/fonts/montserrat-latin-700-normal.woff2?url';
 import Seo from '../components/Seo.astro';
 import { SiteHeader } from '../components/SiteHeader';
 import { SiteFooter } from '../components/SiteFooter';
 import { VoltarInicio } from '../components/VoltarInicio';
 import { PainelFonte } from '../components/PainelFonte';
+import { ICONE_PAGINA, Selo } from '../icones';
 import { PAGINAS, dataPorExtenso, type PaginaId } from '../site';
 
 interface Props {
@@ -50,20 +52,22 @@ const breadcrumb = interna && {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#C3090A" />
     <!-- Marca que há JS (mostra os controles dos simuladores).
-         Economia de dados: fonte do sistema e nada de preload. Senão, preload só da fonte dos títulos. -->
-    <script is:inline define:vars={{ fonteTitulo }}>
+         Economia de dados: fonte do sistema e nada de preload. Senão, preload dos dois pesos da Montserrat. -->
+    <script is:inline define:vars={{ fontes: [fonteTitulo, fonteTexto] }}>
       document.documentElement.classList.add('js');
       var c = navigator.connection;
       if (c && c.saveData) {
         document.documentElement.classList.add('save-data');
       } else {
-        var l = document.createElement('link');
-        l.rel = 'preload';
-        l.as = 'font';
-        l.type = 'font/woff2';
-        l.crossOrigin = 'anonymous';
-        l.href = fonteTitulo;
-        document.head.appendChild(l);
+        fontes.forEach(function (href) {
+          var l = document.createElement('link');
+          l.rel = 'preload';
+          l.as = 'font';
+          l.type = 'font/woff2';
+          l.crossOrigin = 'anonymous';
+          l.href = href;
+          document.head.appendChild(l);
+        });
       }
     </script>
     <Seo
@@ -84,7 +88,14 @@ const breadcrumb = interna && {
         <div class="hero__arte" aria-hidden="true"><BrandStripes base="red" /></div>
         <div class="cp-container hero__conteudo">
           {interna && <VoltarInicio />}
-          {selo && <Tag tone="neutral">{selo}</Tag>}
+          {
+            (selo || (id && ICONE_PAGINA[id])) && (
+              <div class="hero__selos">
+                {id && ICONE_PAGINA[id] && <Selo icone={ICONE_PAGINA[id]} tamanho="lg" />}
+                {selo && <Tag tone="neutral">{selo}</Tag>}
+              </div>
+            )
+          }
           <h1 id="titulo-pagina" class="cp-text-h1 hero__titulo">{titulo}</h1>
           <slot name="lead" />
         </div>

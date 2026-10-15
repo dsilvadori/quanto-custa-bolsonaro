@@ -4,8 +4,8 @@
   font-family: 'Montserrat';
   font-style: normal;
   font-weight: 700;
-  /* optional: se não chegar a tempo da primeira pintura, fica a reserva (sem deslocar o texto); na próxima visita vem do cache. */
-  font-display: optional;
+  /* swap + preload (Base.astro): todas as páginas abrem com a mesma fonte; a reserva com métricas evita deslocar o texto. */
+  font-display: swap;
   src: url('../assets/fonts/montserrat-latin-700-normal.woff2') format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
@@ -194,17 +194,23 @@ input[aria-invalid='true'] { outline: var(--cp-border-width-strong) solid var(--
 
 /* Simulador 5: carrinho */
 .carrinho { display: grid; gap: 0; margin: 0; padding: 0; list-style: none; }
-.produto { display: flex; align-items: center; justify-content: space-between; gap: var(--cp-space-3); padding: var(--cp-space-3) 0; border-top: var(--cp-border-width) solid var(--cp-color-outline-variant); }
+.produto {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-areas: 'icone nome qtd' 'precos precos precos';
+  align-items: center;
+  gap: var(--cp-space-2) var(--cp-space-3);
+  padding: var(--cp-space-3) 0;
+  border-top: var(--cp-border-width) solid var(--cp-color-outline-variant);
+}
+.produto > .selo-icone { grid-area: icone; }
 .produto[hidden] { display: none; }
-.produto__info { min-width: 0; }
-.produto__info p { margin: 0; }
-.produto__nome { font-weight: 800; }
+.produto__nome { grid-area: nome; margin: 0; font-weight: 800; }
 .produto__unidade { font-weight: 700; color: var(--cp-color-on-surface-variant); font-size: var(--cp-text-sm); }
-.produto__precos { font-size: var(--cp-text-sm); line-height: 1.9; }
+.produto__precos { grid-area: precos; display: flex; flex-wrap: wrap; gap: 0 var(--cp-space-4); margin: 0; font-size: var(--cp-text-sm); }
 .produto__precos strong { color: var(--cp-color-primary); }
-.produto__qtd { display: flex; align-items: center; gap: var(--cp-space-1); flex-shrink: 0; }
+.produto__qtd { grid-area: qtd; display: flex; align-items: center; gap: var(--cp-space-1); }
 .produto__numero { min-width: 2ch; text-align: center; font: 800 var(--cp-text-h3) / 1 var(--cp-font); }
-.produto--fora .produto__info { opacity: 0.7; }
 .produto__qtd button:disabled { opacity: 0.4; }
 .carrinho-total { margin-top: var(--cp-space-6); }
 @media (min-width: 1024px) {
@@ -309,3 +315,24 @@ input[aria-invalid='true'] { outline: var(--cp-border-width-strong) solid var(--
 .registro article > * + * { margin-top: var(--cp-space-2); }
 .registro dl { display: grid; grid-template-columns: auto 1fr; gap: var(--cp-space-1) var(--cp-space-3); }
 .registro dd { margin: 0; }
+
+/* Ícones em círculo (Lucide, como no DS) */
+.selo-icone { display: inline-grid; place-items: center; flex-shrink: 0; width: 40px; height: 40px; border-radius: 50%; background: var(--cp-color-primary-container); color: var(--cp-color-primary); }
+.selo-icone svg { width: 22px; height: 22px; }
+.selo-icone--lg { width: 56px; height: 56px; background: var(--cp-color-surface); }
+.selo-icone--lg svg { width: 30px; height: 30px; }
+.hero__selos { display: flex; align-items: center; gap: var(--cp-space-3); }
+.card-titulo { display: inline-flex; align-items: center; gap: var(--cp-space-3); }
+.card-numero { margin: 0; }
+.card-numero strong { display: block; color: var(--cp-color-primary); font: 900 var(--cp-text-h2) / 1.1 var(--cp-font); }
+.card-numero span { font-weight: 700; color: var(--cp-color-on-surface-variant); }
+
+/* Menu e marca sem quebra de linha: o mesmo desenho em todas as páginas e larguras. */
+header nav a, .marca { white-space: nowrap; }
+@media (min-width: 1024px) and (max-width: 1279px) {
+  header nav ul[class] { gap: var(--cp-space-2); }
+  header nav ul[class] a { padding-inline: var(--cp-space-1); }
+}
+.grafico-area--largo { max-width: 720px; }
+.grafico-cartao.cartao { margin-bottom: var(--cp-space-6); }
+.grafico-cartao figcaption .ajuda { margin: 0; }

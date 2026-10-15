@@ -1,6 +1,7 @@
 // Simulador 2: o que a página mostra. Usado no build e no navegador.
 import { fatorCesta } from '../calc/cesta';
 import { barras } from '../graficos/barras';
+import { barrasH } from '../graficos/barrasH';
 import { numero, pct, reais } from '../formato';
 
 export interface Capital {
@@ -98,4 +99,36 @@ export function frasesCesta(d: DadosCesta, e: EstadoCesta) {
       fonte: 'Fontes: IBGE e DIEESE',
     },
   };
+}
+
+/** Quanto a cesta custaria a mais por mês em cada capital, da maior diferença para a menor. */
+export function graficoCapitais(d: DadosCesta, e: EstadoCesta): string {
+  const linhas = d.capitais
+    .map((c) => ({ c, r: calcularCesta(d, { ...e, capital: c.nome }) }))
+    .sort((a, b) => b.r.porMes - a.r.porMes);
+  return barrasH({
+    id: 'grafico-capitais',
+    titulo: 'Quanto a cesta básica custaria a mais por mês em cada capital, no ritmo do governo Bolsonaro',
+    descricao: linhas.map(({ c, r }) => `${c.nome}: ${reais(r.porMes)} a mais`).join('; ') + '.',
+    linhas: linhas.map(({ c, r }) => ({
+      rotulo: c.nome,
+      valor: r.porMes,
+      texto: `+R$ ${numero(r.porMes)}`,
+      destaque: c.nome === e.capital,
+    })),
+  });
+}
+
+/** Alta da comida no domicílio em cada governo. */
+export function graficoGovernos(d: DadosCesta): string {
+  const linhas = [
+    { rotulo: 'Bolsonaro', valor: d.bolsonaroPct, meses: d.bolsonaroMeses, destaque: true },
+    { rotulo: 'Lula', valor: d.atualPct, meses: d.atualMeses, destaque: false },
+  ];
+  return barrasH({
+    id: 'grafico-governos',
+    titulo: 'Alta da comida no domicílio (IPCA) em cada governo',
+    descricao: linhas.map((l) => `Governo ${l.rotulo}: ${pct(l.valor)} em ${l.meses} meses`).join('; ') + '.',
+    linhas: linhas.map((l) => ({ rotulo: `${l.rotulo} (${l.meses} meses)`, valor: l.valor, texto: `+${pct(l.valor, 1)}`, destaque: l.destaque })),
+  });
 }

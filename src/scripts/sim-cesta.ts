@@ -1,7 +1,7 @@
 // Simulador 2 no navegador: capital e ritmo de alta → valor da cesta, gráfico e compartilhamento.
 import { atualizarUrl, escrever, lerDados, ligarSegmentado } from './ui';
 import { definirCompartilhamento } from './compartilhar';
-import { ESTADO_PADRAO_CESTA, MEDIA, RITMOS, frasesCesta, graficoCesta, type DadosCesta, type Ritmo } from '../simuladores/cesta';
+import { ESTADO_PADRAO_CESTA, MEDIA, RITMOS, frasesCesta, graficoCapitais, graficoCesta, type DadosCesta, type Ritmo } from '../simuladores/cesta';
 
 const { dados, urlFontes } = lerDados<{ dados: DadosCesta; urlFontes: string }>('dados-cesta');
 const estado = { ...ESTADO_PADRAO_CESTA };
@@ -18,6 +18,7 @@ function mostrar() {
   const f = frasesCesta(dados, estado);
   escrever({ resumo: f.resumo, cenario: f.cenario, porMes: `+${f.porMes}`, porAno: `+${f.porAno}`, pesoTexto: f.pesoTexto });
   document.querySelector('[data-grafico]')!.innerHTML = graficoCesta(dados, estado);
+  document.querySelector('[data-grafico="capitais"]')!.innerHTML = graficoCapitais(dados, estado);
   const url = atualizarUrl({
     capital: estado.capital === MEDIA ? null : estado.capital,
     ritmo: estado.ritmo === '100' ? null : estado.ritmo,

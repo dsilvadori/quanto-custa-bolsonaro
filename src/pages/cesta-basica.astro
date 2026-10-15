@@ -6,7 +6,7 @@ import { Fonte } from '../components/Fonte';
 import { Resultados } from '../components/Resultados';
 import { BarraCompartilhar } from '../components/BarraCompartilhar';
 import { CENARIO_SM, CESTA, DADOS_CESTA, MINIMO_ATUAL } from '../dados';
-import { ESTADO_PADRAO_CESTA, MEDIA, frasesCesta, graficoCesta } from '../simuladores/cesta';
+import { ESTADO_PADRAO_CESTA, MEDIA, frasesCesta, graficoCapitais, graficoCesta, graficoGovernos } from '../simuladores/cesta';
 import { pct } from '../formato';
 import { PAGINAS, dataPorExtenso } from '../site';
 
@@ -49,6 +49,7 @@ const dados = JSON.stringify({ dados: d, urlFontes: ancora.host + ancora.pathnam
             { saida: 'altaAtual', valor: `+${pct(CESTA.atual.pct)}`, rotulo: `no governo Lula, em ${CESTA.atual.meses} meses (até ${mesReferencia})` },
           ]}
         />
+        <div class="grafico-area" set:html={graficoGovernos(d)} />
         <p class="cp-text-body-small ajuda">
           Alimentação no domicílio, IPCA <Fonte id="ipca-alim-2019" /> <Fonte id="ipca-alim-2020-2022" />
           <span class="junto"><Fonte id="ipca-alim-2023-2026" />.</span>
@@ -93,6 +94,22 @@ const dados = JSON.stringify({ dados: d, urlFontes: ancora.host + ancora.pathnam
           <Link href={PAGINAS.comoCalculamos.path}>Veja como calculamos</Link>
         </p>
       </div>
+    </div>
+  </section>
+
+  <section class="secao" aria-labelledby="capitais">
+    <div class="cp-container">
+      <figure class="grafico-cartao" data-numero>
+        <figcaption>
+          <h2 id="capitais" class="cp-text-h2">Na sua capital</h2>
+          <p class="ajuda">Quanto a cesta custaria a mais por mês em cada capital, no ritmo de preços do governo Bolsonaro.</p>
+        </figcaption>
+        <div class="grafico-area grafico-area--largo" data-grafico="capitais" set:html={graficoCapitais(d, e)} />
+        <p class="cp-text-body-small">
+          Valor da cesta em cada capital <Fonte id={CESTA.fonteValores} /> e alta da comida no IPCA
+          <span class="junto"><Fonte id="ipca-alim-2023-2026" />.</span>
+        </p>
+      </figure>
     </div>
   </section>
 

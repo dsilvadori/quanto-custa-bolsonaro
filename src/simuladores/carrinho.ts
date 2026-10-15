@@ -1,6 +1,7 @@
 // Simulador 5: o que a página mostra. Usado no build e no navegador.
 import { totalCarrinho } from '../calc/carrinho';
 import { pct, reais } from '../formato';
+import { barrasH } from '../graficos/barrasH';
 
 export interface Produto {
   id: string;
@@ -101,4 +102,26 @@ export function frasesCarrinho(d: DadosCarrinho, e: EstadoCarrinho) {
       fonte: 'Fontes: DIEESE, ANP e IBGE',
     },
   };
+}
+
+// Nomes curtos para caber no rótulo do gráfico.
+const NOME_CURTO: Record<string, string> = {
+  carne: 'Carne',
+  leite: 'Leite',
+  'farinha-mandioca': 'Farinha mandioca',
+  gas: 'Gás de botijão',
+};
+
+/** Quanto cada produto mudaria de preço no ritmo de Bolsonaro, em %, do maior para o menor. */
+export function graficoProdutos(d: DadosCarrinho): string {
+  const linhas = [...d.produtos]
+    .map((p) => ({ p, v: (p.fator - 1) * 100 }))
+    .sort((a, b) => b.v - a.v);
+  const sinal = (v: number) => `${v >= 0 ? '+' : '−'}${Math.abs(v).toLocaleString('pt-BR', { maximumFractionDigits: 0 })}%`;
+  return barrasH({
+    id: 'grafico-produtos',
+    titulo: 'Quanto cada produto mudaria de preço no ritmo do governo Bolsonaro',
+    descricao: linhas.map(({ p, v }) => `${p.nome}: ${sinal(v)}`).join('; ') + '.',
+    linhas: linhas.map(({ p, v }, i) => ({ rotulo: NOME_CURTO[p.id] ?? p.nome, valor: v, texto: sinal(v), destaque: i < 3 })),
+  });
 }

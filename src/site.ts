@@ -108,7 +108,8 @@ export const PAGINAS: Record<PaginaId, Pagina> = {
 
 export const SIMULADORES: PaginaId[] = ['salarioMinimo', 'cestaBasica', 'carrinho', 'combustivel', 'aposentadoriaBpc'];
 
-export const MENU: PaginaId[] = [...SIMULADORES, 'comoCalculamos', 'fontes'];
+// Menu do topo: os simuladores e as fontes. "Como calculamos" fica no rodapé e em cada simulador.
+export const MENU: PaginaId[] = [...SIMULADORES, 'fontes'];
 
 export const RODAPE: PaginaId[] = ['comoCalculamos', 'fontes', 'quemSomos'];
 

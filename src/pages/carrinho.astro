@@ -7,7 +7,7 @@ import { Resultados } from '../components/Resultados';
 import { ListaCarrinho } from '../components/ListaCarrinho';
 import { BarraCarrinho } from '../components/BarraCarrinho';
 import { CARRINHO, DADOS_CARRINHO } from '../dados';
-import { MEDIA, calcularCarrinho, estadoPadraoCarrinho, frasesCarrinho } from '../simuladores/carrinho';
+import { MEDIA, calcularCarrinho, estadoPadraoCarrinho, frasesCarrinho, graficoProdutos } from '../simuladores/carrinho';
 import { PAGINAS, dataPorExtenso } from '../site';
 
 const url = new URL(PAGINAS.carrinho.path, Astro.site).href;
@@ -78,6 +78,21 @@ const dados = JSON.stringify({ dados: d, urlFontes: ancora.host + ancora.pathnam
           <Link href={PAGINAS.comoCalculamos.path}>Veja como calculamos</Link>
         </p>
       </div>
+    </div>
+  </section>
+
+  <section class="secao" aria-labelledby="por-produto">
+    <div class="cp-container">
+      <figure class="grafico-cartao" data-numero>
+        <figcaption>
+          <h2 id="por-produto" class="cp-text-h2">Quanto cada produto mudaria de preço</h2>
+          <p class="ajuda">No ritmo de preços do governo Bolsonaro, comparado com o preço de hoje. Barras em azul: produtos que sairiam mais baratos.</p>
+        </figcaption>
+        <div class="grafico-area grafico-area--largo" set:html={graficoProdutos(d)} />
+        <p class="cp-text-body-small">
+          Alta de cada produto no IPCA <Fonte id={fonte2019} /> <span class="junto"><Fonte id={fonteDepois} />.</span>
+        </p>
+      </figure>
     </div>
   </section>
 
