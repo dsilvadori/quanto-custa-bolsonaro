@@ -4,7 +4,8 @@ import { readFile } from 'node:fs/promises';
 import { createRequire } from 'node:module';
 import satori from 'satori';
 import { Resvg } from '@resvg/resvg-js';
-import { COMBUSTIVEIS, DADOS_BENEFICIO, DADOS_CESTA, DADOS_SALARIO } from '../../dados';
+import { COMBUSTIVEIS, DADOS_BENEFICIO, DADOS_CARRINHO, DADOS_CESTA, DADOS_SALARIO } from '../../dados';
+import { estadoPadraoCarrinho, frasesCarrinho } from '../../simuladores/carrinho';
 import { ESTADO_PADRAO_CESTA, frasesCesta } from '../../simuladores/cesta';
 import { calcularCombustivel } from '../../simuladores/combustivel';
 import { ESTADO_PADRAO, calcularSalario } from '../../simuladores/salario';
@@ -21,6 +22,7 @@ interface Conteudo {
 const s = calcularSalario(DADOS_SALARIO, ESTADO_PADRAO);
 const b = frasesBeneficio(DADOS_BENEFICIO, estadoPadraoBeneficio(DADOS_BENEFICIO));
 const c = frasesCesta(DADOS_CESTA, ESTADO_PADRAO_CESTA);
+const car = frasesCarrinho(DADOS_CARRINHO, estadoPadraoCarrinho(DADOS_CARRINHO));
 const combustivel = (nome: string) => calcularCombustivel(COMBUSTIVEIS.find((l) => l.combustivel === nome)!);
 const diesel = combustivel('diesel');
 const gasolina = combustivel('gasolina');
@@ -40,6 +42,11 @@ const CONTEUDO: Record<string, Conteudo> = {
     numero: `+${c.porMes}`,
     texto: `por mês na cesta básica se a comida subisse no ritmo do governo Bolsonaro (${c.cenario}, e não ${c.hoje})`,
     fonte: 'Fontes: IBGE e DIEESE',
+  },
+  carrinho: {
+    numero: car.diferenca,
+    texto: `no carrinho de compras se cada preço subisse no ritmo do governo Bolsonaro (${car.cenario}, e não ${car.hoje})`,
+    fonte: 'Fontes: DIEESE, ANP e IBGE',
   },
   combustivel: {
     numero: `+${reais(diesel.aumento)}`,

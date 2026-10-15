@@ -1,13 +1,15 @@
 import { Button, IconButton } from '@boralula/ui';
 import { ImageDown, MessageCircle, Share2 } from 'lucide-react';
+import type { ReactNode } from 'react';
 
 /**
  * Barra fixa no rodapé da tela nos simuladores. Sem JS, o WhatsApp leva o texto do resultado padrão;
  * com JS (src/scripts/compartilhar.ts), o texto acompanha a simulação e os outros dois botões aparecem.
  */
-export function BarraCompartilhar({ textoWhatsapp }: { textoWhatsapp: string }) {
+export function BarraCompartilhar({ textoWhatsapp, topo }: { textoWhatsapp: string; topo?: ReactNode }) {
   return (
     <div className="barra-compartilhar" role="region" aria-label="Compartilhar o resultado">
+      {topo && <div className="cp-container barra-compartilhar__topo">{topo}</div>}
       <div className="cp-container barra-compartilhar__conteudo">
         <Button
           href={`https://wa.me/?text=${encodeURIComponent(textoWhatsapp)}`}

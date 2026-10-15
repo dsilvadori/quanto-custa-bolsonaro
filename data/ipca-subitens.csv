@@ -1,0 +1,129 @@
+subitem_ipca,nome,periodo,variacao_pct,governo,meses,fonte
+7173,Arroz,2019,1.17,bolsonaro,12,ipca-subitens-2019
+7173,Arroz,2020,76.01,bolsonaro,12,ipca-subitens-2020-2026
+7173,Arroz,2021,-16.88,bolsonaro,12,ipca-subitens-2020-2026
+7173,Arroz,2022,5.98,bolsonaro,12,ipca-subitens-2020-2026
+7173,Arroz,2023,24.54,lula,12,ipca-subitens-2020-2026
+7173,Arroz,2024,8.24,lula,12,ipca-subitens-2020-2026
+7173,Arroz,2025,-26.56,lula,12,ipca-subitens-2020-2026
+7173,Arroz,2026-09,4.96,lula,9,ipca-subitens-2020-2026
+7191,Farinha de trigo,2019,2.65,bolsonaro,12,ipca-subitens-2019
+7191,Farinha de trigo,2020,14.96,bolsonaro,12,ipca-subitens-2020-2026
+7191,Farinha de trigo,2021,14.51,bolsonaro,12,ipca-subitens-2020-2026
+7191,Farinha de trigo,2022,31.00,bolsonaro,12,ipca-subitens-2020-2026
+7191,Farinha de trigo,2023,-9.14,lula,12,ipca-subitens-2020-2026
+7191,Farinha de trigo,2024,-2.76,lula,12,ipca-subitens-2020-2026
+7191,Farinha de trigo,2025,-0.24,lula,12,ipca-subitens-2020-2026
+7191,Farinha de trigo,2026-09,-4.77,lula,9,ipca-subitens-2020-2026
+7195,Farinha de mandioca,2019,-12.17,bolsonaro,12,ipca-subitens-2019
+7195,Farinha de mandioca,2020,11.52,bolsonaro,12,ipca-subitens-2020-2026
+7195,Farinha de mandioca,2021,6.13,bolsonaro,12,ipca-subitens-2020-2026
+7195,Farinha de mandioca,2022,38.56,bolsonaro,12,ipca-subitens-2020-2026
+7195,Farinha de mandioca,2023,5.02,lula,12,ipca-subitens-2020-2026
+7195,Farinha de mandioca,2024,-1.78,lula,12,ipca-subitens-2020-2026
+7195,Farinha de mandioca,2025,-1.35,lula,12,ipca-subitens-2020-2026
+7195,Farinha de mandioca,2026-09,2.25,lula,9,ipca-subitens-2020-2026
+7202,Batata-inglesa,2019,-2.21,bolsonaro,12,ipca-subitens-2019
+7202,Batata-inglesa,2020,67.27,bolsonaro,12,ipca-subitens-2020-2026
+7202,Batata-inglesa,2021,-22.82,bolsonaro,12,ipca-subitens-2020-2026
+7202,Batata-inglesa,2022,51.92,bolsonaro,12,ipca-subitens-2020-2026
+7202,Batata-inglesa,2023,4.18,lula,12,ipca-subitens-2020-2026
+7202,Batata-inglesa,2024,-12.53,lula,12,ipca-subitens-2020-2026
+7202,Batata-inglesa,2025,-13.65,lula,12,ipca-subitens-2020-2026
+7202,Batata-inglesa,2026-09,45.55,lula,9,ipca-subitens-2020-2026
+7212,Tomate,2019,-30.45,bolsonaro,12,ipca-subitens-2019
+7212,Tomate,2020,52.76,bolsonaro,12,ipca-subitens-2020-2026
+7212,Tomate,2021,18.60,bolsonaro,12,ipca-subitens-2020-2026
+7212,Tomate,2022,11.87,bolsonaro,12,ipca-subitens-2020-2026
+7212,Tomate,2023,-2.91,lula,12,ipca-subitens-2020-2026
+7212,Tomate,2024,-25.86,lula,12,ipca-subitens-2020-2026
+7212,Tomate,2025,4.38,lula,12,ipca-subitens-2020-2026
+7212,Tomate,2026-09,58.70,lula,9,ipca-subitens-2020-2026
+7221,Açúcar cristal,2019,3.47,bolsonaro,12,ipca-subitens-2019
+7221,Açúcar cristal,2020,25.24,bolsonaro,12,ipca-subitens-2020-2026
+7221,Açúcar cristal,2021,37.55,bolsonaro,12,ipca-subitens-2020-2026
+7221,Açúcar cristal,2022,0.90,bolsonaro,12,ipca-subitens-2020-2026
+7221,Açúcar cristal,2023,6.17,lula,12,ipca-subitens-2020-2026
+7221,Açúcar cristal,2024,0.35,lula,12,ipca-subitens-2020-2026
+7221,Açúcar cristal,2025,-9.38,lula,12,ipca-subitens-2020-2026
+7221,Açúcar cristal,2026-09,-8.87,lula,9,ipca-subitens-2020-2026
+7260,Banana - prata,2019,13.04,bolsonaro,12,ipca-subitens-2019
+7260,Banana - prata,2020,24.79,bolsonaro,12,ipca-subitens-2020-2026
+7260,Banana - prata,2021,13.85,bolsonaro,12,ipca-subitens-2020-2026
+7260,Banana - prata,2022,23.61,bolsonaro,12,ipca-subitens-2020-2026
+7260,Banana - prata,2023,4.08,lula,12,ipca-subitens-2020-2026
+7260,Banana - prata,2024,1.67,lula,12,ipca-subitens-2020-2026
+7260,Banana - prata,2025,7.54,lula,12,ipca-subitens-2020-2026
+7260,Banana - prata,2026-09,-6.52,lula,9,ipca-subitens-2020-2026
+7283,Carnes,2019,32.40,bolsonaro,12,ipca-subitens-2019
+7283,Carnes,2020,17.97,bolsonaro,12,ipca-subitens-2020-2026
+7283,Carnes,2021,8.45,bolsonaro,12,ipca-subitens-2020-2026
+7283,Carnes,2022,1.84,bolsonaro,12,ipca-subitens-2020-2026
+7283,Carnes,2023,-9.37,lula,12,ipca-subitens-2020-2026
+7283,Carnes,2024,20.84,lula,12,ipca-subitens-2020-2026
+7283,Carnes,2025,1.22,lula,12,ipca-subitens-2020-2026
+7283,Carnes,2026-09,6.89,lula,9,ipca-subitens-2020-2026
+7367,Manteiga,2019,-0.56,bolsonaro,12,ipca-subitens-2019
+7367,Manteiga,2020,7.56,bolsonaro,12,ipca-subitens-2020-2026
+7367,Manteiga,2021,6.68,bolsonaro,12,ipca-subitens-2020-2026
+7367,Manteiga,2022,22.34,bolsonaro,12,ipca-subitens-2020-2026
+7367,Manteiga,2023,0.35,lula,12,ipca-subitens-2020-2026
+7367,Manteiga,2024,6.13,lula,12,ipca-subitens-2020-2026
+7367,Manteiga,2025,-4.48,lula,12,ipca-subitens-2020-2026
+7367,Manteiga,2026-09,0.67,lula,9,ipca-subitens-2020-2026
+7375,Pão francês,2019,1.51,bolsonaro,12,ipca-subitens-2019
+7375,Pão francês,2020,4.99,bolsonaro,12,ipca-subitens-2020-2026
+7375,Pão francês,2021,6.38,bolsonaro,12,ipca-subitens-2020-2026
+7375,Pão francês,2022,18.03,bolsonaro,12,ipca-subitens-2020-2026
+7375,Pão francês,2023,3.64,lula,12,ipca-subitens-2020-2026
+7375,Pão francês,2024,3.27,lula,12,ipca-subitens-2020-2026
+7375,Pão francês,2025,5.86,lula,12,ipca-subitens-2020-2026
+7375,Pão francês,2026-09,4.24,lula,9,ipca-subitens-2020-2026
+7385,Óleo de soja,2019,8.81,bolsonaro,12,ipca-subitens-2019
+7385,Óleo de soja,2020,103.79,bolsonaro,12,ipca-subitens-2020-2026
+7385,Óleo de soja,2021,4.16,bolsonaro,12,ipca-subitens-2020-2026
+7385,Óleo de soja,2022,4.22,bolsonaro,12,ipca-subitens-2020-2026
+7385,Óleo de soja,2023,-28.00,lula,12,ipca-subitens-2020-2026
+7385,Óleo de soja,2024,29.21,lula,12,ipca-subitens-2020-2026
+7385,Óleo de soja,2025,3.23,lula,12,ipca-subitens-2020-2026
+7385,Óleo de soja,2026-09,-8.60,lula,9,ipca-subitens-2020-2026
+7392,Café moído,2019,-7.39,bolsonaro,12,ipca-subitens-2019
+7392,Café moído,2020,7.70,bolsonaro,12,ipca-subitens-2020-2026
+7392,Café moído,2021,50.24,bolsonaro,12,ipca-subitens-2020-2026
+7392,Café moído,2022,13.51,bolsonaro,12,ipca-subitens-2020-2026
+7392,Café moído,2023,-9.07,lula,12,ipca-subitens-2020-2026
+7392,Café moído,2024,39.60,lula,12,ipca-subitens-2020-2026
+7392,Café moído,2025,35.65,lula,12,ipca-subitens-2020-2026
+7392,Café moído,2026-09,-16.19,lula,9,ipca-subitens-2020-2026
+7482,Gás de botijão,2019,1.27,bolsonaro,12,ipca-subitens-2019
+7482,Gás de botijão,2020,9.24,bolsonaro,12,ipca-subitens-2020-2026
+7482,Gás de botijão,2021,36.99,bolsonaro,12,ipca-subitens-2020-2026
+7482,Gás de botijão,2022,6.27,bolsonaro,12,ipca-subitens-2020-2026
+7482,Gás de botijão,2023,-6.89,lula,12,ipca-subitens-2020-2026
+7482,Gás de botijão,2024,7.04,lula,12,ipca-subitens-2020-2026
+7482,Gás de botijão,2025,2.55,lula,12,ipca-subitens-2020-2026
+7482,Gás de botijão,2026-09,3.34,lula,9,ipca-subitens-2020-2026
+7657,Gasolina,2019,4.03,bolsonaro,12,ipca-subitens-2019
+7657,Gasolina,2020,-0.19,bolsonaro,12,ipca-subitens-2020-2026
+7657,Gasolina,2021,47.49,bolsonaro,12,ipca-subitens-2020-2026
+7657,Gasolina,2022,-25.78,bolsonaro,12,ipca-subitens-2020-2026
+7657,Gasolina,2023,12.09,lula,12,ipca-subitens-2020-2026
+7657,Gasolina,2024,9.71,lula,12,ipca-subitens-2020-2026
+7657,Gasolina,2025,1.85,lula,12,ipca-subitens-2020-2026
+7657,Gasolina,2026-09,5.56,lula,9,ipca-subitens-2020-2026
+12222,Feijão - carioca (rajado),2019,55.99,bolsonaro,12,ipca-subitens-2019
+12222,Feijão - carioca (rajado),2020,16.23,bolsonaro,12,ipca-subitens-2020-2026
+12222,Feijão - carioca (rajado),2021,-8.12,bolsonaro,12,ipca-subitens-2020-2026
+12222,Feijão - carioca (rajado),2022,27.77,bolsonaro,12,ipca-subitens-2020-2026
+12222,Feijão - carioca (rajado),2023,-13.77,lula,12,ipca-subitens-2020-2026
+12222,Feijão - carioca (rajado),2024,-8.57,lula,12,ipca-subitens-2020-2026
+12222,Feijão - carioca (rajado),2025,-4.21,lula,12,ipca-subitens-2020-2026
+12222,Feijão - carioca (rajado),2026-09,36.44,lula,9,ipca-subitens-2020-2026
+12393,Leite longa vida,2019,6.05,bolsonaro,12,ipca-subitens-2019
+12393,Leite longa vida,2020,26.93,bolsonaro,12,ipca-subitens-2020-2026
+12393,Leite longa vida,2021,-3.72,bolsonaro,12,ipca-subitens-2020-2026
+12393,Leite longa vida,2022,26.18,bolsonaro,12,ipca-subitens-2020-2026
+12393,Leite longa vida,2023,-7.83,lula,12,ipca-subitens-2020-2026
+12393,Leite longa vida,2024,18.83,lula,12,ipca-subitens-2020-2026
+12393,Leite longa vida,2025,-12.87,lula,12,ipca-subitens-2020-2026
+12393,Leite longa vida,2026-09,27.00,lula,9,ipca-subitens-2020-2026

@@ -1,0 +1,94 @@
+---
+import { Link, Stat } from '@boralula/ui';
+import Base from '../layouts/Base.astro';
+import LinksSimulador from '../components/LinksSimulador.astro';
+import { Fonte } from '../components/Fonte';
+import { Resultados } from '../components/Resultados';
+import { ListaCarrinho } from '../components/ListaCarrinho';
+import { BarraCarrinho } from '../components/BarraCarrinho';
+import { CARRINHO, DADOS_CARRINHO } from '../dados';
+import { MEDIA, calcularCarrinho, estadoPadraoCarrinho, frasesCarrinho } from '../simuladores/carrinho';
+import { PAGINAS, dataPorExtenso } from '../site';
+
+const url = new URL(PAGINAS.carrinho.path, Astro.site).href;
+const d = DADOS_CARRINHO;
+const e = estadoPadraoCarrinho(d);
+const r = calcularCarrinho(d, e);
+const f = frasesCarrinho(d, e);
+const [fonte2019, fonteDepois] = [CARRINHO.fontesSubitens.find((id) => id.endsWith('2019'))!, CARRINHO.fontesSubitens.find((id) => !id.endsWith('2019'))!];
+const [fonteDieese, fonteAnp] = [CARRINHO.fontesPreco.find((id) => id.startsWith('dieese'))!, CARRINHO.fontesPreco.find((id) => id.startsWith('anp'))!];
+const mesReferencia = dataPorExtenso(`${CARRINHO.referencia}-01`).replace(/^1º de /, '');
+const ancora = new URL(`${PAGINAS.fontes.path}#${fonteDieese}`, Astro.site);
+const dados = JSON.stringify({ dados: d, urlFontes: ancora.host + ancora.pathname + ancora.hash }).replace(/</g, '\\u003c');
+---
+
+<Base
+  id="carrinho"
+  selo="Simulador"
+  imagem={{ src: '/og/carrinho.png', alt: `Um carrinho com os alimentos da cesta custa ${f.hoje} hoje e custaria ${f.cenario} no ritmo de preços do governo Bolsonaro.` }}
+>
+  <Fragment slot="lead">
+    <p class="hero__lead cp-text-body-large">
+      Um carrinho com um de cada alimento da cesta custa <span class="junto">{f.hoje} <Fonte id={fonteDieese} /></span> na média das
+      capitais. Se cada produto tivesse subido no ritmo de preços do governo Bolsonaro, custaria
+      <strong class="destaque">{f.cenario}</strong>.
+    </p>
+    <div class="hero__numero" data-numero>
+      <Stat surface="red" value={f.diferenca} label="no mesmo carrinho" />
+      <p class="cp-text-body-small">
+        Preços de {mesReferencia} <Fonte id={fonteDieese} /> e alta de cada produto no IPCA <Fonte id={fonte2019} />
+        <span class="junto"><Fonte id={fonteDepois} />.</span>
+      </p>
+    </div>
+  </Fragment>
+
+  <section class="secao secao--cinza" aria-labelledby="monte">
+    <div class="cp-container">
+      <form class="cartao carrinho-cartao" id="form-simulador" data-numero>
+        <h2 id="monte" class="cp-text-h2">Monte o seu carrinho</h2>
+        <p class="ajuda cp-text-body-small">
+          Cada preço sobe no ritmo do próprio produto: a alta de {d.mesesBolsonaro} meses do governo Bolsonaro, aplicada aos
+          {d.mesesAtual} meses desde janeiro de 2023, no lugar da alta real <Fonte id={fonte2019} />
+          <span class="junto"><Fonte id={fonteDepois} />.</span> Gás e gasolina: preço médio no Brasil
+          <span class="junto"><Fonte id={fonteAnp} />.</span>
+        </p>
+        <div class="campo so-com-js">
+          <label for="capital" class="cp-text-title">Onde você mora?</label>
+          <select id="capital" class="seletor">
+            <option value={MEDIA}>Média das {d.capitais.length} capitais</option>
+            {d.capitais.map((c) => <option value={c}>{c}</option>)}
+          </select>
+        </div>
+        <ListaCarrinho linhas={r.linhas} fonteSubitem={fonteDepois} />
+      </form>
+
+      <div class="cartao simulador__resultado carrinho-total" data-numero>
+        <h2 class="cp-text-h2">Total do carrinho</h2>
+        <p class="cp-text-body-large resultado__frase" aria-live="polite" data-saida="resumo">{f.resumo}</p>
+        <Resultados
+          itens={[
+            { saida: 'hoje', valor: f.hoje, rotulo: 'hoje' },
+            { saida: 'cenario', valor: f.cenario, rotulo: 'no ritmo de Bolsonaro' },
+            { saida: 'diferenca', valor: `${f.diferenca} (${f.pct})`, rotulo: 'de diferença' },
+          ]}
+        />
+        <p class="cp-text-body-small">
+          Preços <Fonte id={fonteDieese} /> <Fonte id={fonteAnp} /> e IPCA <Fonte id={fonte2019} />
+          <span class="junto"><Fonte id={fonteDepois} />.</span>
+          <Link href={PAGINAS.comoCalculamos.path}>Veja como calculamos</Link>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <div class="cp-container secao">
+    <LinksSimulador atual="carrinho" />
+  </div>
+
+  <BarraCarrinho slot="fim" textoWhatsapp={f.whatsapp(url)} hoje={f.hoje} cenario={f.cenario} />
+  <script slot="fim" type="application/json" id="dados-carrinho" set:html={dados} />
+</Base>
+
+<script>
+  import '../scripts/sim-carrinho';
+</script>

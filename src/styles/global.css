@@ -192,6 +192,29 @@ input[aria-invalid='true'] { outline: var(--cp-border-width-strong) solid var(--
 .faq details { background: var(--cp-color-surface); border-radius: var(--cp-radius-md); }
 .passos { display: grid; gap: var(--cp-space-3); margin: 0 0 var(--cp-space-4); padding-left: var(--cp-space-6); }
 
+/* Simulador 5: carrinho */
+.carrinho { display: grid; gap: 0; margin: 0; padding: 0; list-style: none; }
+.produto { display: flex; align-items: center; justify-content: space-between; gap: var(--cp-space-3); padding: var(--cp-space-3) 0; border-top: var(--cp-border-width) solid var(--cp-color-outline-variant); }
+.produto[hidden] { display: none; }
+.produto__info { min-width: 0; }
+.produto__info p { margin: 0; }
+.produto__nome { font-weight: 800; }
+.produto__unidade { font-weight: 700; color: var(--cp-color-on-surface-variant); font-size: var(--cp-text-sm); }
+.produto__precos { font-size: var(--cp-text-sm); line-height: 1.9; }
+.produto__precos strong { color: var(--cp-color-primary); }
+.produto__qtd { display: flex; align-items: center; gap: var(--cp-space-1); flex-shrink: 0; }
+.produto__numero { min-width: 2ch; text-align: center; font: 800 var(--cp-text-h3) / 1 var(--cp-font); }
+.produto--fora .produto__info { opacity: 0.7; }
+.produto__qtd button:disabled { opacity: 0.4; }
+.carrinho-total { margin-top: var(--cp-space-6); }
+@media (min-width: 1024px) {
+  .carrinho-cartao { max-width: 760px; }
+}
+.barra-compartilhar__topo { padding-bottom: var(--cp-space-2); }
+.total-fixo { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--cp-space-1) var(--cp-space-4); margin: 0; font-size: var(--cp-text-sm); }
+.total-fixo strong { font-size: var(--cp-text-md); }
+.total-fixo span + span strong { color: var(--cp-color-primary); }
+
 /* Simulador 3: conta litro a litro */
 .grade-combustivel { display: grid; gap: var(--cp-space-4); }
 @media (min-width: 768px) { .grade-combustivel { grid-template-columns: 1fr 1fr; gap: var(--cp-space-6); } }

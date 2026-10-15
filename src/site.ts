@@ -13,6 +13,7 @@ export type PaginaId =
   | 'inicio'
   | 'salarioMinimo'
   | 'cestaBasica'
+  | 'carrinho'
   | 'combustivel'
   | 'aposentadoriaBpc'
   | 'comoCalculamos'
@@ -53,6 +54,14 @@ export const PAGINAS: Record<PaginaId, Pagina> = {
     titulo: 'Quanto custaria a cesta básica no ritmo de Bolsonaro?',
     descricao:
       'Se a comida subisse no ritmo do governo Bolsonaro, quanto custaria a cesta básica na sua capital? Veja a conta e as fontes oficiais.',
+    atualizadoEm: '2026-10-15',
+  },
+  carrinho: {
+    path: '/carrinho',
+    rotulo: 'Carrinho',
+    titulo: 'Quanto custaria o seu carrinho no ritmo de Bolsonaro?',
+    descricao:
+      'Monte um carrinho com arroz, feijão, carne, café, gás e gasolina e veja quanto custaria se cada preço subisse no ritmo do governo Bolsonaro.',
     atualizadoEm: '2026-10-15',
   },
   combustivel: {
@@ -97,7 +106,7 @@ export const PAGINAS: Record<PaginaId, Pagina> = {
   },
 };
 
-export const SIMULADORES: PaginaId[] = ['salarioMinimo', 'cestaBasica', 'combustivel', 'aposentadoriaBpc'];
+export const SIMULADORES: PaginaId[] = ['salarioMinimo', 'cestaBasica', 'carrinho', 'combustivel', 'aposentadoriaBpc'];
 
 export const MENU: PaginaId[] = [...SIMULADORES, 'comoCalculamos', 'fontes'];
 

@@ -359,9 +359,10 @@
       "url_arquivo": "https://web.archive.org/web/20261015201458/https://www.gov.br/anp/pt-br/assuntos/precos-e-defesa-da-concorrencia/precos/precos-revenda-e-de-distribuicao-combustiveis/shlp/semanal/semanal-brasil-desde-2013.xlsx",
       "data_publicacao": null,
       "data_coleta": "2026-10-15",
-      "valor_usado": "Preço médio de revenda: gasolina comum R$ 6,54/L; óleo diesel S10 R$ 7,36/L",
+      "valor_usado": "Preço médio de revenda: gasolina comum R$ 6,54/L; óleo diesel S10 R$ 7,36/L; gás de botijão (GLP) R$ 114,61/13 kg",
       "usado_em": [
-        "/combustivel"
+        "/combustivel",
+        "/carrinho"
       ]
     },
     {
@@ -414,6 +415,45 @@
       "valor_usado": "\"O Benefício de Prestação Continuada não está sujeito a desconto de qualquer contribuição e não gera direito ao pagamento de abono anual.\"",
       "usado_em": [
         "/aposentadoria-bpc"
+      ]
+    },
+    {
+      "id": "dieese-precos-2026-09",
+      "titulo": "DIEESE — Cesta Básica, preço médio de cada produto nas 27 capitais, setembro de 2026",
+      "orgao": "DIEESE",
+      "url": "https://www.dieese.org.br/cesta/",
+      "url_arquivo": "https://web.archive.org/web/20261015224139/https://www.dieese.org.br/cesta/",
+      "data_publicacao": "2026-10-09",
+      "data_coleta": "2026-10-15",
+      "valor_usado": "Consulta por data: 09/2026, todas as cidades, todos os produtos, \"Preço médio\". Valores em data/carrinho-produtos.csv (ex.: carne em Aracaju R$ 44,66/kg)",
+      "usado_em": [
+        "/carrinho"
+      ]
+    },
+    {
+      "id": "ipca-subitens-2019",
+      "titulo": "IPCA — variação acumulada em 2019 de 16 subitens (SIDRA, tabela 1419)",
+      "orgao": "IBGE",
+      "url": "https://apisidra.ibge.gov.br/values/t/1419/n1/all/v/69/p/201912/c315/7173,12222,7191,7195,7202,7212,7221,7260,7283,12393,7367,7375,7385,7392,7482,7657",
+      "url_arquivo": "https://web.archive.org/web/20261015224322/https://apisidra.ibge.gov.br/values/t/1419/n1/all/v/69/p/201912/c315/7173,12222,7191,7195,7202,7212,7221,7260,7283,12393,7367,7375,7385,7392,7482,7657",
+      "data_publicacao": null,
+      "data_coleta": "2026-10-15",
+      "valor_usado": "Variação de 2019 de arroz, feijão, farinhas, batata, tomate, açúcar, banana, carnes, leite, manteiga, pão, óleo, café, gás e gasolina (data/ipca-subitens.csv)",
+      "usado_em": [
+        "/carrinho"
+      ]
+    },
+    {
+      "id": "ipca-subitens-2020-2026",
+      "titulo": "IPCA — variação acumulada de 2020 a setembro de 2026 de 16 subitens (SIDRA, tabela 7060)",
+      "orgao": "IBGE",
+      "url": "https://apisidra.ibge.gov.br/values/t/7060/n1/all/v/69/p/202012,202112,202212,202312,202412,202512,202609/c315/7173,12222,7191,7195,7202,7212,7221,7260,7283,12393,7367,7375,7385,7392,7482,7657",
+      "url_arquivo": "https://web.archive.org/web/20261015224337/https://apisidra.ibge.gov.br/values/t/7060/n1/all/v/69/p/202012,202112,202212,202312,202412,202512,202609/c315/7173,12222,7191,7195,7202,7212,7221,7260,7283,12393,7367,7375,7385,7392,7482,7657",
+      "data_publicacao": null,
+      "data_coleta": "2026-10-15",
+      "valor_usado": "Variação de cada ano, de 2020 a 2025, e de janeiro a setembro de 2026, dos mesmos subitens (data/ipca-subitens.csv)",
+      "usado_em": [
+        "/carrinho"
       ]
     }
   ]

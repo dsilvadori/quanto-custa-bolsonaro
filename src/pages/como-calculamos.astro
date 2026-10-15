@@ -2,7 +2,7 @@
 import { FaqItem, Link } from '@boralula/ui';
 import Base from '../layouts/Base.astro';
 import { Fonte } from '../components/Fonte';
-import { CENARIO_SM, CESTA, COMBUSTIVEIS, DADOS_BENEFICIO, INPC_ANUAL, MINIMO_ATUAL } from '../dados';
+import { CARRINHO, CENARIO_SM, CESTA, COMBUSTIVEIS, DADOS_BENEFICIO, DADOS_CARRINHO, INPC_ANUAL, MINIMO_ATUAL } from '../dados';
 import { pct, reais } from '../formato';
 import { PAGINAS } from '../site';
 
@@ -25,6 +25,10 @@ const perguntas = [
   {
     q: 'Como calculamos a cesta básica no ritmo de Bolsonaro?',
     a: `A comida no domicílio subiu ${pct(CESTA.bolsonaro.pct)} em ${CESTA.bolsonaro.meses} meses no governo Bolsonaro. Aplicamos esse ritmo mensal aos ${CESTA.atual.meses} meses do governo atual e dividimos pela alta real (${pct(CESTA.atual.pct)}). O resultado multiplica o valor de hoje da cesta, por capital ou na média simples das ${CESTA.capitais.length} capitais.`,
+  },
+  {
+    q: 'Como calculamos o carrinho de compras no ritmo de Bolsonaro?',
+    a: `Para cada produto, usamos o preço de hoje (DIEESE por capital; ANP para gás e gasolina) e a alta do subitem do IPCA no governo Bolsonaro (${DADOS_CARRINHO.mesesBolsonaro} meses) e no governo atual (${DADOS_CARRINHO.mesesAtual} meses). Preço no ritmo de Bolsonaro = preço de hoje × (1 + alta no governo Bolsonaro)^(${DADOS_CARRINHO.mesesAtual}/${DADOS_CARRINHO.mesesBolsonaro}) ÷ (1 + alta no governo atual). O total soma preço × quantidade de cada item.`,
   },
   {
     q: 'Como calculamos o preço dos combustíveis com o PPI?',
@@ -122,6 +126,25 @@ const jsonLd = [
       </FaqItem>
 
       <FaqItem question={perguntas[3].q}>
+        <ol class="passos" data-numero>
+          <li>
+            Preço de hoje de cada alimento, por capital <Fonte id={CARRINHO.fontesPreco.find((id) => id.startsWith('dieese'))!} />. Gás de
+            botijão e gasolina: preço médio no Brasil <Fonte id={CARRINHO.fontesPreco.find((id) => id.startsWith('anp'))!} />.
+          </li>
+          <li>
+            Alta de cada produto no IPCA, pelo subitem correspondente, de 2019 a 2022 e de 2023 até o último mês publicado
+            <Fonte id="ipca-subitens-2019" /> <Fonte id="ipca-subitens-2020-2026" />.
+          </li>
+          <li>
+            Preço no ritmo de Bolsonaro = preço de hoje × (1 + alta no governo Bolsonaro)^({DADOS_CARRINHO.mesesAtual}/{DADOS_CARRINHO.mesesBolsonaro})
+            ÷ (1 + alta no governo atual). Quando o produto subiu menos no governo Bolsonaro, o preço sai menor que o de hoje.
+          </li>
+          <li>Total = soma de preço × quantidade. Na média das capitais, cada produto usa a média simples das capitais que o pesquisam.</li>
+        </ol>
+        <p><Link href={PAGINAS.carrinho.path}>Abrir o simulador</Link></p>
+      </FaqItem>
+
+      <FaqItem question={perguntas[4].q}>
         <ol class="passos" data-numero>
           <li>
             Diferença para o preço de importação: diesel {reais(diesel.defasagem)} e gasolina {reais(gasolina.defasagem)} por litro

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { lerNumero, numero, pct, reais } from './formato';
+import { lerNumero, numero, pct, preco, reais } from './formato';
 
 describe('reais', () => {
   it('sem centavos quando o valor é inteiro', () => {
@@ -35,5 +35,12 @@ describe('lerNumero', () => {
 
   it.each(['', 'abc', '-1', '1,2,3'])('"%s" é inválido', (texto) => {
     expect(lerNumero(texto)).toBeNaN();
+  });
+});
+
+describe('preco', () => {
+  it('sempre com centavos', () => {
+    expect(preco(6)).toBe('R$ 6,00');
+    expect(preco(114.61)).toBe('R$ 114,61');
   });
 });

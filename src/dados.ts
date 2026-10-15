@@ -3,12 +3,16 @@ import salarioMinimoCsv from '../data/salario-minimo.csv?raw';
 import inpcCsv from '../data/inpc.csv?raw';
 import parametrosCsv from '../data/parametros.csv?raw';
 import inpcAnualCsv from '../data/inpc-anual.csv?raw';
+import carrinhoCsv from '../data/carrinho-produtos.csv?raw';
+import subitensCsv from '../data/ipca-subitens.csv?raw';
 import ipcaAlimentacaoCsv from '../data/ipca-alimentacao.csv?raw';
 import cestaCapitaisCsv from '../data/cesta-capitais.csv?raw';
 import combustivelCsv from '../data/combustivel.csv?raw';
 import { lerCsv } from './calc/csv';
 import { acumular } from './calc/cesta';
 import { cenarioPorAno } from './calc/salarioMinimo';
+import { altasSubitem, fatorProduto } from './calc/carrinho';
+import type { DadosCarrinho, Produto } from './simuladores/carrinho';
 import { MEDIA, valorHoje, type DadosCesta } from './simuladores/cesta';
 import type { Vigencia } from './calc/salarioMinimo';
 import type { DadosSalario } from './simuladores/salario';
@@ -139,6 +143,73 @@ export const INPC_ANUAL = lerCsv(inpcAnualCsv).map((l) => ({
   aplicadoEm: Number(l.aplicado_em),
   fonte: l.fonte!,
 }));
+
+// Simulador 5: preço de cada produto (DIEESE por capital; ANP para gás e gasolina, média Brasil)
+// e alta do subitem do IPCA em cada governo.
+const linhasPrecos = lerCsv(carrinhoCsv);
+const porSubitem = new Map<string, { pct: number; governo: string; meses: number }[]>();
+const nomeSubitem = new Map<string, string>();
+const fontesSubitens = new Set<string>();
+for (const l of lerCsv(subitensCsv)) {
+  const lista = porSubitem.get(l.subitem_ipca!) ?? [];
+  lista.push({ pct: Number(l.variacao_pct), governo: l.governo!, meses: Number(l.meses) });
+  porSubitem.set(l.subitem_ipca!, lista);
+  nomeSubitem.set(l.subitem_ipca!, l.nome!);
+  fontesSubitens.add(l.fonte!);
+}
+
+const CAPITAIS_CARRINHO = [...new Set(linhasPrecos.filter((l) => l.capital !== 'Brasil').map((l) => l.capital!))].sort((a, b) =>
+  a.localeCompare(b, 'pt-BR'),
+);
+
+const produtosCarrinho: Produto[] = [];
+for (const l of linhasPrecos) {
+  if (produtosCarrinho.some((p) => p.id === l.produto)) continue;
+  const periodos = porSubitem.get(l.subitem_ipca!);
+  if (!periodos) throw new Error(`Subitem ${l.subitem_ipca} sem dados em data/ipca-subitens.csv`);
+  const a = altasSubitem(periodos);
+  produtosCarrinho.push({
+    id: l.produto!,
+    nome: l.nome!,
+    unidade: l.unidade!,
+    fator: fatorProduto(a),
+    altaBolsonaro: a.bolsonaroPct,
+    altaAtual: a.atualPct,
+    alimento: l.capital !== 'Brasil',
+    fontePreco: l.fonte_preco!,
+  });
+}
+
+function precosDe(capital: string): Record<string, number> {
+  return Object.fromEntries(
+    linhasPrecos.filter((l) => l.capital === capital || l.capital === 'Brasil').map((l) => [l.produto!, Number(l.preco)]),
+  );
+}
+const precosCapitais = Object.fromEntries(CAPITAIS_CARRINHO.map((c) => [c, precosDe(c)]));
+const mediaPrecos = Object.fromEntries(
+  produtosCarrinho.map((p) => {
+    const valores = Object.values(precosCapitais)
+      .map((pr) => pr[p.id])
+      .filter((v) => v !== undefined);
+    return [p.id, valores.reduce((s, v) => s + v, 0) / valores.length];
+  }),
+);
+const periodoExemplo = altasSubitem(porSubitem.values().next().value!);
+
+export const DADOS_CARRINHO: DadosCarrinho = {
+  produtos: produtosCarrinho,
+  capitais: CAPITAIS_CARRINHO,
+  precos: { media: mediaPrecos, ...precosCapitais },
+  mesesBolsonaro: periodoExemplo.bolsonaroMeses,
+  mesesAtual: periodoExemplo.atualMeses,
+};
+
+export const CARRINHO = {
+  fontesSubitens: [...fontesSubitens],
+  fontesPreco: [...new Set(produtosCarrinho.map((p) => p.fontePreco))],
+  referencia: linhasPrecos.find((l) => l.capital !== 'Brasil')!.referencia!,
+  nomeSubitem,
+};
 
 export const DADOS_BENEFICIO: DadosBeneficio = {
   real: DADOS_SALARIO.real,

@@ -27,3 +27,8 @@ export function lerNumero(texto: string): number {
   const normal = limpo.includes(',') ? limpo.replace(/\./g, '').replace(',', '.') : limpo;
   return /^\d+(\.\d+)?$/.test(normal) ? Number(normal) : NaN;
 }
+
+/** Preço de produto, sempre com centavos: 6 → "R$ 6,00". */
+export function preco(valor: number): string {
+  return `R$ ${centavos.format(Math.round(valor * 100) / 100)}`;
+}
