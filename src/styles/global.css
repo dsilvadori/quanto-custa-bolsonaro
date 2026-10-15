@@ -256,6 +256,14 @@ input[aria-invalid='true'] { outline: var(--cp-border-width-strong) solid var(--
   .painel-fonte__conteudo { padding: var(--cp-space-6); }
 }
 
+/* Filtro, downloads e Quem somos */
+.filtro { display: flex; flex-wrap: wrap; gap: var(--cp-space-2); margin-bottom: var(--cp-space-3); }
+.downloads { display: grid; gap: var(--cp-space-4); margin: 0; padding: 0; list-style: none; }
+.downloads li { display: flex; flex-wrap: wrap; align-items: center; gap: var(--cp-space-2) var(--cp-space-4); }
+.dados-responsavel { display: grid; grid-template-columns: auto 1fr; gap: var(--cp-space-2) var(--cp-space-4); margin: 0; }
+.dados-responsavel dt { font-weight: 800; }
+.dados-responsavel dd { margin: 0; }
+
 /* Registro em /fontes */
 .registro { display: grid; gap: var(--cp-space-12); }
 .registro > section > * + * { margin-top: var(--cp-space-4); }

@@ -1,21 +1,41 @@
 ---
+import { Link } from '@boralula/ui';
 import Base from '../layouts/Base.astro';
-import { SITE } from '../site';
+import { PAGINAS, SITE } from '../site';
 
 const { nome, documento, contato } = SITE.responsavel;
 ---
 
 <Base id="quemSomos">
+  <p slot="lead" class="hero__lead cp-text-body-large">Quem responde por este site e como falar com a gente.</p>
+
   <!-- Lei 9.504/97, art. 57-D: veda o anonimato. TODO: preencher os dados em src/site.ts. -->
-  <div class="cp-container secao">
-  <dl class="texto">
-    <dt><strong>Responsável</strong></dt>
-    <dd>{nome}</dd>
-    <dt><strong>CPF/CNPJ</strong></dt>
-    <dd>{documento}</dd>
-    <dt><strong>Contato</strong></dt>
-    <dd>{contato}</dd>
-  </dl>
-  </div>
-  <!-- TODO (etapa 6): como pedir correções. -->
+  <section class="secao secao--cinza" aria-labelledby="responsavel">
+    <div class="cp-container">
+      <div class="cartao texto">
+        <h2 id="responsavel" class="cp-text-h2">Responsável</h2>
+        <dl class="dados-responsavel">
+          <dt>Nome</dt>
+          <dd>{nome}</dd>
+          <dt>CPF/CNPJ</dt>
+          <dd>{documento}</dd>
+          <dt>Contato</dt>
+          <dd>{contato}</dd>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="secao" aria-labelledby="correcao">
+    <div class="cp-container texto">
+      <h2 id="correcao" class="cp-text-h2">Achou um erro?</h2>
+      <p>
+        Escreva para {contato} com o link da página e o número que está errado. Se a fonte mostrar outro valor, corrigimos e
+        registramos a mudança em <Link href={`${PAGINAS.comoCalculamos.path}#correcoes`}>Como calculamos</Link>.
+      </p>
+      <p>
+        Todas as fontes e os dados usados estão em <Link href={PAGINAS.fontes.path}>Fontes</Link>.
+      </p>
+    </div>
+  </section>
 </Base>

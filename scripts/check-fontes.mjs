@@ -35,7 +35,8 @@ function textos(no, saida = []) {
   return saida;
 }
 
-const paginas = (await readdir(DIST)).filter((f) => f.endsWith('.html'));
+const paginas = (await readdir(DIST).catch(() => [])).filter((f) => f.endsWith('.html'));
+if (paginas.length === 0) erros.push(`nenhuma página em ${DIST}/: rode npm run build antes`);
 for (const arquivo of paginas) {
   const doc = parse(await readFile(join(DIST, arquivo), 'utf8'));
 
