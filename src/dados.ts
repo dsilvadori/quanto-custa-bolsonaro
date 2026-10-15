@@ -2,7 +2,13 @@
 import salarioMinimoCsv from '../data/salario-minimo.csv?raw';
 import inpcCsv from '../data/inpc.csv?raw';
 import parametrosCsv from '../data/parametros.csv?raw';
+import ipcaAlimentacaoCsv from '../data/ipca-alimentacao.csv?raw';
+import cestaCsv from '../data/cesta-basica.csv?raw';
+import combustivelCsv from '../data/combustivel.csv?raw';
 import { lerCsv } from './calc/csv';
+import { acumular } from './calc/cesta';
+import { cenarioPorAno } from './calc/salarioMinimo';
+import type { DadosCesta } from './simuladores/cesta';
 import type { Vigencia } from './calc/salarioMinimo';
 import type { DadosSalario } from './simuladores/salario';
 import type { DadosBeneficio } from './simuladores/beneficio';
@@ -68,6 +74,56 @@ export const DADOS_SALARIO: DadosSalario = {
   anoBase: CENARIO_SM.anoBase,
   inpc: CENARIO_SM.inpc.map((i) => i.pct),
   bases: { padrao: CENARIO_SM.bases.padrao.valor, alternativa: CENARIO_SM.bases.alternativa.valor },
+};
+
+// Simulador 2: alimentação no domicílio (IPCA) por governo e horas de trabalho (DIEESE).
+const alimentacao = lerCsv(ipcaAlimentacaoCsv).map((l) => ({
+  periodo: l.periodo!,
+  pct: Number(l.variacao_pct),
+  governo: l.governo!,
+  meses: Number(l.meses),
+  fonte: l.fonte!,
+}));
+const porGoverno = (g: string) => {
+  const linhas = alimentacao.filter((a) => a.governo === g);
+  return {
+    pct: acumular(linhas.map((a) => a.pct)),
+    meses: linhas.reduce((s, a) => s + a.meses, 0),
+    de: linhas[0].periodo,
+    ate: linhas[linhas.length - 1].periodo,
+    fontes: [...new Set(linhas.map((a) => a.fonte))],
+  };
+};
+const cestaHoje = lerCsv(cestaCsv).at(-1)!;
+
+export const CESTA = {
+  bolsonaro: porGoverno('bolsonaro'),
+  atual: porGoverno('lula'),
+  horasHoje: Number(cestaHoje.horas) + Number(cestaHoje.minutos) / 60,
+  referencia: cestaHoje.referencia!,
+  fonteHoras: cestaHoje.fonte!,
+};
+
+// Simulador 3: exemplo com o relatório mais recente da Abicom.
+export const COMBUSTIVEIS = lerCsv(combustivelCsv).map((l) => ({
+  combustivel: l.combustivel as 'gasolina' | 'diesel',
+  defasagem: Number(l.defasagem_rs_l),
+  teorBio: Number(l.teor_bio_pct),
+  preco: Number(l.preco_bomba_rs_l),
+  peso: Number(l.peso_ipca_pct),
+  fontes: { defasagem: l.fonte_defasagem!, teor: l.fonte_teor!, preco: l.fonte_preco!, peso: l.fonte_peso! },
+}));
+
+export const DADOS_CESTA: DadosCesta = {
+  bolsonaroPct: CESTA.bolsonaro.pct,
+  bolsonaroMeses: CESTA.bolsonaro.meses,
+  atualPct: CESTA.atual.pct,
+  atualMeses: CESTA.atual.meses,
+  horasHoje: CESTA.horasHoje,
+  minimoReal: MINIMO_ATUAL.valor,
+  minimoCenario: cenarioPorAno(CENARIO_SM.anoBase, CENARIO_SM.bases.padrao.valor, CENARIO_SM.inpc.map((i) => i.pct))[
+    Number(MINIMO_ATUAL.inicio.slice(0, 4))
+  ],
 };
 
 export const DADOS_BENEFICIO: DadosBeneficio = {

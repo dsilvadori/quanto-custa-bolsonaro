@@ -1,12 +1,111 @@
 ---
+import { Link, SegmentedButton, Stat } from '@boralula/ui';
 import Base from '../layouts/Base.astro';
 import LinksSimulador from '../components/LinksSimulador.astro';
+import { Fonte } from '../components/Fonte';
+import { Resultados } from '../components/Resultados';
+import { BarraCompartilhar } from '../components/BarraCompartilhar';
+import { CENARIO_SM, CESTA, DADOS_CESTA, MINIMO_ATUAL } from '../dados';
+import { calcularCesta, frasesCesta, graficoCesta } from '../simuladores/cesta';
+import { horasTexto } from '../calc/cesta';
+import { pct } from '../formato';
+import { PAGINAS, dataPorExtenso } from '../site';
+
+const url = new URL(PAGINAS.cestaBasica.path, Astro.site).href;
+const d = DADOS_CESTA;
+const r = calcularCesta(d, '100');
+const f = frasesCesta(d, '100');
+const inpcFinal = CENARIO_SM.inpc[CENARIO_SM.inpc.length - 1];
+const [anoRef, mesRef] = CESTA.referencia.split('-');
+const mesReferencia = dataPorExtenso(`${anoRef}-${mesRef}-01`).replace(/^1º de /, '');
+const ancora = new URL(`${PAGINAS.fontes.path}#${CESTA.fonteHoras}`, Astro.site);
+const dados = JSON.stringify({ dados: d, urlFontes: ancora.host + ancora.pathname + ancora.hash }).replace(/</g, '\\u003c');
 ---
 
-<Base id="cestaBasica" selo="Simulador">
-  <!-- TODO (etapa 5): versão estática. Nenhum número antes de ter fonte confirmada em fontes.json. -->
-  <p slot="lead" class="hero__lead cp-text-body-large">Este simulador está em atualização. Enquanto isso, veja os outros.</p>
-  <div class="cp-container secao">
+<Base
+  id="cestaBasica"
+  selo="Simulador"
+  imagem={{ src: '/og/cesta-basica.png', alt: `A cesta básica custaria ${f.horas} de trabalho no ritmo do governo Bolsonaro, e não ${horasTexto(d.horasHoje)}.` }}
+>
+  <Fragment slot="lead">
+    <p class="hero__lead cp-text-body-large">
+      Hoje, quem ganha o salário mínimo trabalha <span class="junto">{horasTexto(d.horasHoje)} <Fonte id={CESTA.fonteHoras} /></span>
+      por mês para comprar a cesta básica. No ritmo de preços do governo Bolsonaro, seriam
+      <strong class="destaque">{f.horas}</strong>.
+    </p>
+    <div class="hero__numero" data-numero>
+      <Stat surface="red" value={`+${f.extra}`} label="de trabalho por mês para comprar a mesma cesta" />
+      <p class="cp-text-body-small">
+        Comida no domicílio pelo IPCA <Fonte id={CESTA.bolsonaro.fontes[0]} /> e salário mínimo só pela inflação
+        <span class="junto"><Fonte id={inpcFinal.fonte} />.</span>
+      </p>
+    </div>
+  </Fragment>
+
+  <section class="secao secao--cinza" aria-labelledby="ritmo">
+    <div class="cp-container simulador">
+      <div class="cartao" data-numero>
+        <h2 id="ritmo" class="cp-text-h2">Quanto a comida subiu</h2>
+        <Resultados
+          itens={[
+            { saida: 'altaBolsonaro', valor: `+${pct(CESTA.bolsonaro.pct)}`, rotulo: `no governo Bolsonaro, em ${CESTA.bolsonaro.meses} meses` },
+            { saida: 'altaAtual', valor: `+${pct(CESTA.atual.pct)}`, rotulo: `no governo Lula, em ${CESTA.atual.meses} meses (até ${mesReferencia})` },
+          ]}
+        />
+        <p class="cp-text-body-small">
+          Alimentação no domicílio, IPCA <Fonte id="ipca-alim-2019" /> <Fonte id="ipca-alim-2020-2022" />
+          <Fonte id="ipca-alim-2023-2026" />.
+        </p>
+        <fieldset class="campo-grupo so-com-js" data-segmentado="ritmo">
+          <legend class="cp-text-title">E se a comida subisse em qual ritmo?</legend>
+          <SegmentedButton
+            label="Ritmo de alta da comida"
+            value="100"
+            onChange={() => {}}
+            options={[
+              { value: '100', label: '100%' },
+              { value: '75', label: '75%' },
+              { value: '50', label: '50%' },
+            ]}
+          />
+          <p class="cp-text-body-small ajuda">Parte do ritmo mensal de alta do governo Bolsonaro.</p>
+        </fieldset>
+      </div>
+
+      <div class="cartao simulador__resultado" data-numero>
+        <p class="cp-text-body-large resultado__frase" aria-live="polite" data-saida="resumo">{f.resumo}</p>
+        <Resultados
+          itens={[
+            { saida: 'horas', valor: f.horas, rotulo: 'de trabalho por mês para comprar a cesta' },
+            { saida: 'extra', valor: `+${f.extra}`, rotulo: 'a mais que hoje' },
+            { saida: 'comida', valor: `+${f.comida}`, rotulo: 'no preço da comida' },
+          ]}
+        />
+        <div class="grafico-area" data-grafico set:html={graficoCesta(d, '100')} />
+        <p class="cp-text-body-small">
+          Horas de hoje <Fonte id={CESTA.fonteHoras} />, mínimo de hoje <Fonte id={MINIMO_ATUAL.fonte} /> e mínimo só pela
+          inflação <span class="junto"><Fonte id={inpcFinal.fonte} />.</span>
+          <Link href={PAGINAS.comoCalculamos.path}>Veja como calculamos</Link>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="secao" aria-labelledby="capitais">
+    <div class="cp-container">
+      <h2 id="capitais" class="cp-text-h2">Por capital e por produto</h2>
+      <p class="texto cp-text-body-large">Em atualização.</p>
+    </div>
+  </section>
+
+  <div class="cp-container secao secao--fim">
     <LinksSimulador atual="cestaBasica" />
   </div>
+
+  <BarraCompartilhar slot="fim" textoWhatsapp={f.whatsapp(url)} />
+  <script slot="fim" type="application/json" id="dados-cesta" set:html={dados} />
 </Base>
+
+<script>
+  import '../scripts/sim-cesta';
+</script>

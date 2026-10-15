@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { FONTES, existeFonte } from './fontes';
-import { INPC, PARAMETROS, SALARIO_MINIMO } from './dados';
+import { CESTA, COMBUSTIVEIS, INPC, PARAMETROS, SALARIO_MINIMO } from './dados';
 import { PAGINAS } from './site';
 
 const data = /^\d{4}-\d{2}-\d{2}$/;
@@ -26,6 +26,13 @@ describe('data/fontes.json', () => {
 
 describe('CSVs de /data', () => {
   it('toda linha aponta para uma fonte do registro', () => {
-    for (const { fonte } of [...SALARIO_MINIMO, ...INPC, ...Object.values(PARAMETROS)]) expect(existeFonte(fonte), fonte).toBe(true);
+    const ids = [
+      ...[...SALARIO_MINIMO, ...INPC, ...Object.values(PARAMETROS)].map((l) => l.fonte),
+      ...CESTA.bolsonaro.fontes,
+      ...CESTA.atual.fontes,
+      CESTA.fonteHoras,
+      ...COMBUSTIVEIS.flatMap((c) => Object.values(c.fontes)),
+    ];
+    for (const id of ids) expect(existeFonte(id), id).toBe(true);
   });
 });

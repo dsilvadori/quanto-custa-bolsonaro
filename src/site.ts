@@ -35,7 +35,7 @@ export const PAGINAS: Record<PaginaId, Pagina> = {
     rotulo: 'Início',
     titulo: 'Quanto custaria a volta das regras de Bolsonaro para você?',
     descricao:
-      'Veja em reais e em horas de trabalho o que mudaria no seu orçamento se as regras econômicas de 2019 a 2022 voltassem. Tudo com fonte oficial.',
+      'Veja em reais e em horas de trabalho o que mudaria no seu orçamento se as regras econômicas do governo Bolsonaro voltassem. Tudo com fonte oficial.',
     atualizadoEm: '2026-10-15',
   },
   salarioMinimo: {
@@ -50,9 +50,9 @@ export const PAGINAS: Record<PaginaId, Pagina> = {
   cestaBasica: {
     path: '/cesta-basica',
     rotulo: 'Cesta básica',
-    titulo: 'Quanto custaria a cesta básica no ritmo de 2019 a 2022?',
+    titulo: 'Quanto custaria a cesta básica no ritmo de Bolsonaro?',
     descricao:
-      'Se a comida subisse no ritmo de 2019 a 2022, quantas horas de trabalho custaria a cesta básica? Veja a conta e as fontes oficiais.',
+      'Se a comida subisse no ritmo do governo Bolsonaro, quantas horas de trabalho custaria a cesta básica? Veja a conta e as fontes oficiais.',
     atualizadoEm: '2026-10-15',
   },
   combustivel: {

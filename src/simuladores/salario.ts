@@ -57,11 +57,11 @@ export function frasesSalario(d: DadosSalario, e: EstadoSalario) {
     resumo: `Com a correção só pela inflação, o mínimo de ${r.ultimo.ano} seria ${reais(r.ultimo.cenario)}, e não ${reais(r.ultimo.real)}.`,
     perda: `${quem.charAt(0).toUpperCase()}${quem.slice(1)} teria ${reais(r.porMes)} a menos por mês.`,
     whatsapp: (url: string) =>
-      `Se o salário mínimo seguisse só a inflação, como na regra de 2019 a 2022, ${quem} teria ${reais(r.porMes)} a menos por mês em ${r.ultimo.ano}. Veja a conta e as fontes: ${url}`,
+      `Se o salário mínimo seguisse só a inflação, como na regra do governo Bolsonaro, ${quem} teria ${reais(r.porMes)} a menos por mês em ${r.ultimo.ano}. Veja a conta e as fontes: ${url}`,
     cartao: {
       numero: reais(r.porMes),
       linha: `a menos por mês para ${quem}`,
-      premissa: `Se o mínimo fosse corrigido só pela inflação (INPC) desde ${d.anoBase}, seria ${reais(r.ultimo.cenario)} em ${r.ultimo.ano}, e não ${reais(r.ultimo.real)}.`,
+      premissa: `Com a regra do governo Bolsonaro (só a inflação, pelo INPC), o mínimo de ${r.ultimo.ano} seria ${reais(r.ultimo.cenario)}, e não ${reais(r.ultimo.real)}.`,
       fonte: 'Fontes: Diário Oficial e IBGE',
     },
   };

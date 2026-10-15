@@ -1,5 +1,5 @@
 ---
-import { Alert, Callout, Link, TextField } from '@boralula/ui';
+import { Callout, Link, TextField } from '@boralula/ui';
 import Base from '../layouts/Base.astro';
 import LinksSimulador from '../components/LinksSimulador.astro';
 import { Fonte } from '../components/Fonte';
@@ -136,7 +136,7 @@ const anos = `${d.anoAtual + 1} a ${d.ateAno}`;
   <section class="secao secao--cinza" aria-labelledby="retro">
     <div class="cp-container">
       <div class="cartao" data-numero>
-        <h2 id="retro" class="cp-text-h2">E se a regra de 2019 a 2022 tivesse continuado?</h2>
+        <h2 id="retro" class="cp-text-h2">E se a regra do governo Bolsonaro tivesse continuado?</h2>
         <p class="cp-text-body-large" data-saida="retro">{f.retro}</p>
         <Resultados
           itens={[
@@ -152,29 +152,6 @@ const anos = `${d.anoAtual + 1} a ${d.ateAno}`;
     </div>
   </section>
 
-  <section class="secao" aria-labelledby="premissas">
-    <div class="cp-container">
-      <h2 id="premissas" class="cp-text-h2">Premissas e ressalvas</h2>
-      <Alert tone="info">
-        <ul class="premissas" data-numero>
-          <li>
-            Hoje, só o piso (aposentadoria de 1 salário mínimo e BPC) acompanha o mínimo <Fonte id="cf-1988-piso-beneficios" />.
-            Benefícios acima do piso já são corrigidos só pela inflação (INPC) <Fonte id="lei-8213-art-41a-inpc" />.
-          </li>
-          <li>
-            Na projeção, o mínimo sobe pela inflação mais o ganho real escolhido, dentro dos limites da lei
-            <Fonte id={fonteGanho} />. O benefício desvinculado sobe só pela inflação.
-          </li>
-          <li>Os valores estão em reais de hoje: a inflação futura entra dos dois lados e se cancela.</li>
-          <li>Por ano, contamos 12 pagamentos e o 13º.</li>
-          <li>
-            A proposta foi noticiada como estudo e negada pelo candidato <Fonte id="poder360-2026-10-08-flavio-nega" />. A
-            Constituição garante que nenhum benefício seja menor que o mínimo <Fonte id="cf-1988-piso-beneficios" />.
-          </li>
-        </ul>
-      </Alert>
-    </div>
-  </section>
 
   <div class="cp-container secao secao--fim">
     <LinksSimulador atual="aposentadoriaBpc" />

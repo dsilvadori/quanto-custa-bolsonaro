@@ -74,7 +74,7 @@ export function frasesBeneficio(d: DadosBeneficio, e: EstadoBeneficio) {
   const ganho = pct(e.ganho, 1);
   const retro = r.retro
     ? `Se o piso seguisse só a inflação desde ${d.salario.anoBase}, quem recebe ${reais(d.piso)} receberia ${reais(r.retro.ultimo.cenario)} em ${d.anoAtual}: ${reais(r.retro.porMes)} a menos por mês.`
-    : `Benefícios acima do piso já são corrigidos só pela inflação. Por isso, a regra de 2019 a 2022 não mudaria o seu benefício de hoje.`;
+    : `Benefícios acima do piso já são corrigidos só pela inflação. Por isso, a regra do governo Bolsonaro não mudaria o seu benefício de hoje.`;
   const futuro =
     r.projecao.total > 0
       ? `Com ganho real de ${ganho} ao ano no mínimo, em ${d.ateAno} você receberia ${reais(r.ultimo.perdaMensal)} a menos por mês. De ${d.anoAtual + 1} a ${d.ateAno}, a perda somaria ${reais(r.projecao.total)}.`

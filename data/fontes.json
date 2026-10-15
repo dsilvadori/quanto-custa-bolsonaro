@@ -259,6 +259,136 @@
       "usado_em": [
         "/aposentadoria-bpc"
       ]
+    },
+    {
+      "id": "ipca-alim-2019",
+      "titulo": "IPCA — alimentação no domicílio, variação acumulada em 2019 (SIDRA, tabela 1419)",
+      "orgao": "IBGE",
+      "url": "https://apisidra.ibge.gov.br/values/t/1419/n1/all/v/69/p/201912/c315/7171",
+      "url_arquivo": null,
+      "data_publicacao": null,
+      "data_coleta": "2026-10-15",
+      "valor_usado": "7,84% em 2019",
+      "usado_em": [
+        "/cesta-basica"
+      ]
+    },
+    {
+      "id": "ipca-alim-2020-2022",
+      "titulo": "IPCA — alimentação no domicílio, variação acumulada em 2020, 2021 e 2022 (SIDRA, tabela 7060)",
+      "orgao": "IBGE",
+      "url": "https://apisidra.ibge.gov.br/values/t/7060/n1/all/v/69/p/202012,202112,202212/c315/7171",
+      "url_arquivo": null,
+      "data_publicacao": null,
+      "data_coleta": "2026-10-15",
+      "valor_usado": "18,15% em 2020; 8,24% em 2021; 13,23% em 2022",
+      "usado_em": [
+        "/cesta-basica"
+      ]
+    },
+    {
+      "id": "ipca-alim-2023-2026",
+      "titulo": "IPCA — alimentação no domicílio, variação acumulada de 2023 a setembro de 2026 (SIDRA, tabela 7060)",
+      "orgao": "IBGE",
+      "url": "https://apisidra.ibge.gov.br/values/t/7060/n1/all/v/69/p/202312,202412,202512,202609/c315/7171",
+      "url_arquivo": null,
+      "data_publicacao": null,
+      "data_coleta": "2026-10-15",
+      "valor_usado": "−0,52% em 2023; 8,23% em 2024; 1,43% em 2025; 4,44% de janeiro a setembro de 2026",
+      "usado_em": [
+        "/cesta-basica"
+      ]
+    },
+    {
+      "id": "dieese-cesta-2026-09",
+      "titulo": "DIEESE — Pesquisa Nacional da Cesta Básica de Alimentos, setembro de 2026",
+      "orgao": "DIEESE",
+      "url": "https://www.dieese.org.br/analisecestabasica/2026/202609cestabasica.pdf",
+      "url_arquivo": "https://web.archive.org/web/20261015191506/https://www.dieese.org.br/analisecestabasica/2026/202609cestabasica.pdf",
+      "data_publicacao": "2026-10-09",
+      "data_coleta": "2026-10-15",
+      "valor_usado": "Tempo médio para comprar a cesta nas 27 capitais: 102 horas e 11 minutos",
+      "usado_em": [
+        "/cesta-basica"
+      ]
+    },
+    {
+      "id": "abicom-ppi-2026-10-15",
+      "titulo": "Abicom — relatório de defasagem do PPI de 15/10/2026 (média dos principais polos)",
+      "orgao": "Abicom",
+      "url": "https://abicom.com.br/ppi/ppi-15-10-2026/",
+      "url_arquivo": null,
+      "data_publicacao": "2026-10-15",
+      "data_coleta": "2026-10-15",
+      "valor_usado": "Diesel: −R$ 3,24/L (−96%); gasolina: −R$ 0,49/L (−17%) em relação ao preço de importação",
+      "usado_em": [
+        "/combustivel"
+      ]
+    },
+    {
+      "id": "cnpe-res-9-2026-e32",
+      "titulo": "Resolução CNPE nº 9, de 14 de julho de 2026 — 32% de etanol anidro na gasolina comum",
+      "orgao": "Diário Oficial",
+      "url": "https://www.gov.br/mme/pt-br/assuntos/conselhos-e-comites/cnpe/resolucoes-do-cnpe/2026/resolucao-9-dou.pdf",
+      "url_arquivo": "http://web.archive.org/web/20261008214728/https://www.gov.br/mme/pt-br/assuntos/conselhos-e-comites/cnpe/resolucoes-do-cnpe/2026/resolucao-9-dou.pdf",
+      "data_publicacao": "2026-07-30",
+      "data_coleta": "2026-10-15",
+      "valor_usado": "32% de etanol anidro na gasolina comum a partir de 1º de agosto de 2026, por 180 dias",
+      "usado_em": [
+        "/combustivel"
+      ]
+    },
+    {
+      "id": "anp-biodiesel-b15",
+      "titulo": "ANP — Especificação do biodiesel: histórico do percentual de mistura no óleo diesel",
+      "orgao": "ANP",
+      "url": "https://www.gov.br/anp/pt-br/assuntos/producao-e-fornecimento-de-biocombustiveis/biodiesel/especificacao-do-biodiesel",
+      "url_arquivo": null,
+      "data_publicacao": null,
+      "data_coleta": "2026-10-15",
+      "valor_usado": "15% de biodiesel no óleo diesel a partir de 1º de agosto de 2025",
+      "usado_em": [
+        "/combustivel"
+      ]
+    },
+    {
+      "id": "anp-precos-2026-09",
+      "titulo": "ANP — Levantamento de preços de combustíveis, média mensal Brasil, setembro de 2026",
+      "orgao": "ANP",
+      "url": "https://www.gov.br/anp/pt-br/assuntos/precos-e-defesa-da-concorrencia/precos/precos-revenda-e-de-distribuicao-combustiveis/shlp/mensal/mensal-brasil-desde-jan2013.xlsx",
+      "url_arquivo": "https://web.archive.org/web/20261015191445/https://www.gov.br/anp/pt-br/assuntos/precos-e-defesa-da-concorrencia/precos/precos-revenda-e-de-distribuicao-combustiveis/shlp/mensal/mensal-brasil-desde-jan2013.xlsx",
+      "data_publicacao": null,
+      "data_coleta": "2026-10-15",
+      "valor_usado": "Preço médio de revenda: gasolina comum R$ 6,54/L; óleo diesel S10 R$ 7,16/L",
+      "usado_em": [
+        "/combustivel"
+      ]
+    },
+    {
+      "id": "ipca-pesos-2026-09",
+      "titulo": "IPCA — peso da gasolina e do óleo diesel em setembro de 2026 (SIDRA, tabela 7060)",
+      "orgao": "IBGE",
+      "url": "https://apisidra.ibge.gov.br/values/t/7060/n1/all/v/66/p/202609/c315/7657,7659",
+      "url_arquivo": null,
+      "data_publicacao": null,
+      "data_coleta": "2026-10-15",
+      "valor_usado": "Gasolina: 5,1285%; óleo diesel: 0,2562%",
+      "usado_em": [
+        "/combustivel"
+      ]
+    },
+    {
+      "id": "petrobras-2023-05-16-fim-ppi",
+      "titulo": "Agência Petrobras: \"Petrobras aprova estratégia comercial de diesel e gasolina\"",
+      "orgao": "Petrobras",
+      "url": "https://agencia.petrobras.com.br/w/petrobras-aprova-estrategia-comercial-de-diesel-e-gasolina",
+      "url_arquivo": null,
+      "data_publicacao": "2023-05-16",
+      "data_coleta": "2026-10-15",
+      "valor_usado": "A partir de 15/5/2023, preços competitivos \"sem subordinação obrigatória ao preço de paridade de importação\"",
+      "usado_em": [
+        "/combustivel"
+      ]
     }
   ]
 }

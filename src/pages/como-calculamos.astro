@@ -1,8 +1,136 @@
 ---
+import { FaqItem, Link } from '@boralula/ui';
 import Base from '../layouts/Base.astro';
+import { Fonte } from '../components/Fonte';
+import { CENARIO_SM, CESTA, COMBUSTIVEIS, DADOS_BENEFICIO, MINIMO_ATUAL } from '../dados';
+import { pct, reais } from '../formato';
+import { PAGINAS } from '../site';
+
+const { padrao, alternativa } = CENARIO_SM.bases;
+const inpc = CENARIO_SM.inpc;
+const d = DADOS_BENEFICIO;
+const diesel = COMBUSTIVEIS.find((c) => c.combustivel === 'diesel')!;
+const gasolina = COMBUSTIVEIS.find((c) => c.combustivel === 'gasolina')!;
+
+// Texto simples das respostas para o JSON-LD FAQPage (o HTML da página tem os selos de fonte).
+const perguntas = [
+  {
+    q: 'Como calculamos o salário mínimo com a regra de Bolsonaro?',
+    a: `Partimos de ${reais(padrao.valor)}, o mínimo de ${CENARIO_SM.anoBase} fixado pelo governo Bolsonaro, e corrigimos cada ano só pelo INPC acumulado em 12 meses até novembro (${inpc.map((i) => pct(i.pct)).join(', ')}), arredondando ao real. A perda é a diferença para o mínimo real, multiplicada pelos salários que a pessoa ganha. Por ano, contamos 12 salários e o 13º.`,
+  },
+  {
+    q: 'Como calculamos a perda da aposentadoria e do BPC?',
+    a: `Na projeção de ${d.anoAtual + 1} a ${d.ateAno}, o mínimo sobe pela inflação mais um ganho real entre ${pct(d.ganhoMin, 1)} e ${pct(d.ganhoMax, 1)} ao ano, os limites da lei. O benefício desvinculado sobe só pela inflação. A perda percentual é 1 − 1/(1 + ganho real)^anos. Os valores estão em reais de hoje.`,
+  },
+  {
+    q: 'Como calculamos a cesta básica no ritmo de Bolsonaro?',
+    a: `A comida no domicílio subiu ${pct(CESTA.bolsonaro.pct)} em ${CESTA.bolsonaro.meses} meses no governo Bolsonaro. Aplicamos esse ritmo mensal aos ${CESTA.atual.meses} meses do governo atual e dividimos pela alta real (${pct(CESTA.atual.pct)}). As horas de trabalho são o custo da cesta dividido pelo valor da hora do mínimo (mínimo ÷ 220).`,
+  },
+  {
+    q: 'Como calculamos o preço dos combustíveis com o PPI?',
+    a: `Aumento na bomba = diferença para o preço de importação (Abicom) × parte de petróleo no litro. ICMS e PIS/Cofins são cobrados por litro e não mudam. O efeito direto na inflação é a alta de cada combustível vezes o peso dele no IPCA.`,
+  },
+];
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: perguntas.map((p) => ({ '@type': 'Question', name: p.q, acceptedAnswer: { '@type': 'Answer', text: p.a } })),
+  },
+];
 ---
 
-<Base id="comoCalculamos">
-  <!-- TODO (etapa 6) -->
-  <p slot="lead" class="hero__lead cp-text-body-large">Página em atualização.</p>
+<Base id="comoCalculamos" jsonLd={jsonLd}>
+  <p slot="lead" class="hero__lead cp-text-body-large">
+    Cada conta, passo a passo, com a fonte de cada número. Toque numa pergunta para abrir.
+  </p>
+
+  <section class="secao secao--cinza" aria-label="Perguntas">
+    <div class="cp-container faq">
+      <FaqItem question={perguntas[0].q}>
+        <ol class="passos" data-numero>
+          <li>
+            Ponto de partida: {reais(padrao.valor)}, o mínimo de {CENARIO_SM.anoBase} fixado pelo governo Bolsonaro
+            <Fonte id={padrao.fonte} />. Também dá para partir de {reais(alternativa.valor)}, o valor de maio de
+            {CENARIO_SM.anoBase} <Fonte id={alternativa.fonte} />.
+          </li>
+          {
+            inpc.map((i) => (
+              <li>
+                Mínimo de {i.aplicadoNoMinimoDe} = mínimo do ano anterior × (1 + {pct(i.pct)}), o INPC de 12 meses até novembro
+                <Fonte id={i.fonte} />, arredondado ao real.
+              </li>
+            ))
+          }
+          <li>
+            Perda por mês = (mínimo real − mínimo da regra) × salários que a pessoa ganha. Mínimo real de hoje:
+            {reais(MINIMO_ATUAL.valor)} <Fonte id={MINIMO_ATUAL.fonte} />.
+          </li>
+          <li>Por ano: 12 salários e o 13º, pago pelo valor de dezembro. Em {CENARIO_SM.anoBase}, o mínimo real mudou em maio.</li>
+        </ol>
+        <p><Link href={PAGINAS.salarioMinimo.path}>Abrir o simulador</Link></p>
+      </FaqItem>
+
+      <FaqItem question={perguntas[1].q}>
+        <ol class="passos" data-numero>
+          <li>
+            Hoje, o piso (aposentadoria de 1 salário mínimo e BPC) acompanha o mínimo <Fonte id="cf-1988-piso-beneficios" />.
+            Benefícios acima do piso são corrigidos só pelo INPC <Fonte id="lei-8213-art-41a-inpc" />.
+          </li>
+          <li>
+            Projeção: o mínimo sobe pela inflação mais um ganho real entre {pct(d.ganhoMin, 1)} e {pct(d.ganhoMax, 1)} ao ano
+            <Fonte id="lc-200-2023-ganho-real" />, regra válida até {d.ateAno} <Fonte id="lei-15077-2024-ganho-real-sm" />.
+          </li>
+          <li>Benefício desvinculado: sobe só pela inflação. Em reais de hoje, fica igual; a inflação entra dos dois lados e se cancela.</li>
+          <li>Perda por mês = piso ligado ao mínimo − benefício (quando o piso passa do benefício). Por ano: 12 pagamentos e o 13º.</li>
+          <li>Perda percentual de quem recebe o piso = 1 − 1/(1 + ganho real)^anos.</li>
+        </ol>
+        <p><Link href={PAGINAS.aposentadoriaBpc.path}>Abrir o simulador</Link></p>
+      </FaqItem>
+
+      <FaqItem question={perguntas[2].q}>
+        <ol class="passos" data-numero>
+          <li>
+            Alta da comida no domicílio (IPCA) no governo Bolsonaro: {pct(CESTA.bolsonaro.pct)} em {CESTA.bolsonaro.meses} meses
+            <Fonte id="ipca-alim-2019" /> <Fonte id="ipca-alim-2020-2022" />.
+          </li>
+          <li>
+            Alta no governo atual: {pct(CESTA.atual.pct)} em {CESTA.atual.meses} meses <Fonte id="ipca-alim-2023-2026" />.
+          </li>
+          <li>Ritmo mensal de Bolsonaro = (1 + alta)^(1/{CESTA.bolsonaro.meses}) − 1. Aplicado por {CESTA.atual.meses} meses e dividido pela alta real.</li>
+          <li>
+            Horas de trabalho = custo da cesta ÷ (mínimo ÷ 220). Hoje: média das 27 capitais <Fonte id={CESTA.fonteHoras} />. No
+            cenário, a cesta fica mais cara e o mínimo segue só a inflação <Fonte id={inpc[inpc.length - 1].fonte} />.
+          </li>
+        </ol>
+        <p><Link href={PAGINAS.cestaBasica.path}>Abrir o simulador</Link></p>
+      </FaqItem>
+
+      <FaqItem question={perguntas[3].q}>
+        <ol class="passos" data-numero>
+          <li>
+            Diferença para o preço de importação: diesel {reais(diesel.defasagem)} e gasolina {reais(gasolina.defasagem)} por litro
+            <Fonte id={diesel.fontes.defasagem} />.
+          </li>
+          <li>
+            Parte de petróleo no litro: diesel {pct(100 - diesel.teorBio, 0)} <Fonte id={diesel.fontes.teor} /> e gasolina
+            {pct(100 - gasolina.teorBio, 0)} <Fonte id={gasolina.fontes.teor} />.
+          </li>
+          <li>Aumento na bomba = diferença × parte de petróleo. ICMS e PIS/Cofins são cobrados por litro e não mudam.</li>
+          <li>Alta = aumento ÷ preço médio de hoje <Fonte id={diesel.fontes.preco} />.</li>
+          <li>Efeito direto na inflação = alta × peso no IPCA <Fonte id={diesel.fontes.peso} />.</li>
+        </ol>
+        <p><Link href={PAGINAS.combustivel.path}>Abrir o simulador</Link></p>
+      </FaqItem>
+    </div>
+  </section>
+
+  <section class="secao" aria-labelledby="correcoes">
+    <div class="cp-container">
+      <h2 id="correcoes" class="cp-text-h2">Registro de correções</h2>
+      <p class="texto">
+        Nenhuma correção até agora. Achou um erro? <Link href={PAGINAS.quemSomos.path}>Fale com a gente</Link>.
+      </p>
+    </div>
+  </section>
 </Base>

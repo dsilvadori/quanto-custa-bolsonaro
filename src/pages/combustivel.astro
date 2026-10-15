@@ -1,12 +1,122 @@
 ---
+import { Link, Stat } from '@boralula/ui';
 import Base from '../layouts/Base.astro';
 import LinksSimulador from '../components/LinksSimulador.astro';
+import { Fonte } from '../components/Fonte';
+import { BarraCompartilhar } from '../components/BarraCompartilhar';
+import { COMBUSTIVEIS } from '../dados';
+import { NOMES, calcularCombustivel, efeitoTotal } from '../simuladores/combustivel';
+import { fonte } from '../fontes';
+import { pct, reais } from '../formato';
+import { PAGINAS, dataPorExtenso } from '../site';
+
+const url = new URL(PAGINAS.combustivel.path, Astro.site).href;
+const linhas = COMBUSTIVEIS.map((c) => ({ ...c, r: calcularCombustivel(c) }));
+const diesel = linhas.find((l) => l.combustivel === 'diesel')!;
+const gasolina = linhas.find((l) => l.combustivel === 'gasolina')!;
+const total = efeitoTotal(COMBUSTIVEIS);
+const fonteAbicom = diesel.fontes.defasagem;
+const dataAbicom = dataPorExtenso(fonte(fonteAbicom).data_publicacao!);
+const ppx = (v: number) => `${v.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ponto percentual`;
+
+const whatsapp = `Se a Petrobras voltasse a seguir o preço de importação, como no governo Bolsonaro, o diesel subiria ${reais(diesel.r.aumento)} e a gasolina ${reais(gasolina.r.aumento)} por litro. Veja a conta e as fontes: ${url}`;
+const ancora = new URL(`${PAGINAS.fontes.path}#${fonteAbicom}`, Astro.site);
+const compartilhar = JSON.stringify({
+  texto: whatsapp,
+  url,
+  cartao: {
+    numero: `+${reais(diesel.r.aumento)}`,
+    linha: 'no litro do diesel, e ' + `+${reais(gasolina.r.aumento)} no da gasolina`,
+    premissa: `Se a Petrobras voltasse a seguir o preço de importação (PPI), pelo cálculo da Abicom de ${dataAbicom}.`,
+    fonte: 'Fontes: Abicom, ANP, CNPE e IBGE',
+    url: ancora.host + ancora.pathname + ancora.hash,
+  },
+}).replace(/</g, '\\u003c');
 ---
 
-<Base id="combustivel" selo="Simulador">
-  <!-- TODO (etapa 5): versão estática. Nenhum número antes de ter fonte confirmada em fontes.json. -->
-  <p slot="lead" class="hero__lead cp-text-body-large">Este simulador está em atualização. Enquanto isso, veja os outros.</p>
+<Base
+  id="combustivel"
+  selo="Simulador"
+  imagem={{ src: '/og/combustivel.png', alt: `Com o preço de importação, o diesel subiria ${reais(diesel.r.aumento)} e a gasolina ${reais(gasolina.r.aumento)} por litro.` }}
+>
+  <Fragment slot="lead">
+    <p class="hero__lead cp-text-body-large">
+      Até maio de 2023, a Petrobras seguia o preço de importação (PPI), regra usada no governo Bolsonaro
+      <span class="junto"><Fonte id="petrobras-2023-05-16-fim-ppi" />.</span> Se voltasse a seguir, o diesel subiria
+      <strong class="destaque">{reais(diesel.r.aumento)}</strong> por litro e a gasolina,
+      <strong class="destaque">{reais(gasolina.r.aumento)}</strong>.
+    </p>
+    <div class="hero__numero" data-numero>
+      <Stat surface="red" value={`+${reais(diesel.r.aumento)}`} label="no litro do diesel" />
+      <p class="cp-text-body-small">
+        Diferença para o preço de importação em {dataAbicom} <Fonte id={fonteAbicom} />, só na parte de petróleo do litro
+        <Fonte id={diesel.fontes.teor} /> <span class="junto"><Fonte id={gasolina.fontes.teor} />.</span>
+      </p>
+    </div>
+  </Fragment>
+
+  <section class="secao secao--cinza" aria-labelledby="conta">
+    <div class="cp-container">
+      <h2 id="conta" class="cp-text-h2">A conta, litro a litro</h2>
+      <div class="grade-combustivel">
+        {
+          [diesel, gasolina].map((l) => (
+            <div class="cartao" data-numero>
+              <h3 class="cp-text-h3">{NOMES[l.combustivel]}</h3>
+              <dl class="conta">
+                <dt>Diferença para o preço de importação</dt>
+                <dd>
+                  {reais(l.defasagem)} <Fonte id={l.fontes.defasagem} />
+                </dd>
+                <dt>Parte de petróleo no litro</dt>
+                <dd>
+                  {pct(100 - l.teorBio, 0)} <Fonte id={l.fontes.teor} />
+                </dd>
+                <dt>Aumento na bomba</dt>
+                <dd class="conta__destaque">+{reais(l.r.aumento)}</dd>
+                <dt>Preço médio hoje</dt>
+                <dd>
+                  {reais(l.preco)} <Fonte id={l.fontes.preco} />
+                </dd>
+                <dt>Preço com o PPI</dt>
+                <dd class="conta__destaque">{reais(l.r.novoPreco)}</dd>
+                <dt>Alta</dt>
+                <dd>+{pct(l.r.alta, 1)}</dd>
+                <dt>Efeito direto na inflação (IPCA)</dt>
+                <dd>
+                  +{ppx(l.r.efeito)} <Fonte id={l.fontes.peso} />
+                </dd>
+              </dl>
+            </div>
+          ))
+        }
+      </div>
+      <div class="cartao conta__total" data-numero>
+        <p class="cp-text-body-large resultado__frase">
+          Só a gasolina e o diesel somariam <span class="junto">+{ppx(total)}</span> à inflação do mês, sem contar o efeito no
+          frete e nos preços de outros produtos.
+        </p>
+        <p class="cp-text-body-small">
+          Alta de cada combustível × peso dele no IPCA <span class="junto"><Fonte id={diesel.fontes.peso} />.</span> ICMS e
+          PIS/Cofins são cobrados por litro e não mudam com o preço.
+          <Link href={PAGINAS.comoCalculamos.path}>Veja como calculamos</Link>
+        </p>
+      </div>
+    </div>
+  </section>
+
   <div class="cp-container secao">
     <LinksSimulador atual="combustivel" />
   </div>
+
+  <BarraCompartilhar slot="fim" textoWhatsapp={whatsapp} />
+  <script slot="fim" type="application/json" id="dados-combustivel" set:html={compartilhar} />
 </Base>
+
+<script>
+  import { lerDados } from '../scripts/ui';
+  import { definirCompartilhamento, type Compartilhamento } from '../scripts/compartilhar';
+
+  const c = lerDados<Omit<Compartilhamento, 'titulo'>>('dados-combustivel');
+  definirCompartilhamento({ ...c, titulo: document.title });
+</script>

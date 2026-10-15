@@ -1,5 +1,5 @@
 ---
-import { Alert, Link, SegmentedButton, Stat, TextField } from '@boralula/ui';
+import { Link, SegmentedButton, Stat, TextField } from '@boralula/ui';
 import Base from '../layouts/Base.astro';
 import LinksSimulador from '../components/LinksSimulador.astro';
 import { Fonte } from '../components/Fonte';
@@ -148,25 +148,6 @@ const dados = JSON.stringify({
     </div>
   </section>
 
-  <section class="secao" aria-labelledby="premissas">
-    <div class="cp-container">
-      <h2 id="premissas" class="cp-text-h2">Premissas e ressalvas</h2>
-      <Alert tone="info">
-        <ul class="premissas" data-numero>
-          <li>
-            O cenário corrige o mínimo só pelo INPC acumulado em 12 meses até novembro, a regra usada de 2019 a 2022,
-            arredondando ao real <Fonte id={inpcFinal.fonte} />.
-          </li>
-          <li>
-            Em {CENARIO_SM.anoBase}, o mínimo real foi {reais(padrao.valor)} até abril e {reais(alternativa.valor)} a partir de maio
-            <Fonte id={alternativa.fonte} />.
-          </li>
-          <li>Por ano, contamos 12 salários e o 13º, pago pelo valor de dezembro.</li>
-          <li>A conta não inclui efeitos indiretos, como emprego, preços ou contas públicas.</li>
-        </ul>
-      </Alert>
-    </div>
-  </section>
 
   <div class="cp-container secao secao--fim">
     <LinksSimulador atual="salarioMinimo" />

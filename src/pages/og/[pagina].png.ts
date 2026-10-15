@@ -4,7 +4,9 @@ import { readFile } from 'node:fs/promises';
 import { createRequire } from 'node:module';
 import satori from 'satori';
 import { Resvg } from '@resvg/resvg-js';
-import { DADOS_BENEFICIO, DADOS_SALARIO } from '../../dados';
+import { COMBUSTIVEIS, DADOS_BENEFICIO, DADOS_CESTA, DADOS_SALARIO } from '../../dados';
+import { frasesCesta } from '../../simuladores/cesta';
+import { calcularCombustivel } from '../../simuladores/combustivel';
 import { ESTADO_PADRAO, calcularSalario } from '../../simuladores/salario';
 import { estadoPadraoBeneficio, frasesBeneficio } from '../../simuladores/beneficio';
 import { pct, reais } from '../../formato';
@@ -18,17 +20,31 @@ interface Conteudo {
 
 const s = calcularSalario(DADOS_SALARIO, ESTADO_PADRAO);
 const b = frasesBeneficio(DADOS_BENEFICIO, estadoPadraoBeneficio(DADOS_BENEFICIO));
+const c = frasesCesta(DADOS_CESTA, '100');
+const combustivel = (nome: string) => calcularCombustivel(COMBUSTIVEIS.find((l) => l.combustivel === nome)!);
+const diesel = combustivel('diesel');
+const gasolina = combustivel('gasolina');
 
 const CONTEUDO: Record<string, Conteudo> = {
   inicio: {
     numero: reais(s.porMes),
-    texto: `a menos por mês no salário mínimo de ${s.ultimo.ano} com a regra de 2019 a 2022`,
+    texto: `a menos por mês no salário mínimo de ${s.ultimo.ano} com a regra do governo Bolsonaro`,
     fonte: 'Fontes: Diário Oficial e IBGE',
   },
   'salario-minimo': {
     numero: reais(s.ultimo.cenario),
     texto: `seria o salário mínimo de ${s.ultimo.ano} só com a inflação, e não ${reais(s.ultimo.real)}`,
     fonte: 'Fontes: Diário Oficial e IBGE',
+  },
+  'cesta-basica': {
+    numero: `+${c.extra}`,
+    texto: `de trabalho por mês para comprar a cesta básica se a comida subisse no ritmo do governo Bolsonaro`,
+    fonte: 'Fontes: IBGE e DIEESE',
+  },
+  combustivel: {
+    numero: `+${reais(diesel.aumento)}`,
+    texto: `no litro do diesel e +${reais(gasolina.aumento)} no da gasolina se a Petrobras voltasse ao preço de importação`,
+    fonte: 'Fontes: Abicom, ANP, CNPE e IBGE',
   },
   'aposentadoria-bpc': {
     numero: b.total,
@@ -117,5 +133,5 @@ export const GET: APIRoute = async ({ params }) => {
     },
   );
   const png = new Resvg(svg, { fitTo: { mode: 'width', value: 1200 } }).render().asPng();
-  return new Response(png, { headers: { 'content-type': 'image/png' } });
+  return new Response(new Uint8Array(png), { headers: { 'content-type': 'image/png' } });
 };
