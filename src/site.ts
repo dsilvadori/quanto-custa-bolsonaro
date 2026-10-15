@@ -103,13 +103,14 @@ export const MENU: PaginaId[] = [...SIMULADORES, 'comoCalculamos', 'fontes'];
 
 export const RODAPE: PaginaId[] = ['comoCalculamos', 'fontes', 'quemSomos'];
 
-/** "2026-10-15" → "15 de outubro de 2026" */
+/** "2026-10-15" → "15 de outubro de 2026"; o dia 1 vira "1º". */
 export function dataPorExtenso(iso: string): string {
   const [ano, mes, dia] = iso.split('-').map(Number);
-  return new Date(Date.UTC(ano, mes - 1, dia)).toLocaleDateString('pt-BR', {
+  const texto = new Date(Date.UTC(ano, mes - 1, dia)).toLocaleDateString('pt-BR', {
     day: 'numeric',
     month: 'long',
     year: 'numeric',
     timeZone: 'UTC',
   });
+  return dia === 1 ? texto.replace(/^1 /, '1º ') : texto;
 }

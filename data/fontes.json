@@ -1,0 +1,238 @@
+{
+  "fontes": [
+    {
+      "id": "sm-2019-decreto-9661",
+      "titulo": "Decreto nº 9.661, de 1º de janeiro de 2019 — salário mínimo de 2019",
+      "orgao": "Diário Oficial",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2019/decreto/D9661.htm",
+      "url_arquivo": "http://web.archive.org/web/20261005013103/http://www.planalto.gov.br/ccivil_03/_ato2019-2022/2019/decreto/d9661.htm",
+      "data_publicacao": "2019-01-01",
+      "data_coleta": "2026-10-15",
+      "valor_usado": "R$ 998,00 a partir de 1º de janeiro de 2019",
+      "usado_em": [
+        "/salario-minimo",
+        "/aposentadoria-bpc"
+      ]
+    },
+    {
+      "id": "sm-2020-mp-916",
+      "titulo": "Medida Provisória nº 916, de 31 de dezembro de 2019 — salário mínimo de janeiro de 2020",
+      "orgao": "Diário Oficial",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2019/mpv/mpv916.htm",
+      "url_arquivo": "https://web.archive.org/web/20261015182414/https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2019/mpv/mpv916.htm",
+      "data_publicacao": "2019-12-31",
+      "data_coleta": "2026-10-15",
+      "valor_usado": "R$ 1.039,00 a partir de 1º de janeiro de 2020",
+      "usado_em": [
+        "/salario-minimo",
+        "/aposentadoria-bpc"
+      ]
+    },
+    {
+      "id": "sm-2020-mp-919",
+      "titulo": "Medida Provisória nº 919, de 30 de janeiro de 2020 — salário mínimo de 2020",
+      "orgao": "Diário Oficial",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2020/mpv/mpv919.htm",
+      "url_arquivo": "https://web.archive.org/web/20261015181338/https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2020/mpv/mpv919.htm",
+      "data_publicacao": "2020-01-31",
+      "data_coleta": "2026-10-15",
+      "valor_usado": "R$ 1.045,00 a partir de 1º de fevereiro de 2020",
+      "usado_em": [
+        "/salario-minimo",
+        "/aposentadoria-bpc"
+      ]
+    },
+    {
+      "id": "sm-2021-mp-1021",
+      "titulo": "Medida Provisória nº 1.021, de 30 de dezembro de 2020 — salário mínimo de 2021",
+      "orgao": "Diário Oficial",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2020/mpv/mpv1021.htm",
+      "url_arquivo": "http://web.archive.org/web/20261004152252/http://www.planalto.gov.br/ccivil_03/_ato2019-2022/2020/mpv/mpv1021.htm",
+      "data_publicacao": "2020-12-31",
+      "data_coleta": "2026-10-15",
+      "valor_usado": "R$ 1.100,00 a partir de 1º de janeiro de 2021",
+      "usado_em": [
+        "/salario-minimo",
+        "/aposentadoria-bpc"
+      ]
+    },
+    {
+      "id": "sm-2022-mp-1091",
+      "titulo": "Medida Provisória nº 1.091, de 30 de dezembro de 2021 — salário mínimo de 2022",
+      "orgao": "Diário Oficial",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2021/mpv/mpv1091.htm",
+      "url_arquivo": "http://web.archive.org/web/20260618223658/https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2021/mpv/mpv1091.htm",
+      "data_publicacao": "2021-12-31",
+      "data_coleta": "2026-10-15",
+      "valor_usado": "R$ 1.212,00 a partir de 1º de janeiro de 2022",
+      "usado_em": [
+        "/salario-minimo",
+        "/aposentadoria-bpc"
+      ]
+    },
+    {
+      "id": "sm-2023-mp-1143",
+      "titulo": "Medida Provisória nº 1.143, de 12 de dezembro de 2022 — salário mínimo de 2023 fixado no governo Bolsonaro",
+      "orgao": "Diário Oficial",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2022/mpv/mpv1143.htm",
+      "url_arquivo": "http://web.archive.org/web/20261004152942/https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2022/mpv/mpv1143.htm",
+      "data_publicacao": "2022-12-12",
+      "data_coleta": "2026-10-15",
+      "valor_usado": "R$ 1.302,00 a partir de 1º de janeiro de 2023",
+      "usado_em": [
+        "/salario-minimo",
+        "/aposentadoria-bpc"
+      ]
+    },
+    {
+      "id": "sm-2023-mp-1172",
+      "titulo": "Medida Provisória nº 1.172, de 1º de maio de 2023 — novo salário mínimo de 2023",
+      "orgao": "Diário Oficial",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2023/mpv/mpv1172.htm",
+      "url_arquivo": "http://web.archive.org/web/20260614130109/https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2023/mpv/mpv1172.htm",
+      "data_publicacao": "2023-05-01",
+      "data_coleta": "2026-10-15",
+      "valor_usado": "R$ 1.320,00 a partir de 1º de maio de 2023",
+      "usado_em": [
+        "/salario-minimo",
+        "/aposentadoria-bpc"
+      ]
+    },
+    {
+      "id": "sm-2024-decreto-11864",
+      "titulo": "Decreto nº 11.864, de 27 de dezembro de 2023 — salário mínimo de 2024",
+      "orgao": "Diário Oficial",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2023/decreto/D11864.htm",
+      "url_arquivo": "http://web.archive.org/web/20261004005305/https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2023/decreto/d11864.htm",
+      "data_publicacao": "2023-12-27",
+      "data_coleta": "2026-10-15",
+      "valor_usado": "R$ 1.412,00 a partir de 1º de janeiro de 2024",
+      "usado_em": [
+        "/salario-minimo",
+        "/aposentadoria-bpc"
+      ]
+    },
+    {
+      "id": "sm-2025-decreto-12342",
+      "titulo": "Decreto nº 12.342, de 30 de dezembro de 2024 — salário mínimo de 2025",
+      "orgao": "Diário Oficial",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2024/decreto/D12342.htm",
+      "url_arquivo": "http://web.archive.org/web/20261006004540/https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2024/decreto/d12342.htm",
+      "data_publicacao": "2024-12-31",
+      "data_coleta": "2026-10-15",
+      "valor_usado": "R$ 1.518,00 a partir de 1º de janeiro de 2025",
+      "usado_em": [
+        "/salario-minimo",
+        "/aposentadoria-bpc"
+      ]
+    },
+    {
+      "id": "sm-2026-decreto-12797",
+      "titulo": "Decreto nº 12.797, de 23 de dezembro de 2025 — salário mínimo de 2026",
+      "orgao": "Diário Oficial",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2025/decreto/D12797.htm",
+      "url_arquivo": "https://web.archive.org/web/20261015181410/https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2025/decreto/d12797.htm",
+      "data_publicacao": "2025-12-24",
+      "data_coleta": "2026-10-15",
+      "valor_usado": "R$ 1.621,00 a partir de 1º de janeiro de 2026",
+      "usado_em": [
+        "/salario-minimo",
+        "/aposentadoria-bpc"
+      ]
+    },
+    {
+      "id": "inpc-nov-2023",
+      "titulo": "INPC — variação acumulada em 12 meses até novembro de 2023 (SIDRA, tabela 1736)",
+      "orgao": "IBGE",
+      "url": "https://apisidra.ibge.gov.br/values/t/1736/n1/all/v/2292/p/202311,202411,202511",
+      "url_arquivo": "https://web.archive.org/web/20261015181441/https://apisidra.ibge.gov.br/values/t/1736/n1/all/v/2292/p/202311,202411,202511",
+      "data_publicacao": "2023-12-12",
+      "data_coleta": "2026-10-15",
+      "valor_usado": "3,85%",
+      "usado_em": [
+        "/salario-minimo",
+        "/aposentadoria-bpc"
+      ]
+    },
+    {
+      "id": "inpc-nov-2024",
+      "titulo": "INPC — variação acumulada em 12 meses até novembro de 2024 (SIDRA, tabela 1736)",
+      "orgao": "IBGE",
+      "url": "https://apisidra.ibge.gov.br/values/t/1736/n1/all/v/2292/p/202311,202411,202511",
+      "url_arquivo": "https://web.archive.org/web/20261015181441/https://apisidra.ibge.gov.br/values/t/1736/n1/all/v/2292/p/202311,202411,202511",
+      "data_publicacao": null,
+      "data_coleta": "2026-10-15",
+      "valor_usado": "4,84%",
+      "usado_em": [
+        "/salario-minimo",
+        "/aposentadoria-bpc"
+      ]
+    },
+    {
+      "id": "inpc-nov-2025",
+      "titulo": "INPC — variação acumulada em 12 meses até novembro de 2025 (SIDRA, tabela 1736)",
+      "orgao": "IBGE",
+      "url": "https://apisidra.ibge.gov.br/values/t/1736/n1/all/v/2292/p/202311,202411,202511",
+      "url_arquivo": "https://web.archive.org/web/20261015181441/https://apisidra.ibge.gov.br/values/t/1736/n1/all/v/2292/p/202311,202411,202511",
+      "data_publicacao": "2025-12-10",
+      "data_coleta": "2026-10-15",
+      "valor_usado": "4,18%",
+      "usado_em": [
+        "/salario-minimo",
+        "/aposentadoria-bpc"
+      ]
+    },
+    {
+      "id": "lc-200-2023-ganho-real",
+      "titulo": "Lei Complementar nº 200, de 30 de agosto de 2023 (Novo Arcabouço Fiscal), art. 5º, § 1º — crescimento real entre 0,6% e 2,5% ao ano",
+      "orgao": "Diário Oficial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp200.htm",
+      "url_arquivo": "http://web.archive.org/web/20261014215923/https://planalto.gov.br/ccivil_03/leis/lcp/lcp200.htm",
+      "data_publicacao": "2023-08-31",
+      "data_coleta": "2026-10-15",
+      "valor_usado": "Mínimo de 0,6% e máximo de 2,5% ao ano",
+      "usado_em": [
+        "/aposentadoria-bpc"
+      ]
+    },
+    {
+      "id": "lei-15077-2024-ganho-real-sm",
+      "titulo": "Lei nº 15.077, de 27 de dezembro de 2024, art. 4º — aumento real do salário mínimo de 2025 a 2030 limitado pelo arcabouço fiscal",
+      "orgao": "Diário Oficial",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2024/lei/L15077.htm",
+      "url_arquivo": "http://web.archive.org/web/20260910042506/https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2024/lei/l15077.htm",
+      "data_publicacao": "2024-12-27",
+      "data_coleta": "2026-10-15",
+      "valor_usado": "Ganho real do mínimo entre 2025 e 2030 dentro dos limites do art. 5º da LC 200/2023",
+      "usado_em": [
+        "/aposentadoria-bpc"
+      ]
+    },
+    {
+      "id": "folha-2026-10-07-plano-flavio",
+      "titulo": "Folha de S.Paulo: \"Flávio considera mudar correção da Previdência, da saúde e da educação para obter até R$ 250 bi\"",
+      "orgao": "Folha de S.Paulo",
+      "url": "https://www1.folha.uol.com.br/mercado/2026/10/flavio-considera-mudar-correcao-da-previdencia-da-saude-e-da-educacao-para-obter-ate-r-250-bi.shtml",
+      "url_arquivo": "http://web.archive.org/web/20261009064817/https://www1.folha.uol.com.br/mercado/2026/10/flavio-considera-mudar-correcao-da-previdencia-da-saude-e-da-educacao-para-obter-ate-r-250-bi.shtml",
+      "data_publicacao": "2026-10-07",
+      "data_coleta": "2026-10-15",
+      "valor_usado": "A equipe do programa econômico estuda a desvinculação dos reajustes da Previdência Social e do BPC em relação aos ganhos reais do salário mínimo",
+      "usado_em": [
+        "/aposentadoria-bpc"
+      ]
+    },
+    {
+      "id": "poder360-2026-10-08-flavio-nega",
+      "titulo": "Poder360: \"Flávio nega corte em aposentadoria e cita reajuste acima da inflação\"",
+      "orgao": "Poder360",
+      "url": "https://www.poder360.com.br/poder-eleicoes-2026/flavio-nega-corte-em-aposentadoria-e-cita-reajuste-acima-da-inflacao/",
+      "url_arquivo": "http://web.archive.org/web/20261011021700/https://www.poder360.com.br/poder-eleicoes-2026/flavio-nega-corte-em-aposentadoria-e-cita-reajuste-acima-da-inflacao/",
+      "data_publicacao": "2026-10-08",
+      "data_coleta": "2026-10-15",
+      "valor_usado": "Flávio Bolsonaro negou que vá desindexar a Previdência e o BPC e disse que manterá o reajuste das aposentadorias acima da inflação",
+      "usado_em": [
+        "/aposentadoria-bpc"
+      ]
+    }
+  ]
+}

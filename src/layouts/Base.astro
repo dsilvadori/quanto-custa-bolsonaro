@@ -6,6 +6,7 @@ import Seo from '../components/Seo.astro';
 import { SiteHeader } from '../components/SiteHeader';
 import { SiteFooter } from '../components/SiteFooter';
 import { VoltarInicio } from '../components/VoltarInicio';
+import { PainelFonte } from '../components/PainelFonte';
 import { PAGINAS, dataPorExtenso, type PaginaId } from '../site';
 
 interface Props {
@@ -81,8 +82,10 @@ const breadcrumb = interna && {
       }
     </main>
     <SiteFooter />
+    <PainelFonte />
     <script>
       import '../scripts/menu';
+      import '../scripts/fonte';
     </script>
   </body>
 </html>

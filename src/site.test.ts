@@ -23,6 +23,7 @@ describe('SEO das páginas', () => {
 describe('dataPorExtenso', () => {
   it('formata em português sem deslocar o dia', () => {
     expect(dataPorExtenso('2026-10-15')).toBe('15 de outubro de 2026');
-    expect(dataPorExtenso('2026-01-01')).toBe('1 de janeiro de 2026');
+    expect(dataPorExtenso('2026-01-01')).toBe('1º de janeiro de 2026');
+    expect(dataPorExtenso('2026-01-10')).toBe('10 de janeiro de 2026');
   });
 });

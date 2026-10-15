@@ -1,8 +1,67 @@
 ---
+import { Link } from '@boralula/ui';
 import Base from '../layouts/Base.astro';
+import { FONTES } from '../fontes';
+import { PAGINAS, SIMULADORES, dataPorExtenso } from '../site';
+
+// Agrupado por simulador; uma fonte usada em dois simuladores aparece no primeiro.
+// TODO (etapa 6): filtro por órgão e downloads do fontes.json e dos CSVs.
+const grupos = SIMULADORES.map((id) => ({
+  id,
+  pagina: PAGINAS[id],
+  fontes: FONTES.filter((f) => f.usado_em[0] === PAGINAS[id].path),
+})).filter((g) => g.fontes.length > 0);
 ---
 
 <Base id="fontes">
-  <!-- TODO (etapa 6) -->
-  <p class="texto cp-text-body-large">Página em atualização.</p>
+  <p class="texto cp-text-body-large">
+    Cada número do site vem de uma destas fontes. Para cada uma, mostramos o valor exato usado, a data e uma cópia
+    arquivada.
+  </p>
+  <div class="registro" data-registro-fontes>
+    {
+      grupos.map((g) => (
+        <section aria-labelledby={`grupo-${g.id}`}>
+          <h2 id={`grupo-${g.id}`} class="cp-text-h2">
+            {g.pagina.rotulo}
+          </h2>
+          {g.fontes.map((f) => (
+            <article id={f.id}>
+              <p class="cp-text-label-small">{f.orgao}</p>
+              <h3 class="cp-text-h3">{f.titulo}</h3>
+              <dl class="cp-text-body-small">
+                <dt>Valor usado</dt>
+                <dd>{f.valor_usado}</dd>
+                <dt>Publicado em</dt>
+                <dd>
+                  {f.data_publicacao ? (
+                    <time datetime={f.data_publicacao}>{dataPorExtenso(f.data_publicacao)}</time>
+                  ) : (
+                    'em atualização'
+                  )}
+                </dd>
+                <dt>Coletado em</dt>
+                <dd>
+                  <time datetime={f.data_coleta}>{dataPorExtenso(f.data_coleta)}</time>
+                </dd>
+              </dl>
+              <p>
+                <Link href={f.url} external>
+                  Abrir fonte
+                </Link>
+                {f.url_arquivo && (
+                  <>
+                    {' · '}
+                    <Link href={f.url_arquivo} external>
+                      Cópia arquivada
+                    </Link>
+                  </>
+                )}
+              </p>
+            </article>
+          ))}
+        </section>
+      ))
+    }
+  </div>
 </Base>
