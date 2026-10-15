@@ -1,0 +1,45 @@
+---
+import { SITE } from '../site';
+
+interface Props {
+  titulo: string;
+  descricao: string;
+  /** Caminho limpo, sem parâmetros: URLs com ?renda=2 apontam para cá. */
+  path?: string;
+  /** Imagem Open Graph 1200×630 (caminho ou URL). TODO (etapa 4): gerar no build. */
+  imagem?: { src: string; alt: string };
+  jsonLd?: Record<string, unknown>[];
+  noindex?: boolean;
+}
+
+const { titulo, descricao, path, imagem, jsonLd = [], noindex = false } = Astro.props;
+const canonical = path ? new URL(path, Astro.site).href : undefined;
+const imagemUrl = imagem && new URL(imagem.src, Astro.site).href;
+// Evita que "</script>" dentro de um texto feche a tag.
+const ld = (dado: unknown) => JSON.stringify(dado).replace(/</g, '\\u003c');
+---
+
+<title>{titulo}</title>
+<meta name="description" content={descricao} />
+{canonical && <link rel="canonical" href={canonical} />}
+{noindex && <meta name="robots" content="noindex" />}
+
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="pt_BR" />
+<meta property="og:site_name" content={SITE.nome} />
+<meta property="og:title" content={titulo} />
+<meta property="og:description" content={descricao} />
+{canonical && <meta property="og:url" content={canonical} />}
+{imagemUrl && (
+  <>
+    <meta property="og:image" content={imagemUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={imagem!.alt} />
+  </>
+)}
+<meta name="twitter:card" content={imagemUrl ? 'summary_large_image' : 'summary'} />
+<meta name="twitter:title" content={titulo} />
+<meta name="twitter:description" content={descricao} />
+
+{jsonLd.map((dado) => <script type="application/ld+json" set:html={ld(dado)} />)}

@@ -1,0 +1,88 @@
+---
+import '@boralula/ui/styles.css';
+import '../styles/global.css';
+import fonteTitulo from '../assets/fonts/montserrat-latin-800-normal.woff2?url';
+import Seo from '../components/Seo.astro';
+import { SiteHeader } from '../components/SiteHeader';
+import { SiteFooter } from '../components/SiteFooter';
+import { VoltarInicio } from '../components/VoltarInicio';
+import { PAGINAS, dataPorExtenso, type PaginaId } from '../site';
+
+interface Props {
+  /** Página do registro em site.ts. Sem ela (404), passe titulo e descricao. */
+  id?: PaginaId;
+  titulo?: string;
+  descricao?: string;
+  jsonLd?: Record<string, unknown>[];
+  noindex?: boolean;
+}
+
+const { id, jsonLd = [], noindex = false } = Astro.props;
+const pagina = id ? PAGINAS[id] : undefined;
+const titulo = pagina?.titulo ?? Astro.props.titulo!;
+const descricao = pagina?.descricao ?? Astro.props.descricao!;
+const interna = pagina && id !== 'inicio';
+
+const breadcrumb = interna && {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [PAGINAS.inicio, pagina].map((p, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: p.rotulo,
+    item: new URL(p.path, Astro.site).href,
+  })),
+};
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#ffffff" />
+    <!-- Economia de dados: fonte do sistema e nada de preload. Senão, preload só da fonte dos títulos. -->
+    <script is:inline define:vars={{ fonteTitulo }}>
+      var c = navigator.connection;
+      if (c && c.saveData) {
+        document.documentElement.classList.add('save-data');
+      } else {
+        var l = document.createElement('link');
+        l.rel = 'preload';
+        l.as = 'font';
+        l.type = 'font/woff2';
+        l.crossOrigin = 'anonymous';
+        l.href = fonteTitulo;
+        document.head.appendChild(l);
+      }
+    </script>
+    <Seo
+      titulo={titulo}
+      descricao={descricao}
+      path={pagina?.path}
+      noindex={noindex}
+      jsonLd={breadcrumb ? [...jsonLd, breadcrumb] : jsonLd}
+    />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  </head>
+  <body class="cp-body">
+    <a class="pular" href="#conteudo">Pular para o conteúdo</a>
+    <SiteHeader atual={id} />
+    <main id="conteudo" class="cp-container">
+      {interna && <VoltarInicio />}
+      <h1 class="cp-text-h1">{titulo}</h1>
+      <slot />
+      {
+        pagina && (
+          <p class="atualizado cp-text-body-small">
+            Atualizado em <time datetime={pagina.atualizadoEm}>{dataPorExtenso(pagina.atualizadoEm)}</time>
+          </p>
+        )
+      }
+    </main>
+    <SiteFooter />
+    <script>
+      import '../scripts/menu';
+    </script>
+  </body>
+</html>

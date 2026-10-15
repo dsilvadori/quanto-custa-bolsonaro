@@ -1,0 +1,67 @@
+/* Montserrat self-hosted: só 700 e 800, subset latino, WOFF2.
+   O DS pede 500/600 (caem no 700) e 900 (cai no 800) pela regra de busca de peso do CSS. */
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('../assets/fonts/montserrat-latin-700-normal.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url('../assets/fonts/montserrat-latin-800-normal.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* Economia de dados: fonte do sistema, nenhuma fonte baixada. */
+html.save-data { --cp-font: system-ui, sans-serif; }
+
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; overflow-x: hidden; }
+img, svg { max-width: 100%; height: auto; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
+
+.pular {
+  position: absolute;
+  left: var(--cp-space-4);
+  top: calc(-1 * var(--cp-size-touch) - var(--cp-space-4));
+  z-index: 10;
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--cp-size-touch);
+  padding: 0 var(--cp-space-4);
+  background: var(--cp-color-primary);
+  color: var(--cp-color-on-primary);
+  border-radius: var(--cp-radius-pill);
+  font-weight: 700;
+}
+.pular:focus-visible { top: var(--cp-space-2); outline: none; box-shadow: var(--cp-focus-light); }
+
+a:has(> .marca) { text-decoration: none; }
+.marca {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--cp-size-touch);
+  color: var(--cp-color-primary);
+  font: 800 var(--cp-text-h3) / 1 var(--cp-font);
+}
+
+main { padding-block: var(--cp-space-8) var(--cp-space-12); }
+main > * + * { margin-top: var(--cp-space-6); }
+main h1 { margin-block: var(--cp-space-4) 0; }
+.texto { max-width: 70ch; }
+.atualizado { color: var(--cp-color-on-surface-variant); }
+
+.grade-cards { display: grid; gap: var(--cp-space-4); margin: 0; padding: 0; list-style: none; }
+.grade-cards > li { display: grid; }
+@media (min-width: 768px) {
+  main { padding-block: var(--cp-space-12) var(--cp-space-16); }
+  .grade-cards { grid-template-columns: repeat(2, 1fr); gap: var(--cp-space-6); }
+}

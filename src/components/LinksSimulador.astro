@@ -1,0 +1,19 @@
+---
+import { Link } from '@boralula/ui';
+import { CardsSimuladores } from './CardsSimuladores';
+import { PAGINAS, type PaginaId } from '../site';
+
+interface Props {
+  atual: PaginaId;
+}
+const { atual } = Astro.props;
+---
+
+<section aria-labelledby="outros-simuladores">
+  <h2 id="outros-simuladores" class="cp-text-h2">Veja também</h2>
+  <CardsSimuladores exceto={atual} headingLevel={3} />
+  <p class="texto">
+    <Link href={PAGINAS.comoCalculamos.path}>Como calculamos</Link> ·
+    <Link href={PAGINAS.fontes.path}>Todas as fontes</Link>
+  </p>
+</section>

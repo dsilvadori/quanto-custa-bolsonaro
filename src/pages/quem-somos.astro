@@ -1,0 +1,19 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE } from '../site';
+
+const { nome, documento, contato } = SITE.responsavel;
+---
+
+<Base id="quemSomos">
+  <!-- Lei 9.504/97, art. 57-D: veda o anonimato. TODO: preencher os dados em src/site.ts. -->
+  <dl class="texto">
+    <dt><strong>Responsável</strong></dt>
+    <dd>{nome}</dd>
+    <dt><strong>CPF/CNPJ</strong></dt>
+    <dd>{documento}</dd>
+    <dt><strong>Contato</strong></dt>
+    <dd>{contato}</dd>
+  </dl>
+  <!-- TODO (etapa 6): como pedir correções. -->
+</Base>

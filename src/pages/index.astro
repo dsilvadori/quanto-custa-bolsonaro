@@ -1,0 +1,35 @@
+---
+import Base from '../layouts/Base.astro';
+import { CardsSimuladores } from '../components/CardsSimuladores';
+import { PAGINAS, SITE } from '../site';
+
+const url = new URL('/', Astro.site).href;
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: SITE.nome,
+    url,
+    inLanguage: 'pt-BR',
+    description: PAGINAS.inicio.descricao,
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    // TODO: dados de "Quem somos" quando os placeholders forem preenchidos.
+    name: SITE.nome,
+    url,
+  },
+];
+---
+
+<Base id="inicio" jsonLd={jsonLd}>
+  <p class="texto cp-text-body-large">
+    Veja em reais e em horas de trabalho o que mudaria no seu orçamento se as regras de 2019 a 2022 voltassem.
+  </p>
+  <!-- TODO (etapa 4): pergunta "Quanto você ganha ou recebe?" com StepIndicator e resumo dos 4 resultados. -->
+  <section aria-labelledby="simuladores">
+    <h2 id="simuladores" class="cp-text-h2">Escolha um simulador</h2>
+    <CardsSimuladores headingLevel={3} />
+  </section>
+</Base>
