@@ -24,3 +24,15 @@ export function calcularCombustivel(l: LinhaCombustivel) {
 export function efeitoTotal(linhas: LinhaCombustivel[]): number {
   return linhas.reduce((s, l) => s + calcularCombustivel(l).efeito, 0);
 }
+
+/** Tanque cheio hoje e com o PPI, para `litros` do combustível. */
+export function tanqueCheio(l: LinhaCombustivel, litros: number) {
+  const r = calcularCombustivel(l);
+  return { hoje: litros * l.preco, comPpi: litros * r.novoPreco, diferenca: litros * r.aumento };
+}
+
+/** Veículos do exemplo. O tamanho do tanque é um exemplo que a pessoa pode mudar na página. */
+export const VEICULOS = [
+  { id: 'carro', nome: 'Carro de aplicativo', combustivel: 'gasolina', litrosExemplo: 50 },
+  { id: 'caminhao', nome: 'Caminhão', combustivel: 'diesel', litrosExemplo: 300 },
+] as const;

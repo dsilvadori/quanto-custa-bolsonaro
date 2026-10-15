@@ -18,3 +18,15 @@ describe('combustível', () => {
     expect(efeitoIpca(alta, 5.1285)).toBeCloseTo(0.2613, 4);
   });
 });
+
+describe('tanqueCheio', () => {
+  it('litros × preço hoje e com o aumento do PPI', async () => {
+    const { tanqueCheio, calcularCombustivel } = await import('../simuladores/combustivel');
+    const l = { combustivel: 'diesel' as const, defasagem: 3.24, teorBio: 15, preco: 7.36, peso: 0.2562 };
+    const t = tanqueCheio(l, 300);
+    const aumento = calcularCombustivel(l).aumento;
+    expect(t.hoje).toBeCloseTo(300 * 7.36, 10);
+    expect(t.diferenca).toBeCloseTo(300 * aumento, 10);
+    expect(t.comPpi).toBeCloseTo(t.hoje + t.diferenca, 10);
+  });
+});
