@@ -139,6 +139,11 @@ const jsonLd = [
             Preço no governo do Bolsonaro = preço de hoje × (1 + alta no governo Bolsonaro)^({DADOS_CARRINHO.mesesAtual}/{DADOS_CARRINHO.mesesBolsonaro})
             ÷ (1 + alta no governo atual). Quando o produto subiu menos no governo Bolsonaro, o preço sai menor que o de hoje.
           </li>
+          <li>
+            Compra padrão: a de uma família de 2 adultos e 2 crianças, que o DIEESE conta como 3 cestas de adulto, nas quantidades
+            da cesta de cada capital <Fonte id={CARRINHO.fonteQtd} />. O gás começa em zero, porque não há dado oficial de consumo
+            por família.
+          </li>
           <li>Total = soma de preço × quantidade. Na média das capitais, cada produto usa a média simples das capitais que o pesquisam.</li>
         </ol>
         <p><Link href={PAGINAS.carrinho.path}>Abrir o simulador</Link></p>

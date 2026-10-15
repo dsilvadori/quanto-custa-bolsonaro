@@ -186,6 +186,14 @@ function precosDe(capital: string): Record<string, number> {
   );
 }
 const precosCapitais = Object.fromEntries(CAPITAIS_CARRINHO.map((c) => [c, precosDe(c)]));
+// Quantidade mensal da cesta de um adulto em cada capital (DIEESE, Decreto-Lei 399/1938).
+const qtdCapitais = Object.fromEntries(
+  CAPITAIS_CARRINHO.map((c) => [
+    c,
+    Object.fromEntries(linhasPrecos.filter((l) => l.capital === c && l.qtd_cesta).map((l) => [l.produto!, Number(l.qtd_cesta)])),
+  ]),
+);
+const media = (valores: number[]) => valores.reduce((s, v) => s + v, 0) / valores.length;
 const mediaPrecos = Object.fromEntries(
   produtosCarrinho.map((p) => {
     const valores = Object.values(precosCapitais)
@@ -194,12 +202,20 @@ const mediaPrecos = Object.fromEntries(
     return [p.id, valores.reduce((s, v) => s + v, 0) / valores.length];
   }),
 );
+const mediaQtd = Object.fromEntries(
+  produtosCarrinho
+    .map((p) => [p.id, Object.values(qtdCapitais).map((q) => q[p.id]).filter((v) => v !== undefined)] as const)
+    .filter(([, v]) => v.length > 0)
+    .map(([id, v]) => [id, Math.round(media(v) * 100) / 100]),
+);
 const periodoExemplo = altasSubitem(porSubitem.values().next().value!);
 
 export const DADOS_CARRINHO: DadosCarrinho = {
   produtos: produtosCarrinho,
   capitais: CAPITAIS_CARRINHO,
   precos: { media: mediaPrecos, ...precosCapitais },
+  quantidades: { media: mediaQtd, ...qtdCapitais },
+  familia: PARAMETROS.familia_cestas.valor,
   mesesBolsonaro: periodoExemplo.bolsonaroMeses,
   mesesAtual: periodoExemplo.atualMeses,
 };
@@ -207,6 +223,7 @@ export const DADOS_CARRINHO: DadosCarrinho = {
 export const CARRINHO = {
   fontesSubitens: [...fontesSubitens],
   fontesPreco: [...new Set(produtosCarrinho.map((p) => p.fontePreco))],
+  fonteQtd: linhasPrecos.find((l) => l.fonte_qtd)!.fonte_qtd!,
   referencia: linhasPrecos.find((l) => l.capital !== 'Brasil')!.referencia!,
   nomeSubitem,
 };

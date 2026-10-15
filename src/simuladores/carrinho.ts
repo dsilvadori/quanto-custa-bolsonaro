@@ -21,6 +21,10 @@ export interface DadosCarrinho {
   capitais: string[];
   /** Preço por capital (e "media") e produto. Produto ausente = sem preço naquela capital. */
   precos: Record<string, Record<string, number>>;
+  /** Quantidade mensal da cesta de um adulto por capital (e "media") e produto (DIEESE). */
+  quantidades: Record<string, Record<string, number>>;
+  /** Cestas de uma família de 4 pessoas (2 adultos e 2 crianças): 3, pela metodologia do DIEESE. */
+  familia: number;
   mesesBolsonaro: number;
   mesesAtual: number;
 }
@@ -32,9 +36,28 @@ export interface EstadoCarrinho {
   qtd: Record<string, number>;
 }
 
+/** Compra do mês de uma família de 4 pessoas: 3 cestas de adulto da capital. Gás começa em 0 (sem dado oficial de consumo). */
 export function estadoPadraoCarrinho(d: DadosCarrinho, capital = MEDIA): EstadoCarrinho {
   const precos = d.precos[capital];
-  return { capital, qtd: Object.fromEntries(d.produtos.map((p) => [p.id, p.alimento && precos[p.id] !== undefined ? 1 : 0])) };
+  const qtd = d.quantidades[capital];
+  return {
+    capital,
+    qtd: Object.fromEntries(
+      d.produtos.map((p) => [p.id, precos[p.id] !== undefined && qtd[p.id] !== undefined ? arredondar(qtd[p.id] * d.familia) : 0]),
+    ),
+  };
+}
+
+const arredondar = (v: number) => Math.round(v * 100) / 100;
+
+/** 13.5 → "13,5"; 0.9 → "0,9". */
+export function qtdTexto(v: number): string {
+  return v.toLocaleString('pt-BR', { maximumFractionDigits: 2 });
+}
+
+/** Um toque em − ou +: passo de 1 unidade, sem passar de 0 a 99. */
+export function passo(atual: number, sentido: 1 | -1): number {
+  return arredondar(Math.min(99, Math.max(0, atual + sentido)));
 }
 
 export function linhasCarrinho(d: DadosCarrinho, e: EstadoCarrinho) {
@@ -69,7 +92,7 @@ export function decodificarItens(d: DadosCarrinho, base: EstadoCarrinho, texto: 
   for (const par of (texto ?? '').split(',')) {
     const [id, n] = par.split(':');
     const v = Number(n);
-    if (d.produtos.some((p) => p.id === id) && Number.isInteger(v) && v >= 0 && v <= 99) qtd[id] = v;
+    if (d.produtos.some((p) => p.id === id) && Number.isFinite(v) && v >= 0 && v <= 99) qtd[id] = arredondar(v);
   }
   return { ...base, qtd };
 }

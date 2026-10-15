@@ -3,6 +3,7 @@ import { Minus, Plus } from 'lucide-react';
 import { Fonte } from './Fonte';
 import { preco } from '../formato';
 import { ICONE_PRODUTO, Selo } from '../icones';
+import { qtdTexto } from '../simuladores/carrinho';
 
 export interface LinhaLista {
   id: string;
@@ -31,7 +32,7 @@ export function ListaCarrinho({ linhas, fonteSubitem }: { linhas: LinhaLista[]; 
           <div className="produto__qtd">
             <IconButton className="so-com-js" icon={<Minus />} label={`Tirar ${l.nome}`} data-menos={l.id} />
             <output className="produto__numero" data-qtd={l.id} aria-label={`Quantidade de ${l.nome}`}>
-              {l.qtd}
+              {qtdTexto(l.qtd)}
             </output>
             <IconButton className="so-com-js" icon={<Plus />} label={`Pôr ${l.nome}`} data-mais={l.id} />
           </div>

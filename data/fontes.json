@@ -455,6 +455,19 @@
       "usado_em": [
         "/carrinho"
       ]
+    },
+    {
+      "id": "dieese-metodologia-cesta",
+      "titulo": "DIEESE — Metodologia da Pesquisa Nacional da Cesta Básica de Alimentos",
+      "orgao": "DIEESE",
+      "url": "https://www.dieese.org.br/metodologia/metodologiaCestaBasica2016.pdf",
+      "url_arquivo": "https://web.archive.org/web/20261015232202/https://www.dieese.org.br/metodologia/metodologiaCestaBasica2016.pdf",
+      "data_publicacao": null,
+      "data_coleta": "2026-10-15",
+      "valor_usado": "Quantidades mensais da cesta de um adulto por região (Decreto-Lei 399/1938). \"A família considerada para o cálculo é composta por 2 adultos e 2 crianças, que por hipótese, consomem como 1 adulto\": gasto da família = 3 cestas",
+      "usado_em": [
+        "/carrinho"
+      ]
     }
   ]
 }

@@ -2,3 +2,4 @@ nome,valor,fonte
 ganho_real_min_pct,0.6,lc-200-2023-ganho-real
 ganho_real_max_pct,2.5,lc-200-2023-ganho-real
 ganho_real_ate_ano,2030,lei-15077-2024-ganho-real-sm
+familia_cestas,3,dieese-metodologia-cesta

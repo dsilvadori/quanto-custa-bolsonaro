@@ -8,6 +8,8 @@ import {
   decodificarItens,
   estadoPadraoCarrinho,
   frasesCarrinho,
+  passo,
+  qtdTexto,
   type DadosCarrinho,
 } from '../simuladores/carrinho';
 import { preco } from '../formato';
@@ -30,7 +32,7 @@ function mostrar() {
     if (!l.disponivel) continue;
     li.querySelector('[data-preco]')!.textContent = preco(l.preco);
     li.querySelector('[data-cenario]')!.textContent = preco(l.cenario);
-    li.querySelector('[data-qtd]')!.textContent = String(l.qtd);
+    li.querySelector('[data-qtd]')!.textContent = qtdTexto(l.qtd);
     li.classList.toggle('produto--fora', l.qtd === 0);
     li.querySelector<HTMLButtonElement>('[data-menos]')!.disabled = l.qtd === 0;
   }
@@ -44,15 +46,18 @@ lista.addEventListener('click', (e) => {
   const botao = (e.target as Element).closest<HTMLElement>('[data-menos], [data-mais]');
   if (!botao) return;
   const id = botao.dataset.menos ?? botao.dataset.mais!;
-  const passo = botao.dataset.menos ? -1 : 1;
-  estado = { ...estado, qtd: { ...estado.qtd, [id]: Math.min(99, Math.max(0, (estado.qtd[id] ?? 0) + passo)) } };
+  estado = { ...estado, qtd: { ...estado.qtd, [id]: passo(estado.qtd[id] ?? 0, botao.dataset.menos ? -1 : 1) } };
   mostrar();
 });
 
 seletor.value = estado.capital;
 seletor.addEventListener('change', () => {
-  // Troca de capital mantém as quantidades; o que não existe lá fica fora do total.
-  estado = { ...estado, capital: seletor.value };
+  // Itens que a pessoa não mexeu seguem a compra da família na nova capital (as quantidades variam por região);
+  // os que ela mudou ficam como estão.
+  const antes = estadoPadraoCarrinho(dados, estado.capital).qtd;
+  const depois = estadoPadraoCarrinho(dados, seletor.value).qtd;
+  const qtd = Object.fromEntries(Object.keys(depois).map((id) => [id, estado.qtd[id] === antes[id] ? depois[id] : estado.qtd[id]]));
+  estado = { capital: seletor.value, qtd };
   mostrar();
 });
 
