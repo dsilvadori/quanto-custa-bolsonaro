@@ -14,6 +14,7 @@ const DESCRICOES: Record<string, string> = {
   'carrinho-produtos.csv': 'Preço de cada produto do carrinho por capital (DIEESE) e do gás de botijão (ANP).',
   'ipca-subitens.csv': 'Alta de cada produto do carrinho no IPCA, por ano e por governo.',
   'inpc-anual.csv': 'INPC acumulado em cada ano, usado para corrigir o benefício desvinculado.',
+  'combustivel-pico.csv': 'Maior diferença de 2026 para o preço de importação (gasolina, polos da Petrobras), com a data e a mistura da época.',
   'combustivel.csv': 'Diferença para o preço de importação, mistura, preço na bomba e peso no IPCA da gasolina e do diesel.',
 };
 

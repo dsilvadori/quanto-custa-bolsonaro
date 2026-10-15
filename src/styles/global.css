@@ -334,3 +334,5 @@ header nav a, .marca { white-space: nowrap; }
 .grafico-cartao.cartao { margin-bottom: var(--cp-space-6); }
 .grafico-cartao figcaption .ajuda { margin: 0; }
 .atalhos { display: flex; flex-wrap: wrap; gap: var(--cp-space-2); }
+.conta__pico { margin-top: var(--cp-space-6); border-left: var(--cp-border-width-accent) solid var(--cp-color-primary); }
+.conta__pico strong { color: var(--cp-color-primary); }

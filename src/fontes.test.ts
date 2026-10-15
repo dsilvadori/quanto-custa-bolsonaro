@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { FONTES, existeFonte } from './fontes';
-import { CESTA, COMBUSTIVEIS, INPC, INPC_ANUAL, PARAMETROS, SALARIO_MINIMO } from './dados';
+import { CESTA, COMBUSTIVEIS, INPC, INPC_ANUAL, PARAMETROS, PICO_COMBUSTIVEL, SALARIO_MINIMO } from './dados';
 import { PAGINAS } from './site';
 
 const data = /^\d{4}-\d{2}-\d{2}$/;
@@ -32,6 +32,7 @@ describe('CSVs de /data', () => {
       ...CESTA.atual.fontes,
       ...CESTA.capitais.map((c) => c.fonte),
       ...COMBUSTIVEIS.flatMap((c) => Object.values(c.fontes)),
+      ...PICO_COMBUSTIVEL.flatMap((c) => Object.values(c.fontes)),
     ];
     for (const id of ids) expect(existeFonte(id), id).toBe(true);
   });

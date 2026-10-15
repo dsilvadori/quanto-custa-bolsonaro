@@ -5,7 +5,8 @@ import LinksSimulador from '../components/LinksSimulador.astro';
 import { Fonte } from '../components/Fonte';
 import { BarraCompartilhar } from '../components/BarraCompartilhar';
 import { Resultados } from '../components/Resultados';
-import { COMBUSTIVEIS } from '../dados';
+import { COMBUSTIVEIS, PICO_COMBUSTIVEL } from '../dados';
+import { fracaoFossil, repasse } from '../calc/combustivel';
 import { NOMES, VEICULOS, calcularCombustivel, efeitoTotal, graficoBomba, tanqueCheio } from '../simuladores/combustivel';
 import { ICONE_VEICULO, Selo } from '../icones';
 import { fonte } from '../fontes';
@@ -17,6 +18,12 @@ const linhas = COMBUSTIVEIS.map((c) => ({ ...c, r: calcularCombustivel(c) }));
 const diesel = linhas.find((l) => l.combustivel === 'diesel')!;
 const gasolina = linhas.find((l) => l.combustivel === 'gasolina')!;
 const total = efeitoTotal(COMBUSTIVEIS);
+// Pico de 2026 da gasolina: maior diferença nos relatórios da Abicom, com a mistura que valia na data.
+const picos = PICO_COMBUSTIVEL.map((p) => {
+  const aumento = repasse(p.defasagem, fracaoFossil(p.teorBio));
+  return { ...p, aumento, tanque50: 50 * aumento, dataTexto: dataPorExtenso(p.data).replace(/ de \d{4}$/, '') };
+});
+const picoGasolina = picos.find((p) => p.combustivel === 'gasolina');
 const veiculos = VEICULOS.map((v) => {
   const l = linhas.find((x) => x.combustivel === v.combustivel)!;
   return { ...v, linha: l, t: tanqueCheio(l, v.litrosExemplo) };
@@ -57,6 +64,14 @@ const compartilhar = JSON.stringify({
     </p>
     <div class="hero__numero" data-numero>
       <Stat surface="red" value={`+${reais(diesel.r.aumento)}`} label="no litro do diesel" />
+      {
+        picoGasolina && (
+          <p class="cp-text-body-small">
+            No pico de 2026, em {picoGasolina.dataTexto}, a gasolina subiria <strong class="destaque">{reais(picoGasolina.aumento)}</strong>
+            por litro <Fonte id={picoGasolina.fontes.defasagem} /> <span class="junto"><Fonte id={picoGasolina.fontes.teor} />.</span>
+          </p>
+        )
+      }
       <p class="cp-text-body-small">
         Diferença para o preço de importação nos polos da Petrobras em {dataAbicom} <Fonte id={fonteAbicom} />, só na parte de petróleo do litro
         <Fonte id={diesel.fontes.teor} /> <span class="junto"><Fonte id={gasolina.fontes.teor} />.</span>
@@ -112,6 +127,22 @@ const compartilhar = JSON.stringify({
           ))
         }
       </div>
+      {
+        picos.map((p) => (
+          <div class="cartao conta__pico" data-numero>
+            <h3 class="cp-text-h3">Pico de 2026: {NOMES[p.combustivel].toLowerCase()} em {p.dataTexto}</h3>
+            <p class="cp-text-body-large resultado__frase">
+              Nos polos da Petrobras, a diferença para o preço de importação chegou a {reais(p.defasagem)} por litro
+              <span class="junto"><Fonte id={p.fontes.defasagem} />.</span> Com a mistura de {pct(p.teorBio, 0)} de etanol da época
+              <span class="junto"><Fonte id={p.fontes.teor} />,</span> o PPI daria <strong>{reais(p.aumento)} a mais por litro</strong> na
+              bomba: {reais(p.tanque50)} a mais num tanque de 50 litros.
+            </p>
+            <p class="cp-text-body-small ajuda">
+              É o maior valor dos relatórios diários da Abicom em 2026. A diferença muda todo dia com o preço do petróleo e o dólar.
+            </p>
+          </div>
+        ))
+      }
       <div class="cartao conta__total" data-numero>
         <p class="cp-text-body-large resultado__frase">
           Só a gasolina e o diesel somariam <span class="junto">+{ppx(total)}</span> à inflação do mês, sem contar o efeito no

@@ -468,6 +468,32 @@
       "usado_em": [
         "/carrinho"
       ]
+    },
+    {
+      "id": "abicom-ppi-2026-05-19",
+      "titulo": "Abicom — relatório de defasagem do PPI de 19/05/2026 (pico de 2026 da gasolina nos polos da Petrobras)",
+      "orgao": "Abicom",
+      "url": "https://abicom.com.br/ppi/ppi-19-05-2026/",
+      "url_arquivo": null,
+      "data_publicacao": "2026-05-19",
+      "data_coleta": "2026-10-15",
+      "valor_usado": "Polos da Petrobras: gasolina −R$ 2,22/L (−88%), o maior valor dos relatórios de 2026 (também em 05/05 e 18/05); diesel −R$ 1,76/L",
+      "usado_em": [
+        "/combustivel"
+      ]
+    },
+    {
+      "id": "cnpe-res-9-2025-e30",
+      "titulo": "Resolução CNPE nº 9, de 25 de junho de 2025 — 30% de etanol anidro na gasolina comum",
+      "orgao": "Diário Oficial",
+      "url": "https://www.gov.br/mme/pt-br/assuntos/conselhos-e-comites/cnpe/resolucoes-do-cnpe/2025/ResoluoCNPE9publicada.pdf",
+      "url_arquivo": "http://web.archive.org/web/20260413084536/https://www.gov.br/mme/pt-br/assuntos/conselhos-e-comites/cnpe/resolucoes-do-cnpe/2025/ResoluoCNPE9publicada.pdf",
+      "data_publicacao": "2025-07-02",
+      "data_coleta": "2026-10-15",
+      "valor_usado": "30% de etanol anidro na gasolina comum a partir de 1º de agosto de 2025 (em vigor em maio de 2026)",
+      "usado_em": [
+        "/combustivel"
+      ]
     }
   ]
 }

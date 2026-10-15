@@ -8,6 +8,7 @@ import subitensCsv from '../data/ipca-subitens.csv?raw';
 import ipcaAlimentacaoCsv from '../data/ipca-alimentacao.csv?raw';
 import cestaCapitaisCsv from '../data/cesta-capitais.csv?raw';
 import combustivelCsv from '../data/combustivel.csv?raw';
+import combustivelPicoCsv from '../data/combustivel-pico.csv?raw';
 import { lerCsv } from './calc/csv';
 import { acumular } from './calc/cesta';
 import { cenarioPorAno } from './calc/salarioMinimo';
@@ -122,6 +123,15 @@ export const COMBUSTIVEIS = lerCsv(combustivelCsv).map((l) => ({
   preco: Number(l.preco_bomba_rs_l),
   peso: Number(l.peso_ipca_pct),
   fontes: { defasagem: l.fonte_defasagem!, teor: l.fonte_teor!, preco: l.fonte_preco!, peso: l.fonte_peso! },
+}));
+
+/** Maior diferença do ano nos relatórios da Abicom (polos da Petrobras), com a mistura que valia na data. */
+export const PICO_COMBUSTIVEL = lerCsv(combustivelPicoCsv).map((l) => ({
+  combustivel: l.combustivel as 'gasolina' | 'diesel',
+  data: l.data!,
+  defasagem: Number(l.defasagem_rs_l),
+  teorBio: Number(l.teor_bio_pct),
+  fontes: { defasagem: l.fonte_defasagem!, teor: l.fonte_teor! },
 }));
 
 export const DADOS_CESTA: DadosCesta = {
