@@ -9,7 +9,7 @@ import { ESTADO_PADRAO_CESTA, frasesCesta } from '../../simuladores/cesta';
 import { calcularCombustivel } from '../../simuladores/combustivel';
 import { ESTADO_PADRAO, calcularSalario } from '../../simuladores/salario';
 import { estadoPadraoBeneficio, frasesBeneficio } from '../../simuladores/beneficio';
-import { pct, reais } from '../../formato';
+import { reais } from '../../formato';
 import { PAGINAS, SITE } from '../../site';
 
 interface Conteudo {
@@ -47,8 +47,8 @@ const CONTEUDO: Record<string, Conteudo> = {
     fonte: 'Fontes: Abicom, ANP, CNPE e IBGE',
   },
   'aposentadoria-bpc': {
-    numero: b.total,
-    texto: `a menos de ${DADOS_BENEFICIO.anoAtual + 1} a ${DADOS_BENEFICIO.ateAno} para quem recebe o piso, se o benefício deixasse de seguir o mínimo (ganho real de ${pct(DADOS_BENEFICIO.ganhoMin, 1)} ao ano)`,
+    numero: `−${b.retroPorMes}`,
+    texto: `por mês no BPC se ele tivesse sido desvinculado do salário mínimo em ${DADOS_BENEFICIO.anoBase + 1}: ${b.hoje} hoje, e não ${reais(DADOS_BENEFICIO.piso)}`,
     fonte: 'Fontes: Diário Oficial e IBGE',
   },
 };

@@ -2,7 +2,7 @@
 import { FaqItem, Link } from '@boralula/ui';
 import Base from '../layouts/Base.astro';
 import { Fonte } from '../components/Fonte';
-import { CENARIO_SM, CESTA, COMBUSTIVEIS, DADOS_BENEFICIO, MINIMO_ATUAL } from '../dados';
+import { CENARIO_SM, CESTA, COMBUSTIVEIS, DADOS_BENEFICIO, INPC_ANUAL, MINIMO_ATUAL } from '../dados';
 import { pct, reais } from '../formato';
 import { PAGINAS } from '../site';
 
@@ -20,7 +20,7 @@ const perguntas = [
   },
   {
     q: 'Como calculamos a perda da aposentadoria e do BPC?',
-    a: `Na projeção de ${d.anoAtual + 1} a ${d.ateAno}, o mínimo sobe pela inflação mais um ganho real entre ${pct(d.ganhoMin, 1)} e ${pct(d.ganhoMax, 1)} ao ano, os limites da lei. O benefício desvinculado sobe só pela inflação. A perda percentual é 1 − 1/(1 + ganho real)^anos. Os valores estão em reais de hoje.`,
+    a: `Desvinculado, o benefício parte do mínimo de dezembro de ${d.anoBase} e, a cada janeiro, sobe só pelo INPC do ano anterior (${INPC_ANUAL.map((i) => pct(i.pct)).join(', ')}), arredondado ao centavo. A perda é a diferença para o mínimo pago de verdade. O BPC tem 12 pagamentos por ano; a aposentadoria tem também o 13º. Na projeção até ${d.ateAno}, o mínimo sobe pela inflação mais um ganho real entre ${pct(d.ganhoMin, 1)} e ${pct(d.ganhoMax, 1)} ao ano, em reais de hoje.`,
   },
   {
     q: 'Como calculamos a cesta básica no ritmo de Bolsonaro?',
@@ -74,16 +74,22 @@ const jsonLd = [
       <FaqItem question={perguntas[1].q}>
         <ol class="passos" data-numero>
           <li>
-            Hoje, o piso (aposentadoria de 1 salário mínimo e BPC) acompanha o mínimo <Fonte id="cf-1988-piso-beneficios" />.
+            Hoje, o piso (BPC e aposentadoria de 1 salário mínimo) acompanha o mínimo <Fonte id="cf-1988-piso-beneficios" />.
             Benefícios acima do piso são corrigidos só pelo INPC <Fonte id="lei-8213-art-41a-inpc" />.
           </li>
           <li>
-            Projeção: o mínimo sobe pela inflação mais um ganho real entre {pct(d.ganhoMin, 1)} e {pct(d.ganhoMax, 1)} ao ano
-            <Fonte id="lc-200-2023-ganho-real" />, regra válida até {d.ateAno} <Fonte id="lei-15077-2024-ganho-real-sm" />.
+            Desvinculado desde {d.anoBase + 1}: o benefício parte do mínimo de dezembro de {d.anoBase} e, a cada janeiro, sobe pelo
+            INPC acumulado no ano anterior <Fonte id={INPC_ANUAL[0].fonte} />, arredondado ao centavo.
           </li>
-          <li>Benefício desvinculado: sobe só pela inflação. Em reais de hoje, fica igual; a inflação entra dos dois lados e se cancela.</li>
-          <li>Perda por mês = piso ligado ao mínimo − benefício (quando o piso passa do benefício). Por ano: 12 pagamentos e o 13º.</li>
-          <li>Perda percentual de quem recebe o piso = 1 − 1/(1 + ganho real)^anos.</li>
+          <li>
+            Perda = mínimo pago de verdade <Fonte id={MINIMO_ATUAL.fonte} /> − benefício desvinculado, mês a mês. O BPC tem 12
+            pagamentos por ano; a aposentadoria tem também o 13º, pelo valor de dezembro.
+          </li>
+          <li>
+            Projeção: o mínimo sobe pela inflação mais um ganho real entre {pct(d.ganhoMin, 1)} e {pct(d.ganhoMax, 1)} ao ano
+            <Fonte id="lc-200-2023-ganho-real" />, regra válida até {d.ateAno} <Fonte id="lei-15077-2024-ganho-real-sm" />. O
+            benefício desvinculado fica igual em reais de hoje. Perda percentual = 1 − 1/(1 + ganho real)^anos.
+          </li>
         </ol>
         <p><Link href={PAGINAS.aposentadoriaBpc.path}>Abrir o simulador</Link></p>
       </FaqItem>

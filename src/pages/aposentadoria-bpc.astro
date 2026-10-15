@@ -1,68 +1,140 @@
 ---
-import { Callout, Link, TextField } from '@boralula/ui';
+import { Callout, Link, SegmentedButton } from '@boralula/ui';
 import Base from '../layouts/Base.astro';
 import LinksSimulador from '../components/LinksSimulador.astro';
 import { Fonte } from '../components/Fonte';
 import { Resultados } from '../components/Resultados';
 import { BarraCompartilhar } from '../components/BarraCompartilhar';
-import { CENARIO_SM, DADOS_BENEFICIO, MINIMO_ATUAL, PARAMETROS } from '../dados';
-import { estadoPadraoBeneficio, frasesBeneficio, graficoBeneficio, linhasProjecao } from '../simuladores/beneficio';
+import { DADOS_BENEFICIO, INPC_ANUAL, MINIMO_ATUAL, PARAMETROS, SALARIO_MINIMO } from '../dados';
+import { valorNoMes } from '../calc/salarioMinimo';
+import {
+  estadoPadraoBeneficio,
+  frasesBeneficio,
+  graficoProjecao,
+  graficoRetro,
+  linhasProjecao,
+  linhasRetro,
+} from '../simuladores/beneficio';
 import { pct, reais } from '../formato';
 import { PAGINAS } from '../site';
 
-const pagina = PAGINAS.aposentadoriaBpc;
-const url = new URL(pagina.path, Astro.site).href;
+const url = new URL(PAGINAS.aposentadoriaBpc.path, Astro.site).href;
 const d = DADOS_BENEFICIO;
 const e = estadoPadraoBeneficio(d);
 const f = frasesBeneficio(d, e);
-const inpcFinal = CENARIO_SM.inpc[CENARIO_SM.inpc.length - 1];
+const fonteInpc = INPC_ANUAL[0].fonte;
+const fonteHoje = MINIMO_ATUAL.fonte;
+// Ponto de partida: mínimo de dezembro do ano-base e o ato que o fixou.
+const valorBase = valorNoMes(d.real, d.anoBase, 12);
+const fonteValorBase = SALARIO_MINIMO.filter((v) => v.inicio <= `${d.anoBase}-12-01`).at(-1)!.fonte;
 const fonteGanho = PARAMETROS.ganho_real_min_pct.fonte;
 const fontePeriodo = PARAMETROS.ganho_real_ate_ano.fonte;
-const ancoraCartao = new URL(`${PAGINAS.fontes.path}#${fonteGanho}`, Astro.site);
-const dados = JSON.stringify({
-  dados: d,
-  urlFontes: ancoraCartao.host + ancoraCartao.pathname + ancoraCartao.hash,
-}).replace(/</g, '\\u003c');
-const anos = `${d.anoAtual + 1} a ${d.ateAno}`;
+const periodo = `${d.anoBase + 1} a ${d.anoAtual}`;
+const futuro = `${d.anoAtual + 1} a ${d.ateAno}`;
+const ancora = new URL(`${PAGINAS.fontes.path}#${fonteInpc}`, Astro.site);
+const dados = JSON.stringify({ dados: d, urlFontes: ancora.host + ancora.pathname + ancora.hash }).replace(/</g, '\\u003c');
 ---
 
 <Base
   id="aposentadoriaBpc"
   selo="Simulador"
-  imagem={{ src: '/og/aposentadoria-bpc.png', alt: `Quem recebe o piso perderia ${f.total} de ${anos} se o benefício deixasse de seguir o mínimo.` }}
+  imagem={{ src: '/og/aposentadoria-bpc.png', alt: `Se o BPC tivesse sido desvinculado do mínimo em ${d.anoBase + 1}, hoje seria ${f.hoje}, e não ${reais(d.piso)}.` }}
 >
-  <Fragment slot="lead">
-    <p class="hero__lead cp-text-body-large">
-      Hoje, o piso do INSS e o BPC seguem o salário mínimo de {reais(d.piso)} <Fonte id={MINIMO_ATUAL.fonte} />. Se passassem a
-      subir só pela inflação, quem recebe o piso perderia <strong class="destaque">{f.porMesFinal}</strong> por mês em {d.ateAno},
-      com o menor ganho real previsto em lei para o mínimo <span class="junto">({pct(d.ganhoMin, 1)} ao ano) <Fonte id={fonteGanho} />.</span>
-    </p>
-  </Fragment>
+  <p slot="lead" class="hero__lead cp-text-body-large">
+    Hoje, o BPC e a aposentadoria de 1 salário mínimo sobem junto com o mínimo
+    <span class="junto"><Fonte id="cf-1988-piso-beneficios" />.</span> Veja quanto valeriam se tivessem sido desvinculados dele e
+    subissem só pela inflação.
+  </p>
 
   <section class="secao" aria-label="O que foi noticiado">
     <div class="cp-container">
       <Callout title="E se a proposta estudada pela equipe de Flávio fosse aprovada?" headingLevel={2}>
         A Folha de S.Paulo noticiou em 7 de outubro de 2026 que a equipe do programa econômico de Flávio Bolsonaro estuda
         desvincular o reajuste da Previdência e do BPC dos ganhos reais do salário mínimo <Fonte id="folha-2026-10-07-plano-flavio" />.
-        Em 8 de outubro, o candidato negou que vá fazer isso <Fonte id="poder360-2026-10-08-flavio-nega" />. A conta abaixo mostra o
+        Em 8 de outubro, o candidato negou que vá fazer isso <Fonte id="poder360-2026-10-08-flavio-nega" />. As contas abaixo mostram o
         efeito se a proposta fosse aprovada.
       </Callout>
     </div>
   </section>
 
-  <section class="secao secao--cinza" aria-labelledby="calcule">
+  <section class="secao secao--cinza" aria-labelledby="ultimos-anos">
     <div class="cp-container simulador">
-      <form class="cartao simulador__form so-com-js" id="form-simulador">
-        <h2 id="calcule" class="cp-text-h2">Calcule a sua perda</h2>
-        <TextField
-          id="valor"
-          label="Quanto você recebe por mês? (R$)"
-          inputMode="decimal"
-          autoComplete="off"
-          defaultValue={reais(d.piso).replace(/^R\$\s/, '')}
-          helperText="Valor bruto do benefício. O BPC é sempre igual ao piso."
+      <form class="cartao simulador__form" id="form-simulador" data-numero>
+        <h2 id="ultimos-anos" class="cp-text-h2">E se a desvinculação fosse em {d.anoBase + 1}?</h2>
+        <p>
+          O benefício partiria de {reais(valorBase)} em {d.anoBase} <Fonte id={fonteValorBase} /> e, a cada janeiro, subiria só pela
+          inflação do ano anterior (INPC) <Fonte id={fonteInpc} />, como já acontece com quem ganha acima do piso
+          <span class="junto"><Fonte id="lei-8213-art-41a-inpc" />.</span>
+        </p>
+        <fieldset class="campo-grupo so-com-js" data-segmentado="tipo">
+          <legend class="cp-text-title">Qual benefício?</legend>
+          <SegmentedButton
+            label="Benefício"
+            value="bpc"
+            onChange={() => {}}
+            options={[
+              { value: 'bpc', label: 'BPC' },
+              { value: 'aposentadoria', label: 'Aposentadoria' },
+            ]}
+          />
+          <p class="cp-text-body-small ajuda"><span data-saida="pagamentos">{f.pagamentos}</span> <Fonte id="decreto-6214-2007-bpc-sem-abono" /></p>
+        </fieldset>
+      </form>
+
+      <div class="cartao simulador__resultado" data-numero>
+        <p class="cp-text-body-large resultado__frase" aria-live="polite" data-saida="retro">{f.retro}</p>
+        <Resultados
+          itens={[
+            { saida: 'hoje', valor: f.hoje, rotulo: `seria o benefício em ${d.anoAtual}, e não ${reais(d.piso)}` },
+            { saida: 'retroPorMes', valor: `−${f.retroPorMes}`, rotulo: 'por mês' },
+            { saida: 'retroTotal', valor: `−${f.retroTotal}`, rotulo: `de ${periodo}` },
+          ]}
         />
-        <fieldset class="campo-grupo" data-numero>
+        <p class="cp-text-body-small">
+          Mínimo de hoje <Fonte id={fonteHoje} /> e INPC de cada ano <span class="junto"><Fonte id={fonteInpc} />.</span>
+          <Link href={PAGINAS.comoCalculamos.path}>Veja como calculamos</Link>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="secao" aria-labelledby="ano-a-ano">
+    <div class="cp-container">
+      <figure class="grafico-cartao" data-numero>
+        <figcaption>
+          <h2 id="ano-a-ano" class="cp-text-h2">Ano a ano, de {periodo}</h2>
+          <ul class="legenda" aria-hidden="true">
+            <li><span class="legenda__cor legenda__cor--real"></span>Ligado ao mínimo (o que foi pago)</li>
+            <li><span class="legenda__cor legenda__cor--cenario"></span>Desvinculado (só inflação)</li>
+          </ul>
+        </figcaption>
+        <div class="grafico-area" data-grafico="retro" set:html={graficoRetro(d, e)} />
+        <p class="cp-text-body-small">
+          Valor mensal em dezembro de cada ano. Mínimo <Fonte id={fonteHoje} /> e <span class="junto">INPC <Fonte id={fonteInpc} />.</span>
+        </p>
+        <details class="tabela-detalhes">
+          <summary>Ver os números</summary>
+          <div class="tabela-rolagem">
+            <table class="tabela">
+              <caption class="cp-visually-hidden">Benefício ligado ao mínimo e desvinculado, e perda em cada ano</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Ano</th><th scope="col">Ligado ao mínimo</th><th scope="col">Desvinculado</th><th scope="col">Perda por mês</th><th scope="col">Perda no ano</th>
+                </tr>
+              </thead>
+              <tbody data-linhas="retro" set:html={linhasRetro(d, e)} />
+            </table>
+          </div>
+        </details>
+      </figure>
+    </div>
+  </section>
+
+  <section class="secao secao--cinza" aria-labelledby="daqui-para-frente">
+    <div class="cp-container">
+      <div class="cartao" data-numero>
+        <h2 id="daqui-para-frente" class="cp-text-h2">E daqui para a frente, de {futuro}?</h2>
+        <fieldset class="campo-grupo so-com-js">
           <legend id="ganho-rotulo" class="cp-text-title">Ganho real do salário mínimo por ano</legend>
           <div class="faixa">
             <input
@@ -79,82 +151,40 @@ const anos = `${d.anoAtual + 1} a ${d.ateAno}`;
           </div>
           <p id="ganho-ajuda" class="cp-text-body-small ajuda">
             Pela lei, o ganho real do mínimo fica entre {pct(d.ganhoMin, 1)} e {pct(d.ganhoMax, 1)} ao ano
-            <Fonte id={fonteGanho} />, regra válida até {d.ateAno} <Fonte id={fontePeriodo} />.
+            <Fonte id={fonteGanho} />, regra válida até {d.ateAno} <span class="junto"><Fonte id={fontePeriodo} />.</span>
           </p>
         </fieldset>
-      </form>
-
-      <div class="cartao simulador__resultado" data-numero>
-        <h2 class="cp-text-h2 so-sem-js">Resultado para quem recebe o piso</h2>
         <p class="cp-text-body-large resultado__frase" aria-live="polite" data-saida="futuro">{f.futuro}</p>
         <Resultados
           itens={[
-            { saida: 'porMesFinal', valor: f.porMesFinal, rotulo: `a menos por mês em ${d.ateAno}` },
-            { saida: 'total', valor: f.total, rotulo: `a menos de ${anos}, com o 13º` },
+            { saida: 'porMesFinal', valor: `−${f.porMesFinal}`, rotulo: `por mês em ${d.ateAno}` },
+            { saida: 'total', valor: `−${f.total}`, rotulo: `de ${futuro}` },
             { saida: 'perdaPct', valor: f.perdaPct, rotulo: `menor em ${d.ateAno}` },
           ]}
         />
+        <div class="grafico-area" data-grafico="projecao" set:html={graficoProjecao(d, e)} />
         <p class="cp-text-body-small">
-          Piso de hoje <Fonte id={MINIMO_ATUAL.fonte} />, limites de ganho real <Fonte id={fonteGanho} />. Valores em reais de hoje.
-          <Link href={PAGINAS.comoCalculamos.path}>Veja como calculamos</Link>
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <section class="secao" aria-labelledby="ano-a-ano">
-    <div class="cp-container">
-      <figure class="grafico-cartao" data-numero>
-        <figcaption>
-          <h2 id="ano-a-ano" class="cp-text-h2">Mês a mês, de {anos}</h2>
-          <ul class="legenda" aria-hidden="true">
-            <li><span class="legenda__cor legenda__cor--real"></span>Ligado ao mínimo (regra de hoje)</li>
-            <li><span class="legenda__cor legenda__cor--cenario"></span>Só inflação</li>
-          </ul>
-        </figcaption>
-        <div class="grafico-area" data-grafico set:html={graficoBeneficio(d, e)} />
-        <p class="cp-text-body-small">
-          Valor mensal em cada ano, em reais de hoje. Ganho real de <span data-saida="ganho">{pct(e.ganho, 1)}</span> <span class="junto">ao ano <Fonte id={fonteGanho} />.</span>
+          Em reais de hoje: a inflação futura entra dos dois lados e se cancela. Piso de hoje <Fonte id={fonteHoje} />.
         </p>
         <details class="tabela-detalhes">
           <summary>Ver os números</summary>
           <div class="tabela-rolagem">
             <table class="tabela">
-              <caption class="cp-visually-hidden">Benefício por mês e perda em cada ano, em reais de hoje</caption>
+              <caption class="cp-visually-hidden">Projeção do benefício e perda em cada ano, em reais de hoje</caption>
               <thead>
                 <tr>
-                  <th scope="col">Ano</th><th scope="col">Ligado ao mínimo</th><th scope="col">Só inflação</th><th scope="col">Perda por mês</th><th scope="col">Perda no ano</th>
+                  <th scope="col">Ano</th><th scope="col">Ligado ao mínimo</th><th scope="col">Desvinculado</th><th scope="col">Perda por mês</th><th scope="col">Perda no ano</th>
                 </tr>
               </thead>
-              <tbody data-linhas set:html={linhasProjecao(d, e)} />
+              <tbody data-linhas="projecao" set:html={linhasProjecao(d, e)} />
             </table>
           </div>
         </details>
-      </figure>
-    </div>
-  </section>
-
-  <section class="secao secao--cinza" aria-labelledby="retro">
-    <div class="cp-container">
-      <div class="cartao" data-numero>
-        <h2 id="retro" class="cp-text-h2">E se a regra do governo Bolsonaro tivesse continuado?</h2>
-        <p class="cp-text-body-large" data-saida="retro">{f.retro}</p>
-        <Resultados
-          itens={[
-            { saida: 'retroPorMes', valor: f.retroPorMes, rotulo: `a menos por mês em ${d.anoAtual}` },
-            { saida: 'retroAcumulada', valor: f.retroAcumulada, rotulo: `a menos de ${CENARIO_SM.anoBase} a ${d.anoAtual}` },
-          ]}
-        />
-        <p class="cp-text-body-small">
-          Mesma conta do simulador do salário mínimo <Fonte id={MINIMO_ATUAL.fonte} /> <Fonte id={inpcFinal.fonte} />.
-          <Link href={PAGINAS.salarioMinimo.path}>Ver a conta completa</Link>
-        </p>
       </div>
     </div>
   </section>
 
-
-  <div class="cp-container secao secao--fim">
+  <div class="cp-container secao">
     <LinksSimulador atual="aposentadoriaBpc" />
   </div>
 

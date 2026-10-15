@@ -2,6 +2,7 @@
 import salarioMinimoCsv from '../data/salario-minimo.csv?raw';
 import inpcCsv from '../data/inpc.csv?raw';
 import parametrosCsv from '../data/parametros.csv?raw';
+import inpcAnualCsv from '../data/inpc-anual.csv?raw';
 import ipcaAlimentacaoCsv from '../data/ipca-alimentacao.csv?raw';
 import cestaCapitaisCsv from '../data/cesta-capitais.csv?raw';
 import combustivelCsv from '../data/combustivel.csv?raw';
@@ -131,8 +132,18 @@ export const DADOS_CESTA: DadosCesta = {
   ],
 };
 
+// Simulador 4: INPC acumulado no ano, aplicado aos benefícios em janeiro do ano seguinte.
+export const INPC_ANUAL = lerCsv(inpcAnualCsv).map((l) => ({
+  ano: Number(l.ano),
+  pct: Number(l.variacao_pct),
+  aplicadoEm: Number(l.aplicado_em),
+  fonte: l.fonte!,
+}));
+
 export const DADOS_BENEFICIO: DadosBeneficio = {
-  salario: DADOS_SALARIO,
+  real: DADOS_SALARIO.real,
+  anoBase: Math.min(...INPC_ANUAL.map((i) => i.aplicadoEm)) - 1,
+  inpcPorAno: Object.fromEntries(INPC_ANUAL.map((i) => [i.aplicadoEm, i.pct])),
   piso: MINIMO_ATUAL.valor,
   anoAtual: Number(MINIMO_ATUAL.inicio.slice(0, 4)),
   ateAno: parametro('ganho_real_ate_ano').valor,

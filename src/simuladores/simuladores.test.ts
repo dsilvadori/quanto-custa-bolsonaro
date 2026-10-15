@@ -1,5 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { DADOS_BENEFICIO, DADOS_SALARIO } from '../dados';
+import { PAGINAS } from '../site';
+import { calcularBeneficio } from './beneficio';
 import { ESTADO_PADRAO, frasesSalario, graficoSalario } from './salario';
 import { estadoPadraoBeneficio, frasesBeneficio } from './beneficio';
 
@@ -26,27 +28,42 @@ describe('Simulador 1 com os dados de /data', () => {
 describe('Simulador 4 com os dados de /data', () => {
   const padrao = estadoPadraoBeneficio(DADOS_BENEFICIO);
 
-  it('padrão: piso de hoje e ganho real mínimo da lei', () => {
-    expect(padrao).toEqual({ valor: 1621, ganho: 0.6 });
+  it('padrão: BPC e ganho real mínimo da lei', () => {
+    expect(padrao).toEqual({ tipo: 'bpc', ganho: 0.6 });
+    expect(DADOS_BENEFICIO.anoBase).toBe(2022);
   });
 
-  it('retrospectivo do piso igual ao Simulador 1', () => {
-    expect(frasesBeneficio(DADOS_BENEFICIO, padrao).retroPorMes).toBe('R$\u00a0145');
+  it('BPC desvinculado desde 2023: R$ 1.449,42 hoje, R$ 171,58 a menos por mês', () => {
+    const f = frasesBeneficio(DADOS_BENEFICIO, padrao);
+    expect(f.hoje).toBe('R$\u00a01.449,42');
+    expect(f.retroPorMes).toBe('R$\u00a0171,58');
+    expect(f.retroTotal).toBe('R$\u00a04.862,40');
+    expect(f.retro).toMatch(/^Se o BPC tivesse sido desvinculado do salário mínimo em 2023/);
   });
 
-  it('benefício acima do piso: sem perda retroativa', () => {
-    const f = frasesBeneficio(DADOS_BENEFICIO, { valor: 3000, ganho: 2.5 });
-    expect(f.retroPorMes).toBe('R$\u00a00');
-    expect(f.retro).toMatch(/acima do piso/);
-    expect(f.total).toBe('R$\u00a00');
+  it('a descrição de SEO usa os números do cálculo', () => {
+    const { retro } = calcularBeneficio(DADOS_BENEFICIO, padrao);
+    const ultimo = retro.anos[retro.anos.length - 1];
+    const inteiro = (v: number) => `R$ ${Math.floor(v).toLocaleString('pt-BR')}`;
+    expect(PAGINAS.aposentadoriaBpc.descricao).toContain(`hoje seria ${inteiro(ultimo.desvinculado)}, e não ${inteiro(ultimo.real)}`);
   });
 
-  it('piso com 2,5%: perda de 2030 e total batem com a fórmula', () => {
-    const f = frasesBeneficio(DADOS_BENEFICIO, { valor: 1621, ganho: 2.5 });
-    const mensal = (n: number) => 1621 * (1.025 ** n - 1);
-    expect(f.porMesFinal).toBe(`R$\u00a0${mensal(4).toFixed(2).replace('.', ',')}`);
-    const total = [1, 2, 3, 4].reduce((s, n) => s + 13 * mensal(n), 0);
-    expect(f.total).toBe(`R$\u00a0${total.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`);
-    expect(f.perdaPct).toBe('9,4%'); // 1 − 1/1,025^4
+  it('aposentadoria de 1 mínimo soma o 13º', () => {
+    expect(frasesBeneficio(DADOS_BENEFICIO, { tipo: 'aposentadoria', ganho: 0.6 }).retroTotal).toBe('R$\u00a05.273,60');
+  });
+
+  it('projeção com 2,5%: perda de 2030 e % batem com a fórmula', () => {
+    const f = frasesBeneficio(DADOS_BENEFICIO, { tipo: 'bpc', ganho: 2.5 });
+    expect(f.porMesFinal).toBe(`R$\u00a0${(1621 * (1.025 ** 4 - 1)).toFixed(2).replace('.', ',')}`);
+    expect(f.perdaPct).toBe('9,4%');
+  });
+});
+
+describe('Simulador 4: concordância', () => {
+  it('aposentadoria no feminino, BPC no masculino', () => {
+    const apos = frasesBeneficio(DADOS_BENEFICIO, { tipo: 'aposentadoria', ganho: 0.6 });
+    expect(apos.retro).toMatch(/aposentadoria de 1 salário mínimo tivesse sido desvinculada/);
+    expect(apos.futuro).toMatch(/^A aposentadoria de 1 salário mínimo desvinculada/);
+    expect(frasesBeneficio(DADOS_BENEFICIO, { tipo: 'bpc', ganho: 0.6 }).futuro).toMatch(/^O BPC desvinculado/);
   });
 });

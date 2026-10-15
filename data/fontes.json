@@ -389,6 +389,32 @@
       "usado_em": [
         "/combustivel"
       ]
+    },
+    {
+      "id": "inpc-anual-2022-2025",
+      "titulo": "INPC — variação acumulada no ano, de 2022 a 2025 (SIDRA, tabela 1736)",
+      "orgao": "IBGE",
+      "url": "https://apisidra.ibge.gov.br/values/t/1736/n1/all/v/68/p/202212,202312,202412,202512",
+      "url_arquivo": "https://web.archive.org/web/20261015203414/https://apisidra.ibge.gov.br/values/t/1736/n1/all/v/68/p/202212,202312,202412,202512",
+      "data_publicacao": null,
+      "data_coleta": "2026-10-15",
+      "valor_usado": "2022: 5,93%; 2023: 3,71%; 2024: 4,77%; 2025: 3,90%",
+      "usado_em": [
+        "/aposentadoria-bpc"
+      ]
+    },
+    {
+      "id": "decreto-6214-2007-bpc-sem-abono",
+      "titulo": "Decreto nº 6.214, de 26 de setembro de 2007, art. 22 — o BPC não gera direito a abono anual (13º)",
+      "orgao": "Diário Oficial",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2007/decreto/d6214.htm",
+      "url_arquivo": "https://web.archive.org/web/20261015203253/https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2007/decreto/d6214.htm",
+      "data_publicacao": "2007-09-28",
+      "data_coleta": "2026-10-15",
+      "valor_usado": "\"O Benefício de Prestação Continuada não está sujeito a desconto de qualquer contribuição e não gera direito ao pagamento de abono anual.\"",
+      "usado_em": [
+        "/aposentadoria-bpc"
+      ]
     }
   ]
 }

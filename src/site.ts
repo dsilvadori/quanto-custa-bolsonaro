@@ -68,7 +68,7 @@ export const PAGINAS: Record<PaginaId, Pagina> = {
     rotulo: 'Aposentadoria e BPC',
     titulo: 'Aposentadoria e BPC sem o mínimo: quanto você perderia?',
     descricao:
-      'Se o benefício subisse só pela inflação e o mínimo tivesse ganho real, quanto perderia quem recebe o piso do INSS ou o BPC até 2030?',
+      'Se o BPC tivesse sido desvinculado do salário mínimo em 2023, hoje seria R$ 1.449, e não R$ 1.621. Veja a conta ano a ano e a projeção até 2030.',
     atualizadoEm: '2026-10-15',
   },
   comoCalculamos: {
