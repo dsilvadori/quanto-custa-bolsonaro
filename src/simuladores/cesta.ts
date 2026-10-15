@@ -71,8 +71,8 @@ export function graficoCesta(d: DadosCesta, e: EstadoCesta): string {
   return barras({
     id: 'grafico-cesta',
     titulo: `Valor da cesta básica ${lugarTexto(d, e.capital)}`,
-    descricao: `Hoje: ${reais(r.hoje)}. No ritmo do governo Bolsonaro: ${reais(r.cenario)}.`,
-    categorias: ['Hoje', 'Ritmo de Bolsonaro'],
+    descricao: `Hoje: ${reais(r.hoje)}. Como no governo do Bolsonaro: ${reais(r.cenario)}.`,
+    categorias: ['Hoje', 'Governo do Bolsonaro'],
     series: [{ nome: 'Valor', cor: 'var(--cp-color-primary)', valores: [r.hoje, r.cenario] }],
     rotulo: (v) => `R$ ${numero(v)}`,
   });
@@ -80,7 +80,7 @@ export function graficoCesta(d: DadosCesta, e: EstadoCesta): string {
 
 export function frasesCesta(d: DadosCesta, e: EstadoCesta) {
   const r = calcularCesta(d, e);
-  const ritmoTexto = e.ritmo === '100' ? 'no ritmo do governo Bolsonaro' : `a ${e.ritmo}% do ritmo do governo Bolsonaro`;
+  const ritmoTexto = e.ritmo === '100' ? 'como no governo do Bolsonaro' : `a ${e.ritmo}% do ritmo do governo do Bolsonaro`;
   const lugar = lugarTexto(d, e.capital);
   return {
     hoje: reais(r.hoje),
@@ -108,7 +108,7 @@ export function graficoCapitais(d: DadosCesta, e: EstadoCesta): string {
     .sort((a, b) => b.r.porMes - a.r.porMes);
   return barrasH({
     id: 'grafico-capitais',
-    titulo: 'Quanto a cesta básica custaria a mais por mês em cada capital, no ritmo do governo Bolsonaro',
+    titulo: 'Quanto a cesta básica custaria a mais por mês em cada capital, como no governo do Bolsonaro',
     descricao: linhas.map(({ c, r }) => `${c.nome}: ${reais(r.porMes)} a mais`).join('; ') + '.',
     linhas: linhas.map(({ c, r }) => ({
       rotulo: c.nome,

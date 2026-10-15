@@ -23,12 +23,12 @@ const perguntas = [
     a: `Desvinculado, o benefício parte do mínimo de dezembro de ${d.anoBase} e, a cada janeiro, sobe só pelo INPC do ano anterior (${INPC_ANUAL.map((i) => pct(i.pct)).join(', ')}), arredondado ao centavo. A perda é a diferença para o mínimo pago de verdade. O BPC tem 12 pagamentos por ano; a aposentadoria tem também o 13º. Na projeção até ${d.ateAno}, o mínimo sobe pela inflação mais um ganho real entre ${pct(d.ganhoMin, 1)} e ${pct(d.ganhoMax, 1)} ao ano. Sem aumento real, o benefício compra sempre o mesmo; a perda de poder de compra, frente ao benefício ligado ao mínimo, é 1 − 1/(1 + ganho real)^anos, também medida em cestas básicas.`,
   },
   {
-    q: 'Como calculamos a cesta básica no ritmo de Bolsonaro?',
+    q: 'Como calculamos a cesta básica no governo do Bolsonaro?',
     a: `A comida no domicílio subiu ${pct(CESTA.bolsonaro.pct)} em ${CESTA.bolsonaro.meses} meses no governo Bolsonaro. Aplicamos esse ritmo mensal aos ${CESTA.atual.meses} meses do governo atual e dividimos pela alta real (${pct(CESTA.atual.pct)}). O resultado multiplica o valor de hoje da cesta, por capital ou na média simples das ${CESTA.capitais.length} capitais.`,
   },
   {
-    q: 'Como calculamos o carrinho de compras no ritmo de Bolsonaro?',
-    a: `Para cada produto, usamos o preço de hoje (DIEESE por capital; ANP para gás e gasolina) e a alta do subitem do IPCA no governo Bolsonaro (${DADOS_CARRINHO.mesesBolsonaro} meses) e no governo atual (${DADOS_CARRINHO.mesesAtual} meses). Preço no ritmo de Bolsonaro = preço de hoje × (1 + alta no governo Bolsonaro)^(${DADOS_CARRINHO.mesesAtual}/${DADOS_CARRINHO.mesesBolsonaro}) ÷ (1 + alta no governo atual). O total soma preço × quantidade de cada item.`,
+    q: 'Como calculamos o carrinho de compras no governo do Bolsonaro?',
+    a: `Para cada produto, usamos o preço de hoje (DIEESE por capital; ANP para o gás de botijão) e a alta do subitem do IPCA no governo Bolsonaro (${DADOS_CARRINHO.mesesBolsonaro} meses) e no governo atual (${DADOS_CARRINHO.mesesAtual} meses). Preço no governo do Bolsonaro = preço de hoje × (1 + alta no governo Bolsonaro)^(${DADOS_CARRINHO.mesesAtual}/${DADOS_CARRINHO.mesesBolsonaro}) ÷ (1 + alta no governo atual). O total soma preço × quantidade de cada item.`,
   },
   {
     q: 'Como calculamos o preço dos combustíveis com o PPI?',
@@ -112,9 +112,9 @@ const jsonLd = [
           <li>
             Alta no governo atual: {pct(CESTA.atual.pct)} em {CESTA.atual.meses} meses <Fonte id="ipca-alim-2023-2026" />.
           </li>
-          <li>Ritmo mensal de Bolsonaro = (1 + alta)^(1/{CESTA.bolsonaro.meses}) − 1. Aplicado por {CESTA.atual.meses} meses e dividido pela alta real.</li>
+          <li>Ritmo mensal do governo do Bolsonaro = (1 + alta)^(1/{CESTA.bolsonaro.meses}) − 1. Aplicado por {CESTA.atual.meses} meses e dividido pela alta real.</li>
           <li>
-            Cesta no ritmo de Bolsonaro = valor de hoje × esse fator. Valor de hoje: o da capital escolhida ou a média simples das
+            Cesta no governo do Bolsonaro = valor de hoje × esse fator. Valor de hoje: o da capital escolhida ou a média simples das
             {CESTA.capitais.length} capitais <Fonte id={CESTA.fonteValores} />.
           </li>
           <li>
@@ -129,14 +129,14 @@ const jsonLd = [
         <ol class="passos" data-numero>
           <li>
             Preço de hoje de cada alimento, por capital <Fonte id={CARRINHO.fontesPreco.find((id) => id.startsWith('dieese'))!} />. Gás de
-            botijão e gasolina: preço médio no Brasil <Fonte id={CARRINHO.fontesPreco.find((id) => id.startsWith('anp'))!} />.
+            botijão: preço médio no Brasil <Fonte id={CARRINHO.fontesPreco.find((id) => id.startsWith('anp'))!} />.
           </li>
           <li>
             Alta de cada produto no IPCA, pelo subitem correspondente, de 2019 a 2022 e de 2023 até o último mês publicado
             <Fonte id="ipca-subitens-2019" /> <Fonte id="ipca-subitens-2020-2026" />.
           </li>
           <li>
-            Preço no ritmo de Bolsonaro = preço de hoje × (1 + alta no governo Bolsonaro)^({DADOS_CARRINHO.mesesAtual}/{DADOS_CARRINHO.mesesBolsonaro})
+            Preço no governo do Bolsonaro = preço de hoje × (1 + alta no governo Bolsonaro)^({DADOS_CARRINHO.mesesAtual}/{DADOS_CARRINHO.mesesBolsonaro})
             ÷ (1 + alta no governo atual). Quando o produto subiu menos no governo Bolsonaro, o preço sai menor que o de hoje.
           </li>
           <li>Total = soma de preço × quantidade. Na média das capitais, cada produto usa a média simples das capitais que o pesquisam.</li>

@@ -7,7 +7,7 @@ export interface Produto {
   id: string;
   nome: string;
   unidade: string;
-  /** Preço no ritmo de Bolsonaro = preço de hoje × fator. */
+  /** Preço no governo do Bolsonaro = preço de hoje × fator. */
   fator: number;
   altaBolsonaro: number;
   altaAtual: number;
@@ -92,13 +92,13 @@ export function frasesCarrinho(d: DadosCarrinho, e: EstadoCarrinho) {
     resumo:
       r.itens === 0
         ? 'Seu carrinho está vazio. Toque em + para pôr produtos.'
-        : `${onde.charAt(0).toUpperCase()}${onde.slice(1)}, este carrinho custa ${reais(r.hoje)} hoje. No ritmo de preços do governo Bolsonaro, custaria ${reais(r.cenario)}: ${reais(Math.abs(r.diferenca))} ${mais ? 'a mais' : 'a menos'}.`,
+        : `${onde.charAt(0).toUpperCase()}${onde.slice(1)}, este carrinho custa ${reais(r.hoje)} hoje. Como no governo do Bolsonaro, custaria ${reais(r.cenario)}: ${reais(Math.abs(r.diferenca))} ${mais ? 'a mais' : 'a menos'}.`,
     whatsapp: (url: string) =>
-      `Montei um carrinho de compras ${onde}: ${reais(r.hoje)} hoje, ${reais(r.cenario)} no ritmo de preços do governo Bolsonaro. Monte o seu e veja as fontes: ${url}`,
+      `Montei um carrinho de compras ${onde}: ${reais(r.hoje)} hoje, ${reais(r.cenario)} como no governo do Bolsonaro. Monte o seu e veja as fontes: ${url}`,
     cartao: {
       numero: `${mais ? '+' : '−'}${reais(Math.abs(r.diferenca))}`,
       linha: `no carrinho de compras ${onde}`,
-      premissa: `Hoje ${reais(r.hoje)}; no ritmo de preços do governo Bolsonaro, ${reais(r.cenario)}. ${destaques.join('. ')}.`,
+      premissa: `Hoje ${reais(r.hoje)}; como no governo do Bolsonaro, ${reais(r.cenario)}. ${destaques.join('. ')}.`,
       fonte: 'Fontes: DIEESE, ANP e IBGE',
     },
   };
@@ -112,7 +112,7 @@ const NOME_CURTO: Record<string, string> = {
   gas: 'Gás de botijão',
 };
 
-/** Quanto cada produto mudaria de preço no ritmo de Bolsonaro, em %, do maior para o menor. */
+/** Quanto cada produto mudaria de preço no governo do Bolsonaro, em %, do maior para o menor. */
 export function graficoProdutos(d: DadosCarrinho): string {
   const linhas = [...d.produtos]
     .map((p) => ({ p, v: (p.fator - 1) * 100 }))
@@ -120,7 +120,7 @@ export function graficoProdutos(d: DadosCarrinho): string {
   const sinal = (v: number) => `${v >= 0 ? '+' : '−'}${Math.abs(v).toLocaleString('pt-BR', { maximumFractionDigits: 0 })}%`;
   return barrasH({
     id: 'grafico-produtos',
-    titulo: 'Quanto cada produto mudaria de preço no ritmo do governo Bolsonaro',
+    titulo: 'Quanto cada produto mudaria de preço como no governo do Bolsonaro',
     descricao: linhas.map(({ p, v }) => `${p.nome}: ${sinal(v)}`).join('; ') + '.',
     linhas: linhas.map(({ p, v }, i) => ({ rotulo: NOME_CURTO[p.id] ?? p.nome, valor: v, texto: sinal(v), destaque: i < 3 })),
   });

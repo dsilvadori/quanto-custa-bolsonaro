@@ -47,7 +47,7 @@ describe('Simulador 2 em reais', () => {
 
   it('texto padrão fala da média e do governo Bolsonaro', () => {
     expect(frasesCesta(DADOS_CESTA, ESTADO_PADRAO_CESTA).resumo).toMatch(
-      /^Se a comida subisse no ritmo do governo Bolsonaro, a cesta básica custaria R\$ [\d.,]+ na média das 27 capitais/,
+      /^Se a comida subisse como no governo do Bolsonaro, a cesta básica custaria R\$ [\d.,]+ na média das 27 capitais/,
     );
   });
 

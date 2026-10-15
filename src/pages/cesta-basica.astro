@@ -23,12 +23,12 @@ const dados = JSON.stringify({ dados: d, urlFontes: ancora.host + ancora.pathnam
 <Base
   id="cestaBasica"
   selo="Simulador"
-  imagem={{ src: '/og/cesta-basica.png', alt: `A cesta básica custaria ${f.cenario} no ritmo do governo Bolsonaro, e não ${f.hoje}.` }}
+  imagem={{ src: '/og/cesta-basica.png', alt: `A cesta básica custaria ${f.cenario} como no governo do Bolsonaro, e não ${f.hoje}.` }}
 >
   <Fragment slot="lead">
     <p class="hero__lead cp-text-body-large">
       Hoje, a cesta básica custa em média <span class="junto">{f.hoje} <Fonte id={CESTA.fonteValores} /></span> nas capitais. Se a
-      comida subisse no ritmo do governo Bolsonaro, custaria <strong class="destaque">{f.cenario}</strong>.
+      comida subisse como no governo do Bolsonaro, custaria <strong class="destaque">{f.cenario}</strong>.
     </p>
     <div class="hero__numero" data-numero>
       <Stat surface="red" value={`+${f.porMes}`} label="por mês na mesma cesta" />
@@ -73,7 +73,7 @@ const dados = JSON.stringify({ dados: d, urlFontes: ancora.host + ancora.pathnam
               { value: '50', label: '50%' },
             ]}
           />
-          <p class="cp-text-body-small ajuda">Parte do ritmo mensal de alta do governo Bolsonaro.</p>
+          <p class="cp-text-body-small ajuda">Parte do ritmo mensal de alta do governo do Bolsonaro.</p>
         </fieldset>
       </form>
 
@@ -81,7 +81,7 @@ const dados = JSON.stringify({ dados: d, urlFontes: ancora.host + ancora.pathnam
         <p class="cp-text-body-large resultado__frase" aria-live="polite" data-saida="resumo">{f.resumo}</p>
         <Resultados
           itens={[
-            { saida: 'cenario', valor: f.cenario, rotulo: 'a cesta no ritmo de Bolsonaro' },
+            { saida: 'cenario', valor: f.cenario, rotulo: 'a cesta no governo do Bolsonaro' },
             { saida: 'porMes', valor: `+${f.porMes}`, rotulo: 'a mais por mês' },
             { saida: 'porAno', valor: `+${f.porAno}`, rotulo: 'a mais em 12 meses' },
           ]}
@@ -102,7 +102,7 @@ const dados = JSON.stringify({ dados: d, urlFontes: ancora.host + ancora.pathnam
       <figure class="grafico-cartao" data-numero>
         <figcaption>
           <h2 id="capitais" class="cp-text-h2">Na sua capital</h2>
-          <p class="ajuda">Quanto a cesta custaria a mais por mês em cada capital, no ritmo de preços do governo Bolsonaro.</p>
+          <p class="ajuda">Quanto a cesta custaria a mais por mês em cada capital, como no governo do Bolsonaro.</p>
         </figcaption>
         <div class="grafico-area grafico-area--largo" data-grafico="capitais" set:html={graficoCapitais(d, e)} />
         <p class="cp-text-body-small">

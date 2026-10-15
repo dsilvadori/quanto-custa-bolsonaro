@@ -12,7 +12,7 @@ export function altasSubitem(periodos: { pct: number; governo: string; meses: nu
   };
 }
 
-/** Quanto o produto estaria mais caro (ou mais barato) se tivesse subido no ritmo do governo Bolsonaro. */
+/** Quanto o produto estaria mais caro (ou mais barato) se tivesse subido como no governo do Bolsonaro. */
 export function fatorProduto(a: ReturnType<typeof altasSubitem>): number {
   return fatorCesta({ ...a, ritmo: 1 });
 }
@@ -23,7 +23,7 @@ export interface ItemCarrinho {
   quantidade: number;
 }
 
-/** Totais do carrinho hoje e no ritmo de Bolsonaro. Itens sem preço não entram (ficam "em atualização"). */
+/** Totais do carrinho hoje e no governo do Bolsonaro. Itens sem preço não entram (ficam "em atualização"). */
 export function totalCarrinho(itens: ItemCarrinho[]) {
   const validos = itens.filter((i) => Number.isFinite(i.preco) && i.quantidade > 0);
   const hoje = validos.reduce((s, i) => s + i.preco * i.quantidade, 0);

@@ -201,25 +201,25 @@ Cada número do site precisa ter fonte acessível em no máximo 1 toque.
 
 ### Simulador 5 — Carrinho de compras
 - **Ideia:** a pessoa monta um carrinho de compras do dia a dia e vê, item a item e no
-  total, quanto ele custa hoje e quanto custaria se cada produto tivesse subido no ritmo
-  de preços do governo Bolsonaro.
-- **URL:** `/carrinho`. Title (≤ 60): "Quanto custaria o seu carrinho no ritmo de
+  total, quanto ele custa hoje e quanto custaria se cada produto tivesse subido como no
+  governo do Bolsonaro.
+- **URL:** `/carrinho`. Title (≤ 60): "Quanto custaria o seu carrinho no governo do
   Bolsonaro?".
 - **Produtos (v1):** os 13 itens da cesta do DIEESE (carne, leite, feijão, arroz,
   farinha, batata, tomate, pão, café, banana, açúcar, óleo e manteiga), mais gás de
-  botijão e gasolina. Cada produto com unidade de compra (ex.: arroz 5 kg, café 500 g,
-  gás 13 kg, gasolina 1 L).
+  botijão. Cada produto com unidade de compra (ex.: arroz 5 kg, café 500 g, gás 13 kg).
+  A gasolina fica só no Simulador 3.
 - **Preço de hoje:** fonte primária por produto. Alimentos: preço médio do DIEESE por
-  capital (padrão: média das 27 capitais). Gás de botijão e gasolina: preço médio da ANP
+  capital (padrão: média das 27 capitais). Gás de botijão: preço médio da ANP
   (pesquisa semanal mais recente).
-- **Preço no ritmo de Bolsonaro**, por produto, com o subitem do IPCA correspondente
+- **Preço como no governo do Bolsonaro**, por produto, com o subitem do IPCA correspondente
   (SIDRA 1419 para 2019 e 7060 de 2020 em diante):
   `preço_cenário = preço_hoje × (1 + B)^(n/48) ÷ (1 + L)`, em que B é a alta do subitem
   de jan/2019 a dez/2022 (48 meses), L é a alta do subitem de jan/2023 até o último mês
   publicado, e n é o número de meses desse período. Mesma lógica do Simulador 2, produto
   a produto.
 - **Interação (JS puro, sem framework):** botões − e + com alvo de 44 px, quantidade
-  visível, total do carrinho hoje × no ritmo de Bolsonaro, diferença em R$ e em %. Seletor
+  visível, total do carrinho hoje × no governo do Bolsonaro, diferença em R$ e em %. Seletor
   de capital (como no Simulador 2). Carrinho padrão = 1 unidade de cada alimento da
   cesta. URL guarda o carrinho (`?itens=arroz:2,cafe:1`) para compartilhar.
 - **Sem JS:** tabela com o carrinho padrão, preços de hoje e no ritmo de Bolsonaro,
@@ -231,7 +231,7 @@ Cada número do site precisa ter fonte acessível em no máximo 1 toque.
   `/data/ipca-subitens.csv` (`subitem_ipca`, `periodo`, `variacao_pct`, `governo`,
   `meses`, `fonte`).
 - **Compartilhar:** cartão 1080×1080 com os 3 ou 4 itens do carrinho que mais subiriam,
-  o total hoje × no ritmo de Bolsonaro e a premissa.
+  o total hoje × no governo do Bolsonaro e a premissa.
 - **Testes:** fator por produto igual ao do Simulador 2 quando B e L são os da
   alimentação no domicílio; total do carrinho = soma dos itens × quantidades; produto
   "em atualização" não entra no total.

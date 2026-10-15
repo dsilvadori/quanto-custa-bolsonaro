@@ -40,7 +40,7 @@ export function ListaCarrinho({ linhas, fonteSubitem }: { linhas: LinhaLista[]; 
               Hoje <span data-preco="">{preco(l.preco)}</span> <Fonte id={l.fontePreco} />
             </span>{' '}
             <span className="junto">
-              Ritmo de Bolsonaro <strong data-cenario="">{preco(l.cenario)}</strong> <Fonte id={fonteSubitem} />
+              Governo do Bolsonaro <strong data-cenario="">{preco(l.cenario)}</strong> <Fonte id={fonteSubitem} />
             </span>
           </p>
         </li>

@@ -438,7 +438,7 @@
       "url_arquivo": "https://web.archive.org/web/20261015224322/https://apisidra.ibge.gov.br/values/t/1419/n1/all/v/69/p/201912/c315/7173,12222,7191,7195,7202,7212,7221,7260,7283,12393,7367,7375,7385,7392,7482,7657",
       "data_publicacao": null,
       "data_coleta": "2026-10-15",
-      "valor_usado": "Variação de 2019 de arroz, feijão, farinhas, batata, tomate, açúcar, banana, carnes, leite, manteiga, pão, óleo, café, gás e gasolina (data/ipca-subitens.csv)",
+      "valor_usado": "Variação de 2019 de arroz, feijão, farinhas, batata, tomate, açúcar, banana, carnes, leite, manteiga, pão, óleo, café e gás de botijão (data/ipca-subitens.csv)",
       "usado_em": [
         "/carrinho"
       ]

@@ -40,12 +40,12 @@ const CONTEUDO: Record<string, Conteudo> = {
   },
   'cesta-basica': {
     numero: `+${c.porMes}`,
-    texto: `por mês na cesta básica se a comida subisse no ritmo do governo Bolsonaro (${c.cenario}, e não ${c.hoje})`,
+    texto: `por mês na cesta básica se a comida subisse como no governo do Bolsonaro (${c.cenario}, e não ${c.hoje})`,
     fonte: 'Fontes: IBGE e DIEESE',
   },
   carrinho: {
     numero: car.diferenca,
-    texto: `no carrinho de compras se cada preço subisse no ritmo do governo Bolsonaro (${car.cenario}, e não ${car.hoje})`,
+    texto: `no carrinho de compras se cada preço subisse como no governo do Bolsonaro (${car.cenario}, e não ${car.hoje})`,
     fonte: 'Fontes: DIEESE, ANP e IBGE',
   },
   combustivel: {

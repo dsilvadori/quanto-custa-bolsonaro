@@ -11,7 +11,7 @@ const DESCRICOES: Record<string, string> = {
   'parametros.csv': 'Limites do ganho real do salário mínimo previstos em lei.',
   'ipca-alimentacao.csv': 'Alta da alimentação no domicílio (IPCA) por ano e por governo.',
   'cesta-capitais.csv': 'Valor da cesta básica nas 27 capitais.',
-  'carrinho-produtos.csv': 'Preço de cada produto do carrinho por capital (DIEESE) e de gás e gasolina (ANP).',
+  'carrinho-produtos.csv': 'Preço de cada produto do carrinho por capital (DIEESE) e do gás de botijão (ANP).',
   'ipca-subitens.csv': 'Alta de cada produto do carrinho no IPCA, por ano e por governo.',
   'inpc-anual.csv': 'INPC acumulado em cada ano, usado para corrigir o benefício desvinculado.',
   'combustivel.csv': 'Diferença para o preço de importação, mistura, preço na bomba e peso no IPCA da gasolina e do diesel.',
