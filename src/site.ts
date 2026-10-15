@@ -7,8 +7,6 @@ export const SITE = {
   nomeCurto: 'Quanto custa',
   /** O site faz parte do Comitê Popular do Lula de Tecnologia. */
   comite: { nome: 'Comitê Popular do Lula de Tecnologia', url: 'https://comitedetecnologia.com.br/' },
-  // Lei 9.504/97, art. 57-D: responsável identificado. TODO: preencher.
-  responsavel: { nome: '[NOME]', documento: '[CPF/CNPJ]', contato: '[CONTATO]' },
 } as const;
 
 export type PaginaId =
@@ -103,7 +101,7 @@ export const PAGINAS: Record<PaginaId, Pagina> = {
     rotulo: 'Quem somos',
     titulo: 'Quem faz este site e como falar com a gente?',
     descricao:
-      'Quem é responsável pelo site, como entrar em contato e como pedir a correção de um dado.',
+      'Quem faz o site, do que ele trata e como pedir a correção de um dado.',
     atualizadoEm: '2026-10-15',
   },
 };

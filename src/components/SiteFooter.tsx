@@ -20,8 +20,7 @@ export function SiteFooter() {
         <Link href={SITE.comite.url} external>
           {SITE.comite.nome}
         </Link>
-        . Responsável: {SITE.responsavel.nome} · {SITE.responsavel.documento}.{' '}
-        <Link href={PAGINAS.quemSomos.path}>Saiba quem faz este site</Link>.
+        . <Link href={PAGINAS.quemSomos.path}>Saiba quem faz este site</Link>.
       </Footer>
     </div>
   );

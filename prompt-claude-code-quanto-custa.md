@@ -149,8 +149,9 @@ Cada número do site precisa ter fonte acessível em no máximo 1 toque.
 7. **Como calculamos** — fórmulas, premissas, contrapontos, registro público de
    correções
 8. **Fontes** — registro completo e downloads
-9. **Quem somos** — responsável identificado (a Lei 9.504/97, art. 57-D, veda
-   anonimato). Placeholders: [NOME], [CPF/CNPJ], [CONTATO].
+9. **Quem somos** — o site faz parte do Comitê Popular do Lula de Tecnologia
+   (https://comitedetecnologia.com.br/). Sem dados de responsável individual, por decisão
+   do responsável pelo projeto.
 
 ---
 
