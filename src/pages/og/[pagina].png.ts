@@ -45,7 +45,7 @@ const CONTEUDO: Record<string, Conteudo> = {
   },
   carrinho: {
     numero: car.diferenca,
-    texto: `por mês na compra de uma família de 4 pessoas se os preços subissem como no governo do Bolsonaro (${car.cenario}, e não ${car.hoje})`,
+    texto: `no carrinho com um de cada alimento se os preços subissem como no governo do Bolsonaro (${car.cenario}, e não ${car.hoje})`,
     fonte: 'Fontes: DIEESE, ANP e IBGE',
   },
   combustivel: {

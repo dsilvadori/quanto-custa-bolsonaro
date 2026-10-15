@@ -61,7 +61,7 @@ export const PAGINAS: Record<PaginaId, Pagina> = {
     rotulo: 'Carrinho',
     titulo: 'Quanto custaria o seu carrinho no governo do Bolsonaro?',
     descricao:
-      'A compra do mês de uma família de 4 pessoas, preço a preço: quanto custaria se a comida e o gás subissem como no governo do Bolsonaro?',
+      'Monte o seu carrinho de compras, ou use a compra de uma família de 4, e veja quanto custaria se os preços subissem como no governo do Bolsonaro.',
     atualizadoEm: '2026-10-15',
   },
   combustivel: {

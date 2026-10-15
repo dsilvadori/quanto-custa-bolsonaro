@@ -6,7 +6,9 @@ import {
   calcularCarrinho,
   codificarItens,
   decodificarItens,
+  estadoFamilia,
   estadoPadraoCarrinho,
+  estadoVazio,
   frasesCarrinho,
   passo,
   qtdTexto,
@@ -48,6 +50,17 @@ lista.addEventListener('click', (e) => {
   const id = botao.dataset.menos ?? botao.dataset.mais!;
   estado = { ...estado, qtd: { ...estado.qtd, [id]: passo(estado.qtd[id] ?? 0, botao.dataset.menos ? -1 : 1) } };
   mostrar();
+});
+
+// Atalhos: um de cada, compra de uma família de 4 (DIEESE) ou carrinho vazio.
+document.querySelector('.atalhos')?.addEventListener('click', (e) => {
+  const acao = (e.target as Element).closest<HTMLElement>('[data-atalho]')?.dataset.atalho;
+  if (!acao) return;
+  const gerar = { um: estadoPadraoCarrinho, familia: estadoFamilia, vazio: estadoVazio }[acao];
+  if (gerar) {
+    estado = gerar(dados, estado.capital);
+    mostrar();
+  }
 });
 
 seletor.value = estado.capital;

@@ -36,8 +36,19 @@ export interface EstadoCarrinho {
   qtd: Record<string, number>;
 }
 
-/** Compra do mês de uma família de 4 pessoas: 3 cestas de adulto da capital. Gás começa em 0 (sem dado oficial de consumo). */
+/** Carrinho padrão: 1 de cada alimento que a capital pesquisa; gás em 0. */
 export function estadoPadraoCarrinho(d: DadosCarrinho, capital = MEDIA): EstadoCarrinho {
+  const precos = d.precos[capital];
+  return { capital, qtd: Object.fromEntries(d.produtos.map((p) => [p.id, p.alimento && precos[p.id] !== undefined ? 1 : 0])) };
+}
+
+/** Carrinho vazio, para montar do zero. */
+export function estadoVazio(d: DadosCarrinho, capital: string): EstadoCarrinho {
+  return { capital, qtd: Object.fromEntries(d.produtos.map((p) => [p.id, 0])) };
+}
+
+/** Compra do mês de uma família de 4 pessoas: 3 cestas de adulto da capital (DIEESE). Gás em 0 (sem dado oficial de consumo). */
+export function estadoFamilia(d: DadosCarrinho, capital = MEDIA): EstadoCarrinho {
   const precos = d.precos[capital];
   const qtd = d.quantidades[capital];
   return {

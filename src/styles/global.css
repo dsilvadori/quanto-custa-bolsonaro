@@ -333,3 +333,4 @@ header nav a, .marca { white-space: nowrap; }
 .grafico-area--largo { max-width: 720px; }
 .grafico-cartao.cartao { margin-bottom: var(--cp-space-6); }
 .grafico-cartao figcaption .ajuda { margin: 0; }
+.atalhos { display: flex; flex-wrap: wrap; gap: var(--cp-space-2); }

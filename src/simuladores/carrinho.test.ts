@@ -1,20 +1,35 @@
 import { describe, expect, it } from 'vitest';
 import { DADOS_CARRINHO, DADOS_CESTA } from '../dados';
-import { MEDIA, calcularCarrinho, codificarItens, decodificarItens, estadoPadraoCarrinho, passo, qtdTexto } from './carrinho';
+import { MEDIA, calcularCarrinho, codificarItens, decodificarItens, estadoFamilia, estadoPadraoCarrinho, estadoVazio, passo, qtdTexto } from './carrinho';
 
-describe('compra do mês de uma família de 4 pessoas', () => {
+describe('carrinho padrão e atalhos', () => {
+  it('padrão: 1 de cada alimento da capital, gás em 0', () => {
+    const q = estadoPadraoCarrinho(DADOS_CARRINHO, 'Recife').qtd;
+    expect(q.arroz).toBe(1);
+    expect(q.batata).toBe(0);
+    expect(q.gas).toBe(0);
+  });
+
+  it('vazio: tudo em 0 e total zero', () => {
+    const r = calcularCarrinho(DADOS_CARRINHO, estadoVazio(DADOS_CARRINHO, MEDIA));
+    expect(r.hoje).toBe(0);
+    expect(r.itens).toBe(0);
+  });
+});
+
+describe('atalho: compra do mês de uma família de 4 pessoas', () => {
   it('a família vale 3 cestas de adulto (DIEESE)', () => {
     expect(DADOS_CARRINHO.familia).toBe(3);
   });
 
   it.each(['São Paulo', 'Recife', 'Porto Alegre'])('%s: a compra padrão custa 3 × o valor da cesta publicado pelo DIEESE', (capital) => {
     const cesta = DADOS_CESTA.capitais.find((c) => c.nome === capital)!.valor;
-    const r = calcularCarrinho(DADOS_CARRINHO, estadoPadraoCarrinho(DADOS_CARRINHO, capital));
+    const r = calcularCarrinho(DADOS_CARRINHO, estadoFamilia(DADOS_CARRINHO, capital));
     expect(Math.abs(r.hoje - 3 * cesta)).toBeLessThan(1);
   });
 
   it('quantidades de São Paulo: carne 18 kg, leite 22,5 L, café 1,8 kg; gás começa em 0', () => {
-    const q = estadoPadraoCarrinho(DADOS_CARRINHO, 'São Paulo').qtd;
+    const q = estadoFamilia(DADOS_CARRINHO, 'São Paulo').qtd;
     expect(q.carne).toBe(18);
     expect(q.leite).toBe(22.5);
     expect(q.cafe).toBe(1.8);
@@ -22,11 +37,11 @@ describe('compra do mês de uma família de 4 pessoas', () => {
   });
 
   it('produto que a capital não pesquisa fica de fora (batata no Nordeste)', () => {
-    expect(estadoPadraoCarrinho(DADOS_CARRINHO, 'Recife').qtd.batata).toBe(0);
+    expect(estadoFamilia(DADOS_CARRINHO, 'Recife').qtd.batata).toBe(0);
   });
 
   it('na média das capitais, todos os alimentos entram', () => {
-    const q = estadoPadraoCarrinho(DADOS_CARRINHO, MEDIA).qtd;
+    const q = estadoFamilia(DADOS_CARRINHO, MEDIA).qtd;
     for (const p of DADOS_CARRINHO.produtos.filter((p) => p.id !== 'gas')) expect(q[p.id], p.id).toBeGreaterThan(0);
   });
 });

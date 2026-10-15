@@ -5,6 +5,7 @@ import LinksSimulador from '../components/LinksSimulador.astro';
 import { Fonte } from '../components/Fonte';
 import { Resultados } from '../components/Resultados';
 import { ListaCarrinho } from '../components/ListaCarrinho';
+import { BotaoAtalho } from '../components/BotaoAtalho';
 import { BarraCarrinho } from '../components/BarraCarrinho';
 import { CARRINHO, DADOS_CARRINHO } from '../dados';
 import { MEDIA, calcularCarrinho, estadoPadraoCarrinho, frasesCarrinho, graficoProdutos } from '../simuladores/carrinho';
@@ -25,16 +26,16 @@ const dados = JSON.stringify({ dados: d, urlFontes: ancora.host + ancora.pathnam
 <Base
   id="carrinho"
   selo="Simulador"
-  imagem={{ src: '/og/carrinho.png', alt: `A compra do mês de uma família de 4 pessoas custa ${f.hoje} hoje e custaria ${f.cenario} como no governo do Bolsonaro.` }}
+  imagem={{ src: '/og/carrinho.png', alt: `Um carrinho com os alimentos da cesta custa ${f.hoje} hoje e custaria ${f.cenario} como no governo do Bolsonaro.` }}
 >
   <Fragment slot="lead">
     <p class="hero__lead cp-text-body-large">
-      A compra do mês de uma família de 4 pessoas, com 2 adultos e 2 crianças <Fonte id={CARRINHO.fonteQtd} />, custa
-      <span class="junto">{f.hoje} <Fonte id={fonteDieese} /></span> na média das capitais. Se cada produto tivesse subido como no
-      governo do Bolsonaro, custaria <strong class="destaque">{f.cenario}</strong>.
+      Um carrinho com um de cada alimento da cesta custa <span class="junto">{f.hoje} <Fonte id={fonteDieese} /></span> na média
+      das capitais. Se cada produto tivesse subido como no governo do Bolsonaro, custaria
+      <strong class="destaque">{f.cenario}</strong>.
     </p>
     <div class="hero__numero" data-numero>
-      <Stat surface="red" value={f.diferenca} label="por mês na compra da família" />
+      <Stat surface="red" value={f.diferenca} label="no mesmo carrinho" />
       <p class="cp-text-body-small">
         Preços de {mesReferencia} <Fonte id={fonteDieese} /> e alta de cada produto no IPCA <Fonte id={fonte2019} />
         <span class="junto"><Fonte id={fonteDepois} />.</span>
@@ -45,7 +46,7 @@ const dados = JSON.stringify({ dados: d, urlFontes: ancora.host + ancora.pathnam
   <section class="secao secao--cinza" aria-labelledby="monte">
     <div class="cp-container">
       <form class="cartao carrinho-cartao" id="form-simulador" data-numero>
-        <h2 id="monte" class="cp-text-h2">A compra do mês da família</h2>
+        <h2 id="monte" class="cp-text-h2">Monte o seu carrinho</h2>
         <p class="ajuda cp-text-body-small">
           Cada preço sobe no ritmo do próprio produto: a alta de {d.mesesBolsonaro} meses do governo Bolsonaro, aplicada aos
           {d.mesesAtual} meses desde janeiro de 2023, no lugar da alta real <Fonte id={fonte2019} />
@@ -53,10 +54,15 @@ const dados = JSON.stringify({ dados: d, urlFontes: ancora.host + ancora.pathnam
           <span class="junto"><Fonte id={fonteAnp} />.</span>
         </p>
         <p class="ajuda cp-text-body-small">
-          A compra começa com a cesta de 3 adultos da sua capital: é como o DIEESE calcula o gasto de uma família de 2 adultos e 2
-          crianças <span class="junto"><Fonte id={CARRINHO.fonteQtd} />.</span> O gás começa em zero: ponha quantos botijões a sua
-          família usa. Use − e + para ajustar ao que você compra.
+          O carrinho começa com um de cada alimento. Use − e + para pôr o que você compra, ou toque em "Compra de uma família de 4"
+          para usar a cesta de 3 adultos da sua capital, como o DIEESE calcula o gasto de 2 adultos e 2 crianças
+          <span class="junto"><Fonte id={CARRINHO.fonteQtd} />.</span>
         </p>
+        <div class="atalhos so-com-js">
+          <BotaoAtalho acao="familia">Compra de uma família de 4</BotaoAtalho>
+          <BotaoAtalho acao="um">Um de cada</BotaoAtalho>
+          <BotaoAtalho acao="vazio">Esvaziar carrinho</BotaoAtalho>
+        </div>
         <div class="campo so-com-js">
           <label for="capital" class="cp-text-title">Onde você mora?</label>
           <select id="capital" class="seletor">
