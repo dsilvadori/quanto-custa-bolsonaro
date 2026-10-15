@@ -3,7 +3,7 @@ import salarioMinimoCsv from '../data/salario-minimo.csv?raw';
 import inpcCsv from '../data/inpc.csv?raw';
 import parametrosCsv from '../data/parametros.csv?raw';
 import ipcaAlimentacaoCsv from '../data/ipca-alimentacao.csv?raw';
-import cestaCsv from '../data/cesta-basica.csv?raw';
+import cestaCapitaisCsv from '../data/cesta-capitais.csv?raw';
 import combustivelCsv from '../data/combustivel.csv?raw';
 import { lerCsv } from './calc/csv';
 import { acumular } from './calc/cesta';
@@ -76,7 +76,7 @@ export const DADOS_SALARIO: DadosSalario = {
   bases: { padrao: CENARIO_SM.bases.padrao.valor, alternativa: CENARIO_SM.bases.alternativa.valor },
 };
 
-// Simulador 2: alimentação no domicílio (IPCA) por governo e horas de trabalho (DIEESE).
+// Simulador 2: alimentação no domicílio (IPCA) por governo e valor da cesta por capital (DIEESE).
 const alimentacao = lerCsv(ipcaAlimentacaoCsv).map((l) => ({
   periodo: l.periodo!,
   pct: Number(l.variacao_pct),
@@ -94,14 +94,19 @@ const porGoverno = (g: string) => {
     fontes: [...new Set(linhas.map((a) => a.fonte))],
   };
 };
-const cestaHoje = lerCsv(cestaCsv).at(-1)!;
+const capitais = lerCsv(cestaCapitaisCsv).map((l) => ({
+  nome: l.capital!,
+  valor: Number(l.valor_cesta),
+  referencia: l.referencia!,
+  fonte: l.fonte!,
+}));
 
 export const CESTA = {
   bolsonaro: porGoverno('bolsonaro'),
   atual: porGoverno('lula'),
-  horasHoje: Number(cestaHoje.horas) + Number(cestaHoje.minutos) / 60,
-  referencia: cestaHoje.referencia!,
-  fonteHoras: cestaHoje.fonte!,
+  capitais,
+  referencia: capitais[0].referencia,
+  fonteValores: capitais[0].fonte,
 };
 
 // Simulador 3: exemplo com o relatório mais recente da Abicom.
@@ -119,7 +124,7 @@ export const DADOS_CESTA: DadosCesta = {
   bolsonaroMeses: CESTA.bolsonaro.meses,
   atualPct: CESTA.atual.pct,
   atualMeses: CESTA.atual.meses,
-  horasHoje: CESTA.horasHoje,
+  capitais: CESTA.capitais.map(({ nome, valor }) => ({ nome, valor })),
   minimoReal: MINIMO_ATUAL.valor,
   minimoCenario: cenarioPorAno(CENARIO_SM.anoBase, CENARIO_SM.bases.padrao.valor, CENARIO_SM.inpc.map((i) => i.pct))[
     Number(MINIMO_ATUAL.inicio.slice(0, 4))

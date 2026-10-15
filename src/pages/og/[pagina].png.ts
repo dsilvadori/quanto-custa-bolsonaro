@@ -5,7 +5,7 @@ import { createRequire } from 'node:module';
 import satori from 'satori';
 import { Resvg } from '@resvg/resvg-js';
 import { COMBUSTIVEIS, DADOS_BENEFICIO, DADOS_CESTA, DADOS_SALARIO } from '../../dados';
-import { frasesCesta } from '../../simuladores/cesta';
+import { ESTADO_PADRAO_CESTA, frasesCesta } from '../../simuladores/cesta';
 import { calcularCombustivel } from '../../simuladores/combustivel';
 import { ESTADO_PADRAO, calcularSalario } from '../../simuladores/salario';
 import { estadoPadraoBeneficio, frasesBeneficio } from '../../simuladores/beneficio';
@@ -20,7 +20,7 @@ interface Conteudo {
 
 const s = calcularSalario(DADOS_SALARIO, ESTADO_PADRAO);
 const b = frasesBeneficio(DADOS_BENEFICIO, estadoPadraoBeneficio(DADOS_BENEFICIO));
-const c = frasesCesta(DADOS_CESTA, '100');
+const c = frasesCesta(DADOS_CESTA, ESTADO_PADRAO_CESTA);
 const combustivel = (nome: string) => calcularCombustivel(COMBUSTIVEIS.find((l) => l.combustivel === nome)!);
 const diesel = combustivel('diesel');
 const gasolina = combustivel('gasolina');
@@ -37,8 +37,8 @@ const CONTEUDO: Record<string, Conteudo> = {
     fonte: 'Fontes: Diário Oficial e IBGE',
   },
   'cesta-basica': {
-    numero: `+${c.extra}`,
-    texto: `de trabalho por mês para comprar a cesta básica se a comida subisse no ritmo do governo Bolsonaro`,
+    numero: `+${c.porMes}`,
+    texto: `por mês na cesta básica se a comida subisse no ritmo do governo Bolsonaro (${c.cenario}, e não ${c.hoje})`,
     fonte: 'Fontes: IBGE e DIEESE',
   },
   combustivel: {

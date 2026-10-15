@@ -126,6 +126,17 @@ a:has(> .marca) { text-decoration: none; }
 .campo-grupo { display: flex; flex-direction: column; gap: var(--cp-space-3); margin: 0; padding: 0; border: 0; min-width: 0; }
 .campo-grupo legend { padding: 0; margin-bottom: var(--cp-space-3); }
 .ajuda { margin: 0; color: var(--cp-color-on-surface-variant); }
+.campo { display: flex; flex-direction: column; gap: var(--cp-space-2); }
+.seletor {
+  min-height: var(--cp-size-touch);
+  padding: 0 var(--cp-space-4);
+  border: var(--cp-border-width) solid var(--cp-color-outline);
+  border-radius: var(--cp-radius-md);
+  background: var(--cp-color-surface);
+  color: var(--cp-color-on-surface);
+  font: 700 var(--cp-text-md) / 1.2 var(--cp-font);
+}
+.seletor:focus-visible { outline: none; box-shadow: var(--cp-focus-light); }
 input[aria-invalid='true'] { outline: var(--cp-border-width-strong) solid var(--cp-color-primary); }
 
 /* Faixa (input range) com as cores do DS e alvo de 44 px */

@@ -24,7 +24,7 @@ const perguntas = [
   },
   {
     q: 'Como calculamos a cesta básica no ritmo de Bolsonaro?',
-    a: `A comida no domicílio subiu ${pct(CESTA.bolsonaro.pct)} em ${CESTA.bolsonaro.meses} meses no governo Bolsonaro. Aplicamos esse ritmo mensal aos ${CESTA.atual.meses} meses do governo atual e dividimos pela alta real (${pct(CESTA.atual.pct)}). As horas de trabalho são o custo da cesta dividido pelo valor da hora do mínimo (mínimo ÷ 220).`,
+    a: `A comida no domicílio subiu ${pct(CESTA.bolsonaro.pct)} em ${CESTA.bolsonaro.meses} meses no governo Bolsonaro. Aplicamos esse ritmo mensal aos ${CESTA.atual.meses} meses do governo atual e dividimos pela alta real (${pct(CESTA.atual.pct)}). O resultado multiplica o valor de hoje da cesta, por capital ou na média simples das ${CESTA.capitais.length} capitais.`,
   },
   {
     q: 'Como calculamos o preço dos combustíveis com o PPI?',
@@ -99,8 +99,12 @@ const jsonLd = [
           </li>
           <li>Ritmo mensal de Bolsonaro = (1 + alta)^(1/{CESTA.bolsonaro.meses}) − 1. Aplicado por {CESTA.atual.meses} meses e dividido pela alta real.</li>
           <li>
-            Horas de trabalho = custo da cesta ÷ (mínimo ÷ 220). Hoje: média das 27 capitais <Fonte id={CESTA.fonteHoras} />. No
-            cenário, a cesta fica mais cara e o mínimo segue só a inflação <Fonte id={inpc[inpc.length - 1].fonte} />.
+            Cesta no ritmo de Bolsonaro = valor de hoje × esse fator. Valor de hoje: o da capital escolhida ou a média simples das
+            {CESTA.capitais.length} capitais <Fonte id={CESTA.fonteValores} />.
+          </li>
+          <li>
+            Parte do salário mínimo: valor da cesta ÷ mínimo. No cenário, com o mínimo só pela inflação
+            <Fonte id={inpc[inpc.length - 1].fonte} />.
           </li>
         </ol>
         <p><Link href={PAGINAS.cestaBasica.path}>Abrir o simulador</Link></p>

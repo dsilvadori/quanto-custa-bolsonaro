@@ -30,7 +30,7 @@ describe('CSVs de /data', () => {
       ...[...SALARIO_MINIMO, ...INPC, ...Object.values(PARAMETROS)].map((l) => l.fonte),
       ...CESTA.bolsonaro.fontes,
       ...CESTA.atual.fontes,
-      CESTA.fonteHoras,
+      ...CESTA.capitais.map((c) => c.fonte),
       ...COMBUSTIVEIS.flatMap((c) => Object.values(c.fontes)),
     ];
     for (const id of ids) expect(existeFonte(id), id).toBe(true);

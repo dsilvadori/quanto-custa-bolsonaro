@@ -20,22 +20,3 @@ export function fatorCesta(p: {
   const mensal = ((1 + p.bolsonaroPct / 100) ** (1 / p.bolsonaroMeses) - 1) * p.ritmo;
   return (1 + mensal) ** p.atualMeses / (1 + p.atualPct / 100);
 }
-
-/**
- * Horas de trabalho = custo da cesta ÷ (salário mínimo ÷ 220).
- * No cenário, a cesta custa `fator` vezes mais e o mínimo é o da regra só pela inflação.
- */
-export function horasCenario(horasHoje: number, fator: number, minimoReal: number, minimoCenario: number): number {
-  return horasHoje * fator * (minimoReal / minimoCenario);
-}
-
-/** 102,1833 → "102h11" */
-export function horasTexto(horas: number): string {
-  let h = Math.floor(horas);
-  let m = Math.round((horas - h) * 60);
-  if (m === 60) {
-    h += 1;
-    m = 0;
-  }
-  return `${h}h${String(m).padStart(2, '0')}`;
-}

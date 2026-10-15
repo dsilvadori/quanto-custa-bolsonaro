@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
-import { acumular, fatorCesta, horasCenario, horasTexto } from './cesta';
-import { CESTA } from '../dados';
+import { acumular, fatorCesta } from './cesta';
+import { CESTA, DADOS_CESTA } from '../dados';
+import { ESTADO_PADRAO_CESTA, MEDIA, calcularCesta, frasesCesta, valorHoje } from '../simuladores/cesta';
 
 describe('acumular', () => {
   it('2019–2022 (acumulados anuais do IBGE) dá 56,16%', () => {
@@ -14,37 +15,43 @@ describe('fatorCesta: conferência com os números do roteiro', () => {
     expect(f).toBeCloseTo(1.333, 3);
   });
 
-  it('cenário a partir de 100h24 com o mínimo de 1.476 → ≈ 147 h', () => {
-    const f = fatorCesta({ bolsonaroPct: 56.16, bolsonaroMeses: 48, atualPct: 12.9, atualMeses: 44, ritmo: 1 });
-    expect(horasCenario(100 + 24 / 60, f, 1621, 1476)).toBeCloseTo(147, 0);
-  });
-
   it('ritmo menor dá fator menor; ritmo zero só desconta a alta real', () => {
     const base = { bolsonaroPct: 56.16, bolsonaroMeses: 48, atualPct: 12.9, atualMeses: 44 };
-    const f100 = fatorCesta({ ...base, ritmo: 1 });
-    const f50 = fatorCesta({ ...base, ritmo: 0.5 });
-    expect(f50).toBeLessThan(f100);
+    expect(fatorCesta({ ...base, ritmo: 0.5 })).toBeLessThan(fatorCesta({ ...base, ritmo: 1 }));
     expect(fatorCesta({ ...base, ritmo: 0 })).toBeCloseTo(1 / 1.129, 10);
   });
 });
 
 describe('dados de /data', () => {
-  it('períodos e meses', () => {
+  it('períodos, meses e 27 capitais', () => {
     expect(CESTA.bolsonaro.meses).toBe(48);
     expect(CESTA.bolsonaro.pct).toBeCloseTo(56.16, 2);
     expect(CESTA.atual.meses).toBe(45);
     expect(CESTA.atual.ate).toBe('2026-09');
-    expect(CESTA.horasHoje).toBeCloseTo(102 + 11 / 60, 10);
+    expect(CESTA.capitais).toHaveLength(27);
   });
 });
 
-describe('horasTexto', () => {
-  it.each([
-    [100.4, '100h24'],
-    [102 + 11 / 60, '102h11'],
-    [146.999, '147h00'],
-    [8, '8h00'],
-  ])('%s → %s', (h, t) => {
-    expect(horasTexto(h)).toBe(t);
+describe('Simulador 2 em reais', () => {
+  it('média das 27 capitais e uma capital', () => {
+    expect(valorHoje(DADOS_CESTA, MEDIA)).toBeCloseTo(752.914, 3);
+    expect(valorHoje(DADOS_CESTA, 'São Paulo')).toBe(922.51);
+  });
+
+  it('cenário = valor de hoje × fator; diferença por mês e por ano', () => {
+    const r = calcularCesta(DADOS_CESTA, { capital: 'São Paulo', ritmo: '100' });
+    expect(r.cenario).toBeCloseTo(922.51 * r.fator, 10);
+    expect(r.porMes).toBeCloseTo(r.cenario - 922.51, 10);
+    expect(r.porAno).toBeCloseTo(r.porMes * 12, 10);
+  });
+
+  it('texto padrão fala da média e do governo Bolsonaro', () => {
+    expect(frasesCesta(DADOS_CESTA, ESTADO_PADRAO_CESTA).resumo).toMatch(
+      /^Se a comida subisse no ritmo do governo Bolsonaro, a cesta básica custaria R\$ [\d.,]+ na média das 27 capitais/,
+    );
+  });
+
+  it('capital inexistente é erro', () => {
+    expect(() => valorHoje(DADOS_CESTA, 'Atlântida')).toThrow();
   });
 });

@@ -1,1 +1,28 @@
-capital,produto,quantidade,unidade,preco_referencia,referencia,subitem_ipca,fonte
+capital,valor_cesta,referencia,fonte
+Aracaju,587.76,2026-09,dieese-cesta-2026-09
+Belo Horizonte,802.99,2026-09,dieese-cesta-2026-09
+Belém,731.62,2026-09,dieese-cesta-2026-09
+Boa Vista,699.75,2026-09,dieese-cesta-2026-09
+Brasília,773.78,2026-09,dieese-cesta-2026-09
+Campo Grande,806.56,2026-09,dieese-cesta-2026-09
+Cuiabá,891.24,2026-09,dieese-cesta-2026-09
+Curitiba,841.93,2026-09,dieese-cesta-2026-09
+Florianópolis,915.62,2026-09,dieese-cesta-2026-09
+Fortaleza,779.96,2026-09,dieese-cesta-2026-09
+Goiânia,808.01,2026-09,dieese-cesta-2026-09
+João Pessoa,660.21,2026-09,dieese-cesta-2026-09
+Macapá,720.01,2026-09,dieese-cesta-2026-09
+Maceió,631.28,2026-09,dieese-cesta-2026-09
+Manaus,676.18,2026-09,dieese-cesta-2026-09
+Natal,635.60,2026-09,dieese-cesta-2026-09
+Palmas,752.68,2026-09,dieese-cesta-2026-09
+Porto Alegre,889.15,2026-09,dieese-cesta-2026-09
+Porto Velho,691.25,2026-09,dieese-cesta-2026-09
+Recife,663.48,2026-09,dieese-cesta-2026-09
+Rio Branco,678.35,2026-09,dieese-cesta-2026-09
+Rio de Janeiro,913.46,2026-09,dieese-cesta-2026-09
+Salvador,634.67,2026-09,dieese-cesta-2026-09
+São Luís,692.94,2026-09,dieese-cesta-2026-09
+São Paulo,922.51,2026-09,dieese-cesta-2026-09
+Teresina,698.55,2026-09,dieese-cesta-2026-09
+Vitória,829.14,2026-09,dieese-cesta-2026-09

@@ -52,7 +52,7 @@ export const PAGINAS: Record<PaginaId, Pagina> = {
     rotulo: 'Cesta básica',
     titulo: 'Quanto custaria a cesta básica no ritmo de Bolsonaro?',
     descricao:
-      'Se a comida subisse no ritmo do governo Bolsonaro, quantas horas de trabalho custaria a cesta básica? Veja a conta e as fontes oficiais.',
+      'Se a comida subisse no ritmo do governo Bolsonaro, quanto custaria a cesta básica na sua capital? Veja a conta e as fontes oficiais.',
     atualizadoEm: '2026-10-15',
   },
   combustivel: {
