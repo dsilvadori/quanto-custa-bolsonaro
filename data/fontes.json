@@ -352,14 +352,14 @@
       ]
     },
     {
-      "id": "anp-precos-2026-09",
-      "titulo": "ANP — Levantamento de preços de combustíveis, média mensal Brasil, setembro de 2026",
+      "id": "anp-precos-2026-10-04",
+      "titulo": "ANP — Levantamento de preços de combustíveis, média semanal Brasil, 4 a 10 de outubro de 2026",
       "orgao": "ANP",
-      "url": "https://www.gov.br/anp/pt-br/assuntos/precos-e-defesa-da-concorrencia/precos/precos-revenda-e-de-distribuicao-combustiveis/shlp/mensal/mensal-brasil-desde-jan2013.xlsx",
-      "url_arquivo": "https://web.archive.org/web/20261015191445/https://www.gov.br/anp/pt-br/assuntos/precos-e-defesa-da-concorrencia/precos/precos-revenda-e-de-distribuicao-combustiveis/shlp/mensal/mensal-brasil-desde-jan2013.xlsx",
+      "url": "https://www.gov.br/anp/pt-br/assuntos/precos-e-defesa-da-concorrencia/precos/precos-revenda-e-de-distribuicao-combustiveis/shlp/semanal/semanal-brasil-desde-2013.xlsx",
+      "url_arquivo": "https://web.archive.org/web/20261015201458/https://www.gov.br/anp/pt-br/assuntos/precos-e-defesa-da-concorrencia/precos/precos-revenda-e-de-distribuicao-combustiveis/shlp/semanal/semanal-brasil-desde-2013.xlsx",
       "data_publicacao": null,
       "data_coleta": "2026-10-15",
-      "valor_usado": "Preço médio de revenda: gasolina comum R$ 6,54/L; óleo diesel S10 R$ 7,16/L",
+      "valor_usado": "Preço médio de revenda: gasolina comum R$ 6,54/L; óleo diesel S10 R$ 7,36/L",
       "usado_em": [
         "/combustivel"
       ]
