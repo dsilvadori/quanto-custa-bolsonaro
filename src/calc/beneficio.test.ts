@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { desvincularDesde, perdaPercentual, projetarDesvinculacao } from './beneficio';
+import { desvincularDesde, perdaPercentual, poderDeCompra, projetarDesvinculacao } from './beneficio';
 import { SALARIO_MINIMO } from '../dados';
 
 const inpcPorAno = { 2023: 5.93, 2024: 3.71, 2025: 4.77, 2026: 3.9 };
@@ -29,6 +29,16 @@ describe('perdaPercentual', () => {
   it('1 − 1/(1+g)^anos', () => {
     expect(perdaPercentual(0.025, 4)).toBeCloseTo(1 - 1 / 1.025 ** 4, 12);
     expect(perdaPercentual(0, 4)).toBe(0);
+  });
+});
+
+describe('poderDeCompra', () => {
+  it('desvinculado compra sempre o mesmo; a perda % cresce com o ganho real do mínimo', () => {
+    const p = projetarDesvinculacao({ piso: 1621, ganhoReal: 0.025, anoAtual: 2026, ateAno: 2030, pagamentos: 12 });
+    const c = poderDeCompra(p, 750);
+    expect(new Set(c.anos.map((a) => a.cestasDesvinculado))).toEqual(new Set([1621 / 750]));
+    c.anos.forEach((a, i) => expect(a.perdaPct).toBeCloseTo(perdaPercentual(0.025, i + 1) * 100, 9));
+    expect(c.cestasPerdidas).toBeCloseTo(p.total / 750, 9);
   });
 });
 

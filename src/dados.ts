@@ -9,7 +9,7 @@ import combustivelCsv from '../data/combustivel.csv?raw';
 import { lerCsv } from './calc/csv';
 import { acumular } from './calc/cesta';
 import { cenarioPorAno } from './calc/salarioMinimo';
-import type { DadosCesta } from './simuladores/cesta';
+import { MEDIA, valorHoje, type DadosCesta } from './simuladores/cesta';
 import type { Vigencia } from './calc/salarioMinimo';
 import type { DadosSalario } from './simuladores/salario';
 import type { DadosBeneficio } from './simuladores/beneficio';
@@ -149,4 +149,5 @@ export const DADOS_BENEFICIO: DadosBeneficio = {
   ateAno: parametro('ganho_real_ate_ano').valor,
   ganhoMin: parametro('ganho_real_min_pct').valor,
   ganhoMax: parametro('ganho_real_max_pct').valor,
+  cesta: valorHoje(DADOS_CESTA, MEDIA),
 };

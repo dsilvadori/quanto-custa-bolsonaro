@@ -20,7 +20,7 @@ const perguntas = [
   },
   {
     q: 'Como calculamos a perda da aposentadoria e do BPC?',
-    a: `Desvinculado, o benefício parte do mínimo de dezembro de ${d.anoBase} e, a cada janeiro, sobe só pelo INPC do ano anterior (${INPC_ANUAL.map((i) => pct(i.pct)).join(', ')}), arredondado ao centavo. A perda é a diferença para o mínimo pago de verdade. O BPC tem 12 pagamentos por ano; a aposentadoria tem também o 13º. Na projeção até ${d.ateAno}, o mínimo sobe pela inflação mais um ganho real entre ${pct(d.ganhoMin, 1)} e ${pct(d.ganhoMax, 1)} ao ano, em reais de hoje.`,
+    a: `Desvinculado, o benefício parte do mínimo de dezembro de ${d.anoBase} e, a cada janeiro, sobe só pelo INPC do ano anterior (${INPC_ANUAL.map((i) => pct(i.pct)).join(', ')}), arredondado ao centavo. A perda é a diferença para o mínimo pago de verdade. O BPC tem 12 pagamentos por ano; a aposentadoria tem também o 13º. Na projeção até ${d.ateAno}, o mínimo sobe pela inflação mais um ganho real entre ${pct(d.ganhoMin, 1)} e ${pct(d.ganhoMax, 1)} ao ano. Sem aumento real, o benefício compra sempre o mesmo; a perda de poder de compra, frente ao benefício ligado ao mínimo, é 1 − 1/(1 + ganho real)^anos, também medida em cestas básicas.`,
   },
   {
     q: 'Como calculamos a cesta básica no ritmo de Bolsonaro?',
@@ -87,8 +87,13 @@ const jsonLd = [
           </li>
           <li>
             Projeção: o mínimo sobe pela inflação mais um ganho real entre {pct(d.ganhoMin, 1)} e {pct(d.ganhoMax, 1)} ao ano
-            <Fonte id="lc-200-2023-ganho-real" />, regra válida até {d.ateAno} <Fonte id="lei-15077-2024-ganho-real-sm" />. O
-            benefício desvinculado fica igual em reais de hoje. Perda percentual = 1 − 1/(1 + ganho real)^anos.
+            <Fonte id="lc-200-2023-ganho-real" />, regra válida até {d.ateAno} <Fonte id="lei-15077-2024-ganho-real-sm" />. Sem
+            aumento real, o benefício compra sempre o mesmo; o poder de compra perdido, frente ao benefício ligado ao mínimo, é
+            1 − 1/(1 + ganho real)^anos.
+          </li>
+          <li>
+            Em cestas básicas: valor do benefício ÷ cesta média das {CESTA.capitais.length} capitais <Fonte id={CESTA.fonteValores} />,
+            supondo que a cesta sobe junto com a inflação.
           </li>
         </ol>
         <p><Link href={PAGINAS.aposentadoriaBpc.path}>Abrir o simulador</Link></p>

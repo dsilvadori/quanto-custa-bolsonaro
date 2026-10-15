@@ -84,3 +84,31 @@ export function projetarDesvinculacao(params: {
   }
   return { anos, total: anos.reduce((s, a) => s + a.perdaAno, 0) };
 }
+
+export interface AnoPoderDeCompra {
+  ano: number;
+  /** Quanto o benefício desvinculado compra a menos que o ligado ao mínimo, em %. */
+  perdaPct: number;
+  /** Cestas básicas por mês, supondo que a cesta sobe junto com a inflação. */
+  cestasVinculado: number;
+  cestasDesvinculado: number;
+}
+
+/**
+ * Poder de compra da projeção: sem aumento real, o benefício compra sempre o mesmo;
+ * a perda aparece frente ao que compraria ligado ao mínimo. `cesta` em reais de hoje.
+ */
+export function poderDeCompra(
+  projecao: { anos: AnoProjetado[]; total: number },
+  cesta: number,
+): { anos: AnoPoderDeCompra[]; cestasPerdidas: number } {
+  return {
+    anos: projecao.anos.map((a) => ({
+      ano: a.ano,
+      perdaPct: (1 - a.desvinculado / a.vinculado) * 100,
+      cestasVinculado: a.vinculado / cesta,
+      cestasDesvinculado: a.desvinculado / cesta,
+    })),
+    cestasPerdidas: projecao.total / cesta,
+  };
+}

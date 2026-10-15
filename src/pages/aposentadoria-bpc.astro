@@ -5,7 +5,7 @@ import LinksSimulador from '../components/LinksSimulador.astro';
 import { Fonte } from '../components/Fonte';
 import { Resultados } from '../components/Resultados';
 import { BarraCompartilhar } from '../components/BarraCompartilhar';
-import { DADOS_BENEFICIO, INPC_ANUAL, MINIMO_ATUAL, PARAMETROS, SALARIO_MINIMO } from '../dados';
+import { CESTA, DADOS_BENEFICIO, INPC_ANUAL, MINIMO_ATUAL, PARAMETROS, SALARIO_MINIMO } from '../dados';
 import { valorNoMes } from '../calc/salarioMinimo';
 import {
   estadoPadraoBeneficio,
@@ -28,6 +28,7 @@ const fonteHoje = MINIMO_ATUAL.fonte;
 const valorBase = valorNoMes(d.real, d.anoBase, 12);
 const fonteValorBase = SALARIO_MINIMO.filter((v) => v.inicio <= `${d.anoBase}-12-01`).at(-1)!.fonte;
 const fonteGanho = PARAMETROS.ganho_real_min_pct.fonte;
+const fonteCesta = CESTA.fonteValores;
 const fontePeriodo = PARAMETROS.ganho_real_ate_ano.fonte;
 const periodo = `${d.anoBase + 1} a ${d.anoAtual}`;
 const futuro = `${d.anoAtual + 1} a ${d.ateAno}`;
@@ -133,7 +134,7 @@ const dados = JSON.stringify({ dados: d, urlFontes: ancora.host + ancora.pathnam
   <section class="secao secao--cinza" aria-labelledby="daqui-para-frente">
     <div class="cp-container">
       <div class="cartao" data-numero>
-        <h2 id="daqui-para-frente" class="cp-text-h2">E daqui para a frente, de {futuro}?</h2>
+        <h2 id="daqui-para-frente" class="cp-text-h2">Daqui para a frente: o poder de compra sem aumento real</h2>
         <fieldset class="campo-grupo so-com-js">
           <legend id="ganho-rotulo" class="cp-text-title">Ganho real do salário mínimo por ano</legend>
           <div class="faixa">
@@ -157,23 +158,28 @@ const dados = JSON.stringify({ dados: d, urlFontes: ancora.host + ancora.pathnam
         <p class="cp-text-body-large resultado__frase" aria-live="polite" data-saida="futuro">{f.futuro}</p>
         <Resultados
           itens={[
-            { saida: 'porMesFinal', valor: `−${f.porMesFinal}`, rotulo: `por mês em ${d.ateAno}` },
-            { saida: 'total', valor: `−${f.total}`, rotulo: `de ${futuro}` },
-            { saida: 'perdaPct', valor: f.perdaPct, rotulo: `menor em ${d.ateAno}` },
+            { saida: 'perdaPct', valor: `−${f.perdaPct}`, rotulo: `de poder de compra em ${d.ateAno}` },
+            { saida: 'cestasFinal', valor: f.cestasFinal, rotulo: `cestas básicas por mês em ${d.ateAno}` },
+            { saida: 'cestasPerdidas', valor: `−${f.cestasPerdidas}`, rotulo: `cestas de ${futuro}` },
           ]}
         />
+        <ul class="legenda" aria-hidden="true">
+          <li><span class="legenda__cor legenda__cor--real"></span>Ligado ao mínimo</li>
+          <li><span class="legenda__cor legenda__cor--cenario"></span>Sem aumento real</li>
+        </ul>
         <div class="grafico-area" data-grafico="projecao" set:html={graficoProjecao(d, e)} />
         <p class="cp-text-body-small">
-          Em reais de hoje: a inflação futura entra dos dois lados e se cancela. Piso de hoje <Fonte id={fonteHoje} />.
+          Cestas básicas por mês, com a cesta subindo junto com a inflação. Piso de hoje <Fonte id={fonteHoje} /> e cesta média das
+          capitais <span class="junto"><Fonte id={fonteCesta} />.</span>
         </p>
         <details class="tabela-detalhes">
           <summary>Ver os números</summary>
           <div class="tabela-rolagem">
             <table class="tabela">
-              <caption class="cp-visually-hidden">Projeção do benefício e perda em cada ano, em reais de hoje</caption>
+              <caption class="cp-visually-hidden">Projeção do benefício em reais de hoje, poder de compra e cestas básicas por mês</caption>
               <thead>
                 <tr>
-                  <th scope="col">Ano</th><th scope="col">Ligado ao mínimo</th><th scope="col">Desvinculado</th><th scope="col">Perda por mês</th><th scope="col">Perda no ano</th>
+                  <th scope="col">Ano</th><th scope="col">Ligado ao mínimo</th><th scope="col">Sem aumento real</th><th scope="col">Poder de compra</th><th scope="col">Cestas por mês</th><th scope="col">Perda no ano</th>
                 </tr>
               </thead>
               <tbody data-linhas="projecao" set:html={linhasProjecao(d, e)} />

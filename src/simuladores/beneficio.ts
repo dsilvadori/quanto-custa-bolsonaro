@@ -1,5 +1,5 @@
 // Simulador 4: o que a página mostra. Usado no build e no navegador.
-import { desvincularDesde, perdaPercentual, projetarDesvinculacao, type Pagamentos } from '../calc/beneficio';
+import { desvincularDesde, perdaPercentual, poderDeCompra, projetarDesvinculacao, type Pagamentos } from '../calc/beneficio';
 import type { Vigencia } from '../calc/salarioMinimo';
 import { barras } from '../graficos/barras';
 import { numero, pct, reais } from '../formato';
@@ -17,7 +17,11 @@ export interface DadosBeneficio {
   /** Limites de ganho real do mínimo, em % ao ano (LC 200/2023 e Lei 15.077/2024). */
   ganhoMin: number;
   ganhoMax: number;
+  /** Valor médio da cesta básica nas capitais (DIEESE), para medir o poder de compra. */
+  cesta: number;
 }
+
+const cestas = (v: number) => v.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
 export type Tipo = 'bpc' | 'aposentadoria';
 export const TIPOS: Tipo[] = ['bpc', 'aposentadoria'];
@@ -42,7 +46,9 @@ export function calcularBeneficio(d: DadosBeneficio, e: EstadoBeneficio) {
   const retro = desvincularDesde({ real: d.real, anoBase: d.anoBase, inpcPorAno: d.inpcPorAno, pagamentos });
   const projecao = projetarDesvinculacao({ piso: d.piso, ganhoReal: e.ganho / 100, anoAtual: d.anoAtual, ateAno: d.ateAno, pagamentos });
   const ultimo = projecao.anos[projecao.anos.length - 1];
-  return { pagamentos, retro, projecao, ultimo, perdaPctFinal: perdaPercentual(e.ganho / 100, d.ateAno - d.anoAtual) * 100 };
+  const poder = poderDeCompra(projecao, d.cesta);
+  const poderFinal = poder.anos[poder.anos.length - 1];
+  return { pagamentos, retro, projecao, ultimo, poder, poderFinal, perdaPctFinal: perdaPercentual(e.ganho / 100, d.ateAno - d.anoAtual) * 100 };
 }
 
 export function graficoRetro(d: DadosBeneficio, e: EstadoBeneficio): string {
@@ -61,17 +67,18 @@ export function graficoRetro(d: DadosBeneficio, e: EstadoBeneficio): string {
 }
 
 export function graficoProjecao(d: DadosBeneficio, e: EstadoBeneficio): string {
-  const { projecao } = calcularBeneficio(d, e);
+  const { poder } = calcularBeneficio(d, e);
   return barras({
     id: 'grafico-projecao',
-    titulo: `Benefício de ${d.anoAtual + 1} a ${d.ateAno}, em reais de hoje: ligado ao mínimo e desvinculado`,
-    descricao: projecao.anos.map((a) => `${a.ano}: ligado ao mínimo ${reais(a.vinculado)}, desvinculado ${reais(a.desvinculado)}`).join('; ') + '.',
-    categorias: projecao.anos.map((a) => String(a.ano)),
+    titulo: `Cestas básicas por mês que o benefício compraria de ${d.anoAtual + 1} a ${d.ateAno}: ligado ao mínimo e sem aumento real`,
+    descricao:
+      poder.anos.map((a) => `${a.ano}: ligado ao mínimo ${cestas(a.cestasVinculado)} cestas, sem aumento real ${cestas(a.cestasDesvinculado)}`).join('; ') + '.',
+    categorias: poder.anos.map((a) => String(a.ano)),
     series: [
-      { nome: 'Ligado ao mínimo', cor: 'var(--cp-color-primary)', valores: projecao.anos.map((a) => a.vinculado) },
-      { nome: 'Desvinculado', cor: 'var(--cp-color-on-surface-variant)', valores: projecao.anos.map((a) => a.desvinculado) },
+      { nome: 'Ligado ao mínimo', cor: 'var(--cp-color-primary)', valores: poder.anos.map((a) => a.cestasVinculado) },
+      { nome: 'Sem aumento real', cor: 'var(--cp-color-on-surface-variant)', valores: poder.anos.map((a) => a.cestasDesvinculado) },
     ],
-    rotulo: numero,
+    rotulo: cestas,
   });
 }
 
@@ -86,11 +93,12 @@ export function linhasRetro(d: DadosBeneficio, e: EstadoBeneficio): string {
 }
 
 export function linhasProjecao(d: DadosBeneficio, e: EstadoBeneficio): string {
-  return calcularBeneficio(d, e)
-    .projecao.anos.map(
-      (a) =>
-        `<tr><th scope="row">${a.ano}</th><td>${reais(a.vinculado)}</td><td>${reais(a.desvinculado)}</td><td>${reais(a.perdaMensal)}</td><td>${reais(a.perdaAno)}</td></tr>`,
-    )
+  const { projecao, poder } = calcularBeneficio(d, e);
+  return projecao.anos
+    .map((a, i) => {
+      const p = poder.anos[i];
+      return `<tr><th scope="row">${a.ano}</th><td>${reais(a.vinculado)}</td><td>${reais(a.desvinculado)}</td><td>−${pct(p.perdaPct, 1)}</td><td>${cestas(p.cestasVinculado)} → ${cestas(p.cestasDesvinculado)}</td><td>${reais(a.perdaAno)}</td></tr>`;
+    })
     .join('');
 }
 
@@ -99,7 +107,6 @@ export function frasesBeneficio(d: DadosBeneficio, e: EstadoBeneficio) {
   const ultimoRetro = r.retro.anos[r.retro.anos.length - 1];
   const nome = NOME[e.tipo];
   const desv = DESVINCULADO[e.tipo];
-  const Nome = nome.charAt(0).toUpperCase() + nome.slice(1);
   const ganho = pct(e.ganho, 1);
   const periodo = `${d.anoBase + 1} a ${d.anoAtual}`;
   return {
@@ -111,7 +118,9 @@ export function frasesBeneficio(d: DadosBeneficio, e: EstadoBeneficio) {
     porMesFinal: reais(r.ultimo.perdaMensal),
     total: reais(r.projecao.total),
     perdaPct: pct(r.perdaPctFinal, 1),
-    futuro: `${Nome} ${desv} ficaria em ${reais(d.piso)}, em reais de hoje. Com ganho real de ${ganho} ao ano no mínimo, em ${d.ateAno} seriam ${reais(r.ultimo.perdaMensal)} a menos por mês, e ${reais(r.projecao.total)} de ${d.anoAtual + 1} a ${d.ateAno}.`,
+    cestasFinal: `${cestas(r.poderFinal.cestasDesvinculado)} em vez de ${cestas(r.poderFinal.cestasVinculado)}`,
+    cestasPerdidas: cestas(r.poder.cestasPerdidas),
+    futuro: `Sem aumento real, ${nome} compraria sempre o mesmo: ${cestas(r.poderFinal.cestasDesvinculado)} cestas básicas por mês. Ligado a um mínimo com ganho real de ${ganho} ao ano, compraria ${cestas(r.poderFinal.cestasVinculado)} em ${d.ateAno}. O poder de compra ficaria ${pct(r.perdaPctFinal, 1)} menor, e de ${d.anoAtual + 1} a ${d.ateAno} deixaria de comprar ${cestas(r.poder.cestasPerdidas)} cestas (${reais(r.projecao.total)}).`,
     whatsapp: (url: string) =>
       `Se ${nome} tivesse sido ${desv} do salário mínimo em ${d.anoBase + 1}, hoje seria ${reais(ultimoRetro.desvinculado)}, e não ${reais(ultimoRetro.real)}: ${reais(r.retro.porMes)} a menos por mês e ${reais(r.retro.total)} perdidos de ${periodo}. Veja a conta e as fontes: ${url}`,
     cartao: {
