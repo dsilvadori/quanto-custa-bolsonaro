@@ -1,3 +1,3 @@
 combustivel,defasagem_rs_l,teor_bio_pct,preco_bomba_rs_l,peso_ipca_pct,fonte_defasagem,fonte_teor,fonte_preco,fonte_peso
-gasolina,0.49,32,6.54,5.1285,abicom-ppi-2026-10-15,cnpe-res-9-2026-e32,anp-precos-2026-10-04,ipca-pesos-2026-09
-diesel,3.24,15,7.36,0.2562,abicom-ppi-2026-10-15,anp-biodiesel-b15,anp-precos-2026-10-04,ipca-pesos-2026-09
+gasolina,0.66,32,6.54,5.1285,abicom-ppi-2026-10-15,cnpe-res-9-2026-e32,anp-precos-2026-10-04,ipca-pesos-2026-09
+diesel,3.48,15,7.36,0.2562,abicom-ppi-2026-10-15,anp-biodiesel-b15,anp-precos-2026-10-04,ipca-pesos-2026-09

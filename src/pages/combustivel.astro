@@ -36,7 +36,7 @@ const compartilhar = JSON.stringify({
   cartao: {
     numero: `+${reais(diesel.r.aumento)}`,
     linha: 'no litro do diesel, e ' + `+${reais(gasolina.r.aumento)} no da gasolina`,
-    premissa: `Se a Petrobras voltasse a seguir o preço de importação (PPI), pelo cálculo da Abicom de ${dataAbicom}.`,
+    premissa: `Se a Petrobras voltasse a seguir o preço de importação (PPI), pela diferença nos polos da Petrobras calculada pela Abicom em ${dataAbicom}.`,
     fonte: 'Fontes: Abicom, ANP, CNPE e IBGE',
     url: ancora.host + ancora.pathname + ancora.hash,
   },
@@ -58,7 +58,7 @@ const compartilhar = JSON.stringify({
     <div class="hero__numero" data-numero>
       <Stat surface="red" value={`+${reais(diesel.r.aumento)}`} label="no litro do diesel" />
       <p class="cp-text-body-small">
-        Diferença para o preço de importação em {dataAbicom} <Fonte id={fonteAbicom} />, só na parte de petróleo do litro
+        Diferença para o preço de importação nos polos da Petrobras em {dataAbicom} <Fonte id={fonteAbicom} />, só na parte de petróleo do litro
         <Fonte id={diesel.fontes.teor} /> <span class="junto"><Fonte id={gasolina.fontes.teor} />.</span>
       </p>
     </div>
@@ -85,7 +85,7 @@ const compartilhar = JSON.stringify({
             <div class="cartao" data-numero>
               <h3 class="cp-text-h3">{NOMES[l.combustivel]}</h3>
               <dl class="conta">
-                <dt>Diferença para o preço de importação</dt>
+                <dt>Diferença para o preço de importação (polos da Petrobras)</dt>
                 <dd>
                   {reais(l.defasagem)} <Fonte id={l.fontes.defasagem} />
                 </dd>

@@ -314,13 +314,13 @@
     },
     {
       "id": "abicom-ppi-2026-10-15",
-      "titulo": "Abicom — relatório de defasagem do PPI de 15/10/2026 (média dos principais polos)",
+      "titulo": "Abicom — relatório de defasagem do PPI de 15/10/2026 (polos da Petrobras)",
       "orgao": "Abicom",
       "url": "https://abicom.com.br/ppi/ppi-15-10-2026/",
       "url_arquivo": null,
       "data_publicacao": "2026-10-15",
       "data_coleta": "2026-10-15",
-      "valor_usado": "Diesel: −R$ 3,24/L (−96%); gasolina: −R$ 0,49/L (−17%) em relação ao preço de importação",
+      "valor_usado": "Polos da Petrobras: diesel −R$ 3,48/L (−107%); gasolina −R$ 0,66/L (−22%) em relação ao preço de importação. Principais polos: diesel −R$ 3,24/L; gasolina −R$ 0,49/L",
       "usado_em": [
         "/combustivel"
       ]
