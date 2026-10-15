@@ -7,7 +7,11 @@ const { nome, documento, contato } = SITE.responsavel;
 ---
 
 <Base id="quemSomos">
-  <p slot="lead" class="hero__lead cp-text-body-large">Quem responde por este site e como falar com a gente.</p>
+  <p slot="lead" class="hero__lead cp-text-body-large">
+    Este site mostra, em reais, como seria o custo de vida das pessoas no governo do Bolsonaro. Ele faz parte do
+    <Link href={SITE.comite.url} external tone="on-red">{SITE.comite.nome}</Link>, uma iniciativa de profissionais de
+    tecnologia.
+  </p>
 
   <!-- Lei 9.504/97, art. 57-D: veda o anonimato. TODO: preencher os dados em src/site.ts. -->
   <section class="secao secao--cinza" aria-labelledby="responsavel">

@@ -5,6 +5,8 @@
 export const SITE = {
   nome: 'Quanto custa Bolsonaro no poder',
   nomeCurto: 'Quanto custa',
+  /** O site faz parte do Comitê Popular do Lula de Tecnologia. */
+  comite: { nome: 'Comitê Popular do Lula de Tecnologia', url: 'https://comitedetecnologia.com.br/' },
   // Lei 9.504/97, art. 57-D: responsável identificado. TODO: preencher.
   responsavel: { nome: '[NOME]', documento: '[CPF/CNPJ]', contato: '[CONTATO]' },
 } as const;
@@ -34,15 +36,15 @@ export const PAGINAS: Record<PaginaId, Pagina> = {
   inicio: {
     path: '/',
     rotulo: 'Início',
-    titulo: 'Quanto custaria a volta das regras de Bolsonaro para você?',
+    titulo: 'Quanto custaria o seu mês no governo do Bolsonaro?',
     descricao:
-      'Veja em reais e em horas de trabalho o que mudaria no seu orçamento se as regras econômicas do governo Bolsonaro voltassem. Tudo com fonte oficial.',
+      'Salário, comida, gás, combustível e aposentadoria: veja em reais quanto custaria o seu mês no governo do Bolsonaro. Todo número tem fonte oficial.',
     atualizadoEm: '2026-10-15',
   },
   salarioMinimo: {
     path: '/salario-minimo',
     rotulo: 'Salário mínimo',
-    titulo: 'Quanto seria o salário mínimo hoje com a regra de Bolsonaro?',
+    titulo: 'Quanto seria o salário mínimo no governo do Bolsonaro?',
     // TODO (etapa 4): trocar pela descrição com os valores, depois que fontes.json existir.
     descricao:
       'Com a correção só pela inflação, o mínimo de 2026 seria menor. Veja a conta, as fontes oficiais e calcule quanto você perderia por mês.',
@@ -67,9 +69,9 @@ export const PAGINAS: Record<PaginaId, Pagina> = {
   combustivel: {
     path: '/combustivel',
     rotulo: 'Combustível',
-    titulo: 'Quanto custariam a gasolina e o diesel sem o fim do PPI?',
+    titulo: 'Gasolina e diesel no governo do Bolsonaro: quanto custariam?',
     descricao:
-      'Quanto subiriam a gasolina e o diesel se a Petrobras voltasse a seguir o preço de importação (PPI)? Veja o exemplo, as ressalvas e as fontes.',
+      'Com o preço de importação (PPI) do governo do Bolsonaro, quanto custariam o litro e o tanque cheio de gasolina e diesel? Veja a conta e as fontes.',
     atualizadoEm: '2026-10-15',
   },
   aposentadoriaBpc: {

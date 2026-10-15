@@ -16,7 +16,11 @@ export function SiteFooter() {
           </Link>
         ))}
       >
-        Responsável: {SITE.responsavel.nome} · {SITE.responsavel.documento}.{' '}
+        Faz parte do{' '}
+        <Link href={SITE.comite.url} external>
+          {SITE.comite.nome}
+        </Link>
+        . Responsável: {SITE.responsavel.nome} · {SITE.responsavel.documento}.{' '}
         <Link href={PAGINAS.quemSomos.path}>Saiba quem faz este site</Link>.
       </Footer>
     </div>

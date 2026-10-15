@@ -29,6 +29,7 @@ const jsonLd = [
     // TODO: dados de "Quem somos" quando os placeholders forem preenchidos.
     name: SITE.nome,
     url,
+    memberOf: { '@type': 'Organization', name: SITE.comite.nome, url: SITE.comite.url },
   },
 ];
 ---
@@ -36,8 +37,8 @@ const jsonLd = [
 <Base id="inicio" jsonLd={jsonLd} imagem={{ src: '/og/inicio.png', alt: PAGINAS.inicio.titulo }}>
   <Fragment slot="lead">
     <p class="hero__lead cp-text-body-large">
-      Veja em reais o que mudaria no seu orçamento se as regras econômicas do governo Bolsonaro voltassem. Cada número tem fonte
-      oficial.
+      Salário mínimo, comida, gás, combustível e aposentadoria: veja em reais quanto custaria o seu mês se as regras e os preços
+      do governo do Bolsonaro voltassem. Cada número tem fonte oficial.
     </p>
     <div class="hero__numero" data-numero>
       <Stat surface="red" value={reais(r.porMes)} label={`a menos por mês no salário mínimo de ${r.ultimo.ano}`} />
@@ -50,7 +51,7 @@ const jsonLd = [
 
   <section class="secao secao--cinza" aria-labelledby="simuladores">
     <div class="cp-container">
-      <h2 id="simuladores" class="cp-text-h2">Escolha um simulador</h2>
+      <h2 id="simuladores" class="cp-text-h2">O custo de vida, item por item</h2>
       <CardsSimuladores headingLevel={3} />
     </div>
   </section>
