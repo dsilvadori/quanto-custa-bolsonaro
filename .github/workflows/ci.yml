@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  qualidade:
+    runs-on: ubuntu-latest
+    env:
+      # Domínio de produção (Settings → Variables). Sem ele, o build usa localhost.
+      SITE_URL: ${{ vars.SITE_URL }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - name: Testes (Vitest)
+        run: npm test
+      - name: Build
+        run: npm run build
+      - name: Fontes (selos, ids e URLs com resposta 200)
+        run: npm run check-fontes
+      - name: Orçamento de peso
+        run: npm run orcamento
+      - name: Lighthouse (celular)
+        run: npx lhci autorun
+      - name: Relatórios do Lighthouse
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse
+          path: .lighthouseci/relatorios

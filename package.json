@@ -11,7 +11,9 @@
     "build": "astro build",
     "preview": "astro preview",
     "test": "vitest run",
-    "check-fontes": "node scripts/check-fontes.mjs"
+    "check-fontes": "node scripts/check-fontes.mjs",
+    "orcamento": "node scripts/orcamento.mjs",
+    "lighthouse": "lhci autorun"
   },
   "dependencies": {
     "@astrojs/react": "^4.4.2",
@@ -23,6 +25,7 @@
     "react-dom": "^19.1.10"
   },
   "devDependencies": {
+    "@lhci/cli": "^0.15.1",
     "@resvg/resvg-js": "^2.6.2",
     "@types/react": "^19.1.0",
     "@types/react-dom": "^19.1.0",

@@ -10,7 +10,15 @@ npm run dev       # http://localhost:4321
 npm test          # Vitest
 npm run build     # gera dist/
 npm run preview   # serve dist/
+
+# Depois do build:
+npm run check-fontes             # todo número com <Fonte>, ids válidos e URLs com 200
+npm run check-fontes -- --sem-rede
+npm run orcamento                # JS ≤ 60 KB, CSS ≤ 30 KB, total ≤ 300 KB (gzip) por página
+npm run lighthouse               # Lighthouse no celular, meta ≥ 95 (use CHROME_PATH se preciso)
 ```
+
+O CI (`.github/workflows/ci.yml`) roda tudo isso a cada push. Defina `SITE_URL` em Settings → Variables.
 
 Node 20.3 ou mais novo (o CI usa o 22, veja `.nvmrc`).
 

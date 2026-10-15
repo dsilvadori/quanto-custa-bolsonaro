@@ -63,7 +63,7 @@ const anos = `${d.anoAtual + 1} a ${d.ateAno}`;
           helperText="Valor bruto do benefício. O BPC é sempre igual ao piso."
         />
         <fieldset class="campo-grupo" data-numero>
-          <legend class="cp-text-title">Ganho real do salário mínimo por ano</legend>
+          <legend id="ganho-rotulo" class="cp-text-title">Ganho real do salário mínimo por ano</legend>
           <div class="faixa">
             <input
               type="range"
@@ -72,6 +72,7 @@ const anos = `${d.anoAtual + 1} a ${d.ateAno}`;
               max={d.ganhoMax}
               step="0.1"
               value={e.ganho}
+              aria-labelledby="ganho-rotulo"
               aria-describedby="ganho-ajuda"
             />
             <output for="ganho" class="faixa__valor" data-saida="ganho">{pct(e.ganho, 1)}</output>

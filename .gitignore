@@ -3,3 +3,4 @@ dist/
 .astro/
 *.log
 .env
+.lighthouseci/
