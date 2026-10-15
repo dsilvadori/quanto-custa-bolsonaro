@@ -3,11 +3,9 @@ import Base from '../layouts/Base.astro';
 import { CardsSimuladores } from '../components/CardsSimuladores';
 ---
 
-<Base
-  titulo="Página não encontrada"
-  descricao="Este endereço não existe. Escolha um dos simuladores."
-  noindex
->
-  <p class="texto cp-text-body-large">Este endereço não existe ou mudou. Escolha um dos simuladores:</p>
-  <CardsSimuladores />
+<Base titulo="Página não encontrada" descricao="Este endereço não existe. Escolha um dos simuladores." noindex>
+  <p slot="lead" class="hero__lead cp-text-body-large">Este endereço não existe ou mudou. Escolha um dos simuladores:</p>
+  <div class="cp-container secao">
+    <CardsSimuladores />
+  </div>
 </Base>

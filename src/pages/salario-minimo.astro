@@ -1,10 +1,181 @@
 ---
+import { Alert, Link, SegmentedButton, Stat, TextField } from '@boralula/ui';
 import Base from '../layouts/Base.astro';
 import LinksSimulador from '../components/LinksSimulador.astro';
+import { Fonte } from '../components/Fonte';
+import { Resultados } from '../components/Resultados';
+import { BarraCompartilhar } from '../components/BarraCompartilhar';
+import { CENARIO_SM, DADOS_SALARIO, INPC, MINIMO_ATUAL, SALARIO_MINIMO } from '../dados';
+import { ESTADO_PADRAO, calcularSalario, frasesSalario, graficoSalario } from '../simuladores/salario';
+import { pct, reais } from '../formato';
+import { PAGINAS } from '../site';
+
+const pagina = PAGINAS.salarioMinimo;
+const url = new URL(pagina.path, Astro.site).href;
+const r = calcularSalario(DADOS_SALARIO, ESTADO_PADRAO);
+const f = frasesSalario(DADOS_SALARIO, ESTADO_PADRAO);
+const { padrao, alternativa } = CENARIO_SM.bases;
+const inpcFinal = CENARIO_SM.inpc[CENARIO_SM.inpc.length - 1];
+
+/** Fonte do valor em vigor em dezembro do ano (o 13º usa esse valor). */
+const fonteDezembro = (ano: number) => SALARIO_MINIMO.filter((v) => v.inicio <= `${ano}-12-01`).at(-1)!.fonte;
+const fonteInpc = (ano: number) => INPC.find((i) => i.aplicadoNoMinimoDe === ano)!.fonte;
+const ancoraCartao = new URL(`${PAGINAS.fontes.path}#${MINIMO_ATUAL.fonte}`, Astro.site);
+const dados = JSON.stringify({
+  dados: DADOS_SALARIO,
+  urlFontes: ancoraCartao.host + ancoraCartao.pathname + ancoraCartao.hash,
+}).replace(/</g, '\\u003c');
 ---
 
-<Base id="salarioMinimo">
-  <!-- TODO (etapa 3/4): simulador. Nenhum número antes de fontes.json e <Fonte> existirem. -->
-  <p class="texto cp-text-body-large">Simulador em atualização.</p>
-  <LinksSimulador atual="salarioMinimo" />
+<Base
+  id="salarioMinimo"
+  selo="Simulador"
+  imagem={{ src: '/og/salario-minimo.png', alt: `O mínimo de ${r.ultimo.ano} seria ${reais(r.ultimo.cenario)} com a regra só pela inflação, e não ${reais(r.ultimo.real)}.` }}
+>
+  <Fragment slot="lead">
+    <p class="hero__lead cp-text-body-large">
+      Com a correção só pela inflação, o mínimo de {r.ultimo.ano} seria
+      <strong class="destaque">{reais(r.ultimo.cenario)}</strong>
+      <Fonte id={inpcFinal.fonte} />, e não <span class="junto">{reais(r.ultimo.real)} <Fonte id={MINIMO_ATUAL.fonte} />.</span>
+    </p>
+    <div class="hero__numero" data-numero>
+      <Stat surface="red" value={f.porMes} label="a menos por mês para quem ganha 1 salário mínimo" />
+      <p class="cp-text-body-small">
+        Valor do decreto <Fonte id={MINIMO_ATUAL.fonte} /> menos o mínimo corrigido só pelo <span class="junto">INPC <Fonte id={inpcFinal.fonte} />.</span>
+      </p>
+    </div>
+  </Fragment>
+
+  <section class="secao secao--cinza" aria-labelledby="calcule">
+    <div class="cp-container simulador">
+      <form class="cartao simulador__form so-com-js" id="form-simulador">
+        <h2 id="calcule" class="cp-text-h2">Calcule a sua perda</h2>
+        <TextField
+          id="salarios"
+          label="Quantos salários mínimos você ganha por mês?"
+          inputMode="decimal"
+          autoComplete="off"
+          defaultValue="1"
+          helperText="Ex.: 1, 1,5 ou 2"
+        />
+        <fieldset class="campo-grupo" data-numero data-segmentado="base">
+          <legend class="cp-text-title">Valor de partida em {CENARIO_SM.anoBase}</legend>
+          <SegmentedButton
+            label={`Valor de partida em ${CENARIO_SM.anoBase}`}
+            value="padrao"
+            onChange={() => {}}
+            options={[
+              { value: 'padrao', label: reais(padrao.valor) },
+              { value: 'alternativa', label: reais(alternativa.valor) },
+            ]}
+          />
+          <p class="cp-text-body-small ajuda">
+            {reais(padrao.valor)} foi o mínimo de {CENARIO_SM.anoBase} fixado pelo governo Bolsonaro <Fonte id={padrao.fonte} />. Em
+            maio, passou a {reais(alternativa.valor)} <Fonte id={alternativa.fonte} />.
+          </p>
+        </fieldset>
+      </form>
+
+      <div class="cartao simulador__resultado" data-numero>
+        <h2 class="cp-text-h2 so-sem-js">Resultado para 1 salário mínimo</h2>
+        <p class="cp-text-body-large resultado__frase" aria-live="polite" data-saida="perda">{f.perda}</p>
+        <Resultados
+          itens={[
+            { saida: 'porMes', valor: f.porMes, rotulo: `a menos por mês em ${r.ultimo.ano}` },
+            { saida: 'porAno', valor: f.porAno, rotulo: `a menos em ${r.ultimo.ano}, com o 13º` },
+            { saida: 'acumulada', valor: f.acumulada, rotulo: `a menos de ${CENARIO_SM.anoBase} a ${r.ultimo.ano}` },
+          ]}
+        />
+        <p class="cp-text-body-small">
+          Contas com os valores do <Fonte id={MINIMO_ATUAL.fonte} /> e o INPC do <Fonte id={inpcFinal.fonte} />.
+          <Link href={PAGINAS.comoCalculamos.path}>Veja como calculamos</Link>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="secao" aria-labelledby="ano-a-ano">
+    <div class="cp-container">
+      <figure class="grafico-cartao" data-numero>
+        <figcaption>
+          <h2 id="ano-a-ano" class="cp-text-h2">Ano a ano</h2>
+          <ul class="legenda" aria-hidden="true">
+            <li><span class="legenda__cor legenda__cor--real"></span>Valor real</li>
+            <li><span class="legenda__cor legenda__cor--cenario"></span>Só inflação (INPC)</li>
+          </ul>
+        </figcaption>
+        <div class="grafico-area" data-grafico set:html={graficoSalario(DADOS_SALARIO, ESTADO_PADRAO)} />
+        <p class="cp-text-body" data-saida="resumo">{f.resumo}</p>
+        <details class="tabela-detalhes">
+          <summary>Ver os números</summary>
+          <div class="tabela-rolagem">
+            <table class="tabela">
+              <caption class="cp-visually-hidden">Salário mínimo em dezembro de cada ano: valor real e regra só pela inflação</caption>
+              <thead>
+                <tr><th scope="col">Ano</th><th scope="col">Real</th><th scope="col">Só inflação</th><th scope="col">Diferença</th></tr>
+              </thead>
+              <tbody>
+                {
+                  r.anos.map((a) => (
+                    <tr>
+                      <th scope="row">{a.ano}</th>
+                      <td>
+                        {reais(a.real)} <Fonte id={fonteDezembro(a.ano)} />
+                      </td>
+                      <td>
+                        <span data-saida={`cen-${a.ano}`}>{reais(a.cenario)}</span>{' '}
+                        {a.ano === CENARIO_SM.anoBase ? (
+                          <>
+                            <span data-base="padrao"><Fonte id={padrao.fonte} /></span>
+                            <span data-base="alternativa" hidden><Fonte id={alternativa.fonte} /></span>
+                          </>
+                        ) : (
+                          <>
+                            <Fonte id={fonteInpc(a.ano)} />
+                            <span class="cp-visually-hidden">(INPC {pct(INPC.find((i) => i.aplicadoNoMinimoDe === a.ano)!.pct)})</span>
+                          </>
+                        )}
+                      </td>
+                      <td><span data-saida={`dif-${a.ano}`}>{reais(a.real - a.cenario)}</span></td>
+                    </tr>
+                  ))
+                }
+              </tbody>
+            </table>
+          </div>
+        </details>
+      </figure>
+    </div>
+  </section>
+
+  <section class="secao" aria-labelledby="premissas">
+    <div class="cp-container">
+      <h2 id="premissas" class="cp-text-h2">Premissas e ressalvas</h2>
+      <Alert tone="info">
+        <ul class="premissas" data-numero>
+          <li>
+            O cenário corrige o mínimo só pelo INPC acumulado em 12 meses até novembro, a regra usada de 2019 a 2022,
+            arredondando ao real <Fonte id={inpcFinal.fonte} />.
+          </li>
+          <li>
+            Em {CENARIO_SM.anoBase}, o mínimo real foi {reais(padrao.valor)} até abril e {reais(alternativa.valor)} a partir de maio
+            <Fonte id={alternativa.fonte} />.
+          </li>
+          <li>Por ano, contamos 12 salários e o 13º, pago pelo valor de dezembro.</li>
+          <li>A conta não inclui efeitos indiretos, como emprego, preços ou contas públicas.</li>
+        </ul>
+      </Alert>
+    </div>
+  </section>
+
+  <div class="cp-container secao secao--fim">
+    <LinksSimulador atual="salarioMinimo" />
+  </div>
+
+  <BarraCompartilhar slot="fim" textoWhatsapp={f.whatsapp(url)} />
+  <script slot="fim" type="application/json" id="dados-salario" set:html={dados} />
 </Base>
+
+<script>
+  import '../scripts/sim-salario';
+</script>

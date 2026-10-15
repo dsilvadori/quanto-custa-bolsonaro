@@ -7,6 +7,7 @@ const { nome, documento, contato } = SITE.responsavel;
 
 <Base id="quemSomos">
   <!-- Lei 9.504/97, art. 57-D: veda o anonimato. TODO: preencher os dados em src/site.ts. -->
+  <div class="cp-container secao">
   <dl class="texto">
     <dt><strong>Responsável</strong></dt>
     <dd>{nome}</dd>
@@ -15,5 +16,6 @@ const { nome, documento, contato } = SITE.responsavel;
     <dt><strong>Contato</strong></dt>
     <dd>{contato}</dd>
   </dl>
+  </div>
   <!-- TODO (etapa 6): como pedir correções. -->
 </Base>

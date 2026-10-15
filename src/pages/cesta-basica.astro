@@ -3,8 +3,10 @@ import Base from '../layouts/Base.astro';
 import LinksSimulador from '../components/LinksSimulador.astro';
 ---
 
-<Base id="cestaBasica">
-  <!-- TODO (etapa 3/4): simulador. Nenhum número antes de fontes.json e <Fonte> existirem. -->
-  <p class="texto cp-text-body-large">Simulador em atualização.</p>
-  <LinksSimulador atual="cestaBasica" />
+<Base id="cestaBasica" selo="Simulador">
+  <!-- TODO (etapa 5): versão estática. Nenhum número antes de ter fonte confirmada em fontes.json. -->
+  <p slot="lead" class="hero__lead cp-text-body-large">Este simulador está em atualização. Enquanto isso, veja os outros.</p>
+  <div class="cp-container secao">
+    <LinksSimulador atual="cestaBasica" />
+  </div>
 </Base>

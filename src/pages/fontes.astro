@@ -14,11 +14,12 @@ const grupos = SIMULADORES.map((id) => ({
 ---
 
 <Base id="fontes">
-  <p class="texto cp-text-body-large">
+  <p slot="lead" class="hero__lead cp-text-body-large">
     Cada número do site vem de uma destas fontes. Para cada uma, mostramos o valor exato usado, a data e uma cópia
     arquivada.
   </p>
-  <div class="registro" data-registro-fontes>
+  <div class="secao secao--cinza">
+  <div class="cp-container registro" data-registro-fontes>
     {
       grupos.map((g) => (
         <section aria-labelledby={`grupo-${g.id}`}>
@@ -63,5 +64,6 @@ const grupos = SIMULADORES.map((id) => ({
         </section>
       ))
     }
+  </div>
   </div>
 </Base>

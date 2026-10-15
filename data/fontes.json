@@ -233,6 +233,32 @@
       "usado_em": [
         "/aposentadoria-bpc"
       ]
+    },
+    {
+      "id": "cf-1988-piso-beneficios",
+      "titulo": "Constituição Federal de 1988, art. 201, § 2º, e art. 203, V — nenhum benefício abaixo do salário mínimo e BPC de um salário mínimo",
+      "orgao": "Diário Oficial",
+      "url": "https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm",
+      "url_arquivo": "https://web.archive.org/web/20261015184439/https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm",
+      "data_publicacao": "1988-10-05",
+      "data_coleta": "2026-10-15",
+      "valor_usado": "Nenhum benefício que substitua o salário de contribuição ou o rendimento do trabalho terá valor mensal inferior ao salário mínimo; BPC de um salário mínimo",
+      "usado_em": [
+        "/aposentadoria-bpc"
+      ]
+    },
+    {
+      "id": "lei-8213-art-41a-inpc",
+      "titulo": "Lei nº 8.213, de 24 de julho de 1991, art. 41-A — benefícios reajustados pelo INPC",
+      "orgao": "Diário Oficial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l8213cons.htm",
+      "url_arquivo": "https://web.archive.org/web/20261015184524/https://www.planalto.gov.br/ccivil_03/leis/l8213cons.htm",
+      "data_publicacao": "1991-07-25",
+      "data_coleta": "2026-10-15",
+      "valor_usado": "Benefícios em manutenção reajustados anualmente pelo INPC, na data do reajuste do salário mínimo (art. 41-A, incluído pela Lei nº 11.430/2006)",
+      "usado_em": [
+        "/aposentadoria-bpc"
+      ]
     }
   ]
 }

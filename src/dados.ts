@@ -1,8 +1,11 @@
 // Lê os CSVs de /data no build. As páginas recebem daqui os números e o id da fonte de cada um.
 import salarioMinimoCsv from '../data/salario-minimo.csv?raw';
 import inpcCsv from '../data/inpc.csv?raw';
+import parametrosCsv from '../data/parametros.csv?raw';
 import { lerCsv } from './calc/csv';
 import type { Vigencia } from './calc/salarioMinimo';
+import type { DadosSalario } from './simuladores/salario';
+import type { DadosBeneficio } from './simuladores/beneficio';
 
 export interface VigenciaComFonte extends Vigencia {
   fonte: string;
@@ -48,3 +51,30 @@ export const CENARIO_SM = {
 
 /** Salário mínimo em vigor hoje (última vigência). */
 export const MINIMO_ATUAL = SALARIO_MINIMO.reduce((a, b) => (b.inicio > a.inicio ? b : a));
+
+export const PARAMETROS: Record<string, { valor: number; fonte: string }> = Object.fromEntries(
+  lerCsv(parametrosCsv).map((l) => [l.nome!, { valor: Number(l.valor), fonte: l.fonte! }]),
+);
+
+function parametro(nome: string) {
+  const p = PARAMETROS[nome];
+  if (!p) throw new Error(`Parâmetro ${nome} não existe em data/parametros.csv`);
+  return p;
+}
+
+/** O que o navegador precisa para refazer as contas (vai como JSON na página). */
+export const DADOS_SALARIO: DadosSalario = {
+  real: SALARIO_MINIMO.map(({ inicio, valor }) => ({ inicio, valor })),
+  anoBase: CENARIO_SM.anoBase,
+  inpc: CENARIO_SM.inpc.map((i) => i.pct),
+  bases: { padrao: CENARIO_SM.bases.padrao.valor, alternativa: CENARIO_SM.bases.alternativa.valor },
+};
+
+export const DADOS_BENEFICIO: DadosBeneficio = {
+  salario: DADOS_SALARIO,
+  piso: MINIMO_ATUAL.valor,
+  anoAtual: Number(MINIMO_ATUAL.inicio.slice(0, 4)),
+  ateAno: parametro('ganho_real_ate_ano').valor,
+  ganhoMin: parametro('ganho_real_min_pct').valor,
+  ganhoMax: parametro('ganho_real_max_pct').valor,
+};

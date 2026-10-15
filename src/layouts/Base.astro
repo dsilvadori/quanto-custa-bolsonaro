@@ -1,6 +1,7 @@
 ---
 import '@boralula/ui/styles.css';
 import '../styles/global.css';
+import { BrandStripes, Tag } from '@boralula/ui';
 import fonteTitulo from '../assets/fonts/montserrat-latin-800-normal.woff2?url';
 import Seo from '../components/Seo.astro';
 import { SiteHeader } from '../components/SiteHeader';
@@ -14,11 +15,17 @@ interface Props {
   id?: PaginaId;
   titulo?: string;
   descricao?: string;
+  /** Rótulo curto acima do título no hero, ex.: "Simulador". */
+  selo?: string;
+  /** Imagem Open Graph 1200×630. */
+  imagem?: { src: string; alt: string };
   jsonLd?: Record<string, unknown>[];
   noindex?: boolean;
 }
 
-const { id, jsonLd = [], noindex = false } = Astro.props;
+const { id, selo, jsonLd = [], noindex = false } = Astro.props;
+// Páginas sem imagem própria usam a da Início.
+const imagem = Astro.props.imagem ?? { src: '/og/inicio.png', alt: PAGINAS.inicio.titulo };
 const pagina = id ? PAGINAS[id] : undefined;
 const titulo = pagina?.titulo ?? Astro.props.titulo!;
 const descricao = pagina?.descricao ?? Astro.props.descricao!;
@@ -41,9 +48,11 @@ const breadcrumb = interna && {
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#ffffff" />
-    <!-- Economia de dados: fonte do sistema e nada de preload. Senão, preload só da fonte dos títulos. -->
+    <meta name="theme-color" content="#C3090A" />
+    <!-- Marca que há JS (mostra os controles dos simuladores).
+         Economia de dados: fonte do sistema e nada de preload. Senão, preload só da fonte dos títulos. -->
     <script is:inline define:vars={{ fonteTitulo }}>
+      document.documentElement.classList.add('js');
       var c = navigator.connection;
       if (c && c.saveData) {
         document.documentElement.classList.add('save-data');
@@ -61,6 +70,7 @@ const breadcrumb = interna && {
       titulo={titulo}
       descricao={descricao}
       path={pagina?.path}
+      imagem={imagem}
       noindex={noindex}
       jsonLd={breadcrumb ? [...jsonLd, breadcrumb] : jsonLd}
     />
@@ -69,19 +79,29 @@ const breadcrumb = interna && {
   <body class="cp-body">
     <a class="pular" href="#conteudo">Pular para o conteúdo</a>
     <SiteHeader atual={id} />
-    <main id="conteudo" class="cp-container">
-      {interna && <VoltarInicio />}
-      <h1 class="cp-text-h1">{titulo}</h1>
+    <main id="conteudo">
+      <section class="hero" aria-labelledby="titulo-pagina">
+        <div class="hero__arte" aria-hidden="true"><BrandStripes base="red" /></div>
+        <div class="cp-container hero__conteudo">
+          {interna && <VoltarInicio />}
+          {selo && <Tag tone="neutral">{selo}</Tag>}
+          <h1 id="titulo-pagina" class="cp-text-h1 hero__titulo">{titulo}</h1>
+          <slot name="lead" />
+        </div>
+      </section>
       <slot />
       {
         pagina && (
-          <p class="atualizado cp-text-body-small">
-            Atualizado em <time datetime={pagina.atualizadoEm}>{dataPorExtenso(pagina.atualizadoEm)}</time>
-          </p>
+          <div class="cp-container">
+            <p class="atualizado cp-text-body-small">
+              Atualizado em <time datetime={pagina.atualizadoEm}>{dataPorExtenso(pagina.atualizadoEm)}</time>
+            </p>
+          </div>
         )
       }
     </main>
     <SiteFooter />
+    <slot name="fim" />
     <PainelFonte />
     <script>
       import '../scripts/menu';

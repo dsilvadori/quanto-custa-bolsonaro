@@ -22,7 +22,7 @@ const isento = (el) => el.closest('[data-registro-fontes], #painel-fonte, [data-
 
 function bloco(el) {
   for (let n = el; n; n = n.parentNode) {
-    if (n.rawTagName && (BLOCOS.has(n.rawTagName.toLowerCase()) || n.hasAttribute?.('data-numero'))) return n;
+    if (n.rawTagName && BLOCOS.has(n.rawTagName.toLowerCase())) return n;
   }
   return null;
 }
@@ -51,7 +51,8 @@ for (const arquivo of paginas) {
     if (!NUMERO.test(conteudo)) continue;
     const pai = texto.parentNode;
     if (isento(pai)) continue;
-    const b = bloco(pai);
+    // Números calculados (resultado, tabela, gráfico) ficam num contêiner [data-numero] que mostra as fontes da conta.
+    const b = pai.closest('[data-numero]') ?? bloco(pai);
     if (!b || !b.querySelector('[data-fonte]')) {
       erros.push(`(a) ${arquivo}: número sem <Fonte> no bloco: "${conteudo.slice(0, 80)}"`);
     }
