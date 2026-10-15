@@ -22,8 +22,10 @@ export type PaginaId =
 
 export interface Pagina {
   path: string;
-  /** Rótulo curto em menus e breadcrumbs. */
+  /** Rótulo curto em cartões, rodapé e breadcrumbs. */
   rotulo: string;
+  /** Rótulo no menu do topo, quando o rótulo não cabe. */
+  menu?: string;
   titulo: string;
   descricao: string;
   /** Data da última revisão do conteúdo (AAAA-MM-DD), mostrada na página. */
@@ -58,10 +60,11 @@ export const PAGINAS: Record<PaginaId, Pagina> = {
   },
   carrinho: {
     path: '/carrinho',
-    rotulo: 'Carrinho',
-    titulo: 'Quanto custaria o seu carrinho no governo do Bolsonaro?',
+    rotulo: 'Carrinho de supermercado',
+    menu: 'Supermercado',
+    titulo: 'Carrinho de supermercado no governo do Bolsonaro: quanto dá?',
     descricao:
-      'Monte o seu carrinho de compras, ou use a compra de uma família de 4, e veja quanto custaria se os preços subissem como no governo do Bolsonaro.',
+      'Monte o seu carrinho de supermercado, ou use a compra de uma família de 4, e veja quanto custaria se os preços subissem como no governo do Bolsonaro.',
     atualizadoEm: '2026-10-15',
   },
   combustivel: {

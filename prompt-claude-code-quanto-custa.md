@@ -145,7 +145,7 @@ Cada número do site precisa ter fonte acessível em no máximo 1 toque.
 3. **Cesta básica** (Simulador 2)
 4. **Combustível** (Simulador 3)
 5. **Aposentadoria e BPC** (Simulador 4)
-6. **Carrinho de compras** (Simulador 5)
+6. **Carrinho de supermercado** (Simulador 5)
 7. **Como calculamos** — fórmulas, premissas, contrapontos, registro público de
    correções
 8. **Fontes** — registro completo e downloads
@@ -200,12 +200,12 @@ Cada número do site precisa ter fonte acessível em no máximo 1 toque.
   em 08/10/2026, com `<Fonte>` para as duas informações. Título: "E se a proposta
   estudada pela equipe de Flávio fosse aprovada?", nunca "Flávio vai cortar".
 
-### Simulador 5 — Carrinho de compras
+### Simulador 5 — Carrinho de supermercado
 - **Ideia:** a pessoa monta um carrinho de compras do dia a dia e vê, item a item e no
   total, quanto ele custa hoje e quanto custaria se cada produto tivesse subido como no
   governo do Bolsonaro.
-- **URL:** `/carrinho`. Title (≤ 60): "Quanto custaria o seu carrinho no governo do
-  Bolsonaro?".
+- **URL:** `/carrinho`. Title (≤ 60): "Carrinho de supermercado no governo do Bolsonaro:
+  quanto dá?".
 - **Produtos (v1):** os 13 itens da cesta do DIEESE (carne, leite, feijão, arroz,
   farinha, batata, tomate, pão, café, banana, açúcar, óleo e manteiga), mais gás de
   botijão. Cada produto com unidade de compra (ex.: arroz 5 kg, café 500 g, gás 13 kg).

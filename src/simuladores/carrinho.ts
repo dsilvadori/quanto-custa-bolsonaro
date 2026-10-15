@@ -128,10 +128,10 @@ export function frasesCarrinho(d: DadosCarrinho, e: EstadoCarrinho) {
         ? 'Seu carrinho está vazio. Toque em + para pôr produtos.'
         : `${onde.charAt(0).toUpperCase()}${onde.slice(1)}, este carrinho custa ${reais(r.hoje)} hoje. Como no governo do Bolsonaro, custaria ${reais(r.cenario)}: ${reais(Math.abs(r.diferenca))} ${mais ? 'a mais' : 'a menos'}.`,
     whatsapp: (url: string) =>
-      `Montei um carrinho de compras ${onde}: ${reais(r.hoje)} hoje, ${reais(r.cenario)} como no governo do Bolsonaro. Monte o seu e veja as fontes: ${url}`,
+      `Montei um carrinho de supermercado ${onde}: ${reais(r.hoje)} hoje, ${reais(r.cenario)} como no governo do Bolsonaro. Monte o seu e veja as fontes: ${url}`,
     cartao: {
       numero: `${mais ? '+' : '−'}${reais(Math.abs(r.diferenca))}`,
-      linha: `no carrinho de compras ${onde}`,
+      linha: `no carrinho de supermercado ${onde}`,
       premissa: `Hoje ${reais(r.hoje)}; como no governo do Bolsonaro, ${reais(r.cenario)}. ${destaques.join('. ')}.`,
       fonte: 'Fontes: DIEESE, ANP e IBGE',
     },
