@@ -82,7 +82,8 @@ Use o Bora Lula Design System: https://www.ntmedina.com/bora-lula-ui/
 
 ## SEO
 - **URLs curtas em português:** `/`, `/salario-minimo`, `/cesta-basica`,
-  `/combustivel`, `/aposentadoria-bpc`, `/como-calculamos`, `/fontes`, `/quem-somos`.
+  `/combustivel`, `/aposentadoria-bpc`, `/carrinho`, `/como-calculamos`, `/fontes`,
+  `/quem-somos`.
 - **Por página:** `<title>` único (≤ 60 caracteres) e `meta description` única
   (≤ 155 caracteres), escritos como a pergunta que o eleitor faz no Google. Ex.:
   - `/salario-minimo` → title "Quanto seria o salário mínimo hoje com a regra de
@@ -103,7 +104,7 @@ Use o Bora Lula Design System: https://www.ntmedina.com/bora-lula-ui/
   - `BreadcrumbList` nas páginas internas
 - `sitemap.xml` (via @astrojs/sitemap), `robots.txt` liberando tudo e apontando o
   sitemap, página 404 útil com links para os simuladores.
-- **Links internos:** cada simulador liga para os outros três, para
+- **Links internos:** cada simulador liga para os outros quatro, para
   "Como calculamos" e para "Fontes".
 - **Textos alternativos** descritivos em todas as imagens e gráficos.
 - Toda página com data de atualização visível (`<time datetime="...">`).
@@ -144,10 +145,11 @@ Cada número do site precisa ter fonte acessível em no máximo 1 toque.
 3. **Cesta básica** (Simulador 2)
 4. **Combustível** (Simulador 3)
 5. **Aposentadoria e BPC** (Simulador 4)
-6. **Como calculamos** — fórmulas, premissas, contrapontos, registro público de
+6. **Carrinho de compras** (Simulador 5)
+7. **Como calculamos** — fórmulas, premissas, contrapontos, registro público de
    correções
-7. **Fontes** — registro completo e downloads
-8. **Quem somos** — responsável identificado (a Lei 9.504/97, art. 57-D, veda
+8. **Fontes** — registro completo e downloads
+9. **Quem somos** — responsável identificado (a Lei 9.504/97, art. 57-D, veda
    anonimato). Placeholders: [NOME], [CPF/CNPJ], [CONTATO].
 
 ---
@@ -197,6 +199,43 @@ Cada número do site precisa ter fonte acessível em no máximo 1 toque.
   em 08/10/2026, com `<Fonte>` para as duas informações. Título: "E se a proposta
   estudada pela equipe de Flávio fosse aprovada?", nunca "Flávio vai cortar".
 
+### Simulador 5 — Carrinho de compras
+- **Ideia:** a pessoa monta um carrinho de compras do dia a dia e vê, item a item e no
+  total, quanto ele custa hoje e quanto custaria se cada produto tivesse subido no ritmo
+  de preços do governo Bolsonaro.
+- **URL:** `/carrinho`. Title (≤ 60): "Quanto custaria o seu carrinho no ritmo de
+  Bolsonaro?".
+- **Produtos (v1):** os 13 itens da cesta do DIEESE (carne, leite, feijão, arroz,
+  farinha, batata, tomate, pão, café, banana, açúcar, óleo e manteiga), mais gás de
+  botijão e gasolina. Cada produto com unidade de compra (ex.: arroz 5 kg, café 500 g,
+  gás 13 kg, gasolina 1 L).
+- **Preço de hoje:** fonte primária por produto. Alimentos: preço médio do DIEESE por
+  capital (padrão: média das 27 capitais). Gás de botijão e gasolina: preço médio da ANP
+  (pesquisa semanal mais recente).
+- **Preço no ritmo de Bolsonaro**, por produto, com o subitem do IPCA correspondente
+  (SIDRA 1419 para 2019 e 7060 de 2020 em diante):
+  `preço_cenário = preço_hoje × (1 + B)^(n/48) ÷ (1 + L)`, em que B é a alta do subitem
+  de jan/2019 a dez/2022 (48 meses), L é a alta do subitem de jan/2023 até o último mês
+  publicado, e n é o número de meses desse período. Mesma lógica do Simulador 2, produto
+  a produto.
+- **Interação (JS puro, sem framework):** botões − e + com alvo de 44 px, quantidade
+  visível, total do carrinho hoje × no ritmo de Bolsonaro, diferença em R$ e em %. Seletor
+  de capital (como no Simulador 2). Carrinho padrão = 1 unidade de cada alimento da
+  cesta. URL guarda o carrinho (`?itens=arroz:2,cafe:1`) para compartilhar.
+- **Sem JS:** tabela com o carrinho padrão, preços de hoje e no ritmo de Bolsonaro,
+  renderizada no build.
+- **Fontes:** `<Fonte>` em cada preço de hoje e em cada alta de subitem. Produto sem preço
+  ou sem subitem confirmado aparece como "em atualização" e fica fora do total.
+- **Dados:** `/data/carrinho-produtos.csv` (`produto`, `unidade`, `capital`, `preco`,
+  `referencia`, `fonte_preco`, `subitem_ipca`, `fonte_indice`) e
+  `/data/ipca-subitens.csv` (`subitem_ipca`, `periodo`, `variacao_pct`, `governo`,
+  `meses`, `fonte`).
+- **Compartilhar:** cartão 1080×1080 com os 3 ou 4 itens do carrinho que mais subiriam,
+  o total hoje × no ritmo de Bolsonaro e a premissa.
+- **Testes:** fator por produto igual ao do Simulador 2 quando B e L são os da
+  alimentação no domicílio; total do carrinho = soma dos itens × quantidades; produto
+  "em atualização" não entra no total.
+
 ---
 
 ## Compartilhamento
@@ -232,5 +271,7 @@ Cada número do site precisa ter fonte acessível em no máximo 1 toque.
 6. "Como calculamos", "Fontes" e "Quem somos"; sitemap, robots e 404.
 7. Rodar testes, `check-fontes`, orçamento de peso e Lighthouse mobile e me mostrar os
    resultados.
+8. Simulador 5 (carrinho de compras): conferir na origem os preços por produto e os
+   subitens do IPCA, montar os CSVs e só depois a página interativa.
 
 Ao final de cada etapa, faça um resumo curto do que mudou e pergunte antes de seguir.
