@@ -101,12 +101,12 @@ a:has(> .marca) { text-decoration: none; }
 .secao { padding-block: var(--cp-space-12); }
 .secao--cinza { background: var(--cp-color-surface-container); }
 .secao + .secao:not(.secao--cinza) { padding-top: 0; }
-.secao--cinza + .secao { padding-top: var(--cp-space-12); }
+.secao--cinza + .secao:not(.secao--cinza) { padding-top: var(--cp-space-12); }
 .secao h2 { margin: 0 0 var(--cp-space-4); }
 .secao--fim { padding-top: 0; }
 @media (min-width: 768px) {
   .secao { padding-block: var(--cp-space-16); }
-  .secao--cinza + .secao { padding-top: var(--cp-space-16); }
+  .secao--cinza + .secao:not(.secao--cinza) { padding-top: var(--cp-space-16); }
 }
 
 .cartao {
