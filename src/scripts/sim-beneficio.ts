@@ -37,9 +37,9 @@ function mostrar() {
     retroPorMes: `−${f.retroPorMes}`,
     retroTotal: `−${f.retroTotal}`,
     futuro: f.futuro,
+    porMesFinal: `−${f.porMesFinal}`,
+    total: `−${f.total}`,
     perdaPct: `−${f.perdaPct}`,
-    cestasFinal: f.cestasFinal,
-    cestasPerdidas: `−${f.cestasPerdidas}`,
     ganho: pct(estado.ganho, 1),
   });
   html('[data-grafico="retro"]', graficoRetro(dados, estado));

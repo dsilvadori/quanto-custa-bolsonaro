@@ -52,13 +52,11 @@ describe('Simulador 4 com os dados de /data', () => {
     expect(frasesBeneficio(DADOS_BENEFICIO, { tipo: 'aposentadoria', ganho: 0.6 }).retroTotal).toBe('R$\u00a05.273,60');
   });
 
-  it('projeção em poder de compra: cestas por mês e cestas perdidas', () => {
+  it('projeção em reais: valor parado e total perdido até 2030', () => {
     const f = frasesBeneficio(DADOS_BENEFICIO, { tipo: 'bpc', ganho: 2.5 });
-    const cesta = DADOS_BENEFICIO.cesta;
-    const fmt = (v: number) => v.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-    expect(f.cestasFinal).toBe(`${fmt(1621 / cesta)} em vez de ${fmt((1621 * 1.025 ** 4) / cesta)}`);
     const totalReais = [1, 2, 3, 4].reduce((s, n) => s + 12 * 1621 * (1.025 ** n - 1), 0);
-    expect(f.cestasPerdidas).toBe(fmt(totalReais / cesta));
+    expect(f.total).toBe(`R$\u00a0${totalReais.toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.')}`);
+    expect(f.futuro).toContain('o BPC ficaria parado em R$\u00a01.621 por mês');
   });
 
   it('projeção com 2,5%: perda de 2030 e % batem com a fórmula', () => {
@@ -72,7 +70,7 @@ describe('Simulador 4: concordância', () => {
   it('aposentadoria no feminino, BPC no masculino', () => {
     const apos = frasesBeneficio(DADOS_BENEFICIO, { tipo: 'aposentadoria', ganho: 0.6 });
     expect(apos.retro).toMatch(/aposentadoria de 1 salário mínimo tivesse sido desvinculada/);
-    expect(apos.futuro).toMatch(/^Sem aumento real, a aposentadoria de 1 salário mínimo compraria/);
-    expect(frasesBeneficio(DADOS_BENEFICIO, { tipo: 'bpc', ganho: 0.6 }).futuro).toMatch(/^Sem aumento real, o BPC compraria/);
+    expect(apos.futuro).toMatch(/^Sem aumento real, a aposentadoria de 1 salário mínimo ficaria parada/);
+    expect(frasesBeneficio(DADOS_BENEFICIO, { tipo: 'bpc', ganho: 0.6 }).futuro).toMatch(/^Sem aumento real, o BPC ficaria parado/);
   });
 });
