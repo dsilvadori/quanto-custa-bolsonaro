@@ -84,10 +84,11 @@ describe('quantidades com decimais', () => {
   });
 
   it('URL guarda só o que mudou e aceita decimais', () => {
-    const base = estadoPadraoCarrinho(DADOS_CARRINHO, 'São Paulo');
+    const base = estadoVazio(DADOS_CARRINHO, 'São Paulo');
     const mudado = { ...base, qtd: { ...base.qtd, gas: 1, carne: 12.5 } };
     const texto = codificarItens(DADOS_CARRINHO, mudado);
     expect(texto).toBe('carne:12.5,gas:1');
     expect(decodificarItens(DADOS_CARRINHO, base, texto)).toEqual(mudado);
+    expect(codificarItens(DADOS_CARRINHO, base)).toBeNull();
   });
 });

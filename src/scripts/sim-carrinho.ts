@@ -11,6 +11,7 @@ import {
   estadoVazio,
   frasesCarrinho,
   passo,
+  textoReferencia,
   qtdTexto,
   type DadosCarrinho,
 } from '../simuladores/carrinho';
@@ -24,7 +25,8 @@ const seletor = document.getElementById('capital') as HTMLSelectElement;
 const params = new URLSearchParams(location.search);
 const capitalUrl = params.get('capital');
 const capital = capitalUrl && dados.capitais.includes(capitalUrl) ? capitalUrl : MEDIA;
-let estado = decodificarItens(dados, estadoPadraoCarrinho(dados, capital), params.get('itens'));
+// O carrinho começa vazio; o link compartilhado traz o que a pessoa pôs.
+let estado = decodificarItens(dados, estadoVazio(dados, capital), params.get('itens'));
 
 function mostrar() {
   const r = calcularCarrinho(dados, estado);
@@ -41,7 +43,11 @@ function mostrar() {
   const f = frasesCarrinho(dados, estado);
   escrever({ resumo: f.resumo, hoje: f.hoje, cenario: f.cenario, diferenca: `${f.diferenca} (${f.pct})` });
   const url = atualizarUrl({ capital: estado.capital === MEDIA ? null : estado.capital, itens: codificarItens(dados, estado) });
-  definirCompartilhamento({ texto: f.whatsapp(url), url, titulo: document.title, cartao: { ...f.cartao, url: urlFontes } });
+  // Carrinho vazio: compartilha a compra de referência (quinzena da família de 4) em vez de "R$ 0".
+  const vazio = calcularCarrinho(dados, estado).itens === 0;
+  const fc = vazio ? frasesCarrinho(dados, estadoPadraoCarrinho(dados, estado.capital)) : f;
+  const texto = vazio ? textoReferencia(dados, estado.capital, url) : f.whatsapp(url);
+  definirCompartilhamento({ texto, url, titulo: document.title, cartao: { ...fc.cartao, url: urlFontes } });
 }
 
 lista.addEventListener('click', (e) => {
@@ -65,12 +71,8 @@ document.querySelector('.atalhos')?.addEventListener('click', (e) => {
 
 seletor.value = estado.capital;
 seletor.addEventListener('change', () => {
-  // Itens que a pessoa não mexeu seguem a compra da família na nova capital (as quantidades variam por região);
-  // os que ela mudou ficam como estão.
-  const antes = estadoPadraoCarrinho(dados, estado.capital).qtd;
-  const depois = estadoPadraoCarrinho(dados, seletor.value).qtd;
-  const qtd = Object.fromEntries(Object.keys(depois).map((id) => [id, estado.qtd[id] === antes[id] ? depois[id] : estado.qtd[id]]));
-  estado = { capital: seletor.value, qtd };
+  // Troca de capital mantém o que a pessoa pôs; produto que a capital não pesquisa fica fora do total.
+  estado = { ...estado, capital: seletor.value };
   mostrar();
 });
 

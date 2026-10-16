@@ -8,14 +8,17 @@ import { ListaCarrinho } from '../components/ListaCarrinho';
 import { BotaoAtalho } from '../components/BotaoAtalho';
 import { BarraCarrinho } from '../components/BarraCarrinho';
 import { CARRINHO, DADOS_CARRINHO } from '../dados';
-import { MEDIA, calcularCarrinho, estadoPadraoCarrinho, frasesCarrinho, graficoProdutos } from '../simuladores/carrinho';
+import { MEDIA, calcularCarrinho, estadoPadraoCarrinho, estadoVazio, frasesCarrinho, graficoProdutos, textoReferencia } from '../simuladores/carrinho';
 import { PAGINAS, dataPorExtenso } from '../site';
 
 const url = new URL(PAGINAS.carrinho.path, Astro.site).href;
 const d = DADOS_CARRINHO;
+// Topo: a compra da quinzena de uma família de 4. O carrinho em si começa vazio para a pessoa montar o seu.
 const e = estadoPadraoCarrinho(d);
-const r = calcularCarrinho(d, e);
 const f = frasesCarrinho(d, e);
+const inicio = estadoVazio(d, MEDIA);
+const r = calcularCarrinho(d, inicio);
+const fInicio = frasesCarrinho(d, inicio);
 const [fonte2019, fonteDepois] = [CARRINHO.fontesSubitens.find((id) => id.endsWith('2019'))!, CARRINHO.fontesSubitens.find((id) => !id.endsWith('2019'))!];
 const [fonteDieese, fonteAnp] = [CARRINHO.fontesPreco.find((id) => id.startsWith('dieese'))!, CARRINHO.fontesPreco.find((id) => id.startsWith('anp'))!];
 const mesReferencia = dataPorExtenso(`${CARRINHO.referencia}-01`).replace(/^1º de /, '');
@@ -54,8 +57,9 @@ const dados = JSON.stringify({ dados: d, urlFontes: ancora.host + ancora.pathnam
           <span class="junto"><Fonte id={fonteAnp} />.</span>
         </p>
         <p class="ajuda cp-text-body-small">
-          O carrinho começa com a compra da quinzena de uma família de 4 pessoas: metade do que o DIEESE conta para o mês de 2
-          adultos e 2 crianças (3 cestas de adulto da sua capital), em quantidades redondas. Como na tabela do DIEESE, o tomate representa todos os legumes e a banana, as frutas. Use − e + para ajustar ao que você compra
+          Monte o seu carrinho com − e +. Se preferir, comece pela compra da quinzena ou do mês de uma família de 4 pessoas: é como o
+          DIEESE conta o mês de 2 adultos e 2 crianças (3 cestas de adulto da sua capital), em quantidades redondas. Na tabela do
+          DIEESE, o tomate representa todos os legumes e a banana, as frutas
           <span class="junto"><Fonte id={CARRINHO.fonteQtd} />.</span>
         </p>
         <div class="atalhos so-com-js">
@@ -75,12 +79,12 @@ const dados = JSON.stringify({ dados: d, urlFontes: ancora.host + ancora.pathnam
 
       <div class="cartao simulador__resultado carrinho-total" data-numero>
         <h2 class="cp-text-h2">Total do carrinho</h2>
-        <p class="cp-text-body-large resultado__frase" aria-live="polite" data-saida="resumo">{f.resumo}</p>
+        <p class="cp-text-body-large resultado__frase" aria-live="polite" data-saida="resumo">{fInicio.resumo}</p>
         <Resultados
           itens={[
-            { saida: 'hoje', valor: f.hoje, rotulo: 'hoje' },
-            { saida: 'cenario', valor: f.cenario, rotulo: 'no governo do Bolsonaro' },
-            { saida: 'diferenca', valor: `${f.diferenca} (${f.pct})`, rotulo: 'de diferença' },
+            { saida: 'hoje', valor: fInicio.hoje, rotulo: 'hoje' },
+            { saida: 'cenario', valor: fInicio.cenario, rotulo: 'no governo do Bolsonaro' },
+            { saida: 'diferenca', valor: `${fInicio.diferenca} (${fInicio.pct})`, rotulo: 'de diferença' },
           ]}
         />
         <p class="cp-text-body-small">
@@ -111,7 +115,7 @@ const dados = JSON.stringify({ dados: d, urlFontes: ancora.host + ancora.pathnam
     <LinksSimulador atual="carrinho" />
   </div>
 
-  <BarraCarrinho slot="fim" textoWhatsapp={f.whatsapp(url)} hoje={f.hoje} cenario={f.cenario} />
+  <BarraCarrinho slot="fim" textoWhatsapp={textoReferencia(d, MEDIA, url)} hoje={fInicio.hoje} cenario={fInicio.cenario} />
   <script slot="fim" type="application/json" id="dados-carrinho" set:html={dados} />
 </Base>
 

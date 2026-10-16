@@ -39,7 +39,7 @@ export interface EstadoCarrinho {
 /** Quinzena = metade da compra do mês. */
 export const QUINZENA = 0.5;
 
-/** Carrinho padrão: compra da quinzena de uma família de 4 pessoas (1,5 cesta de adulto da capital). */
+/** Compra de referência do topo da página: a quinzena de uma família de 4 pessoas (1,5 cesta de adulto da capital). */
 export function estadoPadraoCarrinho(d: DadosCarrinho, capital = MEDIA): EstadoCarrinho {
   return estadoFamilia(d, capital, QUINZENA);
 }
@@ -103,11 +103,10 @@ export function lugar(d: DadosCarrinho, capital: string): string {
   return capital === MEDIA ? `na média das ${d.capitais.length} capitais` : `em ${capital}`;
 }
 
-/** "arroz:2,cafe:1" ↔ quantidades. Só guarda o que difere do carrinho padrão da capital. */
+/** "arroz:2,cafe:1" ↔ quantidades. O carrinho começa vazio: guarda só o que a pessoa pôs. */
 export function codificarItens(d: DadosCarrinho, e: EstadoCarrinho): string | null {
-  const padrao = estadoPadraoCarrinho(d, e.capital).qtd;
-  const diff = d.produtos.filter((p) => (e.qtd[p.id] ?? 0) !== padrao[p.id]).map((p) => `${p.id}:${e.qtd[p.id] ?? 0}`);
-  return diff.length ? diff.join(',') : null;
+  const itens = d.produtos.filter((p) => (e.qtd[p.id] ?? 0) > 0).map((p) => `${p.id}:${e.qtd[p.id]}`);
+  return itens.length ? itens.join(',') : null;
 }
 
 export function decodificarItens(d: DadosCarrinho, base: EstadoCarrinho, texto: string | null): EstadoCarrinho {
@@ -118,6 +117,12 @@ export function decodificarItens(d: DadosCarrinho, base: EstadoCarrinho, texto: 
     if (d.produtos.some((p) => p.id === id) && Number.isFinite(v) && v >= 0 && v <= 99) qtd[id] = arredondar(v);
   }
   return { ...base, qtd };
+}
+
+/** Texto para compartilhar a compra de referência (quinzena da família de 4), usado quando o carrinho está vazio. */
+export function textoReferencia(d: DadosCarrinho, capital: string, url: string): string {
+  const r = calcularCarrinho(d, estadoPadraoCarrinho(d, capital));
+  return `A compra da quinzena de uma família de 4 pessoas ${lugar(d, capital)} custa ${reais(r.hoje)} hoje. Como no governo do Bolsonaro, custaria ${reais(r.cenario)}. Monte o seu carrinho e veja as fontes: ${url}`;
 }
 
 export function frasesCarrinho(d: DadosCarrinho, e: EstadoCarrinho) {
