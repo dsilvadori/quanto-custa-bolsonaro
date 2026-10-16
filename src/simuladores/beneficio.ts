@@ -38,8 +38,8 @@ export interface EstadoBeneficio {
 }
 
 export function estadoPadraoBeneficio(d: DadosBeneficio): EstadoBeneficio {
-  // Ganho real no mínimo da lei: o cenário mais conservador.
-  return { tipo: 'bpc', ganho: d.ganhoMin };
+  // Ganho real no máximo da lei (2,5% ao ano); a pessoa pode baixar até o mínimo.
+  return { tipo: 'bpc', ganho: d.ganhoMax };
 }
 
 export function calcularBeneficio(d: DadosBeneficio, e: EstadoBeneficio) {

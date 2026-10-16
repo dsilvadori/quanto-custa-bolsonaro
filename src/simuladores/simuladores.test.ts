@@ -28,8 +28,8 @@ describe('Simulador 1 com os dados de /data', () => {
 describe('Simulador 4 com os dados de /data', () => {
   const padrao = estadoPadraoBeneficio(DADOS_BENEFICIO);
 
-  it('padrão: BPC e ganho real mínimo da lei', () => {
-    expect(padrao).toEqual({ tipo: 'bpc', ganho: 0.6 });
+  it('padrão: BPC e ganho real máximo da lei', () => {
+    expect(padrao).toEqual({ tipo: 'bpc', ganho: 2.5 });
     expect(DADOS_BENEFICIO.anoBase).toBe(2022);
   });
 
