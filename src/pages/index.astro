@@ -1,6 +1,7 @@
 ---
 import { Stat } from '@boralula/ui';
 import Base from '../layouts/Base.astro';
+import MapaDaFome from '../components/MapaDaFome.astro';
 import PoliticasBolsonaro from '../components/PoliticasBolsonaro.astro';
 import { CardsSimuladores } from '../components/CardsSimuladores';
 import { Link } from '@boralula/ui';
@@ -58,6 +59,8 @@ const jsonLd = [
   </section>
 
   <PoliticasBolsonaro />
+
+  <MapaDaFome cinza />
 
   <section class="secao" aria-labelledby="produtos">
     <div class="cp-container">

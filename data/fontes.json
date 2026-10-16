@@ -547,6 +547,48 @@
         "/combustivel",
         "/"
       ]
+    },
+    {
+      "id": "onu-2025-08-14-fao-mapa-da-fome",
+      "titulo": "Nações Unidas Brasil: \"Brasil voltou a sair do Mapa da Fome\" (artigo de Jorge Meza, representante da FAO no Brasil)",
+      "orgao": "ONU (FAO)",
+      "url": "https://brasil.un.org/pt-br/299851-artigo-brasil-voltou-sair-do-mapa-da-fome",
+      "data_publicacao": "2025-08-14",
+      "data_coleta": "2026-10-16",
+      "valor_usado": "\"O Brasil já havia saído do Mapa da Fome em 2014\" e \"voltou a constar no Mapa em 2021\". \"No triênio de 2022 a 2024, o Brasil registrou, em média, menos de 2,5% da população em situação de subalimentação\" (relatório SOFI 2025)",
+      "usado_em": [
+        "/cesta-basica",
+        "/carrinho",
+        "/"
+      ]
+    },
+    {
+      "id": "agenciabrasil-2026-07-22-sofi-2026",
+      "titulo": "Agência Brasil: \"Brasil continua fora do Mapa da Fome, aponta relatório da ONU\" (SOFI 2026, FAO)",
+      "orgao": "Agência Brasil",
+      "url": "https://agenciabrasil.ebc.com.br/direitos-humanos/noticia/2026-07/brasil-continua-fora-do-mapa-da-fome-aponta-relatorio-da-onu",
+      "data_publicacao": "2026-07-22",
+      "data_coleta": "2026-10-16",
+      "valor_usado": "Subalimentação abaixo de 2,5% em 2023–2025. Insegurança alimentar moderada ou grave: 22,1% em 2020–2022 e 9,6% em 2023–2025 (20,3 milhões de pessoas). Sem dinheiro para uma alimentação saudável: 31,1% em 2021 (65,3 milhões, o pico da série 2017–2025) e 21,1% em 2025 (44,8 milhões)",
+      "usado_em": [
+        "/cesta-basica",
+        "/carrinho",
+        "/"
+      ]
+    },
+    {
+      "id": "agenciabrasil-2025-10-10-pnad-inseguranca",
+      "titulo": "Radioagência Nacional: \"IBGE: insegurança alimentar cai em todas as regiões do país\" (PNAD Contínua, segurança alimentar)",
+      "orgao": "Agência Brasil",
+      "url": "https://agenciabrasil.ebc.com.br/radioagencia-nacional/esportes/audio/2025-10/ibge-inseguranca-alimentar-cai-em-todas-regioes-do-pais",
+      "data_publicacao": "2025-10-10",
+      "data_coleta": "2026-10-16",
+      "valor_usado": "Domicílios com insegurança alimentar: 27,6% em 2023 e 24,2% em 2024, \"menos 2,2 milhões de domicílios\"",
+      "usado_em": [
+        "/cesta-basica",
+        "/carrinho",
+        "/"
+      ]
     }
   ]
 }

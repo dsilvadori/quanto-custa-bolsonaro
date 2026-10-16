@@ -1,6 +1,7 @@
 ---
 import { Link, Stat } from '@boralula/ui';
 import Base from '../layouts/Base.astro';
+import MapaDaFome from '../components/MapaDaFome.astro';
 import PoliticasBolsonaro from '../components/PoliticasBolsonaro.astro';
 import LinksSimulador from '../components/LinksSimulador.astro';
 import { Fonte } from '../components/Fonte';
@@ -113,6 +114,8 @@ const dados = JSON.stringify({ dados: d, urlFontes: ancora.host + ancora.pathnam
   </section>
 
   <PoliticasBolsonaro cinza />
+
+  <MapaDaFome />
 
   <div class="cp-container">
     <BarraCompartilhar textoWhatsapp={textoReferencia(d, MEDIA, url)} />

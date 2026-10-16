@@ -1,0 +1,59 @@
+---
+// Contexto: o Brasil voltou ao Mapa da Fome no governo do Bolsonaro e saiu no governo Lula.
+// Números da FAO (SOFI 2026, a série revisada mais recente) e do IBGE (PNAD), cada um com a sua fonte.
+import { Fonte } from './Fonte';
+import { barrasH } from '../graficos/barrasH';
+import { COR_BOLSONARO, COR_LULA } from '../graficos/cores';
+
+const { cinza = false } = Astro.props as { cinza?: boolean };
+
+const inseguranca = barrasH({
+  id: 'fome-inseguranca',
+  titulo: 'Insegurança alimentar moderada ou grave, em % da população',
+  descricao: 'Governo do Bolsonaro, 2020 a 2022: 22,1%. Governo Lula, 2023 a 2025: 9,6%, 20,3 milhões de pessoas.',
+  linhas: [
+    { rotulo: 'Governo do Bolsonaro (2020–2022)', valor: 22.1, texto: '22,1%', cor: COR_BOLSONARO },
+    { rotulo: 'Governo Lula (2023–2025)', valor: 9.6, texto: '9,6%', cor: COR_LULA, detalhe: '20,3 milhões de pessoas' },
+  ],
+});
+const dieta = barrasH({
+  id: 'fome-dieta',
+  titulo: 'Sem dinheiro para uma alimentação saudável, em % da população',
+  descricao: 'Governo do Bolsonaro, 2021: 31,1%, 65,3 milhões de pessoas. Governo Lula, 2025: 21,1%, 44,8 milhões de pessoas.',
+  linhas: [
+    { rotulo: 'Governo do Bolsonaro (2021)', valor: 31.1, texto: '31,1%', cor: COR_BOLSONARO, detalhe: '65,3 milhões de pessoas' },
+    { rotulo: 'Governo Lula (2025)', valor: 21.1, texto: '21,1%', cor: COR_LULA, detalhe: '44,8 milhões de pessoas' },
+  ],
+});
+---
+
+<section class:list={['secao', { 'secao--cinza': cinza }]} aria-labelledby="mapa-da-fome">
+  <div class="cp-container">
+    <h2 id="mapa-da-fome" class="cp-text-h2">A fome voltou no governo do Bolsonaro e caiu no governo Lula</h2>
+    <p class="texto">
+      O Brasil tinha saído do Mapa da Fome da ONU em 2014. Voltou a ele em 2021, no governo do Bolsonaro, e saiu de novo no
+      relatório de 2025, no governo Lula <span class="junto"><Fonte id="onu-2025-08-14-fao-mapa-da-fome" />.</span> Em julho de
+      2026, a ONU confirmou que o país continua fora <span class="junto"><Fonte id="agenciabrasil-2026-07-22-sofi-2026" />.</span>
+    </p>
+    <div class="grade-combustivel">
+      <figure class="grafico-cartao cartao" data-numero>
+        <figcaption class="cp-text-title">Pessoas que passavam fome ou tinham de comer menos ou pior</figcaption>
+        <div class="grafico-area" set:html={inseguranca} />
+        <p class="cp-text-body-small">
+          Insegurança alimentar moderada ou grave, média de 3 anos, FAO <span class="junto"><Fonte id="agenciabrasil-2026-07-22-sofi-2026" />.</span>
+        </p>
+      </figure>
+      <figure class="grafico-cartao cartao" data-numero>
+        <figcaption class="cp-text-title">Pessoas sem dinheiro para uma alimentação saudável</figcaption>
+        <div class="grafico-area" set:html={dieta} />
+        <p class="cp-text-body-small">
+          2021 foi o pior ano da série da FAO, que começa em 2017 <span class="junto"><Fonte id="agenciabrasil-2026-07-22-sofi-2026" />.</span>
+        </p>
+      </figure>
+    </div>
+    <p class="texto" data-numero>
+      Pelo IBGE, os lares com algum grau de insegurança alimentar caíram de 27,6% em 2023 para 24,2% em 2024: 2,2 milhões de lares a
+      menos <span class="junto"><Fonte id="agenciabrasil-2025-10-10-pnad-inseguranca" />.</span>
+    </p>
+  </div>
+</section>
