@@ -2,6 +2,7 @@
 import { totalCarrinho } from '../calc/carrinho';
 import { pct, preco, reais } from '../formato';
 import { barrasH } from '../graficos/barrasH';
+import { COR_BOLSONARO, COR_LULA } from '../graficos/cores';
 
 export interface Produto {
   id: string;
@@ -178,7 +179,7 @@ export function graficoProdutos(d: DadosCarrinho): string {
       rotulo: NOME_CURTO[p.id] ?? p.nome,
       valor: v,
       texto: sinal(v),
-      destaque: true,
+      cor: COR_BOLSONARO,
       detalhe: `Lula ${preco(hoje)} → Bolsonaro ${preco(cenario)} (${p.unidade})`,
     })),
   });

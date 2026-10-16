@@ -167,8 +167,8 @@ input[aria-invalid='true'] { outline: var(--cp-border-width-strong) solid var(--
 .legenda { display: flex; flex-wrap: wrap; gap: var(--cp-space-2) var(--cp-space-6); margin: 0; padding: 0; list-style: none; font: 700 var(--cp-text-sm) / 1.4 var(--cp-font); }
 .legenda li { display: inline-flex; align-items: center; gap: var(--cp-space-2); }
 .legenda__cor { width: 14px; height: 14px; border-radius: 2px; }
-.legenda__cor--real { background: var(--cp-color-primary); }
-.legenda__cor--cenario { background: var(--cp-color-on-surface-variant); }
+.legenda__cor--lula { background: var(--cp-color-primary); }
+.legenda__cor--bolsonaro { background: var(--cp-color-tertiary); }
 
 /* Tabela dentro de <details> nativo: funciona sem JS */
 .tabela-detalhes summary {

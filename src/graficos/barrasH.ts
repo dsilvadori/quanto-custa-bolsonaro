@@ -11,6 +11,8 @@ export interface LinhaH {
   destaque?: boolean;
   /** Linha embaixo da barra (ex.: "Lula R$ 4,99 → Bolsonaro R$ 7,33 (kg)"). */
   detalhe?: string;
+  /** Cor da barra (token do DS). Sem ela: primária, ou cinza com destaque false. */
+  cor?: string;
 }
 
 export interface OpcoesBarrasH {
@@ -40,7 +42,7 @@ export function barrasH({ id, titulo, descricao, linhas, corNegativa = 'var(--cp
     const y = i * altura;
     const yBarra = y + NOME + 6;
     const w = (Math.abs(l.valor) / max) * L;
-    const cor = l.valor < 0 ? corNegativa : l.destaque === false ? 'var(--cp-color-on-surface-variant)' : 'var(--cp-color-primary)';
+    const cor = l.valor < 0 ? corNegativa : (l.cor ?? (l.destaque === false ? 'var(--cp-color-on-surface-variant)' : 'var(--cp-color-primary)'));
     return (
       `<text x="0" y="${y + NOME - 2}" font-size="13" font-weight="800" fill="var(--cp-color-on-surface)">${esc(l.rotulo)}</text>` +
       `<text x="${L}" y="${y + NOME - 2}" text-anchor="end" font-size="13" font-weight="800" fill="${cor}">${esc(l.texto)}</text>` +

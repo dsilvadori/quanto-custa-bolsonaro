@@ -100,8 +100,8 @@ const dados = JSON.stringify({
         <figcaption>
           <h2 id="ano-a-ano" class="cp-text-h2">Ano a ano</h2>
           <ul class="legenda" aria-hidden="true">
-            <li><span class="legenda__cor legenda__cor--cenario"></span>Governo Lula (valor real)</li>
-            <li><span class="legenda__cor legenda__cor--real"></span>Regra do governo do Bolsonaro (só INPC)</li>
+            <li><span class="legenda__cor legenda__cor--lula"></span>Governo Lula (aumento acima da inflação)</li>
+            <li><span class="legenda__cor legenda__cor--bolsonaro"></span>Regra do governo do Bolsonaro (só inflação)</li>
           </ul>
         </figcaption>
         <div class="grafico-area" data-grafico set:html={graficoSalario(DADOS_SALARIO, ESTADO_PADRAO)} />

@@ -1,5 +1,6 @@
 // Simulador 3: exemplo estático com o relatório mais recente da Abicom.
 import { barras } from '../graficos/barras';
+import { COR_BOLSONARO, COR_LULA } from '../graficos/cores';
 import { altaPct, efeitoIpca, fracaoFossil, repasse } from '../calc/combustivel';
 
 export interface LinhaCombustivel {
@@ -48,8 +49,8 @@ export function graficoBomba(linhas: LinhaCombustivel[]): string {
     descricao: r.map(({ l, c }) => `${NOMES[l.combustivel]}: hoje R$ ${v(l.preco)}, com o PPI R$ ${v(c.novoPreco)}`).join('; ') + '.',
     categorias: r.map(({ l }) => NOMES[l.combustivel]),
     series: [
-      { nome: 'Governo Lula', cor: 'var(--cp-color-on-surface-variant)', valores: r.map(({ l }) => l.preco) },
-      { nome: 'PPI do governo do Bolsonaro', cor: 'var(--cp-color-primary)', valores: r.map(({ c }) => c.novoPreco) },
+      { nome: 'Governo Lula', cor: COR_LULA, valores: r.map(({ l }) => l.preco) },
+      { nome: 'PPI do governo do Bolsonaro', cor: COR_BOLSONARO, valores: r.map(({ c }) => c.novoPreco) },
     ],
     rotulo: (x) => `R$ ${v(x)}`,
   });

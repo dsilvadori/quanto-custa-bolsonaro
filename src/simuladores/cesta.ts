@@ -2,6 +2,7 @@
 import { fatorCesta } from '../calc/cesta';
 import { barras } from '../graficos/barras';
 import { barrasH } from '../graficos/barrasH';
+import { COR_BOLSONARO, COR_LULA } from '../graficos/cores';
 import { numero, pct, preco, reais } from '../formato';
 
 export interface Capital {
@@ -73,7 +74,7 @@ export function graficoCesta(d: DadosCesta, e: EstadoCesta): string {
     titulo: `Valor da cesta básica ${lugarTexto(d, e.capital)}`,
     descricao: `Governo Lula (hoje): ${reais(r.hoje)}. Governo do Bolsonaro: ${reais(r.cenario)}.`,
     categorias: ['Governo Lula', 'Governo do Bolsonaro'],
-    series: [{ nome: 'Valor', cor: 'var(--cp-color-primary)', cores: ['var(--cp-color-on-surface-variant)', 'var(--cp-color-primary)'], valores: [r.hoje, r.cenario] }],
+    series: [{ nome: 'Valor', cor: 'var(--cp-color-primary)', cores: [COR_LULA, COR_BOLSONARO], valores: [r.hoje, r.cenario] }],
     rotulo: (v) => `R$ ${numero(v)}`,
   });
 }
@@ -115,6 +116,7 @@ export function graficoCapitais(d: DadosCesta, e: EstadoCesta): string {
       valor: r.porMes,
       texto: `+${reais(r.porMes)}`,
       detalhe: `Lula ${preco(r.hoje)} → Bolsonaro ${preco(r.cenario)}`,
+      cor: COR_BOLSONARO,
     })),
   });
 }
@@ -122,13 +124,13 @@ export function graficoCapitais(d: DadosCesta, e: EstadoCesta): string {
 /** Alta da comida no domicílio em cada governo. */
 export function graficoGovernos(d: DadosCesta): string {
   const linhas = [
-    { rotulo: 'Bolsonaro', valor: d.bolsonaroPct, meses: d.bolsonaroMeses, destaque: true },
-    { rotulo: 'Lula', valor: d.atualPct, meses: d.atualMeses, destaque: false },
+    { rotulo: 'Bolsonaro', valor: d.bolsonaroPct, meses: d.bolsonaroMeses, cor: COR_BOLSONARO },
+    { rotulo: 'Lula', valor: d.atualPct, meses: d.atualMeses, cor: COR_LULA },
   ];
   return barrasH({
     id: 'grafico-governos',
     titulo: 'Alta da comida no domicílio (IPCA) em cada governo',
     descricao: linhas.map((l) => `Governo ${l.rotulo}: ${pct(l.valor)} em ${l.meses} meses`).join('; ') + '.',
-    linhas: linhas.map((l) => ({ rotulo: `Governo ${l.rotulo} (${l.meses} meses)`, valor: l.valor, texto: `+${pct(l.valor, 1)}`, destaque: l.destaque })),
+    linhas: linhas.map((l) => ({ rotulo: `Governo ${l.rotulo} (${l.meses} meses)`, valor: l.valor, texto: `+${pct(l.valor, 1)}`, cor: l.cor })),
   });
 }

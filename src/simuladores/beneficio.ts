@@ -2,6 +2,7 @@
 import { desvincularDesde, perdaPercentual, poderDeCompra, projetarDesvinculacao, type Pagamentos } from '../calc/beneficio';
 import type { Vigencia } from '../calc/salarioMinimo';
 import { barras } from '../graficos/barras';
+import { COR_BOLSONARO, COR_LULA } from '../graficos/cores';
 import { numero, pct, reais } from '../formato';
 
 export interface DadosBeneficio {
@@ -59,8 +60,8 @@ export function graficoRetro(d: DadosBeneficio, e: EstadoBeneficio): string {
     descricao: retro.anos.map((a) => `${a.ano}: ligado ao mínimo ${reais(a.real)}, desvinculado ${reais(a.desvinculado)}`).join('; ') + '.',
     categorias: retro.anos.map((a) => String(a.ano)),
     series: [
-      { nome: 'Ligado ao mínimo', cor: 'var(--cp-color-on-surface-variant)', valores: retro.anos.map((a) => a.real) },
-      { nome: 'Desvinculado', cor: 'var(--cp-color-primary)', valores: retro.anos.map((a) => a.desvinculado) },
+      { nome: 'Governo Lula (aumento acima da inflação)', cor: COR_LULA, valores: retro.anos.map((a) => a.real) },
+      { nome: 'Desvinculado', cor: COR_BOLSONARO, valores: retro.anos.map((a) => a.desvinculado) },
     ],
     rotulo: numero,
   });
@@ -75,8 +76,8 @@ export function graficoProjecao(d: DadosBeneficio, e: EstadoBeneficio): string {
       poder.anos.map((a) => `${a.ano}: ligado ao mínimo ${cestas(a.cestasVinculado)} cestas, sem aumento real ${cestas(a.cestasDesvinculado)}`).join('; ') + '.',
     categorias: poder.anos.map((a) => String(a.ano)),
     series: [
-      { nome: 'Ligado ao mínimo', cor: 'var(--cp-color-on-surface-variant)', valores: poder.anos.map((a) => a.cestasVinculado) },
-      { nome: 'Sem aumento real', cor: 'var(--cp-color-primary)', valores: poder.anos.map((a) => a.cestasDesvinculado) },
+      { nome: 'Regra do governo Lula (aumento acima da inflação)', cor: COR_LULA, valores: poder.anos.map((a) => a.cestasVinculado) },
+      { nome: 'Sem aumento real', cor: COR_BOLSONARO, valores: poder.anos.map((a) => a.cestasDesvinculado) },
     ],
     rotulo: cestas,
   });

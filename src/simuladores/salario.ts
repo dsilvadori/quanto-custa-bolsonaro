@@ -2,6 +2,7 @@
 // e no navegador (quando a pessoa muda os campos). Sem acesso a arquivos nem ao DOM.
 import { cenarioPorAno, perdaSalarioMinimo, type Vigencia } from '../calc/salarioMinimo';
 import { barras } from '../graficos/barras';
+import { COR_BOLSONARO, COR_LULA } from '../graficos/cores';
 import { numero, reais } from '../formato';
 
 export interface DadosSalario {
@@ -36,12 +37,12 @@ export function graficoSalario(d: DadosSalario, e: EstadoSalario): string {
   const { anos } = calcularSalario(d, e);
   return barras({
     id: 'grafico-salario',
-    titulo: 'Salário mínimo de 2023 a 2026: governo Lula e regra do governo do Bolsonaro',
-    descricao: anos.map((a) => `${a.ano}: governo Lula ${reais(a.real)}, regra do governo do Bolsonaro ${reais(a.cenario)}`).join('; ') + '.',
+    titulo: 'Salário mínimo de 2023 a 2026: governo Lula (aumento acima da inflação) e regra do governo do Bolsonaro (só inflação)',
+    descricao: anos.map((a) => `${a.ano}: governo Lula (aumento acima da inflação) ${reais(a.real)}, regra do governo do Bolsonaro (só inflação) ${reais(a.cenario)}`).join('; ') + '.',
     categorias: anos.map((a) => String(a.ano)),
     series: [
-      { nome: 'Governo Lula', cor: 'var(--cp-color-on-surface-variant)', valores: anos.map((a) => a.real) },
-      { nome: 'Regra do governo do Bolsonaro', cor: 'var(--cp-color-primary)', valores: anos.map((a) => a.cenario) },
+      { nome: 'Governo Lula (aumento acima da inflação)', cor: COR_LULA, valores: anos.map((a) => a.real) },
+      { nome: 'Regra do governo do Bolsonaro (só inflação)', cor: COR_BOLSONARO, valores: anos.map((a) => a.cenario) },
     ],
     rotulo: numero,
   });
