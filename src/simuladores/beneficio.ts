@@ -61,7 +61,7 @@ export function graficoRetro(d: DadosBeneficio, e: EstadoBeneficio): string {
     categorias: retro.anos.map((a) => String(a.ano)),
     series: [
       { nome: 'Governo Lula (aumento acima da inflação)', cor: COR_LULA, valores: retro.anos.map((a) => a.real) },
-      { nome: 'Proposta estudada pela equipe de Flávio (só inflação)', cor: COR_BOLSONARO, valores: retro.anos.map((a) => a.desvinculado) },
+      { nome: 'Proposta da equipe do Flávio', cor: COR_BOLSONARO, valores: retro.anos.map((a) => a.desvinculado) },
     ],
     rotulo: numero,
   });
@@ -77,7 +77,7 @@ export function graficoProjecao(d: DadosBeneficio, e: EstadoBeneficio): string {
     categorias: poder.anos.map((a) => String(a.ano)),
     series: [
       { nome: 'Regra do governo Lula (aumento acima da inflação)', cor: COR_LULA, valores: poder.anos.map((a) => a.cestasVinculado) },
-      { nome: 'Proposta estudada pela equipe de Flávio (só inflação)', cor: COR_BOLSONARO, valores: poder.anos.map((a) => a.cestasDesvinculado) },
+      { nome: 'Proposta da equipe do Flávio', cor: COR_BOLSONARO, valores: poder.anos.map((a) => a.cestasDesvinculado) },
     ],
     rotulo: cestas,
   });
