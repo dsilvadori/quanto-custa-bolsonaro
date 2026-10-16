@@ -1,3 +1,16 @@
+/* Identidade verde e amarela: o DS é vermelho; aqui o verde vira a cor principal e o amarelo segue nos destaques.
+   Números de perda e de preço mais alto ficam em vermelho (--cor-alerta). */
+:root {
+  --cp-color-primary: var(--cp-green-700);
+  --cp-color-primary-hover: var(--cp-green-900);
+  --cp-color-primary-pressed: #054d16;
+  --cp-color-primary-container: var(--cp-green-50);
+  --cp-color-on-primary-container: var(--cp-green-900);
+  --cp-color-error: #8e0607;
+  --cp-red-700: var(--cp-green-900);
+  --cor-alerta: #c3090a;
+}
+
 /* Montserrat self-hosted: só 700 e 800, subset latino, WOFF2.
    O DS pede 500/600 (caem no 700) e 900 (cai no 800) pela regra de busca de peso do CSS. */
 @font-face {
@@ -72,11 +85,11 @@ a:has(> .marca) { text-decoration: none; }
 }
 
 .texto { max-width: 70ch; }
-/* Amarelo sobre vermelho só em texto grande (≥ 18,66 px em negrito), como pede o DS: contraste 4,1:1 ≥ 3:1. */
+/* Amarelo sobre verde só em texto grande (≥ 18,66 px em negrito): contraste 3,6:1 ≥ 3:1. */
 .destaque { color: var(--cp-color-highlight); font-size: max(1.25em, 20px); font-weight: 800; }
 .atualizado { margin: var(--cp-space-8) 0 0; color: var(--cp-color-on-surface-variant); }
 
-/* Hero: superfície vermelha com as faixas da marca, como na Início do DS. */
+/* Hero: superfície verde com as faixas da marca. */
 .hero {
   position: relative;
   overflow: hidden;
@@ -85,6 +98,8 @@ a:has(> .marca) { text-decoration: none; }
   padding-block: var(--cp-space-8) calc(var(--cp-space-12) + 56px);
 }
 .hero__arte { position: absolute; inset: auto 0 0 0; height: 56px; }
+/* Faixas da marca sobre o verde: azul, amarelo e branco. */
+.hero__arte, .rodape__faixa { --cp-color-secondary-accent: var(--cp-white); }
 .hero__conteudo { position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: var(--cp-space-4); }
 .hero__titulo { margin: 0; max-width: 22ch; }
 .hero__lead { margin: 0; max-width: 46ch; }
@@ -167,6 +182,7 @@ input[aria-invalid='true'] { outline: var(--cp-border-width-strong) solid var(--
 .legenda { display: flex; flex-wrap: wrap; gap: var(--cp-space-2) var(--cp-space-6); margin: 0; padding: 0; list-style: none; font: 700 var(--cp-text-sm) / 1.4 var(--cp-font); }
 .legenda li { display: inline-flex; align-items: center; gap: var(--cp-space-2); }
 .legenda__cor { width: 14px; height: 14px; border-radius: 2px; }
+.resultados [data-saida] { color: var(--cor-alerta); }
 .legenda__cor--lula { background: var(--cp-color-primary); }
 .legenda__cor--bolsonaro { background: var(--cp-color-tertiary); }
 
@@ -208,7 +224,7 @@ input[aria-invalid='true'] { outline: var(--cp-border-width-strong) solid var(--
 .produto__nome { grid-area: nome; margin: 0; font-weight: 800; }
 .produto__unidade { font-weight: 700; color: var(--cp-color-on-surface-variant); font-size: var(--cp-text-sm); }
 .produto__precos { grid-area: precos; display: flex; flex-wrap: wrap; gap: 0 var(--cp-space-4); margin: 0; font-size: var(--cp-text-sm); }
-.produto__precos strong { color: var(--cp-color-primary); }
+.produto__precos strong { color: var(--cor-alerta); }
 .produto__qtd { grid-area: qtd; display: flex; align-items: center; gap: var(--cp-space-1); }
 .produto__numero { min-width: 2ch; text-align: center; font: 800 var(--cp-text-h3) / 1 var(--cp-font); }
 .produto__qtd button:disabled { opacity: 0.4; }
@@ -227,7 +243,7 @@ input[aria-invalid='true'] { outline: var(--cp-border-width-strong) solid var(--
   .conta { grid-template-columns: minmax(0, 1fr) auto; gap: var(--cp-space-2) var(--cp-space-4); align-items: center; }
   .conta dd { margin: 0; text-align: right; }
 }
-.conta__destaque { color: var(--cp-color-primary); font-size: var(--cp-text-h3); }
+.conta__destaque { color: var(--cor-alerta); font-size: var(--cp-text-h3); }
 .conta__total { margin-top: var(--cp-space-6); border-top: var(--cp-border-width-accent) solid var(--cp-color-primary); }
 
 /* Barra de compartilhar fixa no rodapé da tela */
@@ -307,7 +323,7 @@ input[aria-invalid='true'] { outline: var(--cp-border-width-strong) solid var(--
 .hero__selos { display: flex; align-items: center; gap: var(--cp-space-3); }
 .card-titulo { display: inline-flex; align-items: center; gap: var(--cp-space-3); }
 .card-numero { margin: 0; }
-.card-numero strong { display: block; color: var(--cp-color-primary); font: 900 var(--cp-text-h2) / 1.1 var(--cp-font); }
+.card-numero strong { display: block; color: var(--cor-alerta); font: 900 var(--cp-text-h2) / 1.1 var(--cp-font); }
 .card-numero span { font-weight: 700; color: var(--cp-color-on-surface-variant); }
 
 /* Menu e marca sem quebra de linha: o mesmo desenho em todas as páginas e larguras. */
@@ -321,7 +337,7 @@ header nav a, .marca { white-space: nowrap; }
 .grafico-cartao figcaption .ajuda { margin: 0; }
 .atalhos { display: flex; flex-wrap: wrap; gap: var(--cp-space-2); }
 .conta__pico { margin-top: var(--cp-space-6); border-left: var(--cp-border-width-accent) solid var(--cp-color-primary); }
-.conta__pico strong { color: var(--cp-color-primary); }
+.conta__pico strong { color: var(--cor-alerta); }
 .marca-logo { display: block; height: 56px; width: auto; }
 @media (min-width: 1024px) and (max-width: 1279px) { .marca-logo { height: 44px; } }
 .politicas__flavio { margin-top: var(--cp-space-6); max-width: 70ch; }

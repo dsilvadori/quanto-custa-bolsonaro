@@ -70,11 +70,10 @@ async function tokens() {
   const css = await readFile(require.resolve('@boralula/ui/tokens.css'), 'utf8');
   const cor = (nome: string) => css.match(new RegExp(`${nome}:\\s*(#[0-9A-Fa-f]{6})`))![1];
   return {
-    vermelho: cor('--cp-red-500'),
+    principal: cor('--cp-green-700'),
     branco: cor('--cp-white'),
     amarelo: cor('--cp-yellow-400'),
     azul: cor('--cp-blue-500'),
-    verde: cor('--cp-green-500'),
   };
 }
 
@@ -101,7 +100,7 @@ export const GET: APIRoute = async ({ params }) => {
           height: 630,
           display: 'flex',
           position: 'relative',
-          background: t.vermelho,
+          background: t.principal,
           color: t.branco,
           fontFamily: 'Montserrat',
           overflow: 'hidden',
@@ -109,7 +108,7 @@ export const GET: APIRoute = async ({ params }) => {
         children: [
           faixa(t.azul, 1000),
           faixa(t.amarelo, 1090),
-          faixa(t.verde, 1180),
+          faixa(t.branco, 1180),
           {
             type: 'div',
             props: {

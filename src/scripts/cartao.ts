@@ -40,18 +40,18 @@ export async function gerarCartao(d: DadosCartao): Promise<Blob> {
   canvas.width = T;
   canvas.height = T;
   const ctx = canvas.getContext('2d')!;
-  const vermelho = token('--cp-red-500');
+  const principal = token('--cp-green-700');
   const branco = token('--cp-white');
   const amarelo = token('--cp-yellow-400');
   const tinta = token('--cp-ink');
 
-  // Fundo vermelho com as faixas da marca (mesma geometria do BrandStripes, no canto de baixo).
-  ctx.fillStyle = vermelho;
+  // Fundo verde com as faixas da marca (mesma geometria do BrandStripes, no canto de baixo).
+  ctx.fillStyle = principal;
   ctx.fillRect(0, 0, T, T);
   const faixas: [string, number][] = [
     [token('--cp-blue-500'), 0],
     [amarelo, 1],
-    [token('--cp-green-500'), 2],
+    [branco, 2],
   ];
   for (const [cor, i] of faixas) {
     const x = 760 + i * 110;

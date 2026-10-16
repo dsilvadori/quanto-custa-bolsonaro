@@ -10,12 +10,11 @@ const fonte = (peso) => readFileSync(require.resolve(`@fontsource/montserrat/fil
 const tokens = readFileSync(require.resolve('@boralula/ui/tokens.css'), 'utf8');
 const cor = (nome) => tokens.match(new RegExp(`${nome}:\\s*(#[0-9A-Fa-f]{6})`))[1];
 const C = {
-  vermelho: cor('--cp-red-500'),
+  principal: cor('--cp-green-700'),
   amarelo: cor('--cp-yellow-400'),
   branco: cor('--cp-white'),
   tinta: cor('--cp-ink'),
   azul: cor('--cp-blue-500'),
-  verde: cor('--cp-green-500'),
 };
 const fonts = [
   { name: 'Montserrat', data: fonte(700), weight: 700, style: 'normal' },
@@ -34,7 +33,7 @@ function etiqueta(fundo, furo) {
 
 const el = (type, style, children) => ({ type, props: { style, children } });
 
-/** Ícone: etiqueta amarela com "R$" vermelho. */
+/** Ícone: etiqueta amarela com "R$" verde. */
 function icone(tamanho, furo) {
   return el('div', { display: 'flex', position: 'relative', width: tamanho * 1.2, height: tamanho }, [
     { type: 'img', props: { src: etiqueta(C.amarelo, furo), width: tamanho * 1.2, height: tamanho, style: { position: 'absolute', top: 0, left: 0 } } },
@@ -51,7 +50,7 @@ function icone(tamanho, furo) {
         justifyContent: 'center',
         fontSize: tamanho * 0.42,
         fontWeight: 900,
-        color: C.vermelho,
+        color: C.principal,
         letterSpacing: -1,
       },
       'R$',
@@ -68,27 +67,27 @@ function marca(escala, corTexto, corDestaque) {
   ]);
 }
 
-/** Faixas da marca (azul, amarela, verde), inclinadas como no BrandStripes do DS. */
+/** Faixas da marca (azul, amarela, branca), inclinadas como no BrandStripes do DS. */
 function faixas(altura, posicao = { right: altura * 0.18, top: 0 }) {
   const w = altura * 0.22;
   return el(
     'div',
     { display: 'flex', position: 'absolute', ...posicao, height: altura },
-    [C.azul, C.amarelo, C.verde].map((c) =>
+    [C.azul, C.amarelo, C.branco].map((c) =>
       el('div', { width: w, height: altura, background: c, marginLeft: w * 0.35, transform: 'skewX(-24deg)' }, []),
     ),
   );
 }
 
 const versoes = {
-  // Topo do site e redes: fundo vermelho.
-  'horizontal-vermelho': {
+  // Topo do site e redes: fundo verde.
+  'horizontal-verde': {
     w: 640,
     h: 160,
     tree: el(
       'div',
-      { display: 'flex', alignItems: 'center', gap: 22, width: 640, height: 160, padding: '0 28px', background: C.vermelho, position: 'relative', overflow: 'hidden' },
-      [icone(96, C.vermelho), marca(1, C.branco, C.amarelo), faixas(160, { right: 10, top: 0 })],
+      { display: 'flex', alignItems: 'center', gap: 22, width: 640, height: 160, padding: '0 28px', background: C.principal, position: 'relative', overflow: 'hidden' },
+      [icone(96, C.principal), marca(1, C.branco, C.amarelo), faixas(160, { right: 10, top: 0 })],
     ),
   },
   // Fundo claro (documentos, impressos).
@@ -98,7 +97,7 @@ const versoes = {
     tree: el(
       'div',
       { display: 'flex', alignItems: 'center', gap: 22, width: 560, height: 160, padding: '0 28px', background: C.branco },
-      [icone(96, C.branco), marca(1, C.tinta, C.vermelho)],
+      [icone(96, C.branco), marca(1, C.tinta, C.principal)],
     ),
   },
   // Avatar de redes e ícone: quadrado.
@@ -115,23 +114,23 @@ const versoes = {
         gap: 26,
         width: 512,
         height: 512,
-        background: C.vermelho,
+        background: C.principal,
         position: 'relative',
         overflow: 'hidden',
       },
       [
-        icone(150, C.vermelho),
+        icone(150, C.principal),
         el('div', { display: 'flex', textAlign: 'center', marginBottom: 40 }, [marca(1.45, C.branco, C.amarelo)]),
         faixas(70, { right: 40, bottom: 0 }),
       ],
     ),
   },
-  // Topo do site: sem fundo, sobre o vermelho do TopNavigation.
+  // Topo do site: sem fundo, sobre o verde do TopNavigation.
   topo: {
     w: 330,
     h: 96,
     tree: el('div', { display: 'flex', alignItems: 'center', gap: 14, width: 330, height: 96 }, [
-      icone(64, C.vermelho),
+      icone(64, C.principal),
       el('div', { display: 'flex' }, [marca(0.68, C.branco, C.amarelo)]),
     ]),
   },
@@ -139,8 +138,8 @@ const versoes = {
   icone: {
     w: 256,
     h: 256,
-    tree: el('div', { display: 'flex', alignItems: 'center', justifyContent: 'center', width: 256, height: 256, background: C.vermelho, borderRadius: 128 }, [
-      icone(150, C.vermelho),
+    tree: el('div', { display: 'flex', alignItems: 'center', justifyContent: 'center', width: 256, height: 256, background: C.principal, borderRadius: 128 }, [
+      icone(150, C.principal),
     ]),
   },
 };
