@@ -149,11 +149,14 @@ const dados = JSON.stringify({
   </section>
 
 
+  <div class="cp-container">
+    <BarraCompartilhar textoWhatsapp={f.whatsapp(url)} />
+  </div>
+
   <div class="cp-container secao secao--fim">
     <LinksSimulador atual="salarioMinimo" />
   </div>
 
-  <BarraCompartilhar slot="fim" textoWhatsapp={f.whatsapp(url)} />
   <script slot="fim" type="application/json" id="dados-salario" set:html={dados} />
 </Base>
 

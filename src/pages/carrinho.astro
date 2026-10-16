@@ -6,7 +6,7 @@ import { Fonte } from '../components/Fonte';
 import { Resultados } from '../components/Resultados';
 import { ListaCarrinho } from '../components/ListaCarrinho';
 import { BotaoAtalho } from '../components/BotaoAtalho';
-import { BarraCarrinho } from '../components/BarraCarrinho';
+import { BarraCompartilhar } from '../components/BarraCompartilhar';
 import { CARRINHO, DADOS_CARRINHO } from '../dados';
 import { MEDIA, calcularCarrinho, estadoPadraoCarrinho, estadoVazio, frasesCarrinho, graficoProdutos, textoReferencia } from '../simuladores/carrinho';
 import { PAGINAS, dataPorExtenso } from '../site';
@@ -111,11 +111,14 @@ const dados = JSON.stringify({ dados: d, urlFontes: ancora.host + ancora.pathnam
     </div>
   </section>
 
+  <div class="cp-container">
+    <BarraCompartilhar textoWhatsapp={textoReferencia(d, MEDIA, url)} />
+  </div>
+
   <div class="cp-container secao">
     <LinksSimulador atual="carrinho" />
   </div>
 
-  <BarraCarrinho slot="fim" textoWhatsapp={textoReferencia(d, MEDIA, url)} hoje={fInicio.hoje} cenario={fInicio.cenario} />
   <script slot="fim" type="application/json" id="dados-carrinho" set:html={dados} />
 </Base>
 

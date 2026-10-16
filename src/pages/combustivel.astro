@@ -197,11 +197,14 @@ const compartilhar = JSON.stringify({
     </div>
   </section>
 
+  <div class="cp-container">
+    <BarraCompartilhar textoWhatsapp={whatsapp} />
+  </div>
+
   <div class="cp-container secao">
     <LinksSimulador atual="combustivel" />
   </div>
 
-  <BarraCompartilhar slot="fim" textoWhatsapp={whatsapp} />
   <script slot="fim" type="application/json" id="dados-combustivel" set:html={compartilhar} />
   <script slot="fim" type="application/json" id="dados-tanques" set:html={tanques} />
 </Base>

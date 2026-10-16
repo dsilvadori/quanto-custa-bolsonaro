@@ -113,11 +113,14 @@ const dados = JSON.stringify({ dados: d, urlFontes: ancora.host + ancora.pathnam
     </div>
   </section>
 
+  <div class="cp-container">
+    <BarraCompartilhar textoWhatsapp={f.whatsapp(url)} />
+  </div>
+
   <div class="cp-container secao">
     <LinksSimulador atual="cestaBasica" />
   </div>
 
-  <BarraCompartilhar slot="fim" textoWhatsapp={f.whatsapp(url)} />
   <script slot="fim" type="application/json" id="dados-cesta" set:html={dados} />
 </Base>
 

@@ -216,10 +216,6 @@ input[aria-invalid='true'] { outline: var(--cp-border-width-strong) solid var(--
 @media (min-width: 1024px) {
   .carrinho-cartao { max-width: 760px; }
 }
-.barra-compartilhar__topo { padding-bottom: var(--cp-space-2); }
-.total-fixo { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--cp-space-1) var(--cp-space-4); margin: 0; font-size: var(--cp-text-sm); }
-.total-fixo strong { font-size: var(--cp-text-md); }
-.total-fixo span + span strong { color: var(--cp-color-primary); }
 
 /* Simulador 3: conta litro a litro */
 .grade-combustivel { display: grid; gap: var(--cp-space-4); }
@@ -235,18 +231,10 @@ input[aria-invalid='true'] { outline: var(--cp-border-width-strong) solid var(--
 .conta__total { margin-top: var(--cp-space-6); border-top: var(--cp-border-width-accent) solid var(--cp-color-primary); }
 
 /* Barra de compartilhar fixa no rodapé da tela */
-.barra-compartilhar {
-  position: sticky;
-  bottom: 0;
-  z-index: 5;
-  padding-block: var(--cp-space-2);
-  background: var(--cp-color-surface);
-  box-shadow: 0 -1px 0 var(--cp-color-outline-variant), var(--cp-shadow-2);
-}
-.barra-compartilhar__conteudo { display: flex; align-items: center; gap: var(--cp-space-2); }
-.barra-compartilhar__conteudo > :first-child { flex: 1; min-width: 0; padding-inline: var(--cp-space-3); font-size: var(--cp-text-label-md); white-space: nowrap; }
-@media (min-width: 768px) { .barra-compartilhar__conteudo > :first-child { flex: 0 1 auto; } }
-.barra-compartilhar__aviso { margin: 0; text-align: center; }
+.barra-compartilhar { margin-block: var(--cp-space-6) var(--cp-space-12); border-left: var(--cp-border-width-accent) solid var(--cp-color-primary); }
+.barra-compartilhar h2 { margin: 0; }
+.barra-compartilhar__conteudo { display: flex; flex-wrap: wrap; align-items: center; gap: var(--cp-space-2); }
+.barra-compartilhar__aviso { margin: 0; }
 .barra-compartilhar__aviso:empty { display: none; }
 
 /* Rodapé com a faixa da marca */
