@@ -1,5 +1,5 @@
 ---
-import { Link, SegmentedButton, Stat, TextField } from '@boralula/ui';
+import { Link, Stat, TextField } from '@boralula/ui';
 import Base from '../layouts/Base.astro';
 import LinksSimulador from '../components/LinksSimulador.astro';
 import { Fonte } from '../components/Fonte';
@@ -14,7 +14,7 @@ const pagina = PAGINAS.salarioMinimo;
 const url = new URL(pagina.path, Astro.site).href;
 const r = calcularSalario(DADOS_SALARIO, ESTADO_PADRAO);
 const f = frasesSalario(DADOS_SALARIO, ESTADO_PADRAO);
-const { padrao, alternativa } = CENARIO_SM.bases;
+const { padrao } = CENARIO_SM.bases;
 const inpcFinal = CENARIO_SM.inpc[CENARIO_SM.inpc.length - 1];
 
 /** Fonte do valor em vigor em dezembro do ano (o 13º usa esse valor). */
@@ -58,22 +58,6 @@ const dados = JSON.stringify({
           defaultValue="1"
           helperText="Ex.: 1, 1,5 ou 2"
         />
-        <fieldset class="campo-grupo" data-numero data-segmentado="base">
-          <legend class="cp-text-title">Valor de partida em {CENARIO_SM.anoBase}</legend>
-          <SegmentedButton
-            label={`Valor de partida em ${CENARIO_SM.anoBase}`}
-            value="padrao"
-            onChange={() => {}}
-            options={[
-              { value: 'padrao', label: reais(padrao.valor) },
-              { value: 'alternativa', label: reais(alternativa.valor) },
-            ]}
-          />
-          <p class="cp-text-body-small ajuda">
-            {reais(padrao.valor)} foi o mínimo de {CENARIO_SM.anoBase} fixado pelo governo Bolsonaro <Fonte id={padrao.fonte} />. Em
-            maio, passou a {reais(alternativa.valor)} <Fonte id={alternativa.fonte} />.
-          </p>
-        </fieldset>
       </form>
 
       <div class="cartao simulador__resultado" data-numero>
@@ -126,8 +110,7 @@ const dados = JSON.stringify({
                         <span data-saida={`cen-${a.ano}`}>{reais(a.cenario)}</span>{' '}
                         {a.ano === CENARIO_SM.anoBase ? (
                           <>
-                            <span data-base="padrao"><Fonte id={padrao.fonte} /></span>
-                            <span data-base="alternativa" hidden><Fonte id={alternativa.fonte} /></span>
+                            <Fonte id={padrao.fonte} />
                           </>
                         ) : (
                           <>

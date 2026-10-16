@@ -163,7 +163,7 @@ Cada número do site precisa ter fonte acessível em no máximo 1 toque.
 - Cenário "regra Bolsonaro" (só INPC): SM(t) = SM(t−1) × (1 + INPC até nov de t−1),
   arredondado ao real. INPC: 3,85% (nov/23), 4,84% (nov/24), 4,18% (nov/25).
   - Base R$ 1.302 (padrão) → 1.352 · 1.417 · 1.476
-  - Base R$ 1.320 (alternativa, via SegmentedButton) → 1.371 · 1.437 · 1.497
+  - Base R$ 1.320 (alternativa): só nos testes; a escolha saiu da página por ser confusa
 - Entrada: quantos salários mínimos a pessoa ganha. Saída: perda por mês, por ano
   (×13) e acumulada 2023–2026.
 - Testes obrigatórios: 2026 = 1.476 (base 1.302) e 1.497 (base 1.320).

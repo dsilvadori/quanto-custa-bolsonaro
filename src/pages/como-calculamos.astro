@@ -6,7 +6,7 @@ import { CARRINHO, CENARIO_SM, CESTA, COMBUSTIVEIS, DADOS_BENEFICIO, DADOS_CARRI
 import { pct, reais } from '../formato';
 import { PAGINAS } from '../site';
 
-const { padrao, alternativa } = CENARIO_SM.bases;
+const { padrao } = CENARIO_SM.bases;
 const inpc = CENARIO_SM.inpc;
 const d = DADOS_BENEFICIO;
 const diesel = COMBUSTIVEIS.find((c) => c.combustivel === 'diesel')!;
@@ -55,8 +55,7 @@ const jsonLd = [
         <ol class="passos" data-numero>
           <li>
             Ponto de partida: {reais(padrao.valor)}, o mínimo de {CENARIO_SM.anoBase} fixado pelo governo Bolsonaro
-            <Fonte id={padrao.fonte} />. Também dá para partir de {reais(alternativa.valor)}, o valor de maio de
-            {CENARIO_SM.anoBase} <Fonte id={alternativa.fonte} />.
+            <Fonte id={padrao.fonte} />.
           </li>
           {
             inpc.map((i) => (
