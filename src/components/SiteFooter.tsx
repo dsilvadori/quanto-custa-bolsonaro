@@ -16,11 +16,7 @@ export function SiteFooter() {
           </Link>
         ))}
       >
-        Faz parte do{' '}
-        <Link href={SITE.comite.url} external>
-          {SITE.comite.nome}
-        </Link>
-        . <Link href={link(PAGINAS.quemSomos.path)}>Saiba quem faz este site</Link>.
+        {SITE.nome}
       </Footer>
     </div>
   );

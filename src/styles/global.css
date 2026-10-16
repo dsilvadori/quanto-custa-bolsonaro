@@ -286,10 +286,8 @@ input[aria-invalid='true'] { outline: var(--cp-border-width-strong) solid var(--
   .painel-fonte__conteudo { padding: var(--cp-space-6); }
 }
 
-/* Filtro, downloads e Quem somos */
+/* Filtro */
 .filtro { display: flex; flex-wrap: wrap; gap: var(--cp-space-2); margin-bottom: var(--cp-space-3); }
-.downloads { display: grid; gap: var(--cp-space-4); margin: 0; padding: 0; list-style: none; }
-.downloads li { display: flex; flex-wrap: wrap; align-items: center; gap: var(--cp-space-2) var(--cp-space-4); }
 
 /* Registro em /fontes */
 .registro { display: grid; gap: var(--cp-space-12); }

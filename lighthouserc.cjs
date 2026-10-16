@@ -1,6 +1,6 @@
 // Lighthouse CI no perfil padrão do Lighthouse: celular (Moto G Power) com 4G lento simulado.
 // Meta do projeto: 95 ou mais em Performance, Acessibilidade, Boas práticas e SEO.
-const paginas = ['/', '/salario-minimo', '/cesta-basica', '/combustivel', '/aposentadoria-bpc', '/como-calculamos', '/fontes', '/quem-somos'];
+const paginas = ['/', '/salario-minimo', '/cesta-basica', '/combustivel', '/aposentadoria-bpc', '/como-calculamos', '/fontes'];
 
 module.exports = {
   ci: {

@@ -5,8 +5,6 @@
 export const SITE = {
   nome: 'Quanto custa Bolsonaro no poder',
   nomeCurto: 'Quanto custa',
-  /** O site faz parte do Comitê Popular do Lula de Tecnologia. */
-  comite: { nome: 'Comitê Popular do Lula de Tecnologia', url: 'https://comitedetecnologia.com.br/' },
 } as const;
 
 /**
@@ -24,8 +22,7 @@ export type PaginaId =
   | 'combustivel'
   | 'aposentadoriaBpc'
   | 'comoCalculamos'
-  | 'fontes'
-  | 'quemSomos';
+  | 'fontes';
 
 export interface Pagina {
   path: string;
@@ -101,17 +98,9 @@ export const PAGINAS: Record<PaginaId, Pagina> = {
   fontes: {
     path: '/fontes',
     rotulo: 'Fontes',
-    titulo: 'De onde vêm os números? Todas as fontes e dados para baixar',
+    titulo: 'De onde vêm os números? Todas as fontes oficiais',
     descricao:
-      'Todas as fontes oficiais usadas no site (IBGE, DIEESE, ANP, Diário Oficial), com data, valor usado, link oficial e dados em CSV.',
-    atualizadoEm: '2026-10-15',
-  },
-  quemSomos: {
-    path: '/quem-somos',
-    rotulo: 'Quem somos',
-    titulo: 'Quem faz este site e como falar com a gente?',
-    descricao:
-      'Quem faz o site, do que ele trata e como pedir a correção de um dado.',
+      'Todas as fontes oficiais usadas no site (IBGE, DIEESE, ANP, Diário Oficial), com data, valor usado e link para a página oficial.',
     atualizadoEm: '2026-10-15',
   },
 };
@@ -121,7 +110,7 @@ export const SIMULADORES: PaginaId[] = ['salarioMinimo', 'cestaBasica', 'carrinh
 // Menu do topo: os simuladores e as fontes. "Como calculamos" fica no rodapé e em cada simulador.
 export const MENU: PaginaId[] = [...SIMULADORES, 'fontes'];
 
-export const RODAPE: PaginaId[] = ['comoCalculamos', 'fontes', 'quemSomos'];
+export const RODAPE: PaginaId[] = ['comoCalculamos', 'fontes'];
 
 /** "2026-10-15" → "15 de outubro de 2026"; o dia 1 vira "1º". */
 export function dataPorExtenso(iso: string): string {

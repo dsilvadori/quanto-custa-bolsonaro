@@ -2,10 +2,8 @@
 import { Link } from '@boralula/ui';
 import Base from '../layouts/Base.astro';
 import { FiltroOrgaos } from '../components/FiltroOrgaos';
-import { BotaoBaixar } from '../components/BotaoBaixar';
 import { FONTES } from '../fontes';
-import { ARQUIVOS } from '../arquivos-dados';
-import { PAGINAS, SIMULADORES, SITE, dataPorExtenso, link } from '../site';
+import { PAGINAS, SIMULADORES, dataPorExtenso } from '../site';
 
 // Agrupado por simulador; uma fonte usada em dois simuladores aparece no primeiro.
 const grupos = SIMULADORES.map((id) => ({
@@ -14,29 +12,9 @@ const grupos = SIMULADORES.map((id) => ({
   fontes: FONTES.filter((f) => f.usado_em[0] === PAGINAS[id].path),
 })).filter((g) => g.fontes.length > 0);
 const orgaos = [...new Set(FONTES.map((f) => f.orgao))].sort((a, b) => a.localeCompare(b, 'pt-BR'));
-const arquivoUrl = (nome: string) => new URL(link(`/dados/${nome}`), Astro.site).href;
-
-const jsonLd = ARQUIVOS.map((a) => ({
-  '@context': 'https://schema.org',
-  '@type': 'Dataset',
-  name: a.nome,
-  description: a.descricao,
-  url: new URL(link(PAGINAS.fontes.path), Astro.site).href,
-  inLanguage: 'pt-BR',
-  creator: { '@type': 'Organization', name: SITE.nome },
-  isAccessibleForFree: true,
-  distribution: [
-    {
-      '@type': 'DataDownload',
-      encodingFormat: a.tipo.split(';')[0],
-      contentUrl: arquivoUrl(a.nome),
-    },
-  ],
-  ...(a.baseadoEm.length ? { isBasedOn: a.baseadoEm } : {}),
-}));
 ---
 
-<Base id="fontes" jsonLd={jsonLd}>
+<Base id="fontes">
   <p slot="lead" class="hero__lead cp-text-body-large">
     Cada número do site vem de uma destas fontes. Para cada uma, mostramos o valor exato usado, a data e o link para a página oficial.
   </p>
@@ -87,22 +65,6 @@ const jsonLd = ARQUIVOS.map((a) => ({
     </div>
   </section>
 
-  <section class="secao" aria-labelledby="baixar">
-    <div class="cp-container">
-      <h2 id="baixar" class="cp-text-h2">Baixar os dados</h2>
-      <p class="texto">Os mesmos arquivos que o site usa para fazer as contas. Pode usar e compartilhar.</p>
-      <ul class="downloads" data-registro-fontes>
-        {
-          ARQUIVOS.map((a) => (
-            <li>
-              <BotaoBaixar arquivo={a.nome} />
-              <span class="cp-text-body-small ajuda">{a.descricao}</span>
-            </li>
-          ))
-        }
-      </ul>
-    </div>
-  </section>
 </Base>
 
 <script>

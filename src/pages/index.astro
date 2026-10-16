@@ -25,14 +25,6 @@ const jsonLd = [
     inLanguage: 'pt-BR',
     description: PAGINAS.inicio.descricao,
   },
-  {
-    '@context': 'https://schema.org',
-    '@type': 'Organization',
-    // TODO: dados de "Quem somos" quando os placeholders forem preenchidos.
-    name: SITE.nome,
-    url,
-    memberOf: { '@type': 'Organization', name: SITE.comite.nome, url: SITE.comite.url },
-  },
 ];
 ---
 
