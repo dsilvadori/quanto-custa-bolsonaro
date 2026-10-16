@@ -1,6 +1,7 @@
 ---
 import { Link, Stat, TextField } from '@boralula/ui';
 import Base from '../layouts/Base.astro';
+import PoliticasBolsonaro from '../components/PoliticasBolsonaro.astro';
 import LinksSimulador from '../components/LinksSimulador.astro';
 import { Fonte } from '../components/Fonte';
 import { BarraCompartilhar } from '../components/BarraCompartilhar';
@@ -252,6 +253,8 @@ const compartilhar = JSON.stringify({
       </div>
     </div>
   </section>
+
+  <PoliticasBolsonaro />
 
   <div class="cp-container">
     <BarraCompartilhar textoWhatsapp={whatsapp} />

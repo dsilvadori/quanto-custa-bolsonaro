@@ -326,3 +326,4 @@ header nav a, .marca { white-space: nowrap; }
 .conta__pico strong { color: var(--cp-color-primary); }
 .marca-logo { display: block; height: 56px; width: auto; }
 @media (min-width: 1024px) and (max-width: 1279px) { .marca-logo { height: 44px; } }
+.politicas__flavio { margin-top: var(--cp-space-6); max-width: 70ch; }

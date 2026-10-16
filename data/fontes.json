@@ -457,6 +457,96 @@
       "usado_em": [
         "/combustivel"
       ]
+    },
+    {
+      "id": "agenciabrasil-2023-06-29-conab-retoma-estoques",
+      "titulo": "Agência Brasil: \"Após 6 anos, Conab retoma política de estoques públicos de alimentos\"",
+      "orgao": "Agência Brasil",
+      "url": "https://agenciabrasil.ebc.com.br/economia/noticia/2023-06/apos-6-anos-conab-retoma-politica-de-estoques-publicos-de-alimentos",
+      "data_publicacao": "2023-06-29",
+      "data_coleta": "2026-10-16",
+      "valor_usado": "Compra de 500 mil toneladas de milho em junho de 2023: \"a retomada da formação de estoques públicos pelo governo federal, após 6 anos\". Segundo o governo, a política ajuda a \"regular o abastecimento interno, o que diminui as variações de preços\"",
+      "usado_em": [
+        "/cesta-basica",
+        "/carrinho",
+        "/combustivel",
+        "/"
+      ]
+    },
+    {
+      "id": "camara-2019-12-10-conab-27-armazens",
+      "titulo": "Agência Câmara: \"Governo descarta privatização da Conab, que fechou 27 unidades\"",
+      "orgao": "Agência Câmara",
+      "url": "https://www.camara.leg.br/noticias/624497-governo-descarta-privatizacao-da-conab-que-fechou-27-unidades/",
+      "data_publicacao": "2019-12-10",
+      "data_coleta": "2026-10-16",
+      "valor_usado": "Em 2019, a Conab fechou 27 de seus 92 armazéns",
+      "usado_em": [
+        "/cesta-basica",
+        "/carrinho",
+        "/combustivel",
+        "/"
+      ]
+    },
+    {
+      "id": "forbes-2024-03-21-conab-armazens",
+      "titulo": "Forbes Agro: \"Conab vai modernizar silos de grãos com recursos de parceria com Itaipu\"",
+      "orgao": "Forbes",
+      "url": "https://forbes.com.br/forbesagro/2024/03/conab-vai-modernizar-silos-de-graos-com-recursos-de-parceria-com-itaipu/",
+      "data_publicacao": "2024-03-21",
+      "data_coleta": "2026-10-16",
+      "valor_usado": "A gestão Bolsonaro desmobilizou 27 das 91 unidades da Conab \"por considerar que a estratégia de estoques governamentais era custosa e estava ultrapassada\". A Conab compra quando o preço está baixo e vende quando sobe, o que ajuda a conter a inflação dos alimentos",
+      "usado_em": [
+        "/cesta-basica",
+        "/carrinho",
+        "/combustivel",
+        "/"
+      ]
+    },
+    {
+      "id": "lei-13703-2018-piso-frete",
+      "titulo": "Lei nº 13.703, de 8 de agosto de 2018 — pisos mínimos do frete rodoviário (art. 5º, § 3º, redação da Lei nº 15.485, de 2026)",
+      "orgao": "Diário Oficial",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13703.htm",
+      "data_publicacao": "2018-08-08",
+      "data_coleta": "2026-10-16",
+      "valor_usado": "\"Constatada oscilação igual ou superior a 5% (cinco por cento), para mais ou para menos, no preço dos combustíveis ao consumidor final [...] a ANTT deverá publicar o correspondente reajuste dos pisos mínimos no prazo de até 3 (três) dias úteis\"",
+      "usado_em": [
+        "/cesta-basica",
+        "/carrinho",
+        "/combustivel",
+        "/"
+      ]
+    },
+    {
+      "id": "forbes-2026-10-08-sachsida",
+      "titulo": "Forbes: \"Petrobras, BB e Caixa serão privatizados? Veja o que diz coordenador de Flávio Bolsonaro\"",
+      "orgao": "Forbes",
+      "url": "https://forbes.com.br/forbes-money/2026/10/petrobras-bb-e-caixa-serao-privatizados-veja-o-que-diz-coordenador-de-flavio-bolsonaro/",
+      "data_publicacao": "2026-10-08",
+      "data_coleta": "2026-10-16",
+      "valor_usado": "Adolfo Sachsida, \"integrante da coordenação do plano econômico\" de Flávio Bolsonaro, foi ministro de Minas e Energia do governo Jair Bolsonaro de maio de 2022 até o fim do governo",
+      "usado_em": [
+        "/cesta-basica",
+        "/carrinho",
+        "/combustivel",
+        "/"
+      ]
+    },
+    {
+      "id": "estadao-2026-10-09-flavio-petrobras",
+      "titulo": "Estadão Conteúdo (via eixos): \"Governo faz uso eleitoreiro da Petrobras, diz Flávio Bolsonaro\"",
+      "orgao": "Estadão",
+      "url": "https://eixos.com.br/politica/eleicoes/eleicoes-2026/governo-faz-uso-eleitoreiro-da-petrobras-diz-flavio-bolsonaro/",
+      "data_publicacao": "2026-10-09",
+      "data_coleta": "2026-10-16",
+      "valor_usado": "Flávio Bolsonaro critica o \"uso eleitoreiro\" da Petrobras e diz que, com o fim da subvenção em 25 de outubro, o diesel \"já pode subir em torno de R$ 2,00\" depois da eleição",
+      "usado_em": [
+        "/cesta-basica",
+        "/carrinho",
+        "/combustivel",
+        "/"
+      ]
     }
   ]
 }

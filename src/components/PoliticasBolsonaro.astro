@@ -1,0 +1,60 @@
+---
+// Contexto: as duas regras do governo do Bolsonaro que encareciam a comida (sem estoques públicos e diesel pelo PPI)
+// e o que Flávio e a equipe dele disseram. Só fatos com fonte; a volta das regras fica no condicional.
+import { Callout } from '@boralula/ui';
+import { Fonte } from './Fonte';
+import { Selo } from '../icones';
+import { Truck, Warehouse } from 'lucide-react';
+import { COMBUSTIVEIS } from '../dados';
+import { calcularCombustivel } from '../simuladores/combustivel';
+import { pct, reais } from '../formato';
+
+const { cinza = false } = Astro.props as { cinza?: boolean };
+const diesel = COMBUSTIVEIS.find((c) => c.combustivel === 'diesel')!;
+const aumento = calcularCombustivel(diesel).aumento;
+---
+
+<section class:list={['secao', { 'secao--cinza': cinza }]} aria-labelledby="por-que">
+  <div class="cp-container">
+    <h2 id="por-que" class="cp-text-h2">Por que a comida subia mais no governo do Bolsonaro</h2>
+    <p class="texto">Duas regras do governo do Bolsonaro ajudavam a deixar a comida mais cara.</p>
+    <div class="grade-combustivel politicas">
+      <div class="cartao">
+        <h3 class="cp-text-h3 card-titulo"><Selo icone={Warehouse} />Sem estoques públicos de alimentos</h3>
+        <p>
+          A Conab, empresa do governo federal, compra comida quando o preço está baixo e vende quando sobe. Isso ajuda a segurar a
+          inflação dos alimentos <span class="junto"><Fonte id="forbes-2024-03-21-conab-armazens" />.</span>
+        </p>
+        <p>
+          No governo do Bolsonaro, a Conab não comprou comida para os estoques públicos: a compra só voltou em junho de 2023, depois de
+          6 anos <span class="junto"><Fonte id="agenciabrasil-2023-06-29-conab-retoma-estoques" />.</span> Em 2019, fechou 27 dos seus
+          92 armazéns <Fonte id="camara-2019-12-10-conab-27-armazens" />, porque o governo achava os estoques públicos caros e
+          ultrapassados <span class="junto"><Fonte id="forbes-2024-03-21-conab-armazens" />.</span>
+        </p>
+      </div>
+      <div class="cartao" data-numero>
+        <h3 class="cp-text-h3 card-titulo"><Selo icone={Truck} />Diesel pelo preço de importação (PPI)</h3>
+        <p>
+          No governo do Bolsonaro, a Petrobras seguia o preço de importação
+          <span class="junto"><Fonte id="petrobras-2023-05-16-fim-ppi" />.</span> Com essa regra hoje, o diesel subiria
+          <strong class="destaque">{reais(aumento)}</strong> por litro, {pct((aumento / diesel.preco) * 100, 0)} a mais
+          <Fonte id={diesel.fontes.defasagem} /> <span class="junto"><Fonte id={diesel.fontes.preco} />.</span>
+        </p>
+        <p>
+          A comida chega ao mercado de caminhão. Por lei, o piso do frete sobe sempre que o combustível sobe 5% ou mais
+          <span class="junto"><Fonte id="lei-13703-2018-piso-frete" />.</span> Diesel mais caro vira frete mais caro, e frete mais caro
+          vira comida mais cara.
+        </p>
+      </div>
+    </div>
+    <div class="politicas__flavio">
+      <Callout title="Essas regras podem voltar com Flávio Bolsonaro" headingLevel={3}>
+        O coordenador do plano econômico de Flávio, Adolfo Sachsida, foi ministro de Minas e Energia do governo Bolsonaro em 2022,
+        quando a Petrobras seguia o preço de importação <Fonte id="forbes-2026-10-08-sachsida" />. Flávio critica a política de preços
+        atual da Petrobras, que chama de "uso eleitoreiro", e diz que, quando acabar a ajuda do governo Lula ao diesel, o litro "já
+        pode subir em torno de R$ 2,00" <span class="junto"><Fonte id="estadao-2026-10-09-flavio-petrobras" />.</span> Se as regras do
+        governo do Bolsonaro voltarem, sem estoques públicos e com o diesel pelo preço de importação, a comida volta a subir mais.
+      </Callout>
+    </div>
+  </div>
+</section>
