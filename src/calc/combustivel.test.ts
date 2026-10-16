@@ -30,3 +30,15 @@ describe('tanqueCheio', () => {
     expect(t.comPpi).toBeCloseTo(t.hoje + t.diferenca, 10);
   });
 });
+
+describe('gastoMensal (motorista de aplicativo)', () => {
+  it('5.000 km a 10 km/L = 500 litros; hoje, com o PPI e diferença por mês e por ano', async () => {
+    const { gastoMensal, calcularCombustivel } = await import('../simuladores/combustivel');
+    const l = { combustivel: 'gasolina' as const, defasagem: 0.66, teorBio: 32, preco: 6.54, peso: 5.1285 };
+    const g = gastoMensal(l, 5000, 10);
+    expect(g.litros).toBe(500);
+    expect(g.hoje).toBeCloseTo(3270, 10);
+    expect(g.diferenca).toBeCloseTo(500 * calcularCombustivel(l).aumento, 10);
+    expect(g.porAno).toBeCloseTo(g.diferenca * 12, 10);
+  });
+});

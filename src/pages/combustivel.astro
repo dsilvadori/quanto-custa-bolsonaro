@@ -7,7 +7,7 @@ import { BarraCompartilhar } from '../components/BarraCompartilhar';
 import { Resultados } from '../components/Resultados';
 import { COMBUSTIVEIS, PICO_COMBUSTIVEL } from '../dados';
 import { fracaoFossil, repasse } from '../calc/combustivel';
-import { NOMES, VEICULOS, calcularCombustivel, efeitoTotal, graficoBomba, tanqueCheio } from '../simuladores/combustivel';
+import { APLICATIVO, NOMES, VEICULOS, calcularCombustivel, efeitoTotal, gastoMensal, graficoBomba, tanqueCheio } from '../simuladores/combustivel';
 import { ICONE_VEICULO, Selo } from '../icones';
 import { fonte } from '../fontes';
 import { pct, preco, reais } from '../formato';
@@ -24,6 +24,10 @@ const picos = PICO_COMBUSTIVEL.map((p) => {
   return { ...p, aumento, tanque50: 50 * aumento, dataTexto: dataPorExtenso(p.data).replace(/ de \d{4}$/, '') };
 });
 const picoGasolina = picos.find((p) => p.combustivel === 'gasolina');
+// Motorista de aplicativo (gasolina): gasto por mês com o exemplo de km e consumo.
+const app = gastoMensal(gasolina, APLICATIVO.kmMesExemplo, APLICATIVO.kmPorLitroExemplo);
+const appPico = picoGasolina ? app.litros * picoGasolina.aumento : null;
+const dadosApp = JSON.stringify({ linha: { combustivel: gasolina.combustivel, defasagem: gasolina.defasagem, teorBio: gasolina.teorBio, preco: gasolina.preco, peso: gasolina.peso }, pico: picoGasolina?.aumento ?? null }).replace(/</g, '\\u003c');
 const veiculos = VEICULOS.map((v) => {
   const l = linhas.find((x) => x.combustivel === v.combustivel)!;
   return { ...v, linha: l, t: tanqueCheio(l, v.litrosExemplo) };
@@ -91,7 +95,7 @@ const compartilhar = JSON.stringify({
         </figcaption>
         <div class="grafico-area" set:html={graficoBomba(COMBUSTIVEIS)} />
         <p class="cp-text-body-small">
-          Preço médio hoje <Fonte id={diesel.fontes.preco} /> mais o aumento com o PPI <span class="junto"><Fonte id={fonteAbicom} />.</span>
+          Preço no governo Lula (hoje) <Fonte id={diesel.fontes.preco} /> mais o aumento com o PPI <span class="junto"><Fonte id={fonteAbicom} />.</span>
         </p>
       </figure>
       <div class="grade-combustivel">
@@ -176,7 +180,7 @@ const compartilhar = JSON.stringify({
               />
               <p class="cp-text-body-large resultado__frase" aria-live="polite">
                 <span data-saida={`frase-${v.id}`}>
-                  Tanque de {v.litrosExemplo} litros: {preco(v.t.hoje)} hoje e {preco(v.t.comPpi)} com o PPI.
+                  Tanque de {v.litrosExemplo} litros: {preco(v.t.hoje)} no governo Lula e {preco(v.t.comPpi)} com o PPI do governo do Bolsonaro.
                 </span>
               </p>
               <Resultados
@@ -187,13 +191,65 @@ const compartilhar = JSON.stringify({
                 ]}
               />
               <p class="cp-text-body-small">
-                Preço médio hoje <Fonte id={v.linha.fontes.preco} /> mais o aumento por litro com o PPI
+                Preço no governo Lula (hoje) <Fonte id={v.linha.fontes.preco} /> mais o aumento por litro com o PPI
                 <span class="junto"><Fonte id={v.linha.fontes.defasagem} />.</span>
               </p>
             </div>
           ))
         }
       </form>
+    </div>
+  </section>
+
+  <section class="secao secao--cinza" aria-labelledby="aplicativo">
+    <div class="cp-container simulador">
+      <div class="cartao simulador__form">
+        <h2 id="aplicativo" class="cp-text-h2 card-titulo"><Selo icone={ICONE_VEICULO.carro} />Motorista de aplicativo: gasto por mês</h2>
+        <TextField
+          id="km-mes"
+          label="Quantos km você roda por mês?"
+          inputMode="numeric"
+          autoComplete="off"
+          defaultValue={APLICATIVO.kmMesExemplo.toLocaleString('pt-BR')}
+          helperText={`Exemplo: ${APLICATIVO.kmMesExemplo.toLocaleString('pt-BR')} km (cerca de 200 km por dia, 25 dias). Mude para o seu.`}
+          className="so-com-js"
+        />
+        <TextField
+          id="km-litro"
+          label="Quantos km o carro faz por litro de gasolina?"
+          inputMode="decimal"
+          autoComplete="off"
+          defaultValue={String(APLICATIVO.kmPorLitroExemplo)}
+          helperText={`Exemplo: ${APLICATIVO.kmPorLitroExemplo} km por litro. Mude para o do seu carro.`}
+          className="so-com-js"
+        />
+      </div>
+      <div class="cartao simulador__resultado" data-numero>
+        <p class="cp-text-body-large resultado__frase" aria-live="polite" data-saida="app-frase">
+          Rodando {APLICATIVO.kmMesExemplo.toLocaleString('pt-BR')} km por mês a {APLICATIVO.kmPorLitroExemplo} km por litro, são
+          {app.litros.toLocaleString('pt-BR', { maximumFractionDigits: 0 })} litros de gasolina: {preco(app.hoje)} no governo Lula e
+          {preco(app.comPpi)} com o PPI do governo do Bolsonaro.
+        </p>
+        <Resultados
+          itens={[
+            { saida: 'app-dif', valor: `+${preco(app.diferenca)}`, rotulo: 'a mais por mês' },
+            { saida: 'app-ano', valor: `+${preco(app.porAno)}`, rotulo: 'a mais em 12 meses' },
+            { saida: 'app-ppi', valor: preco(app.comPpi), rotulo: 'por mês com o PPI' },
+          ]}
+        />
+        {
+          appPico !== null && picoGasolina && (
+            <p class="cp-text-body">
+              No pico de 2026, em {picoGasolina.dataTexto}, seriam <strong class="conta__destaque" data-saida="app-pico">+{preco(appPico)}</strong>
+              por mês <Fonte id={picoGasolina.fontes.defasagem} /> <span class="junto"><Fonte id={picoGasolina.fontes.teor} />.</span>
+            </p>
+          )
+        }
+        <p class="cp-text-body-small">
+          Preço da gasolina no governo Lula (hoje) <Fonte id={gasolina.fontes.preco} /> mais o aumento por litro com o PPI
+          <span class="junto"><Fonte id={gasolina.fontes.defasagem} />.</span>
+        </p>
+      </div>
     </div>
   </section>
 
@@ -207,6 +263,7 @@ const compartilhar = JSON.stringify({
 
   <script slot="fim" type="application/json" id="dados-combustivel" set:html={compartilhar} />
   <script slot="fim" type="application/json" id="dados-tanques" set:html={tanques} />
+  <script slot="fim" type="application/json" id="dados-aplicativo" set:html={dadosApp} />
 </Base>
 
 <script>

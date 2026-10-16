@@ -54,3 +54,15 @@ export function graficoBomba(linhas: LinhaCombustivel[]): string {
     rotulo: (x) => `R$ ${v(x)}`,
   });
 }
+
+/** Exemplo de motorista de aplicativo. Não há dado oficial de quilometragem: a pessoa muda na página. */
+export const APLICATIVO = { kmMesExemplo: 5000, kmPorLitroExemplo: 10 } as const;
+
+/** Gasto com combustível por mês: litros = km ÷ km por litro; hoje e com o PPI. */
+export function gastoMensal(l: LinhaCombustivel, km: number, kmPorLitro: number) {
+  const r = calcularCombustivel(l);
+  const litros = km / kmPorLitro;
+  const hoje = litros * l.preco;
+  const comPpi = litros * r.novoPreco;
+  return { litros, hoje, comPpi, diferenca: comPpi - hoje, porAno: (comPpi - hoje) * 12 };
+}
