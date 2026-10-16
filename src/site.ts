@@ -9,6 +9,13 @@ export const SITE = {
   comite: { nome: 'Comitê Popular do Lula de Tecnologia', url: 'https://comitedetecnologia.com.br/' },
 } as const;
 
+/**
+ * Caminho interno com a base do site. Vazia no domínio próprio; "/quanto-custa-bolsonaro"
+ * em dsilvadori.github.io/quanto-custa-bolsonaro/ (variável BASE_PATH no build).
+ */
+const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
+export const link = (path: string) => (path === '/' ? `${BASE}/` : `${BASE}${path}`);
+
 export type PaginaId =
   | 'inicio'
   | 'salarioMinimo'

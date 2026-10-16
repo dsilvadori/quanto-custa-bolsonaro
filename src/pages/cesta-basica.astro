@@ -9,15 +9,15 @@ import { BarraCompartilhar } from '../components/BarraCompartilhar';
 import { CENARIO_SM, CESTA, DADOS_CESTA, MINIMO_ATUAL } from '../dados';
 import { ESTADO_PADRAO_CESTA, MEDIA, frasesCesta, graficoCapitais, graficoCesta, graficoGovernos } from '../simuladores/cesta';
 import { pct } from '../formato';
-import { PAGINAS, dataPorExtenso } from '../site';
+import { PAGINAS, dataPorExtenso, link } from '../site';
 
-const url = new URL(PAGINAS.cestaBasica.path, Astro.site).href;
+const url = new URL(link(PAGINAS.cestaBasica.path), Astro.site).href;
 const d = DADOS_CESTA;
 const e = ESTADO_PADRAO_CESTA;
 const f = frasesCesta(d, e);
 const inpcFinal = CENARIO_SM.inpc[CENARIO_SM.inpc.length - 1];
 const mesReferencia = dataPorExtenso(`${CESTA.referencia}-01`).replace(/^1º de /, '');
-const ancora = new URL(`${PAGINAS.fontes.path}#${CESTA.fonteValores}`, Astro.site);
+const ancora = new URL(link(`${PAGINAS.fontes.path}#${CESTA.fonteValores}`), Astro.site);
 const dados = JSON.stringify({ dados: d, urlFontes: ancora.host + ancora.pathname + ancora.hash }).replace(/</g, '\\u003c');
 ---
 
@@ -92,7 +92,7 @@ const dados = JSON.stringify({ dados: d, urlFontes: ancora.host + ancora.pathnam
         <p class="cp-text-body-small">
           Valor da cesta <Fonte id={CESTA.fonteValores} />, mínimo de hoje <Fonte id={MINIMO_ATUAL.fonte} /> e mínimo só pela
           inflação <span class="junto"><Fonte id={inpcFinal.fonte} />.</span>
-          <Link href={PAGINAS.comoCalculamos.path}>Veja como calculamos</Link>
+          <Link href={link(PAGINAS.comoCalculamos.path)}>Veja como calculamos</Link>
         </p>
       </div>
     </div>

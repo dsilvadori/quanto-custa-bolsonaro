@@ -52,6 +52,8 @@ jobs:
       url: ${{ steps.deploy.outputs.page_url }}
     env:
       SITE_URL: ${{ vars.SITE_URL }}
+      # Só sem domínio próprio: /quanto-custa-bolsonaro (Settings → Variables).
+      BASE_PATH: ${{ vars.BASE_PATH }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4

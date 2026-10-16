@@ -6,8 +6,10 @@ import sitemap from '@astrojs/sitemap';
 // TODO: definir o domínio final antes do deploy.
 const site = process.env.SITE_URL ?? 'http://localhost:4321';
 
+// BASE_PATH: subpasta do site (ex.: /quanto-custa-bolsonaro no GitHub Pages sem domínio próprio).
 export default defineConfig({
   site,
+  base: process.env.BASE_PATH || undefined,
   // /salario-minimo.html é servido como /salario-minimo em qualquer hospedagem estática.
   build: { format: 'file', inlineStylesheets: 'auto' },
   trailingSlash: 'never',

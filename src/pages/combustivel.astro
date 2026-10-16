@@ -12,9 +12,9 @@ import { APLICATIVO, NOMES, VEICULOS, calcularCombustivel, efeitoTotal, gastoMen
 import { ICONE_VEICULO, Selo } from '../icones';
 import { fonte } from '../fontes';
 import { pct, preco, reais } from '../formato';
-import { PAGINAS, dataPorExtenso } from '../site';
+import { PAGINAS, dataPorExtenso, link } from '../site';
 
-const url = new URL(PAGINAS.combustivel.path, Astro.site).href;
+const url = new URL(link(PAGINAS.combustivel.path), Astro.site).href;
 const linhas = COMBUSTIVEIS.map((c) => ({ ...c, r: calcularCombustivel(c) }));
 const diesel = linhas.find((l) => l.combustivel === 'diesel')!;
 const gasolina = linhas.find((l) => l.combustivel === 'gasolina')!;
@@ -38,7 +38,7 @@ const dataAbicom = dataPorExtenso(fonte(fonteAbicom).data_publicacao!);
 const ppx = (v: number) => `${v.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ponto percentual`;
 
 const whatsapp = `Se a Petrobras voltasse a seguir o preço de importação, como no governo Bolsonaro, o diesel subiria ${reais(diesel.r.aumento)} e a gasolina ${reais(gasolina.r.aumento)} por litro. Veja a conta e as fontes: ${url}`;
-const ancora = new URL(`${PAGINAS.fontes.path}#${fonteAbicom}`, Astro.site);
+const ancora = new URL(link(`${PAGINAS.fontes.path}#${fonteAbicom}`), Astro.site);
 const tanques = JSON.stringify(
   veiculos.map((v) => ({ id: v.id, linha: { combustivel: v.linha.combustivel, defasagem: v.linha.defasagem, teorBio: v.linha.teorBio, preco: v.linha.preco, peso: v.linha.peso } })),
 ).replace(/</g, '\\u003c');
@@ -156,7 +156,7 @@ const compartilhar = JSON.stringify({
         <p class="cp-text-body-small">
           Alta de cada combustível × peso dele no IPCA <span class="junto"><Fonte id={diesel.fontes.peso} />.</span> ICMS e
           PIS/Cofins são cobrados por litro e não mudam com o preço.
-          <Link href={PAGINAS.comoCalculamos.path}>Veja como calculamos</Link>
+          <Link href={link(PAGINAS.comoCalculamos.path)}>Veja como calculamos</Link>
         </p>
       </div>
     </div>

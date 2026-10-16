@@ -1,6 +1,6 @@
 import { Tag } from '@boralula/ui';
 import { fonte } from '../fontes';
-import { PAGINAS, dataPorExtenso } from '../site';
+import { PAGINAS, dataPorExtenso, link } from '../site';
 
 /**
  * Selo de fonte ao lado de um número. Sem JS é um link para /fontes#id;
@@ -11,7 +11,7 @@ export function Fonte({ id }: { id: string }) {
   return (
     <a
       className="fonte"
-      href={`${PAGINAS.fontes.path}#${f.id}`}
+      href={link(`${PAGINAS.fontes.path}#${f.id}`)}
       data-fonte={f.id}
       data-titulo={f.titulo}
       data-orgao={f.orgao}

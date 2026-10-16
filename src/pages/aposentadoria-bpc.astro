@@ -16,9 +16,9 @@ import {
   linhasRetro,
 } from '../simuladores/beneficio';
 import { pct, reais } from '../formato';
-import { PAGINAS } from '../site';
+import { PAGINAS, link } from '../site';
 
-const url = new URL(PAGINAS.aposentadoriaBpc.path, Astro.site).href;
+const url = new URL(link(PAGINAS.aposentadoriaBpc.path), Astro.site).href;
 const d = DADOS_BENEFICIO;
 const e = estadoPadraoBeneficio(d);
 const f = frasesBeneficio(d, e);
@@ -32,7 +32,7 @@ const fonteCesta = CESTA.fonteValores;
 const fontePeriodo = PARAMETROS.ganho_real_ate_ano.fonte;
 const periodo = `${d.anoBase + 1} a ${d.anoAtual}`;
 const futuro = `${d.anoAtual + 1} a ${d.ateAno}`;
-const ancora = new URL(`${PAGINAS.fontes.path}#${fonteInpc}`, Astro.site);
+const ancora = new URL(link(`${PAGINAS.fontes.path}#${fonteInpc}`), Astro.site);
 const dados = JSON.stringify({ dados: d, urlFontes: ancora.host + ancora.pathname + ancora.hash }).replace(/</g, '\\u003c');
 ---
 
@@ -93,7 +93,7 @@ const dados = JSON.stringify({ dados: d, urlFontes: ancora.host + ancora.pathnam
         />
         <p class="cp-text-body-small">
           Mínimo de hoje <Fonte id={fonteHoje} /> e INPC de cada ano <span class="junto"><Fonte id={fonteInpc} />.</span>
-          <Link href={PAGINAS.comoCalculamos.path}>Veja como calculamos</Link>
+          <Link href={link(PAGINAS.comoCalculamos.path)}>Veja como calculamos</Link>
         </p>
       </div>
     </div>

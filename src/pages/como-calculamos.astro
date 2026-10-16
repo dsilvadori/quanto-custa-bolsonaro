@@ -4,7 +4,7 @@ import Base from '../layouts/Base.astro';
 import { Fonte } from '../components/Fonte';
 import { CARRINHO, CENARIO_SM, CESTA, COMBUSTIVEIS, DADOS_BENEFICIO, DADOS_CARRINHO, INPC_ANUAL, MINIMO_ATUAL } from '../dados';
 import { pct, reais } from '../formato';
-import { PAGINAS } from '../site';
+import { PAGINAS, link } from '../site';
 
 const { padrao } = CENARIO_SM.bases;
 const inpc = CENARIO_SM.inpc;
@@ -71,7 +71,7 @@ const jsonLd = [
           </li>
           <li>Por ano: 12 salários e o 13º, pago pelo valor de dezembro. Em {CENARIO_SM.anoBase}, o mínimo real mudou em maio.</li>
         </ol>
-        <p><Link href={PAGINAS.salarioMinimo.path}>Abrir o simulador</Link></p>
+        <p><Link href={link(PAGINAS.salarioMinimo.path)}>Abrir o simulador</Link></p>
       </FaqItem>
 
       <FaqItem question={perguntas[1].q}>
@@ -99,7 +99,7 @@ const jsonLd = [
             supondo que a cesta sobe junto com a inflação.
           </li>
         </ol>
-        <p><Link href={PAGINAS.aposentadoriaBpc.path}>Abrir o simulador</Link></p>
+        <p><Link href={link(PAGINAS.aposentadoriaBpc.path)}>Abrir o simulador</Link></p>
       </FaqItem>
 
       <FaqItem question={perguntas[2].q}>
@@ -121,7 +121,7 @@ const jsonLd = [
             <Fonte id={inpc[inpc.length - 1].fonte} />.
           </li>
         </ol>
-        <p><Link href={PAGINAS.cestaBasica.path}>Abrir o simulador</Link></p>
+        <p><Link href={link(PAGINAS.cestaBasica.path)}>Abrir o simulador</Link></p>
       </FaqItem>
 
       <FaqItem question={perguntas[3].q}>
@@ -147,7 +147,7 @@ const jsonLd = [
           </li>
           <li>Total = soma de preço × quantidade. Na média das capitais, cada produto usa a média simples das capitais que o pesquisam.</li>
         </ol>
-        <p><Link href={PAGINAS.carrinho.path}>Abrir o simulador</Link></p>
+        <p><Link href={link(PAGINAS.carrinho.path)}>Abrir o simulador</Link></p>
       </FaqItem>
 
       <FaqItem question={perguntas[4].q}>
@@ -164,7 +164,7 @@ const jsonLd = [
           <li>Alta = aumento ÷ preço médio de hoje <Fonte id={diesel.fontes.preco} />.</li>
           <li>Efeito direto na inflação = alta × peso no IPCA <Fonte id={diesel.fontes.peso} />.</li>
         </ol>
-        <p><Link href={PAGINAS.combustivel.path}>Abrir o simulador</Link></p>
+        <p><Link href={link(PAGINAS.combustivel.path)}>Abrir o simulador</Link></p>
       </FaqItem>
     </div>
   </section>
@@ -173,7 +173,7 @@ const jsonLd = [
     <div class="cp-container">
       <h2 id="correcoes" class="cp-text-h2">Registro de correções</h2>
       <p class="texto">
-        Nenhuma correção até agora. Achou um erro? <Link href={PAGINAS.quemSomos.path}>Fale com a gente</Link>.
+        Nenhuma correção até agora. Achou um erro? <Link href={link(PAGINAS.quemSomos.path)}>Fale com a gente</Link>.
       </p>
     </div>
   </section>

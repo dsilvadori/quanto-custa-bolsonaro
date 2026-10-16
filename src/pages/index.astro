@@ -10,9 +10,9 @@ import { Fonte } from '../components/Fonte';
 import { CENARIO_SM, DADOS_SALARIO, MINIMO_ATUAL } from '../dados';
 import { ESTADO_PADRAO, calcularSalario } from '../simuladores/salario';
 import { reais } from '../formato';
-import { PAGINAS, SITE } from '../site';
+import { PAGINAS, SITE, link } from '../site';
 
-const url = new URL('/', Astro.site).href;
+const url = new URL(link('/'), Astro.site).href;
 const r = calcularSalario(DADOS_SALARIO, ESTADO_PADRAO);
 const inpcFinal = CENARIO_SM.inpc[CENARIO_SM.inpc.length - 1];
 const jsonLd = [
@@ -69,7 +69,7 @@ const jsonLd = [
         <div class="grafico-area grafico-area--largo" set:html={graficoProdutos(DADOS_CARRINHO)} />
         <p class="cp-text-body-small">
           Alta de cada produto no IPCA <Fonte id={CARRINHO.fontesSubitens[0]} /> <span class="junto"><Fonte id={CARRINHO.fontesSubitens[1]} />.</span>
-          <Link href="/carrinho">Monte o seu carrinho de supermercado</Link>
+          <Link href={link(PAGINAS.carrinho.path)}>Monte o seu carrinho de supermercado</Link>
         </p>
       </figure>
     </div>

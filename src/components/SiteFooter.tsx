@@ -1,5 +1,5 @@
 import { BrandStripes, Footer, Link } from '@boralula/ui';
-import { MENU, PAGINAS, RODAPE, SITE } from '../site';
+import { MENU, PAGINAS, RODAPE, SITE, link } from '../site';
 
 const links = [...new Set([...MENU, ...RODAPE])];
 
@@ -11,7 +11,7 @@ export function SiteFooter() {
       </div>
       <Footer
         links={links.map((id) => (
-          <Link key={id} href={PAGINAS[id].path}>
+          <Link key={id} href={link(PAGINAS[id].path)}>
             {PAGINAS[id].rotulo}
           </Link>
         ))}
@@ -20,7 +20,7 @@ export function SiteFooter() {
         <Link href={SITE.comite.url} external>
           {SITE.comite.nome}
         </Link>
-        . <Link href={PAGINAS.quemSomos.path}>Saiba quem faz este site</Link>.
+        . <Link href={link(PAGINAS.quemSomos.path)}>Saiba quem faz este site</Link>.
       </Footer>
     </div>
   );

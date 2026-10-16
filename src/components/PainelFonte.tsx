@@ -1,6 +1,6 @@
 import { Button, IconButton, Link } from '@boralula/ui';
 import { X } from 'lucide-react';
-import { PAGINAS } from '../site';
+import { PAGINAS, link } from '../site';
 
 // Um painel por página, preenchido por src/scripts/fonte.ts a partir do selo tocado.
 // Os campos com data-campo recebem o texto; os links, o href.
@@ -21,7 +21,7 @@ export function PainelFonte() {
           <dd data-campo="valor" />
         </dl>
         <div className="painel-fonte__acoes">
-          <Link href={PAGINAS.fontes.path} external data-link="url">
+          <Link href={link(PAGINAS.fontes.path)} external data-link="url">
             Abrir fonte
           </Link>
           <Button variant="outline" type="button" data-copiar="" fullWidth>

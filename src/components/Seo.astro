@@ -1,5 +1,5 @@
 ---
-import { SITE } from '../site';
+import { SITE, link } from '../site';
 
 interface Props {
   titulo: string;
@@ -13,8 +13,8 @@ interface Props {
 }
 
 const { titulo, descricao, path, imagem, jsonLd = [], noindex = false } = Astro.props;
-const canonical = path ? new URL(path, Astro.site).href : undefined;
-const imagemUrl = imagem && new URL(imagem.src, Astro.site).href;
+const canonical = path ? new URL(link(path), Astro.site).href : undefined;
+const imagemUrl = imagem && new URL(link(imagem.src), Astro.site).href;
 // Evita que "</script>" dentro de um texto feche a tag.
 const ld = (dado: unknown) => JSON.stringify(dado).replace(/</g, '\\u003c');
 ---

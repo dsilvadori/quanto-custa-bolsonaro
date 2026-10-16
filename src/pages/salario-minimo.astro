@@ -8,10 +8,10 @@ import { BarraCompartilhar } from '../components/BarraCompartilhar';
 import { CENARIO_SM, DADOS_SALARIO, INPC, MINIMO_ATUAL, SALARIO_MINIMO } from '../dados';
 import { ESTADO_PADRAO, calcularSalario, frasesSalario, graficoSalario } from '../simuladores/salario';
 import { pct, reais } from '../formato';
-import { PAGINAS } from '../site';
+import { PAGINAS, link } from '../site';
 
 const pagina = PAGINAS.salarioMinimo;
-const url = new URL(pagina.path, Astro.site).href;
+const url = new URL(link(pagina.path), Astro.site).href;
 const r = calcularSalario(DADOS_SALARIO, ESTADO_PADRAO);
 const f = frasesSalario(DADOS_SALARIO, ESTADO_PADRAO);
 const { padrao } = CENARIO_SM.bases;
@@ -20,7 +20,7 @@ const inpcFinal = CENARIO_SM.inpc[CENARIO_SM.inpc.length - 1];
 /** Fonte do valor em vigor em dezembro do ano (o 13º usa esse valor). */
 const fonteDezembro = (ano: number) => SALARIO_MINIMO.filter((v) => v.inicio <= `${ano}-12-01`).at(-1)!.fonte;
 const fonteInpc = (ano: number) => INPC.find((i) => i.aplicadoNoMinimoDe === ano)!.fonte;
-const ancoraCartao = new URL(`${PAGINAS.fontes.path}#${MINIMO_ATUAL.fonte}`, Astro.site);
+const ancoraCartao = new URL(link(`${PAGINAS.fontes.path}#${MINIMO_ATUAL.fonte}`), Astro.site);
 const dados = JSON.stringify({
   dados: DADOS_SALARIO,
   urlFontes: ancoraCartao.host + ancoraCartao.pathname + ancoraCartao.hash,
@@ -72,7 +72,7 @@ const dados = JSON.stringify({
         />
         <p class="cp-text-body-small">
           Contas com os valores do <Fonte id={MINIMO_ATUAL.fonte} /> e o INPC do <Fonte id={inpcFinal.fonte} />.
-          <Link href={PAGINAS.comoCalculamos.path}>Veja como calculamos</Link>
+          <Link href={link(PAGINAS.comoCalculamos.path)}>Veja como calculamos</Link>
         </p>
       </div>
     </div>

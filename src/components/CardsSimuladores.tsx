@@ -2,7 +2,7 @@ import { Card, Link } from '@boralula/ui';
 import { Fonte } from './Fonte';
 import { DESTAQUES } from '../destaques';
 import { ICONE_PAGINA, Selo } from '../icones';
-import { PAGINAS, SIMULADORES, type PaginaId } from '../site';
+import { PAGINAS, SIMULADORES, type PaginaId, link } from '../site';
 
 /** Links entre simuladores: na Início, todos; num simulador, os outros. Cada cartão mostra o número principal. */
 export function CardsSimuladores({ exceto, headingLevel = 2 }: { exceto?: PaginaId; headingLevel?: 2 | 3 }) {
@@ -20,7 +20,7 @@ export function CardsSimuladores({ exceto, headingLevel = 2 }: { exceto?: Pagina
                 </span>
               }
               headingLevel={headingLevel}
-              action={<Link href={PAGINAS[id].path}>Abrir o simulador</Link>}
+              action={<Link href={link(PAGINAS[id].path)}>Abrir o simulador</Link>}
             >
               {d && (
                 <p className="card-numero">
