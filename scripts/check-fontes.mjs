@@ -79,11 +79,10 @@ async function responde200(url) {
   return 'sem resposta';
 }
 
-const avisos = fontes.filter((f) => !f.url_arquivo).map((f) => `${f.id}: sem cópia arquivada (url_arquivo)`);
 
 if (!semRede) {
-  const urls = [...new Set(fontes.flatMap((f) => [f.url, f.url_arquivo].filter(Boolean)))];
-  // Poucas por vez, para não ser bloqueado pelos servidores dos órgãos e do archive.org.
+  const urls = [...new Set(fontes.map((f) => f.url))];
+  // Poucas por vez, para não ser bloqueado pelos servidores dos órgãos.
   for (let i = 0; i < urls.length; i += 3) {
     const lote = urls.slice(i, i + 3);
     const status = await Promise.all(lote.map(responde200));
@@ -92,7 +91,6 @@ if (!semRede) {
 }
 
 console.log(`check-fontes: ${paginas.length} páginas, ${fontes.length} fontes${semRede ? ', URLs não testadas (--sem-rede)' : ''}.`);
-for (const a of avisos) console.warn(`aviso: ${a}`);
 if (erros.length) {
   for (const e of erros) console.error(e);
   console.error(`\n${erros.length} problema(s).`);

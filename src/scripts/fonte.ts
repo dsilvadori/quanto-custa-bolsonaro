@@ -17,8 +17,6 @@ if (painel && typeof painel.showModal === 'function') {
     campo('valor').textContent = dados.valor ?? '';
     campo('aviso').textContent = '';
     link('url').href = dados.url ?? '';
-    link('arquivo').href = dados.arquivo ?? '';
-    link('arquivo').hidden = !dados.arquivo;
     painel.showModal();
   });
 

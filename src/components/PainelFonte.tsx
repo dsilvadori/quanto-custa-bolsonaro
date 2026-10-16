@@ -24,9 +24,6 @@ export function PainelFonte() {
           <Link href={PAGINAS.fontes.path} external data-link="url">
             Abrir fonte
           </Link>
-          <Link href={PAGINAS.fontes.path} external data-link="arquivo">
-            Ver cópia arquivada
-          </Link>
           <Button variant="outline" type="button" data-copiar="" fullWidth>
             Copiar fonte
           </Button>

@@ -4,10 +4,8 @@ export interface Fonte {
   id: string;
   titulo: string;
   orgao: string;
-  /** Link direto para a tabela, PDF ou ato. */
+  /** Link para a página web da fonte (tabela, ato, relatório), de preferência a arquivos de dados. */
   url: string;
-  /** Cópia no web.archive.org. */
-  url_arquivo: string | null;
   /** AAAA-MM-DD; null quando ainda não confirmada ("em atualização"). */
   data_publicacao: string | null;
   data_coleta: string;

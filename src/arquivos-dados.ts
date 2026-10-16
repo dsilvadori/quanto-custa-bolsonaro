@@ -5,7 +5,7 @@ import { lerCsv } from './calc/csv';
 const brutos = import.meta.glob('../data/*.{csv,json}', { query: '?raw', import: 'default', eager: true }) as Record<string, string>;
 
 const DESCRICOES: Record<string, string> = {
-  'fontes.json': 'Registro de todas as fontes: órgão, link, cópia arquivada, datas e valor usado.',
+  'fontes.json': 'Registro de todas as fontes: órgão, link, datas e valor usado.',
   'salario-minimo.csv': 'Salário mínimo de 2019 a 2026, com a data de início de cada valor e o ato que o fixou.',
   'inpc.csv': 'INPC acumulado em 12 meses até novembro, usado para corrigir o mínimo.',
   'parametros.csv': 'Limites do ganho real do salário mínimo previstos em lei.',

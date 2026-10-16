@@ -96,7 +96,7 @@ export const PAGINAS: Record<PaginaId, Pagina> = {
     rotulo: 'Fontes',
     titulo: 'De onde vêm os números? Todas as fontes e dados para baixar',
     descricao:
-      'Todas as fontes oficiais usadas no site (IBGE, DIEESE, ANP, Diário Oficial), com data, valor usado, cópia arquivada e dados em CSV.',
+      'Todas as fontes oficiais usadas no site (IBGE, DIEESE, ANP, Diário Oficial), com data, valor usado, link oficial e dados em CSV.',
     atualizadoEm: '2026-10-15',
   },
   quemSomos: {

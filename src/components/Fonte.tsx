@@ -16,7 +16,6 @@ export function Fonte({ id }: { id: string }) {
       data-titulo={f.titulo}
       data-orgao={f.orgao}
       data-url={f.url}
-      data-arquivo={f.url_arquivo ?? ''}
       data-publicacao={f.data_publicacao ? dataPorExtenso(f.data_publicacao) : ''}
       data-valor={f.valor_usado}
     >

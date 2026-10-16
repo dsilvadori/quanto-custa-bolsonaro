@@ -16,7 +16,8 @@ describe('data/fontes.json', () => {
     expect(f.id).toMatch(/^[a-z0-9-]+$/);
     for (const campo of ['titulo', 'orgao', 'valor_usado'] as const) expect(f[campo].trim()).not.toBe('');
     expect(f.url).toMatch(/^https:\/\//);
-    if (f.url_arquivo !== null) expect(f.url_arquivo).toMatch(/^https?:\/\/web\.archive\.org\/web\/\d{14}\//);
+    // Página web, não arquivo de dados (API, planilha, XML).
+    expect(f.url).not.toMatch(/apisidra|\.xlsx?$|\.xml$|\.csv$/);
     if (f.data_publicacao !== null) expect(f.data_publicacao).toMatch(data);
     expect(f.data_coleta).toMatch(data);
     expect(f.usado_em.length).toBeGreaterThan(0);

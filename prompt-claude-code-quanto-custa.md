@@ -115,13 +115,13 @@ Use o Bora Lula Design System: https://www.ntmedina.com/bora-lula-ui/
 Cada número do site precisa ter fonte acessível em no máximo 1 toque.
 
 - **Registro central:** `/data/fontes.json`, um item por fonte:
-  `id`, `titulo`, `orgao` (IBGE, DIEESE, ANP, Diário Oficial...), `url` (link direto
-  para a tabela, PDF ou decreto, não para a home do órgão), `url_arquivo` (snapshot no
-  web.archive.org), `data_publicacao`, `data_coleta`, `valor_usado` (o número exato
+  `id`, `titulo`, `orgao` (IBGE, DIEESE, ANP, Diário Oficial...), `url` (página web
+  da tabela, do relatório ou do ato — de preferência a arquivos de dados como API, XML ou
+  planilha —, não a home do órgão), `data_publicacao`, `data_coleta`, `valor_usado` (o número exato
   tirado dali) e `usado_em` (telas que usam).
 - **Ao lado de cada número:** componente `<Fonte id="...">` usando Tag do DS. Mostra o
   órgão ("IBGE") e, ao tocar, abre um painel com título, data, valor original, botão
-  "Abrir fonte" (Link externo), link do arquivo e botão "Copiar fonte". Sem JS, o selo
+  "Abrir fonte" (Link externo) e botão "Copiar fonte". Sem JS, o selo
   é um link comum para `/fontes#id`.
 - **Hierarquia:** número econômico vem SEMPRE de fonte primária (IBGE/SIDRA,
   DIEESE/Conab, ANP, Diário Oficial, Previdência). Imprensa só para declarações e
