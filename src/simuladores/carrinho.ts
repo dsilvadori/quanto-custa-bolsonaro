@@ -59,12 +59,19 @@ export function estadoFamilia(d: DadosCarrinho, capital = MEDIA, fracao = 1): Es
   return {
     capital,
     qtd: Object.fromEntries(
-      d.produtos.map((p) => [p.id, precos[p.id] !== undefined && qtd[p.id] !== undefined ? arredondar(qtd[p.id] * d.familia * fracao) : 0]),
+      d.produtos.map((p) => [p.id, precos[p.id] !== undefined && qtd[p.id] !== undefined ? quantidadeDeCompra(qtd[p.id] * d.familia * fracao) : 0]),
     ),
   };
 }
 
 const arredondar = (v: number) => Math.round(v * 100) / 100;
+
+/** Quantidade que se compra de verdade: de 2 para cima, inteiro; abaixo de 2, de meia em meia (mínimo meia). */
+export function quantidadeDeCompra(v: number): number {
+  if (v <= 0) return 0;
+  if (v >= 2) return Math.round(v);
+  return Math.max(0.5, Math.round(v * 2) / 2);
+}
 
 /** 13.5 → "13,5"; 0.9 → "0,9". */
 export function qtdTexto(v: number): string {

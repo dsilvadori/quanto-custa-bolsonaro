@@ -1,18 +1,20 @@
 import { describe, expect, it } from 'vitest';
 import { DADOS_CARRINHO, DADOS_CESTA } from '../dados';
-import { MEDIA, calcularCarrinho, codificarItens, decodificarItens, estadoFamilia, estadoPadraoCarrinho, estadoVazio, passo, qtdTexto } from './carrinho';
+import { MEDIA, calcularCarrinho, codificarItens, decodificarItens, estadoFamilia, estadoPadraoCarrinho, estadoVazio, passo, qtdTexto, quantidadeDeCompra } from './carrinho';
 
 describe('carrinho padrão: compra da quinzena de uma família de 4', () => {
-  it.each(['São Paulo', 'Recife'])('%s: custa 1,5 × o valor da cesta do DIEESE', (capital) => {
+  it.each(['São Paulo', 'Recife'])('%s: com quantidades arredondadas, fica a menos de 3%% de 1,5 × a cesta do DIEESE', (capital) => {
     const cesta = DADOS_CESTA.capitais.find((c) => c.nome === capital)!.valor;
     const r = calcularCarrinho(DADOS_CARRINHO, estadoPadraoCarrinho(DADOS_CARRINHO, capital));
-    expect(Math.abs(r.hoje - 1.5 * cesta)).toBeLessThan(1);
+    expect(Math.abs(r.hoje / (1.5 * cesta) - 1)).toBeLessThan(0.03);
   });
 
-  it('São Paulo: metade da compra do mês (carne 9 kg, leite 11,25 L); gás e batata do Nordeste em 0', () => {
+  it('São Paulo: quantidades redondas (carne 9 kg, leite 11 L, café 1 kg, manteiga 1 kg); gás e batata do Nordeste em 0', () => {
     const q = estadoPadraoCarrinho(DADOS_CARRINHO, 'São Paulo').qtd;
     expect(q.carne).toBe(9);
-    expect(q.leite).toBe(11.25);
+    expect(q.leite).toBe(11);
+    expect(q.cafe).toBe(1);
+    expect(q.manteiga).toBe(1);
     expect(q.gas).toBe(0);
     expect(estadoPadraoCarrinho(DADOS_CARRINHO, 'Recife').qtd.batata).toBe(0);
   });
@@ -29,17 +31,17 @@ describe('atalho: compra do mês de uma família de 4 pessoas', () => {
     expect(DADOS_CARRINHO.familia).toBe(3);
   });
 
-  it.each(['São Paulo', 'Recife', 'Porto Alegre'])('%s: a compra padrão custa 3 × o valor da cesta publicado pelo DIEESE', (capital) => {
+  it.each(['São Paulo', 'Recife', 'Porto Alegre'])('%s: a compra do mês fica a menos de 2%% de 3 × a cesta do DIEESE', (capital) => {
     const cesta = DADOS_CESTA.capitais.find((c) => c.nome === capital)!.valor;
     const r = calcularCarrinho(DADOS_CARRINHO, estadoFamilia(DADOS_CARRINHO, capital));
-    expect(Math.abs(r.hoje - 3 * cesta)).toBeLessThan(1);
+    expect(Math.abs(r.hoje / (3 * cesta) - 1)).toBeLessThan(0.02);
   });
 
-  it('quantidades de São Paulo: carne 18 kg, leite 22,5 L, café 1,8 kg; gás começa em 0', () => {
+  it('quantidades do mês em São Paulo: carne 18 kg, leite 23 L, café 2 kg; gás começa em 0', () => {
     const q = estadoFamilia(DADOS_CARRINHO, 'São Paulo').qtd;
     expect(q.carne).toBe(18);
-    expect(q.leite).toBe(22.5);
-    expect(q.cafe).toBe(1.8);
+    expect(q.leite).toBe(23);
+    expect(q.cafe).toBe(2);
     expect(q.gas).toBe(0);
   });
 
@@ -50,6 +52,22 @@ describe('atalho: compra do mês de uma família de 4 pessoas', () => {
   it('na média das capitais, todos os alimentos entram', () => {
     const q = estadoFamilia(DADOS_CARRINHO, MEDIA).qtd;
     for (const p of DADOS_CARRINHO.produtos.filter((p) => p.id !== 'gas')) expect(q[p.id], p.id).toBeGreaterThan(0);
+  });
+});
+
+describe('quantidadeDeCompra', () => {
+  it.each([
+    [11.25, 11],
+    [13.5, 14],
+    [6.75, 7],
+    [0.9, 1],
+    [1.125, 1],
+    [1.5, 1.5],
+    [0.45, 0.5],
+    [0.1, 0.5],
+    [0, 0],
+  ])('%s → %s', (v, esperado) => {
+    expect(quantidadeDeCompra(v)).toBe(esperado);
   });
 });
 
