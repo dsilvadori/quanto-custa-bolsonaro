@@ -64,7 +64,7 @@ export const PAGINAS: Record<PaginaId, Pagina> = {
     menu: 'Supermercado',
     titulo: 'Carrinho de supermercado no governo do Bolsonaro: quanto dá?',
     descricao:
-      'Monte o seu carrinho de supermercado, ou use a compra de uma família de 4, e veja quanto custaria se os preços subissem como no governo do Bolsonaro.',
+      'A compra da quinzena de uma família de 4 pessoas, produto a produto: quanto custaria se os preços subissem como no governo do Bolsonaro?',
     atualizadoEm: '2026-10-15',
   },
   combustivel: {

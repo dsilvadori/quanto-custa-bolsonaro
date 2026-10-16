@@ -36,10 +36,12 @@ export interface EstadoCarrinho {
   qtd: Record<string, number>;
 }
 
-/** Carrinho padrão: 1 de cada alimento que a capital pesquisa; gás em 0. */
+/** Quinzena = metade da compra do mês. */
+export const QUINZENA = 0.5;
+
+/** Carrinho padrão: compra da quinzena de uma família de 4 pessoas (1,5 cesta de adulto da capital). */
 export function estadoPadraoCarrinho(d: DadosCarrinho, capital = MEDIA): EstadoCarrinho {
-  const precos = d.precos[capital];
-  return { capital, qtd: Object.fromEntries(d.produtos.map((p) => [p.id, p.alimento && precos[p.id] !== undefined ? 1 : 0])) };
+  return estadoFamilia(d, capital, QUINZENA);
 }
 
 /** Carrinho vazio, para montar do zero. */
@@ -47,14 +49,17 @@ export function estadoVazio(d: DadosCarrinho, capital: string): EstadoCarrinho {
   return { capital, qtd: Object.fromEntries(d.produtos.map((p) => [p.id, 0])) };
 }
 
-/** Compra do mês de uma família de 4 pessoas: 3 cestas de adulto da capital (DIEESE). Gás em 0 (sem dado oficial de consumo). */
-export function estadoFamilia(d: DadosCarrinho, capital = MEDIA): EstadoCarrinho {
+/**
+ * Compra de uma família de 4 pessoas: 3 cestas de adulto da capital por mês (DIEESE), vezes `fracao`
+ * (1 = mês, 0,5 = quinzena). Gás em 0 (sem dado oficial de consumo).
+ */
+export function estadoFamilia(d: DadosCarrinho, capital = MEDIA, fracao = 1): EstadoCarrinho {
   const precos = d.precos[capital];
   const qtd = d.quantidades[capital];
   return {
     capital,
     qtd: Object.fromEntries(
-      d.produtos.map((p) => [p.id, precos[p.id] !== undefined && qtd[p.id] !== undefined ? arredondar(qtd[p.id] * d.familia) : 0]),
+      d.produtos.map((p) => [p.id, precos[p.id] !== undefined && qtd[p.id] !== undefined ? arredondar(qtd[p.id] * d.familia * fracao) : 0]),
     ),
   };
 }

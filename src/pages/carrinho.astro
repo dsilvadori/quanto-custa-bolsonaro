@@ -26,16 +26,16 @@ const dados = JSON.stringify({ dados: d, urlFontes: ancora.host + ancora.pathnam
 <Base
   id="carrinho"
   selo="Simulador"
-  imagem={{ src: '/og/carrinho.png', alt: `Um carrinho de supermercado com os alimentos da cesta custa ${f.hoje} hoje e custaria ${f.cenario} como no governo do Bolsonaro.` }}
+  imagem={{ src: '/og/carrinho.png', alt: `A compra da quinzena de uma família de 4 pessoas custa ${f.hoje} hoje e custaria ${f.cenario} como no governo do Bolsonaro.` }}
 >
   <Fragment slot="lead">
     <p class="hero__lead cp-text-body-large">
-      Um carrinho de supermercado com um de cada alimento da cesta custa <span class="junto">{f.hoje} <Fonte id={fonteDieese} /></span> na média
-      das capitais. Se cada produto tivesse subido como no governo do Bolsonaro, custaria
+      A compra da quinzena de uma família de 4 pessoas, com 2 adultos e 2 crianças <Fonte id={CARRINHO.fonteQtd} />, custa
+      <span class="junto">{f.hoje} <Fonte id={fonteDieese} /></span> na média das capitais. Se cada produto tivesse subido como no governo do Bolsonaro, custaria
       <strong class="destaque">{f.cenario}</strong>.
     </p>
     <div class="hero__numero" data-numero>
-      <Stat surface="red" value={f.diferenca} label="no mesmo carrinho" />
+      <Stat surface="red" value={f.diferenca} label="na compra da quinzena" />
       <p class="cp-text-body-small">
         Preços de {mesReferencia} <Fonte id={fonteDieese} /> e alta de cada produto no IPCA <Fonte id={fonte2019} />
         <span class="junto"><Fonte id={fonteDepois} />.</span>
@@ -54,13 +54,13 @@ const dados = JSON.stringify({ dados: d, urlFontes: ancora.host + ancora.pathnam
           <span class="junto"><Fonte id={fonteAnp} />.</span>
         </p>
         <p class="ajuda cp-text-body-small">
-          O carrinho começa com um de cada alimento. Use − e + para pôr o que você compra, ou toque em "Compra de uma família de 4"
-          para usar a cesta de 3 adultos da sua capital, como o DIEESE calcula o gasto de 2 adultos e 2 crianças
+          O carrinho começa com a compra da quinzena de uma família de 4 pessoas: metade do que o DIEESE conta para o mês de 2
+          adultos e 2 crianças (3 cestas de adulto da sua capital). Use − e + para ajustar ao que você compra
           <span class="junto"><Fonte id={CARRINHO.fonteQtd} />.</span>
         </p>
         <div class="atalhos so-com-js">
-          <BotaoAtalho acao="familia">Compra de uma família de 4</BotaoAtalho>
-          <BotaoAtalho acao="um">Um de cada</BotaoAtalho>
+          <BotaoAtalho acao="quinzena">Compra da quinzena</BotaoAtalho>
+          <BotaoAtalho acao="mes">Compra do mês</BotaoAtalho>
           <BotaoAtalho acao="vazio">Esvaziar carrinho</BotaoAtalho>
         </div>
         <div class="campo so-com-js">

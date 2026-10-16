@@ -52,11 +52,11 @@ lista.addEventListener('click', (e) => {
   mostrar();
 });
 
-// Atalhos: um de cada, compra de uma família de 4 (DIEESE) ou carrinho vazio.
+// Atalhos: compra da quinzena (padrão) ou do mês de uma família de 4 (DIEESE), ou carrinho vazio.
 document.querySelector('.atalhos')?.addEventListener('click', (e) => {
   const acao = (e.target as Element).closest<HTMLElement>('[data-atalho]')?.dataset.atalho;
   if (!acao) return;
-  const gerar = { um: estadoPadraoCarrinho, familia: estadoFamilia, vazio: estadoVazio }[acao];
+  const gerar = { quinzena: estadoPadraoCarrinho, mes: estadoFamilia, vazio: estadoVazio }[acao];
   if (gerar) {
     estado = gerar(dados, estado.capital);
     mostrar();

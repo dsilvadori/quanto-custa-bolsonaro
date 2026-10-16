@@ -23,7 +23,7 @@ const b = calcularBeneficio(DADOS_BENEFICIO, estadoPadraoBeneficio(DADOS_BENEFIC
 export const DESTAQUES: Partial<Record<PaginaId, Destaque>> = {
   salarioMinimo: { numero: `−${reais(s.porMes)}`, texto: 'por mês para quem ganha 1 salário mínimo', fonte: MINIMO_ATUAL.fonte },
   cestaBasica: { numero: `+${reais(c.porMes)}`, texto: 'por mês na cesta básica, na média das capitais', fonte: CESTA.fonteValores },
-  carrinho: { numero: `+${reais(car.diferenca)}`, texto: 'no carrinho de supermercado com um de cada alimento', fonte: CARRINHO.fontesPreco[0] },
+  carrinho: { numero: `+${reais(car.diferenca)}`, texto: 'na compra da quinzena de uma família de 4 pessoas', fonte: CARRINHO.fontesPreco[0] },
   combustivel: { numero: `+${preco(calcularCombustivel(diesel).aumento)}`, texto: 'no litro do diesel com o PPI', fonte: diesel.fontes.defasagem },
   aposentadoriaBpc: { numero: `−${reais(b.porMes)}`, texto: 'por mês no BPC desvinculado desde 2023', fonte: INPC_ANUAL[0].fonte },
 };

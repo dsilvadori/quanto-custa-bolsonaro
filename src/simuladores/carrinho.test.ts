@@ -2,12 +2,19 @@ import { describe, expect, it } from 'vitest';
 import { DADOS_CARRINHO, DADOS_CESTA } from '../dados';
 import { MEDIA, calcularCarrinho, codificarItens, decodificarItens, estadoFamilia, estadoPadraoCarrinho, estadoVazio, passo, qtdTexto } from './carrinho';
 
-describe('carrinho padrão e atalhos', () => {
-  it('padrão: 1 de cada alimento da capital, gás em 0', () => {
-    const q = estadoPadraoCarrinho(DADOS_CARRINHO, 'Recife').qtd;
-    expect(q.arroz).toBe(1);
-    expect(q.batata).toBe(0);
+describe('carrinho padrão: compra da quinzena de uma família de 4', () => {
+  it.each(['São Paulo', 'Recife'])('%s: custa 1,5 × o valor da cesta do DIEESE', (capital) => {
+    const cesta = DADOS_CESTA.capitais.find((c) => c.nome === capital)!.valor;
+    const r = calcularCarrinho(DADOS_CARRINHO, estadoPadraoCarrinho(DADOS_CARRINHO, capital));
+    expect(Math.abs(r.hoje - 1.5 * cesta)).toBeLessThan(1);
+  });
+
+  it('São Paulo: metade da compra do mês (carne 9 kg, leite 11,25 L); gás e batata do Nordeste em 0', () => {
+    const q = estadoPadraoCarrinho(DADOS_CARRINHO, 'São Paulo').qtd;
+    expect(q.carne).toBe(9);
+    expect(q.leite).toBe(11.25);
     expect(q.gas).toBe(0);
+    expect(estadoPadraoCarrinho(DADOS_CARRINHO, 'Recife').qtd.batata).toBe(0);
   });
 
   it('vazio: tudo em 0 e total zero', () => {

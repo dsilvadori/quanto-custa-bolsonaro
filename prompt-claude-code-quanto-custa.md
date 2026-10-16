@@ -221,9 +221,9 @@ Cada número do site precisa ter fonte acessível em no máximo 1 toque.
   a produto.
 - **Interação (JS puro, sem framework):** botões − e + com alvo de 44 px, quantidade
   visível, total do carrinho hoje × no governo do Bolsonaro, diferença em R$ e em %. Seletor
-  de capital (como no Simulador 2). Carrinho padrão = 1 de cada alimento; atalhos "Compra de
-  uma família de 4" (3 cestas de adulto, metodologia do DIEESE, nas quantidades de cada
-  capital) e "Esvaziar carrinho". Gás começa em 0 (sem dado oficial de consumo). URL guarda o carrinho (`?itens=arroz:2,cafe:1`) para compartilhar.
+  de capital (como no Simulador 2). Carrinho padrão = compra da quinzena de uma família de
+  4 pessoas (metade de 3 cestas de adulto, metodologia do DIEESE, nas quantidades de cada
+  capital); atalhos "Compra do mês" e "Esvaziar carrinho". Gás começa em 0 (sem dado oficial de consumo). URL guarda o carrinho (`?itens=arroz:2,cafe:1`) para compartilhar.
 - **Sem JS:** tabela com o carrinho padrão, preços de hoje e no ritmo de Bolsonaro,
   renderizada no build.
 - **Fontes:** `<Fonte>` em cada preço de hoje e em cada alta de subitem. Produto sem preço
