@@ -82,7 +82,7 @@ const dados = JSON.stringify({ dados: d, urlFontes: ancora.host + ancora.pathnam
         <p class="cp-text-body-large resultado__frase" aria-live="polite" data-saida="resumo">{fInicio.resumo}</p>
         <Resultados
           itens={[
-            { saida: 'hoje', valor: fInicio.hoje, rotulo: 'hoje' },
+            { saida: 'hoje', valor: fInicio.hoje, rotulo: 'no governo Lula (hoje)' },
             { saida: 'cenario', valor: fInicio.cenario, rotulo: 'no governo do Bolsonaro' },
             { saida: 'diferenca', valor: `${fInicio.diferenca} (${fInicio.pct})`, rotulo: 'de diferença' },
           ]}
@@ -101,7 +101,7 @@ const dados = JSON.stringify({ dados: d, urlFontes: ancora.host + ancora.pathnam
       <figure class="grafico-cartao" data-numero>
         <figcaption>
           <h2 id="por-produto" class="cp-text-h2">Quanto cada produto mudaria de preço</h2>
-          <p class="ajuda">Como no governo do Bolsonaro, comparado com o preço de hoje.</p>
+          <p class="ajuda">Preço médio nas capitais no governo Lula (hoje) e como seria no governo do Bolsonaro.</p>
         </figcaption>
         <div class="grafico-area grafico-area--largo" set:html={graficoProdutos(d)} />
         <p class="cp-text-body-small">

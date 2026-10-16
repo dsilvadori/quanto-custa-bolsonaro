@@ -12,6 +12,16 @@ const svg = barrasH({
   ],
 });
 
+describe('barrasH com detalhe', () => {
+  it('desenha a linha extra e aumenta a altura', () => {
+    const comDetalhe = barrasH({ id: 'd', titulo: 'T', descricao: 'D', linhas: [{ rotulo: 'A', valor: 10, texto: '+10%', detalhe: 'Lula R$ 1 · Bolsonaro R$ 2' }] });
+    expect(comDetalhe).toContain('>Lula R$ 1 · Bolsonaro R$ 2</text>');
+    const sem = barrasH({ id: 's', titulo: 'T', descricao: 'D', linhas: [{ rotulo: 'A', valor: 10, texto: '+10%' }] });
+    const altura = (svg: string) => Number(svg.match(/viewBox="0 0 360 (\d+)"/)![1]);
+    expect(altura(comDetalhe)).toBeGreaterThan(altura(sem));
+  });
+});
+
 describe('barrasH', () => {
   it('acessível: title, desc e role=img', () => {
     expect(svg).toContain('role="img" aria-labelledby="h-t h-d"');

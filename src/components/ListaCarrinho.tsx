@@ -38,7 +38,7 @@ export function ListaCarrinho({ linhas, fonteSubitem }: { linhas: LinhaLista[]; 
           </div>
           <p className="produto__precos" data-numero="">
             <span className="junto">
-              Hoje <span data-preco="">{preco(l.preco)}</span> <Fonte id={l.fontePreco} />
+              Governo Lula <span data-preco="">{preco(l.preco)}</span> <Fonte id={l.fontePreco} />
             </span>{' '}
             <span className="junto">
               Governo do Bolsonaro <strong data-cenario="">{preco(l.cenario)}</strong> <Fonte id={fonteSubitem} />

@@ -1,6 +1,6 @@
 // Simulador 5: o que a página mostra. Usado no build e no navegador.
 import { totalCarrinho } from '../calc/carrinho';
-import { pct, reais } from '../formato';
+import { pct, preco, reais } from '../formato';
 import { barrasH } from '../graficos/barrasH';
 
 export interface Produto {
@@ -163,16 +163,23 @@ const NOME_CURTO: Record<string, string> = {
   gas: 'Gás de botijão',
 };
 
-/** Quanto cada produto mudaria de preço no governo do Bolsonaro, em %, do maior para o menor. */
+/** Quanto cada produto mudaria de preço, com o preço no governo Lula (hoje) e como no governo do Bolsonaro (média das capitais). */
 export function graficoProdutos(d: DadosCarrinho): string {
+  const precos = d.precos[MEDIA];
   const linhas = [...d.produtos]
-    .map((p) => ({ p, v: (p.fator - 1) * 100 }))
+    .map((p) => ({ p, v: (p.fator - 1) * 100, hoje: precos[p.id], cenario: precos[p.id] * p.fator }))
     .sort((a, b) => b.v - a.v);
   const sinal = (v: number) => `${v >= 0 ? '+' : '−'}${Math.abs(v).toLocaleString('pt-BR', { maximumFractionDigits: 0 })}%`;
   return barrasH({
     id: 'grafico-produtos',
-    titulo: 'Quanto cada produto mudaria de preço como no governo do Bolsonaro',
-    descricao: linhas.map(({ p, v }) => `${p.nome}: ${sinal(v)}`).join('; ') + '.',
-    linhas: linhas.map(({ p, v }, i) => ({ rotulo: NOME_CURTO[p.id] ?? p.nome, valor: v, texto: sinal(v), destaque: i < 3 })),
+    titulo: 'Preço de cada produto no governo Lula (hoje) e como seria no governo do Bolsonaro, média das capitais',
+    descricao: linhas.map(({ p, v, hoje, cenario }) => `${p.nome} (${p.unidade}): ${preco(hoje)} no governo Lula, ${preco(cenario)} no governo do Bolsonaro, ${sinal(v)}`).join('; ') + '.',
+    linhas: linhas.map(({ p, v, hoje, cenario }) => ({
+      rotulo: NOME_CURTO[p.id] ?? p.nome,
+      valor: v,
+      texto: sinal(v),
+      destaque: true,
+      detalhe: `Lula ${preco(hoje)} · Bolsonaro ${preco(cenario)} (${p.unidade})`,
+    })),
   });
 }
