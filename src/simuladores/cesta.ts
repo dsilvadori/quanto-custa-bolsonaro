@@ -2,7 +2,7 @@
 import { fatorCesta } from '../calc/cesta';
 import { barras } from '../graficos/barras';
 import { barrasH } from '../graficos/barrasH';
-import { numero, pct, reais } from '../formato';
+import { numero, pct, preco, reais } from '../formato';
 
 export interface Capital {
   nome: string;
@@ -71,9 +71,9 @@ export function graficoCesta(d: DadosCesta, e: EstadoCesta): string {
   return barras({
     id: 'grafico-cesta',
     titulo: `Valor da cesta básica ${lugarTexto(d, e.capital)}`,
-    descricao: `Hoje: ${reais(r.hoje)}. Como no governo do Bolsonaro: ${reais(r.cenario)}.`,
-    categorias: ['Hoje', 'Governo do Bolsonaro'],
-    series: [{ nome: 'Valor', cor: 'var(--cp-color-primary)', valores: [r.hoje, r.cenario] }],
+    descricao: `Governo Lula (hoje): ${reais(r.hoje)}. Governo do Bolsonaro: ${reais(r.cenario)}.`,
+    categorias: ['Governo Lula', 'Governo do Bolsonaro'],
+    series: [{ nome: 'Valor', cor: 'var(--cp-color-primary)', cores: ['var(--cp-color-on-surface-variant)', 'var(--cp-color-primary)'], valores: [r.hoje, r.cenario] }],
     rotulo: (v) => `R$ ${numero(v)}`,
   });
 }
@@ -113,8 +113,8 @@ export function graficoCapitais(d: DadosCesta, e: EstadoCesta): string {
     linhas: linhas.map(({ c, r }) => ({
       rotulo: c.nome,
       valor: r.porMes,
-      texto: `+R$ ${numero(r.porMes)}`,
-      destaque: c.nome === e.capital,
+      texto: `+${reais(r.porMes)}`,
+      detalhe: `Lula ${preco(r.hoje)} → Bolsonaro ${preco(r.cenario)}`,
     })),
   });
 }
@@ -129,6 +129,6 @@ export function graficoGovernos(d: DadosCesta): string {
     id: 'grafico-governos',
     titulo: 'Alta da comida no domicílio (IPCA) em cada governo',
     descricao: linhas.map((l) => `Governo ${l.rotulo}: ${pct(l.valor)} em ${l.meses} meses`).join('; ') + '.',
-    linhas: linhas.map((l) => ({ rotulo: `${l.rotulo} (${l.meses} meses)`, valor: l.valor, texto: `+${pct(l.valor, 1)}`, destaque: l.destaque })),
+    linhas: linhas.map((l) => ({ rotulo: `Governo ${l.rotulo} (${l.meses} meses)`, valor: l.valor, texto: `+${pct(l.valor, 1)}`, destaque: l.destaque })),
   });
 }

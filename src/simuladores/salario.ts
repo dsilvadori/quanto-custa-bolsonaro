@@ -36,12 +36,12 @@ export function graficoSalario(d: DadosSalario, e: EstadoSalario): string {
   const { anos } = calcularSalario(d, e);
   return barras({
     id: 'grafico-salario',
-    titulo: 'Salário mínimo de 2023 a 2026: valor real e regra só pela inflação',
-    descricao: anos.map((a) => `${a.ano}: real ${reais(a.real)}, só inflação ${reais(a.cenario)}`).join('; ') + '.',
+    titulo: 'Salário mínimo de 2023 a 2026: governo Lula e regra do governo do Bolsonaro',
+    descricao: anos.map((a) => `${a.ano}: governo Lula ${reais(a.real)}, regra do governo do Bolsonaro ${reais(a.cenario)}`).join('; ') + '.',
     categorias: anos.map((a) => String(a.ano)),
     series: [
-      { nome: 'Valor real', cor: 'var(--cp-color-primary)', valores: anos.map((a) => a.real) },
-      { nome: 'Só inflação (INPC)', cor: 'var(--cp-color-on-surface-variant)', valores: anos.map((a) => a.cenario) },
+      { nome: 'Governo Lula', cor: 'var(--cp-color-on-surface-variant)', valores: anos.map((a) => a.real) },
+      { nome: 'Regra do governo do Bolsonaro', cor: 'var(--cp-color-primary)', valores: anos.map((a) => a.cenario) },
     ],
     rotulo: numero,
   });

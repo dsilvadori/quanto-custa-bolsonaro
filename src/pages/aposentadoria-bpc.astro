@@ -105,8 +105,8 @@ const dados = JSON.stringify({ dados: d, urlFontes: ancora.host + ancora.pathnam
         <figcaption>
           <h2 id="ano-a-ano" class="cp-text-h2">Ano a ano, de {periodo}</h2>
           <ul class="legenda" aria-hidden="true">
-            <li><span class="legenda__cor legenda__cor--real"></span>Ligado ao mínimo (o que foi pago)</li>
-            <li><span class="legenda__cor legenda__cor--cenario"></span>Desvinculado (só inflação)</li>
+            <li><span class="legenda__cor legenda__cor--cenario"></span>Governo Lula (ligado ao mínimo)</li>
+            <li><span class="legenda__cor legenda__cor--real"></span>Desvinculado (só inflação)</li>
           </ul>
         </figcaption>
         <div class="grafico-area" data-grafico="retro" set:html={graficoRetro(d, e)} />
@@ -164,8 +164,8 @@ const dados = JSON.stringify({ dados: d, urlFontes: ancora.host + ancora.pathnam
           ]}
         />
         <ul class="legenda" aria-hidden="true">
-          <li><span class="legenda__cor legenda__cor--real"></span>Ligado ao mínimo</li>
-          <li><span class="legenda__cor legenda__cor--cenario"></span>Sem aumento real</li>
+          <li><span class="legenda__cor legenda__cor--cenario"></span>Ligado ao mínimo</li>
+          <li><span class="legenda__cor legenda__cor--real"></span>Sem aumento real</li>
         </ul>
         <div class="grafico-area" data-grafico="projecao" set:html={graficoProjecao(d, e)} />
         <p class="cp-text-body-small">

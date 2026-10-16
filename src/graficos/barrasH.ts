@@ -1,14 +1,15 @@
-// Barras horizontais em SVG (uma por linha), com valores positivos e negativos em lados opostos do zero.
-// Roda no build e no navegador. Cores e fonte vêm dos tokens do DS.
+// Barras horizontais em lista (estilo ranking), em SVG. Roda no build e no navegador.
+// Cada linha: nome à esquerda e valor à direita; embaixo, a barra sobre um trilho; e, se houver, um detalhe (ex.: os preços).
+// Cores e fonte vêm dos tokens do DS.
 
 export interface LinhaH {
   rotulo: string;
   valor: number;
-  /** Texto do valor ao lado da barra (ex.: "+38,2%"). */
+  /** Texto do valor à direita (ex.: "+38%"). */
   texto: string;
-  /** Destaque (barra na cor primária); as outras ficam na cor secundária. */
+  /** Destaque na cor primária (padrão). Com `false`, a barra fica cinza. */
   destaque?: boolean;
-  /** Linha extra embaixo da barra (ex.: os dois preços). */
+  /** Linha embaixo da barra (ex.: "Lula R$ 4,99 → Bolsonaro R$ 7,33 (kg)"). */
   detalhe?: string;
 }
 
@@ -22,40 +23,31 @@ export interface OpcoesBarrasH {
 }
 
 const L = 360;
-const ALTURA_LINHA = 30;
-const ROTULO = 128; // largura reservada para o nome
-const TEXTO = 58; // largura reservada para o valor
+const NOME = 14; // altura da linha do nome
+const BARRA = 10;
+const DETALHE = 16;
+const ESPACO = 14;
 
 const esc = (t: string) => t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
 
 export function barrasH({ id, titulo, descricao, linhas, corNegativa = 'var(--cp-color-tertiary)' }: OpcoesBarrasH): string {
-  // Com detalhe, cada linha ganha espaço para o texto embaixo da barra.
   const comDetalhe = linhas.some((l) => l.detalhe);
-  const altura = comDetalhe ? ALTURA_LINHA + 18 : ALTURA_LINHA;
-  const A = linhas.length * altura + 8;
-  const max = Math.max(...linhas.map((l) => Math.max(l.valor, 0)), 0);
-  const min = Math.min(...linhas.map((l) => Math.min(l.valor, 0)), 0);
-  const area = L - ROTULO - TEXTO * (min < 0 ? 2 : 1);
-  const escala = area / (max - min || 1);
-  const zero = ROTULO + (min < 0 ? TEXTO : 0) + -min * escala;
+  const altura = NOME + 6 + BARRA + (comDetalhe ? DETALHE : 0) + ESPACO;
+  const A = linhas.length * altura;
+  const max = Math.max(...linhas.map((l) => Math.abs(l.valor)), 1);
 
   const partes = linhas.map((l, i) => {
-    const y = 4 + i * altura;
-    const meio = y + ALTURA_LINHA / 2;
-    const w = Math.abs(l.valor) * escala;
-    const x = l.valor >= 0 ? zero : zero - w;
-    const cor = l.valor < 0 ? corNegativa : l.destaque ? 'var(--cp-color-primary)' : 'var(--cp-color-on-surface-variant)';
-    const tx = l.valor >= 0 ? x + w + 6 : x - 6;
+    const y = i * altura;
+    const yBarra = y + NOME + 6;
+    const w = (Math.abs(l.valor) / max) * L;
+    const cor = l.valor < 0 ? corNegativa : l.destaque === false ? 'var(--cp-color-on-surface-variant)' : 'var(--cp-color-primary)';
     return (
-      `<text x="${ROTULO - 8}" y="${meio + 4}" text-anchor="end" font-size="12" font-weight="700" fill="var(--cp-color-on-surface)">${esc(l.rotulo)}</text>` +
-      // Com detalhe, a linha do zero vai só na altura da barra, para não cortar o texto de baixo.
-      (comDetalhe
-        ? `<line x1="${zero.toFixed(1)}" x2="${zero.toFixed(1)}" y1="${y + 2}" y2="${y + ALTURA_LINHA - 2}" stroke="var(--cp-color-outline)" stroke-width="1"/>`
-        : '') +
-      `<rect x="${x.toFixed(1)}" y="${(y + 6).toFixed(1)}" width="${Math.max(w, 1).toFixed(1)}" height="${ALTURA_LINHA - 12}" rx="3" fill="${cor}"/>` +
-      `<text x="${tx.toFixed(1)}" y="${meio + 4}" text-anchor="${l.valor >= 0 ? 'start' : 'end'}" font-size="12" font-weight="800" fill="var(--cp-color-on-surface)">${esc(l.texto)}</text>` +
+      `<text x="0" y="${y + NOME - 2}" font-size="13" font-weight="800" fill="var(--cp-color-on-surface)">${esc(l.rotulo)}</text>` +
+      `<text x="${L}" y="${y + NOME - 2}" text-anchor="end" font-size="13" font-weight="800" fill="${cor}">${esc(l.texto)}</text>` +
+      `<rect x="0" y="${yBarra}" width="${L}" height="${BARRA}" rx="${BARRA / 2}" fill="var(--cp-color-surface-container)"/>` +
+      `<rect x="0" y="${yBarra}" width="${Math.max(w, BARRA).toFixed(1)}" height="${BARRA}" rx="${BARRA / 2}" fill="${cor}"/>` +
       (l.detalhe
-        ? `<text x="8" y="${y + ALTURA_LINHA + 10}" font-size="11" font-weight="700" fill="var(--cp-color-on-surface-variant)">${esc(l.detalhe)}</text>`
+        ? `<text x="0" y="${yBarra + BARRA + 13}" font-size="11" font-weight="700" fill="var(--cp-color-on-surface-variant)">${esc(l.detalhe)}</text>`
         : '')
     );
   });
@@ -63,7 +55,6 @@ export function barrasH({ id, titulo, descricao, linhas, corNegativa = 'var(--cp
   return (
     `<svg viewBox="0 0 ${L} ${A}" role="img" aria-labelledby="${id}-t ${id}-d" font-family="var(--cp-font)" class="grafico">` +
     `<title id="${id}-t">${esc(titulo)}</title><desc id="${id}-d">${esc(descricao)}</desc>` +
-    (comDetalhe ? '' : `<line x1="${zero.toFixed(1)}" x2="${zero.toFixed(1)}" y1="0" y2="${A}" stroke="var(--cp-color-outline)" stroke-width="1"/>`) +
     partes.join('') +
     `</svg>`
   );

@@ -149,7 +149,7 @@ export function frasesCarrinho(d: DadosCarrinho, e: EstadoCarrinho) {
     cartao: {
       numero: `${mais ? '+' : '−'}${reais(Math.abs(r.diferenca))}`,
       linha: `no carrinho de supermercado ${onde}`,
-      premissa: `Hoje ${reais(r.hoje)}; como no governo do Bolsonaro, ${reais(r.cenario)}. ${destaques.join('. ')}.`,
+      premissa: `Governo Lula: ${reais(r.hoje)}; governo do Bolsonaro: ${reais(r.cenario)}. ${destaques.join('. ')}.`,
       fonte: 'Fontes: DIEESE, ANP e IBGE',
     },
   };
@@ -179,7 +179,7 @@ export function graficoProdutos(d: DadosCarrinho): string {
       valor: v,
       texto: sinal(v),
       destaque: true,
-      detalhe: `Lula ${preco(hoje)} · Bolsonaro ${preco(cenario)} (${p.unidade})`,
+      detalhe: `Lula ${preco(hoje)} → Bolsonaro ${preco(cenario)} (${p.unidade})`,
     })),
   });
 }

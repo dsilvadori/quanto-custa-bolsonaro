@@ -44,12 +44,12 @@ export function graficoBomba(linhas: LinhaCombustivel[]): string {
   const v = (x: number) => x.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   return barras({
     id: 'grafico-bomba',
-    titulo: 'Preço por litro hoje e com o preço de importação (PPI)',
+    titulo: 'Preço por litro no governo Lula (hoje) e com o preço de importação (PPI) do governo do Bolsonaro',
     descricao: r.map(({ l, c }) => `${NOMES[l.combustivel]}: hoje R$ ${v(l.preco)}, com o PPI R$ ${v(c.novoPreco)}`).join('; ') + '.',
     categorias: r.map(({ l }) => NOMES[l.combustivel]),
     series: [
-      { nome: 'Hoje', cor: 'var(--cp-color-on-surface-variant)', valores: r.map(({ l }) => l.preco) },
-      { nome: 'Com o PPI', cor: 'var(--cp-color-primary)', valores: r.map(({ c }) => c.novoPreco) },
+      { nome: 'Governo Lula', cor: 'var(--cp-color-on-surface-variant)', valores: r.map(({ l }) => l.preco) },
+      { nome: 'PPI do governo do Bolsonaro', cor: 'var(--cp-color-primary)', valores: r.map(({ c }) => c.novoPreco) },
     ],
     rotulo: (x) => `R$ ${v(x)}`,
   });

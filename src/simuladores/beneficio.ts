@@ -59,8 +59,8 @@ export function graficoRetro(d: DadosBeneficio, e: EstadoBeneficio): string {
     descricao: retro.anos.map((a) => `${a.ano}: ligado ao mínimo ${reais(a.real)}, desvinculado ${reais(a.desvinculado)}`).join('; ') + '.',
     categorias: retro.anos.map((a) => String(a.ano)),
     series: [
-      { nome: 'Ligado ao mínimo', cor: 'var(--cp-color-primary)', valores: retro.anos.map((a) => a.real) },
-      { nome: 'Desvinculado', cor: 'var(--cp-color-on-surface-variant)', valores: retro.anos.map((a) => a.desvinculado) },
+      { nome: 'Ligado ao mínimo', cor: 'var(--cp-color-on-surface-variant)', valores: retro.anos.map((a) => a.real) },
+      { nome: 'Desvinculado', cor: 'var(--cp-color-primary)', valores: retro.anos.map((a) => a.desvinculado) },
     ],
     rotulo: numero,
   });
@@ -75,8 +75,8 @@ export function graficoProjecao(d: DadosBeneficio, e: EstadoBeneficio): string {
       poder.anos.map((a) => `${a.ano}: ligado ao mínimo ${cestas(a.cestasVinculado)} cestas, sem aumento real ${cestas(a.cestasDesvinculado)}`).join('; ') + '.',
     categorias: poder.anos.map((a) => String(a.ano)),
     series: [
-      { nome: 'Ligado ao mínimo', cor: 'var(--cp-color-primary)', valores: poder.anos.map((a) => a.cestasVinculado) },
-      { nome: 'Sem aumento real', cor: 'var(--cp-color-on-surface-variant)', valores: poder.anos.map((a) => a.cestasDesvinculado) },
+      { nome: 'Ligado ao mínimo', cor: 'var(--cp-color-on-surface-variant)', valores: poder.anos.map((a) => a.cestasVinculado) },
+      { nome: 'Sem aumento real', cor: 'var(--cp-color-primary)', valores: poder.anos.map((a) => a.cestasDesvinculado) },
     ],
     rotulo: cestas,
   });

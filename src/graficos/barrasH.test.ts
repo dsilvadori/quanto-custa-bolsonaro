@@ -6,38 +6,40 @@ const svg = barrasH({
   titulo: 'T',
   descricao: 'D',
   linhas: [
-    { rotulo: 'Café', valor: 40, texto: '+40%', destaque: true },
+    { rotulo: 'Café', valor: 40, texto: '+40%', detalhe: 'Lula R$ 1 → Bolsonaro R$ 2' },
     { rotulo: 'Arroz', valor: 20, texto: '+20%' },
     { rotulo: 'Gasolina', valor: -10, texto: '−10%' },
   ],
 });
 
-describe('barrasH com detalhe', () => {
-  it('desenha a linha extra e aumenta a altura', () => {
-    const comDetalhe = barrasH({ id: 'd', titulo: 'T', descricao: 'D', linhas: [{ rotulo: 'A', valor: 10, texto: '+10%', detalhe: 'Lula R$ 1 · Bolsonaro R$ 2' }] });
-    expect(comDetalhe).toContain('>Lula R$ 1 · Bolsonaro R$ 2</text>');
-    const sem = barrasH({ id: 's', titulo: 'T', descricao: 'D', linhas: [{ rotulo: 'A', valor: 10, texto: '+10%' }] });
-    const altura = (svg: string) => Number(svg.match(/viewBox="0 0 360 (\d+)"/)![1]);
-    expect(altura(comDetalhe)).toBeGreaterThan(altura(sem));
-  });
-});
+/** Barras preenchidas (a segunda rect de cada linha; a primeira é o trilho). */
+const barras = (s: string) =>
+  [...s.matchAll(/<rect x="0" y="([\d.]+)" width="([\d.]+)"[^>]*fill="([^"]+)"/g)]
+    .map((m) => ({ w: Number(m[2]), cor: m[3] }))
+    .filter((b) => b.cor !== 'var(--cp-color-surface-container)');
 
-describe('barrasH', () => {
+describe('barrasH (lista)', () => {
   it('acessível: title, desc e role=img', () => {
     expect(svg).toContain('role="img" aria-labelledby="h-t h-d"');
     expect(svg).toContain('<title id="h-t">T</title>');
   });
 
-  it('uma barra por linha, proporcionais; negativa do outro lado do zero', () => {
-    const rects = [...svg.matchAll(/<rect x="([\d.]+)" y="[\d.]+" width="([\d.]+)"/g)].map((m) => ({ x: Number(m[1]), w: Number(m[2]) }));
-    expect(rects).toHaveLength(3);
-    expect(rects[0].w).toBeCloseTo(2 * rects[1].w, 0);
-    expect(rects[2].w).toBeCloseTo(rects[1].w / 2, 0);
-    expect(rects[2].x + rects[2].w).toBeCloseTo(rects[0].x, 0); // a negativa termina no zero
+  it('nome alinhado à esquerda e valor à direita', () => {
+    expect(svg).toContain('<text x="0" y="12" font-size="13" font-weight="800" fill="var(--cp-color-on-surface)">Café</text>');
+    expect(svg).toMatch(/<text x="360" y="12" text-anchor="end"[^>]*>\+40%<\/text>/);
   });
 
-  it('cores: destaque na primária, negativa na terciária', () => {
-    expect(svg).toContain('fill="var(--cp-color-primary)"');
-    expect(svg).toContain('fill="var(--cp-color-tertiary)"');
+  it('barras proporcionais ao maior valor, em vermelho; negativa em azul', () => {
+    const b = barras(svg);
+    expect(b).toHaveLength(3);
+    expect(b[0].w).toBeCloseTo(360, 5);
+    expect(b[1].w).toBeCloseTo(180, 5);
+    expect(b[2].w).toBeCloseTo(90, 5);
+    expect(b[0].cor).toBe('var(--cp-color-primary)');
+    expect(b[2].cor).toBe('var(--cp-color-tertiary)');
+  });
+
+  it('detalhe embaixo da barra', () => {
+    expect(svg).toContain('>Lula R$ 1 → Bolsonaro R$ 2</text>');
   });
 });

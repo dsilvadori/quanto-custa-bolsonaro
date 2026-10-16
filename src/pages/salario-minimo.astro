@@ -100,8 +100,8 @@ const dados = JSON.stringify({
         <figcaption>
           <h2 id="ano-a-ano" class="cp-text-h2">Ano a ano</h2>
           <ul class="legenda" aria-hidden="true">
-            <li><span class="legenda__cor legenda__cor--real"></span>Valor real</li>
-            <li><span class="legenda__cor legenda__cor--cenario"></span>Só inflação (INPC)</li>
+            <li><span class="legenda__cor legenda__cor--cenario"></span>Governo Lula (valor real)</li>
+            <li><span class="legenda__cor legenda__cor--real"></span>Regra do governo do Bolsonaro (só INPC)</li>
           </ul>
         </figcaption>
         <div class="grafico-area" data-grafico set:html={graficoSalario(DADOS_SALARIO, ESTADO_PADRAO)} />
@@ -110,9 +110,9 @@ const dados = JSON.stringify({
           <summary>Ver os números</summary>
           <div class="tabela-rolagem">
             <table class="tabela">
-              <caption class="cp-visually-hidden">Salário mínimo em dezembro de cada ano: valor real e regra só pela inflação</caption>
+              <caption class="cp-visually-hidden">Salário mínimo em dezembro de cada ano: governo Lula e regra do governo do Bolsonaro</caption>
               <thead>
-                <tr><th scope="col">Ano</th><th scope="col">Real</th><th scope="col">Só inflação</th><th scope="col">Diferença</th></tr>
+                <tr><th scope="col">Ano</th><th scope="col">Governo Lula</th><th scope="col">Regra do Bolsonaro</th><th scope="col">Diferença</th></tr>
               </thead>
               <tbody>
                 {

@@ -5,6 +5,8 @@ export interface Serie {
   nome: string;
   /** Token do DS, ex.: "var(--cp-color-primary)". */
   cor: string;
+  /** Cor de cada barra, quando a série não tem uma cor só. */
+  cores?: string[];
   valores: number[];
 }
 
@@ -41,7 +43,7 @@ export function barras({ id, titulo, descricao, categorias, series, rotulo }: Op
       const x = x0 + j * (largura + vao);
       const y = A - M.base - h;
       partes.push(
-        `<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${largura.toFixed(1)}" height="${h.toFixed(1)}" rx="2" fill="${s.cor}"/>`,
+        `<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${largura.toFixed(1)}" height="${h.toFixed(1)}" rx="2" fill="${s.cores?.[i] ?? s.cor}"/>`,
         `<text x="${(x + largura / 2).toFixed(1)}" y="${(y - 6).toFixed(1)}" text-anchor="middle" font-size="11" font-weight="700" fill="var(--cp-color-on-surface)">${esc(rotulo(v))}</text>`,
       );
     });

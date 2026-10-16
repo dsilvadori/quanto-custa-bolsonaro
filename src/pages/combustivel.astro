@@ -85,8 +85,8 @@ const compartilhar = JSON.stringify({
       <figure class="grafico-cartao cartao" data-numero>
         <figcaption>
           <ul class="legenda" aria-hidden="true">
-            <li><span class="legenda__cor legenda__cor--cenario"></span>Hoje</li>
-            <li><span class="legenda__cor legenda__cor--real"></span>Com o PPI</li>
+            <li><span class="legenda__cor legenda__cor--cenario"></span>Governo Lula (hoje)</li>
+            <li><span class="legenda__cor legenda__cor--real"></span>PPI do governo do Bolsonaro</li>
           </ul>
         </figcaption>
         <div class="grafico-area" set:html={graficoBomba(COMBUSTIVEIS)} />
@@ -110,11 +110,11 @@ const compartilhar = JSON.stringify({
                 </dd>
                 <dt>Aumento na bomba</dt>
                 <dd class="conta__destaque">+{reais(l.r.aumento)}</dd>
-                <dt>Preço médio hoje</dt>
+                <dt>Preço no governo Lula (hoje)</dt>
                 <dd>
                   {reais(l.preco)} <Fonte id={l.fontes.preco} />
                 </dd>
-                <dt>Preço com o PPI</dt>
+                <dt>Preço com o PPI do governo do Bolsonaro</dt>
                 <dd class="conta__destaque">{reais(l.r.novoPreco)}</dd>
                 <dt>Alta</dt>
                 <dd>+{pct(l.r.alta, 1)}</dd>
@@ -181,8 +181,8 @@ const compartilhar = JSON.stringify({
               </p>
               <Resultados
                 itens={[
-                  { saida: `hoje-${v.id}`, valor: preco(v.t.hoje), rotulo: 'o tanque cheio hoje' },
-                  { saida: `ppi-${v.id}`, valor: preco(v.t.comPpi), rotulo: 'com o PPI' },
+                  { saida: `hoje-${v.id}`, valor: preco(v.t.hoje), rotulo: 'o tanque cheio no governo Lula (hoje)' },
+                  { saida: `ppi-${v.id}`, valor: preco(v.t.comPpi), rotulo: 'com o PPI do governo do Bolsonaro' },
                   { saida: `dif-${v.id}`, valor: `+${preco(v.t.diferenca)}`, rotulo: 'a mais por tanque' },
                 ]}
               />

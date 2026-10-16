@@ -330,7 +330,7 @@ header nav a, .marca { white-space: nowrap; }
   header nav ul[class] { gap: var(--cp-space-2); }
   header nav ul[class] a { padding-inline: var(--cp-space-1); }
 }
-.grafico-area--largo { max-width: 720px; }
+.grafico-area--largo { max-width: 600px; }
 .grafico-cartao.cartao { margin-bottom: var(--cp-space-6); }
 .grafico-cartao figcaption .ajuda { margin: 0; }
 .atalhos { display: flex; flex-wrap: wrap; gap: var(--cp-space-2); }
