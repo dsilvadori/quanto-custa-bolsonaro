@@ -5,10 +5,10 @@ feijao,Feijão,kg,Brasília,8.69,2026-09,dieese-precos-2026-09,12222,4.5,dieese-
 arroz,Arroz,kg,Brasília,4.97,2026-09,dieese-precos-2026-09,7173,3,dieese-metodologia-cesta
 farinha-trigo,Farinha de trigo,kg,Brasília,4.61,2026-09,dieese-precos-2026-09,7191,1.5,dieese-metodologia-cesta
 batata,Batata,kg,Brasília,6.29,2026-09,dieese-precos-2026-09,7202,6,dieese-metodologia-cesta
-tomate,Tomate,kg,Brasília,9.58,2026-09,dieese-precos-2026-09,7212,9,dieese-metodologia-cesta
+tomate,Legumes (tomate),kg,Brasília,9.58,2026-09,dieese-precos-2026-09,7212,9,dieese-metodologia-cesta
 pao,Pão francês,kg,Brasília,18.69,2026-09,dieese-precos-2026-09,7375,6,dieese-metodologia-cesta
 cafe,Café em pó,kg,Brasília,47.39,2026-09,dieese-precos-2026-09,7392,0.6,dieese-metodologia-cesta
-banana,Banana,dúzia,Brasília,8.15,2026-09,dieese-precos-2026-09,7260,7.5,dieese-metodologia-cesta
+banana,Frutas (banana),dúzia,Brasília,8.15,2026-09,dieese-precos-2026-09,7260,7.5,dieese-metodologia-cesta
 acucar,Açúcar,kg,Brasília,3.05,2026-09,dieese-precos-2026-09,7221,3,dieese-metodologia-cesta
 oleo,Óleo de soja,750 g,Brasília,7.37,2026-09,dieese-precos-2026-09,7385,1,dieese-metodologia-cesta
 manteiga,Manteiga,kg,Brasília,54.18,2026-09,dieese-precos-2026-09,7367,0.75,dieese-metodologia-cesta
@@ -18,10 +18,10 @@ feijao,Feijão,kg,Campo Grande,8.64,2026-09,dieese-precos-2026-09,12222,4.5,diee
 arroz,Arroz,kg,Campo Grande,4.39,2026-09,dieese-precos-2026-09,7173,3,dieese-metodologia-cesta
 farinha-trigo,Farinha de trigo,kg,Campo Grande,4.32,2026-09,dieese-precos-2026-09,7191,1.5,dieese-metodologia-cesta
 batata,Batata,kg,Campo Grande,5.44,2026-09,dieese-precos-2026-09,7202,6,dieese-metodologia-cesta
-tomate,Tomate,kg,Campo Grande,7.20,2026-09,dieese-precos-2026-09,7212,9,dieese-metodologia-cesta
+tomate,Legumes (tomate),kg,Campo Grande,7.20,2026-09,dieese-precos-2026-09,7212,9,dieese-metodologia-cesta
 pao,Pão francês,kg,Campo Grande,18.37,2026-09,dieese-precos-2026-09,7375,6,dieese-metodologia-cesta
 cafe,Café em pó,kg,Campo Grande,48.21,2026-09,dieese-precos-2026-09,7392,0.6,dieese-metodologia-cesta
-banana,Banana,dúzia,Campo Grande,11.55,2026-09,dieese-precos-2026-09,7260,7.5,dieese-metodologia-cesta
+banana,Frutas (banana),dúzia,Campo Grande,11.55,2026-09,dieese-precos-2026-09,7260,7.5,dieese-metodologia-cesta
 acucar,Açúcar,kg,Campo Grande,2.84,2026-09,dieese-precos-2026-09,7221,3,dieese-metodologia-cesta
 oleo,Óleo de soja,750 g,Campo Grande,7.19,2026-09,dieese-precos-2026-09,7385,1.2,dieese-metodologia-cesta
 manteiga,Manteiga,kg,Campo Grande,64.88,2026-09,dieese-precos-2026-09,7367,0.75,dieese-metodologia-cesta
@@ -31,10 +31,10 @@ feijao,Feijão,kg,Cuiabá,8.13,2026-09,dieese-precos-2026-09,12222,4.5,dieese-me
 arroz,Arroz,kg,Cuiabá,4.18,2026-09,dieese-precos-2026-09,7173,3,dieese-metodologia-cesta
 farinha-trigo,Farinha de trigo,kg,Cuiabá,4.38,2026-09,dieese-precos-2026-09,7191,1.5,dieese-metodologia-cesta
 batata,Batata,kg,Cuiabá,7.94,2026-09,dieese-precos-2026-09,7202,6,dieese-metodologia-cesta
-tomate,Tomate,kg,Cuiabá,12.31,2026-09,dieese-precos-2026-09,7212,9,dieese-metodologia-cesta
+tomate,Legumes (tomate),kg,Cuiabá,12.31,2026-09,dieese-precos-2026-09,7212,9,dieese-metodologia-cesta
 pao,Pão francês,kg,Cuiabá,21.66,2026-09,dieese-precos-2026-09,7375,6,dieese-metodologia-cesta
 cafe,Café em pó,kg,Cuiabá,54.89,2026-09,dieese-precos-2026-09,7392,0.6,dieese-metodologia-cesta
-banana,Banana,dúzia,Cuiabá,12.23,2026-09,dieese-precos-2026-09,7260,7.5,dieese-metodologia-cesta
+banana,Frutas (banana),dúzia,Cuiabá,12.23,2026-09,dieese-precos-2026-09,7260,7.5,dieese-metodologia-cesta
 acucar,Açúcar,kg,Cuiabá,2.83,2026-09,dieese-precos-2026-09,7221,3,dieese-metodologia-cesta
 oleo,Óleo de soja,750 g,Cuiabá,7.67,2026-09,dieese-precos-2026-09,7385,1.2,dieese-metodologia-cesta
 manteiga,Manteiga,kg,Cuiabá,59.29,2026-09,dieese-precos-2026-09,7367,0.75,dieese-metodologia-cesta
@@ -44,10 +44,10 @@ feijao,Feijão,kg,Goiânia,10.44,2026-09,dieese-precos-2026-09,12222,4.5,dieese-
 arroz,Arroz,kg,Goiânia,4.84,2026-09,dieese-precos-2026-09,7173,3,dieese-metodologia-cesta
 farinha-trigo,Farinha de trigo,kg,Goiânia,4.82,2026-09,dieese-precos-2026-09,7191,1.5,dieese-metodologia-cesta
 batata,Batata,kg,Goiânia,6.88,2026-09,dieese-precos-2026-09,7202,6,dieese-metodologia-cesta
-tomate,Tomate,kg,Goiânia,9.14,2026-09,dieese-precos-2026-09,7212,9,dieese-metodologia-cesta
+tomate,Legumes (tomate),kg,Goiânia,9.14,2026-09,dieese-precos-2026-09,7212,9,dieese-metodologia-cesta
 pao,Pão francês,kg,Goiânia,19.32,2026-09,dieese-precos-2026-09,7375,6,dieese-metodologia-cesta
 cafe,Café em pó,kg,Goiânia,67.57,2026-09,dieese-precos-2026-09,7392,0.6,dieese-metodologia-cesta
-banana,Banana,dúzia,Goiânia,8.69,2026-09,dieese-precos-2026-09,7260,7.5,dieese-metodologia-cesta
+banana,Frutas (banana),dúzia,Goiânia,8.69,2026-09,dieese-precos-2026-09,7260,7.5,dieese-metodologia-cesta
 acucar,Açúcar,kg,Goiânia,3.27,2026-09,dieese-precos-2026-09,7221,3,dieese-metodologia-cesta
 oleo,Óleo de soja,750 g,Goiânia,7.65,2026-09,dieese-precos-2026-09,7385,1,dieese-metodologia-cesta
 manteiga,Manteiga,kg,Goiânia,56.15,2026-09,dieese-precos-2026-09,7367,0.75,dieese-metodologia-cesta
@@ -57,10 +57,10 @@ feijao,Feijão,kg,Belo Horizonte,8.98,2026-09,dieese-precos-2026-09,12222,4.5,di
 arroz,Arroz,kg,Belo Horizonte,4.95,2026-09,dieese-precos-2026-09,7173,3,dieese-metodologia-cesta
 farinha-trigo,Farinha de trigo,kg,Belo Horizonte,4.47,2026-09,dieese-precos-2026-09,7191,1.5,dieese-metodologia-cesta
 batata,Batata,kg,Belo Horizonte,6.75,2026-09,dieese-precos-2026-09,7202,6,dieese-metodologia-cesta
-tomate,Tomate,kg,Belo Horizonte,11.04,2026-09,dieese-precos-2026-09,7212,9,dieese-metodologia-cesta
+tomate,Legumes (tomate),kg,Belo Horizonte,11.04,2026-09,dieese-precos-2026-09,7212,9,dieese-metodologia-cesta
 pao,Pão francês,kg,Belo Horizonte,19.49,2026-09,dieese-precos-2026-09,7375,6,dieese-metodologia-cesta
 cafe,Café em pó,kg,Belo Horizonte,47.48,2026-09,dieese-precos-2026-09,7392,0.6,dieese-metodologia-cesta
-banana,Banana,dúzia,Belo Horizonte,7.90,2026-09,dieese-precos-2026-09,7260,7.5,dieese-metodologia-cesta
+banana,Frutas (banana),dúzia,Belo Horizonte,7.90,2026-09,dieese-precos-2026-09,7260,7.5,dieese-metodologia-cesta
 acucar,Açúcar,kg,Belo Horizonte,2.93,2026-09,dieese-precos-2026-09,7221,3,dieese-metodologia-cesta
 oleo,Óleo de soja,750 g,Belo Horizonte,7.55,2026-09,dieese-precos-2026-09,7385,1,dieese-metodologia-cesta
 manteiga,Manteiga,kg,Belo Horizonte,45.43,2026-09,dieese-precos-2026-09,7367,0.75,dieese-metodologia-cesta
@@ -70,10 +70,10 @@ feijao,Feijão,kg,Rio de Janeiro,6.80,2026-09,dieese-precos-2026-09,12222,4.5,di
 arroz,Arroz,kg,Rio de Janeiro,5.76,2026-09,dieese-precos-2026-09,7173,3,dieese-metodologia-cesta
 farinha-trigo,Farinha de trigo,kg,Rio de Janeiro,4.80,2026-09,dieese-precos-2026-09,7191,1.5,dieese-metodologia-cesta
 batata,Batata,kg,Rio de Janeiro,8.09,2026-09,dieese-precos-2026-09,7202,6,dieese-metodologia-cesta
-tomate,Tomate,kg,Rio de Janeiro,12.66,2026-09,dieese-precos-2026-09,7212,9,dieese-metodologia-cesta
+tomate,Legumes (tomate),kg,Rio de Janeiro,12.66,2026-09,dieese-precos-2026-09,7212,9,dieese-metodologia-cesta
 pao,Pão francês,kg,Rio de Janeiro,21.51,2026-09,dieese-precos-2026-09,7375,6,dieese-metodologia-cesta
 cafe,Café em pó,kg,Rio de Janeiro,54.03,2026-09,dieese-precos-2026-09,7392,0.6,dieese-metodologia-cesta
-banana,Banana,dúzia,Rio de Janeiro,10.60,2026-09,dieese-precos-2026-09,7260,7.5,dieese-metodologia-cesta
+banana,Frutas (banana),dúzia,Rio de Janeiro,10.60,2026-09,dieese-precos-2026-09,7260,7.5,dieese-metodologia-cesta
 acucar,Açúcar,kg,Rio de Janeiro,3.55,2026-09,dieese-precos-2026-09,7221,3,dieese-metodologia-cesta
 oleo,Óleo de soja,750 g,Rio de Janeiro,7.80,2026-09,dieese-precos-2026-09,7385,1,dieese-metodologia-cesta
 manteiga,Manteiga,kg,Rio de Janeiro,72.68,2026-09,dieese-precos-2026-09,7367,0.75,dieese-metodologia-cesta
@@ -83,10 +83,10 @@ feijao,Feijão,kg,São Paulo,9.42,2026-09,dieese-precos-2026-09,12222,4.5,dieese
 arroz,Arroz,kg,São Paulo,4.69,2026-09,dieese-precos-2026-09,7173,3,dieese-metodologia-cesta
 farinha-trigo,Farinha de trigo,kg,São Paulo,5.25,2026-09,dieese-precos-2026-09,7191,1.5,dieese-metodologia-cesta
 batata,Batata,kg,São Paulo,8.52,2026-09,dieese-precos-2026-09,7202,6,dieese-metodologia-cesta
-tomate,Tomate,kg,São Paulo,10.97,2026-09,dieese-precos-2026-09,7212,9,dieese-metodologia-cesta
+tomate,Legumes (tomate),kg,São Paulo,10.97,2026-09,dieese-precos-2026-09,7212,9,dieese-metodologia-cesta
 pao,Pão francês,kg,São Paulo,20.03,2026-09,dieese-precos-2026-09,7375,6,dieese-metodologia-cesta
 cafe,Café em pó,kg,São Paulo,57.98,2026-09,dieese-precos-2026-09,7392,0.6,dieese-metodologia-cesta
-banana,Banana,dúzia,São Paulo,12.14,2026-09,dieese-precos-2026-09,7260,7.5,dieese-metodologia-cesta
+banana,Frutas (banana),dúzia,São Paulo,12.14,2026-09,dieese-precos-2026-09,7260,7.5,dieese-metodologia-cesta
 acucar,Açúcar,kg,São Paulo,3.64,2026-09,dieese-precos-2026-09,7221,3,dieese-metodologia-cesta
 oleo,Óleo de soja,750 g,São Paulo,7.93,2026-09,dieese-precos-2026-09,7385,1,dieese-metodologia-cesta
 manteiga,Manteiga,kg,São Paulo,69.90,2026-09,dieese-precos-2026-09,7367,0.75,dieese-metodologia-cesta
@@ -96,10 +96,10 @@ feijao,Feijão,kg,Vitória,7.27,2026-09,dieese-precos-2026-09,12222,4.5,dieese-m
 arroz,Arroz,kg,Vitória,4.09,2026-09,dieese-precos-2026-09,7173,3,dieese-metodologia-cesta
 farinha-trigo,Farinha de trigo,kg,Vitória,4.20,2026-09,dieese-precos-2026-09,7191,1.5,dieese-metodologia-cesta
 batata,Batata,kg,Vitória,8.13,2026-09,dieese-precos-2026-09,7202,6,dieese-metodologia-cesta
-tomate,Tomate,kg,Vitória,10.79,2026-09,dieese-precos-2026-09,7212,9,dieese-metodologia-cesta
+tomate,Legumes (tomate),kg,Vitória,10.79,2026-09,dieese-precos-2026-09,7212,9,dieese-metodologia-cesta
 pao,Pão francês,kg,Vitória,20.60,2026-09,dieese-precos-2026-09,7375,6,dieese-metodologia-cesta
 cafe,Café em pó,kg,Vitória,44.98,2026-09,dieese-precos-2026-09,7392,0.6,dieese-metodologia-cesta
-banana,Banana,dúzia,Vitória,8.29,2026-09,dieese-precos-2026-09,7260,7.5,dieese-metodologia-cesta
+banana,Frutas (banana),dúzia,Vitória,8.29,2026-09,dieese-precos-2026-09,7260,7.5,dieese-metodologia-cesta
 acucar,Açúcar,kg,Vitória,2.84,2026-09,dieese-precos-2026-09,7221,3,dieese-metodologia-cesta
 oleo,Óleo de soja,750 g,Vitória,7.97,2026-09,dieese-precos-2026-09,7385,1,dieese-metodologia-cesta
 manteiga,Manteiga,kg,Vitória,64.39,2026-09,dieese-precos-2026-09,7367,0.75,dieese-metodologia-cesta
@@ -109,10 +109,10 @@ feijao,Feijão,kg,Curitiba,6.42,2026-09,dieese-precos-2026-09,12222,4.5,dieese-m
 arroz,Arroz,kg,Curitiba,4.36,2026-09,dieese-precos-2026-09,7173,3,dieese-metodologia-cesta
 farinha-trigo,Farinha de trigo,kg,Curitiba,4.20,2026-09,dieese-precos-2026-09,7191,1.5,dieese-metodologia-cesta
 batata,Batata,kg,Curitiba,6.77,2026-09,dieese-precos-2026-09,7202,6,dieese-metodologia-cesta
-tomate,Tomate,kg,Curitiba,11.39,2026-09,dieese-precos-2026-09,7212,9,dieese-metodologia-cesta
+tomate,Legumes (tomate),kg,Curitiba,11.39,2026-09,dieese-precos-2026-09,7212,9,dieese-metodologia-cesta
 pao,Pão francês,kg,Curitiba,16.57,2026-09,dieese-precos-2026-09,7375,6,dieese-metodologia-cesta
 cafe,Café em pó,kg,Curitiba,47.03,2026-09,dieese-precos-2026-09,7392,0.6,dieese-metodologia-cesta
-banana,Banana,dúzia,Curitiba,7.88,2026-09,dieese-precos-2026-09,7260,7.5,dieese-metodologia-cesta
+banana,Frutas (banana),dúzia,Curitiba,7.88,2026-09,dieese-precos-2026-09,7260,7.5,dieese-metodologia-cesta
 acucar,Açúcar,kg,Curitiba,3.83,2026-09,dieese-precos-2026-09,7221,3,dieese-metodologia-cesta
 oleo,Óleo de soja,750 g,Curitiba,7.35,2026-09,dieese-precos-2026-09,7385,1.2,dieese-metodologia-cesta
 manteiga,Manteiga,kg,Curitiba,53.46,2026-09,dieese-precos-2026-09,7367,0.75,dieese-metodologia-cesta
@@ -122,10 +122,10 @@ feijao,Feijão,kg,Florianópolis,7.48,2026-09,dieese-precos-2026-09,12222,4.5,di
 arroz,Arroz,kg,Florianópolis,5.60,2026-09,dieese-precos-2026-09,7173,3,dieese-metodologia-cesta
 farinha-trigo,Farinha de trigo,kg,Florianópolis,4.35,2026-09,dieese-precos-2026-09,7191,1.5,dieese-metodologia-cesta
 batata,Batata,kg,Florianópolis,7.41,2026-09,dieese-precos-2026-09,7202,6,dieese-metodologia-cesta
-tomate,Tomate,kg,Florianópolis,12.30,2026-09,dieese-precos-2026-09,7212,9,dieese-metodologia-cesta
+tomate,Legumes (tomate),kg,Florianópolis,12.30,2026-09,dieese-precos-2026-09,7212,9,dieese-metodologia-cesta
 pao,Pão francês,kg,Florianópolis,18.50,2026-09,dieese-precos-2026-09,7375,6,dieese-metodologia-cesta
 cafe,Café em pó,kg,Florianópolis,54.84,2026-09,dieese-precos-2026-09,7392,0.6,dieese-metodologia-cesta
-banana,Banana,dúzia,Florianópolis,9.40,2026-09,dieese-precos-2026-09,7260,7.5,dieese-metodologia-cesta
+banana,Frutas (banana),dúzia,Florianópolis,9.40,2026-09,dieese-precos-2026-09,7260,7.5,dieese-metodologia-cesta
 acucar,Açúcar,kg,Florianópolis,4.09,2026-09,dieese-precos-2026-09,7221,3,dieese-metodologia-cesta
 oleo,Óleo de soja,750 g,Florianópolis,7.88,2026-09,dieese-precos-2026-09,7385,1.2,dieese-metodologia-cesta
 manteiga,Manteiga,kg,Florianópolis,65.93,2026-09,dieese-precos-2026-09,7367,0.75,dieese-metodologia-cesta
@@ -135,10 +135,10 @@ feijao,Feijão,kg,Porto Alegre,6.91,2026-09,dieese-precos-2026-09,12222,4.5,diee
 arroz,Arroz,kg,Porto Alegre,4.71,2026-09,dieese-precos-2026-09,7173,3,dieese-metodologia-cesta
 farinha-trigo,Farinha de trigo,kg,Porto Alegre,4.10,2026-09,dieese-precos-2026-09,7191,1.5,dieese-metodologia-cesta
 batata,Batata,kg,Porto Alegre,7.06,2026-09,dieese-precos-2026-09,7202,6,dieese-metodologia-cesta
-tomate,Tomate,kg,Porto Alegre,11.91,2026-09,dieese-precos-2026-09,7212,9,dieese-metodologia-cesta
+tomate,Legumes (tomate),kg,Porto Alegre,11.91,2026-09,dieese-precos-2026-09,7212,9,dieese-metodologia-cesta
 pao,Pão francês,kg,Porto Alegre,16.26,2026-09,dieese-precos-2026-09,7375,6,dieese-metodologia-cesta
 cafe,Café em pó,kg,Porto Alegre,55.08,2026-09,dieese-precos-2026-09,7392,0.6,dieese-metodologia-cesta
-banana,Banana,dúzia,Porto Alegre,10.52,2026-09,dieese-precos-2026-09,7260,7.5,dieese-metodologia-cesta
+banana,Frutas (banana),dúzia,Porto Alegre,10.52,2026-09,dieese-precos-2026-09,7260,7.5,dieese-metodologia-cesta
 acucar,Açúcar,kg,Porto Alegre,4.09,2026-09,dieese-precos-2026-09,7221,3,dieese-metodologia-cesta
 oleo,Óleo de soja,750 g,Porto Alegre,7.81,2026-09,dieese-precos-2026-09,7385,1.2,dieese-metodologia-cesta
 manteiga,Manteiga,kg,Porto Alegre,68.11,2026-09,dieese-precos-2026-09,7367,0.75,dieese-metodologia-cesta
@@ -147,10 +147,10 @@ leite,Leite integral,litro,Belém,8.20,2026-09,dieese-precos-2026-09,12393,6,die
 feijao,Feijão,kg,Belém,8.43,2026-09,dieese-precos-2026-09,12222,4.5,dieese-metodologia-cesta
 arroz,Arroz,kg,Belém,5.04,2026-09,dieese-precos-2026-09,7173,3.6,dieese-metodologia-cesta
 farinha-mandioca,Farinha de mandioca,kg,Belém,8.26,2026-09,dieese-precos-2026-09,7195,3,dieese-metodologia-cesta
-tomate,Tomate,kg,Belém,9.88,2026-09,dieese-precos-2026-09,7212,12,dieese-metodologia-cesta
+tomate,Legumes (tomate),kg,Belém,9.88,2026-09,dieese-precos-2026-09,7212,12,dieese-metodologia-cesta
 pao,Pão francês,kg,Belém,17.15,2026-09,dieese-precos-2026-09,7375,6,dieese-metodologia-cesta
 cafe,Café em pó,kg,Belém,60.08,2026-09,dieese-precos-2026-09,7392,0.3,dieese-metodologia-cesta
-banana,Banana,dúzia,Belém,11.44,2026-09,dieese-precos-2026-09,7260,7.5,dieese-metodologia-cesta
+banana,Frutas (banana),dúzia,Belém,11.44,2026-09,dieese-precos-2026-09,7260,7.5,dieese-metodologia-cesta
 acucar,Açúcar,kg,Belém,3.50,2026-09,dieese-precos-2026-09,7221,3,dieese-metodologia-cesta
 oleo,Óleo de soja,750 g,Belém,8.63,2026-09,dieese-precos-2026-09,7385,1,dieese-metodologia-cesta
 manteiga,Manteiga,kg,Belém,62.31,2026-09,dieese-precos-2026-09,7367,0.75,dieese-metodologia-cesta
@@ -159,10 +159,10 @@ leite,Leite integral,litro,Boa Vista,8.28,2026-09,dieese-precos-2026-09,12393,6,
 feijao,Feijão,kg,Boa Vista,9.24,2026-09,dieese-precos-2026-09,12222,4.5,dieese-metodologia-cesta
 arroz,Arroz,kg,Boa Vista,4.30,2026-09,dieese-precos-2026-09,7173,3.6,dieese-metodologia-cesta
 farinha-mandioca,Farinha de mandioca,kg,Boa Vista,9.20,2026-09,dieese-precos-2026-09,7195,3,dieese-metodologia-cesta
-tomate,Tomate,kg,Boa Vista,10.34,2026-09,dieese-precos-2026-09,7212,12,dieese-metodologia-cesta
+tomate,Legumes (tomate),kg,Boa Vista,10.34,2026-09,dieese-precos-2026-09,7212,12,dieese-metodologia-cesta
 pao,Pão francês,kg,Boa Vista,10.96,2026-09,dieese-precos-2026-09,7375,6,dieese-metodologia-cesta
 cafe,Café em pó,kg,Boa Vista,65.15,2026-09,dieese-precos-2026-09,7392,0.3,dieese-metodologia-cesta
-banana,Banana,dúzia,Boa Vista,10.93,2026-09,dieese-precos-2026-09,7260,7.5,dieese-metodologia-cesta
+banana,Frutas (banana),dúzia,Boa Vista,10.93,2026-09,dieese-precos-2026-09,7260,7.5,dieese-metodologia-cesta
 acucar,Açúcar,kg,Boa Vista,3.57,2026-09,dieese-precos-2026-09,7221,3,dieese-metodologia-cesta
 oleo,Óleo de soja,750 g,Boa Vista,7.45,2026-09,dieese-precos-2026-09,7385,1,dieese-metodologia-cesta
 manteiga,Manteiga,kg,Boa Vista,61.39,2026-09,dieese-precos-2026-09,7367,0.75,dieese-metodologia-cesta
@@ -171,10 +171,10 @@ leite,Leite integral,litro,Macapá,8.80,2026-09,dieese-precos-2026-09,12393,6,di
 feijao,Feijão,kg,Macapá,9.29,2026-09,dieese-precos-2026-09,12222,4.5,dieese-metodologia-cesta
 arroz,Arroz,kg,Macapá,5.29,2026-09,dieese-precos-2026-09,7173,3.6,dieese-metodologia-cesta
 farinha-mandioca,Farinha de mandioca,kg,Macapá,7.69,2026-09,dieese-precos-2026-09,7195,3,dieese-metodologia-cesta
-tomate,Tomate,kg,Macapá,10.10,2026-09,dieese-precos-2026-09,7212,12,dieese-metodologia-cesta
+tomate,Legumes (tomate),kg,Macapá,10.10,2026-09,dieese-precos-2026-09,7212,12,dieese-metodologia-cesta
 pao,Pão francês,kg,Macapá,16.33,2026-09,dieese-precos-2026-09,7375,6,dieese-metodologia-cesta
 cafe,Café em pó,kg,Macapá,60.00,2026-09,dieese-precos-2026-09,7392,0.3,dieese-metodologia-cesta
-banana,Banana,dúzia,Macapá,9.55,2026-09,dieese-precos-2026-09,7260,7.5,dieese-metodologia-cesta
+banana,Frutas (banana),dúzia,Macapá,9.55,2026-09,dieese-precos-2026-09,7260,7.5,dieese-metodologia-cesta
 acucar,Açúcar,kg,Macapá,4.12,2026-09,dieese-precos-2026-09,7221,3,dieese-metodologia-cesta
 oleo,Óleo de soja,750 g,Macapá,8.25,2026-09,dieese-precos-2026-09,7385,1,dieese-metodologia-cesta
 manteiga,Manteiga,kg,Macapá,65.85,2026-09,dieese-precos-2026-09,7367,0.75,dieese-metodologia-cesta
@@ -183,10 +183,10 @@ leite,Leite integral,litro,Manaus,7.72,2026-09,dieese-precos-2026-09,12393,6,die
 feijao,Feijão,kg,Manaus,9.05,2026-09,dieese-precos-2026-09,12222,4.5,dieese-metodologia-cesta
 arroz,Arroz,kg,Manaus,4.80,2026-09,dieese-precos-2026-09,7173,3.6,dieese-metodologia-cesta
 farinha-mandioca,Farinha de mandioca,kg,Manaus,5.79,2026-09,dieese-precos-2026-09,7195,3,dieese-metodologia-cesta
-tomate,Tomate,kg,Manaus,8.72,2026-09,dieese-precos-2026-09,7212,12,dieese-metodologia-cesta
+tomate,Legumes (tomate),kg,Manaus,8.72,2026-09,dieese-precos-2026-09,7212,12,dieese-metodologia-cesta
 pao,Pão francês,kg,Manaus,14.38,2026-09,dieese-precos-2026-09,7375,6,dieese-metodologia-cesta
 cafe,Café em pó,kg,Manaus,62.51,2026-09,dieese-precos-2026-09,7392,0.3,dieese-metodologia-cesta
-banana,Banana,dúzia,Manaus,9.99,2026-09,dieese-precos-2026-09,7260,7.5,dieese-metodologia-cesta
+banana,Frutas (banana),dúzia,Manaus,9.99,2026-09,dieese-precos-2026-09,7260,7.5,dieese-metodologia-cesta
 acucar,Açúcar,kg,Manaus,3.06,2026-09,dieese-precos-2026-09,7221,3,dieese-metodologia-cesta
 oleo,Óleo de soja,750 g,Manaus,7.78,2026-09,dieese-precos-2026-09,7385,1,dieese-metodologia-cesta
 manteiga,Manteiga,kg,Manaus,56.30,2026-09,dieese-precos-2026-09,7367,0.75,dieese-metodologia-cesta
@@ -195,10 +195,10 @@ leite,Leite integral,litro,Palmas,6.97,2026-09,dieese-precos-2026-09,12393,6,die
 feijao,Feijão,kg,Palmas,10.98,2026-09,dieese-precos-2026-09,12222,4.5,dieese-metodologia-cesta
 arroz,Arroz,kg,Palmas,5.87,2026-09,dieese-precos-2026-09,7173,3.6,dieese-metodologia-cesta
 farinha-mandioca,Farinha de mandioca,kg,Palmas,9.13,2026-09,dieese-precos-2026-09,7195,3,dieese-metodologia-cesta
-tomate,Tomate,kg,Palmas,9.24,2026-09,dieese-precos-2026-09,7212,12,dieese-metodologia-cesta
+tomate,Legumes (tomate),kg,Palmas,9.24,2026-09,dieese-precos-2026-09,7212,12,dieese-metodologia-cesta
 pao,Pão francês,kg,Palmas,19.13,2026-09,dieese-precos-2026-09,7375,6,dieese-metodologia-cesta
 cafe,Café em pó,kg,Palmas,66.08,2026-09,dieese-precos-2026-09,7392,0.3,dieese-metodologia-cesta
-banana,Banana,dúzia,Palmas,9.41,2026-09,dieese-precos-2026-09,7260,7.5,dieese-metodologia-cesta
+banana,Frutas (banana),dúzia,Palmas,9.41,2026-09,dieese-precos-2026-09,7260,7.5,dieese-metodologia-cesta
 acucar,Açúcar,kg,Palmas,4.09,2026-09,dieese-precos-2026-09,7221,3,dieese-metodologia-cesta
 oleo,Óleo de soja,750 g,Palmas,8.92,2026-09,dieese-precos-2026-09,7385,1,dieese-metodologia-cesta
 manteiga,Manteiga,kg,Palmas,78.06,2026-09,dieese-precos-2026-09,7367,0.75,dieese-metodologia-cesta
@@ -207,10 +207,10 @@ leite,Leite integral,litro,Porto Velho,6.78,2026-09,dieese-precos-2026-09,12393,
 feijao,Feijão,kg,Porto Velho,8.19,2026-09,dieese-precos-2026-09,12222,4.5,dieese-metodologia-cesta
 arroz,Arroz,kg,Porto Velho,4.71,2026-09,dieese-precos-2026-09,7173,3.6,dieese-metodologia-cesta
 farinha-mandioca,Farinha de mandioca,kg,Porto Velho,7.02,2026-09,dieese-precos-2026-09,7195,3,dieese-metodologia-cesta
-tomate,Tomate,kg,Porto Velho,11.01,2026-09,dieese-precos-2026-09,7212,12,dieese-metodologia-cesta
+tomate,Legumes (tomate),kg,Porto Velho,11.01,2026-09,dieese-precos-2026-09,7212,12,dieese-metodologia-cesta
 pao,Pão francês,kg,Porto Velho,15.35,2026-09,dieese-precos-2026-09,7375,6,dieese-metodologia-cesta
 cafe,Café em pó,kg,Porto Velho,62.81,2026-09,dieese-precos-2026-09,7392,0.3,dieese-metodologia-cesta
-banana,Banana,dúzia,Porto Velho,13.26,2026-09,dieese-precos-2026-09,7260,7.5,dieese-metodologia-cesta
+banana,Frutas (banana),dúzia,Porto Velho,13.26,2026-09,dieese-precos-2026-09,7260,7.5,dieese-metodologia-cesta
 acucar,Açúcar,kg,Porto Velho,2.83,2026-09,dieese-precos-2026-09,7221,3,dieese-metodologia-cesta
 oleo,Óleo de soja,750 g,Porto Velho,7.98,2026-09,dieese-precos-2026-09,7385,1,dieese-metodologia-cesta
 manteiga,Manteiga,kg,Porto Velho,47.02,2026-09,dieese-precos-2026-09,7367,0.75,dieese-metodologia-cesta
@@ -219,10 +219,10 @@ leite,Leite integral,litro,Rio Branco,7.83,2026-09,dieese-precos-2026-09,12393,6
 feijao,Feijão,kg,Rio Branco,8.55,2026-09,dieese-precos-2026-09,12222,4.5,dieese-metodologia-cesta
 arroz,Arroz,kg,Rio Branco,5.32,2026-09,dieese-precos-2026-09,7173,3.6,dieese-metodologia-cesta
 farinha-mandioca,Farinha de mandioca,kg,Rio Branco,6.66,2026-09,dieese-precos-2026-09,7195,3,dieese-metodologia-cesta
-tomate,Tomate,kg,Rio Branco,9.75,2026-09,dieese-precos-2026-09,7212,12,dieese-metodologia-cesta
+tomate,Legumes (tomate),kg,Rio Branco,9.75,2026-09,dieese-precos-2026-09,7212,12,dieese-metodologia-cesta
 pao,Pão francês,kg,Rio Branco,14.78,2026-09,dieese-precos-2026-09,7375,6,dieese-metodologia-cesta
 cafe,Café em pó,kg,Rio Branco,59.01,2026-09,dieese-precos-2026-09,7392,0.3,dieese-metodologia-cesta
-banana,Banana,dúzia,Rio Branco,11.31,2026-09,dieese-precos-2026-09,7260,7.5,dieese-metodologia-cesta
+banana,Frutas (banana),dúzia,Rio Branco,11.31,2026-09,dieese-precos-2026-09,7260,7.5,dieese-metodologia-cesta
 acucar,Açúcar,kg,Rio Branco,3.34,2026-09,dieese-precos-2026-09,7221,3,dieese-metodologia-cesta
 oleo,Óleo de soja,750 g,Rio Branco,8.29,2026-09,dieese-precos-2026-09,7385,1,dieese-metodologia-cesta
 manteiga,Manteiga,kg,Rio Branco,56.99,2026-09,dieese-precos-2026-09,7367,0.75,dieese-metodologia-cesta
@@ -231,10 +231,10 @@ leite,Leite integral,litro,Aracaju,6.80,2026-09,dieese-precos-2026-09,12393,6,di
 feijao,Feijão,kg,Aracaju,9.27,2026-09,dieese-precos-2026-09,12222,4.5,dieese-metodologia-cesta
 arroz,Arroz,kg,Aracaju,5.34,2026-09,dieese-precos-2026-09,7173,3.6,dieese-metodologia-cesta
 farinha-mandioca,Farinha de mandioca,kg,Aracaju,6.79,2026-09,dieese-precos-2026-09,7195,3,dieese-metodologia-cesta
-tomate,Tomate,kg,Aracaju,5.07,2026-09,dieese-precos-2026-09,7212,12,dieese-metodologia-cesta
+tomate,Legumes (tomate),kg,Aracaju,5.07,2026-09,dieese-precos-2026-09,7212,12,dieese-metodologia-cesta
 pao,Pão francês,kg,Aracaju,12.45,2026-09,dieese-precos-2026-09,7375,6,dieese-metodologia-cesta
 cafe,Café em pó,kg,Aracaju,61.13,2026-09,dieese-precos-2026-09,7392,0.3,dieese-metodologia-cesta
-banana,Banana,dúzia,Aracaju,7.69,2026-09,dieese-precos-2026-09,7260,7.5,dieese-metodologia-cesta
+banana,Frutas (banana),dúzia,Aracaju,7.69,2026-09,dieese-precos-2026-09,7260,7.5,dieese-metodologia-cesta
 acucar,Açúcar,kg,Aracaju,3.38,2026-09,dieese-precos-2026-09,7221,3,dieese-metodologia-cesta
 oleo,Óleo de soja,750 g,Aracaju,8.25,2026-09,dieese-precos-2026-09,7385,1,dieese-metodologia-cesta
 manteiga,Manteiga,kg,Aracaju,46.30,2026-09,dieese-precos-2026-09,7367,0.75,dieese-metodologia-cesta
@@ -243,10 +243,10 @@ leite,Leite integral,litro,Fortaleza,7.57,2026-09,dieese-precos-2026-09,12393,6,
 feijao,Feijão,kg,Fortaleza,8.99,2026-09,dieese-precos-2026-09,12222,4.5,dieese-metodologia-cesta
 arroz,Arroz,kg,Fortaleza,5.29,2026-09,dieese-precos-2026-09,7173,3.6,dieese-metodologia-cesta
 farinha-mandioca,Farinha de mandioca,kg,Fortaleza,5.14,2026-09,dieese-precos-2026-09,7195,3,dieese-metodologia-cesta
-tomate,Tomate,kg,Fortaleza,9.58,2026-09,dieese-precos-2026-09,7212,12,dieese-metodologia-cesta
+tomate,Legumes (tomate),kg,Fortaleza,9.58,2026-09,dieese-precos-2026-09,7212,12,dieese-metodologia-cesta
 pao,Pão francês,kg,Fortaleza,22.26,2026-09,dieese-precos-2026-09,7375,6,dieese-metodologia-cesta
 cafe,Café em pó,kg,Fortaleza,60.53,2026-09,dieese-precos-2026-09,7392,0.3,dieese-metodologia-cesta
-banana,Banana,dúzia,Fortaleza,8.67,2026-09,dieese-precos-2026-09,7260,7.5,dieese-metodologia-cesta
+banana,Frutas (banana),dúzia,Fortaleza,8.67,2026-09,dieese-precos-2026-09,7260,7.5,dieese-metodologia-cesta
 acucar,Açúcar,kg,Fortaleza,3.64,2026-09,dieese-precos-2026-09,7221,3,dieese-metodologia-cesta
 oleo,Óleo de soja,750 g,Fortaleza,8.93,2026-09,dieese-precos-2026-09,7385,1,dieese-metodologia-cesta
 manteiga,Manteiga,kg,Fortaleza,72.83,2026-09,dieese-precos-2026-09,7367,0.75,dieese-metodologia-cesta
@@ -255,10 +255,10 @@ leite,Leite integral,litro,João Pessoa,7.82,2026-09,dieese-precos-2026-09,12393
 feijao,Feijão,kg,João Pessoa,10.12,2026-09,dieese-precos-2026-09,12222,4.5,dieese-metodologia-cesta
 arroz,Arroz,kg,João Pessoa,4.88,2026-09,dieese-precos-2026-09,7173,3.6,dieese-metodologia-cesta
 farinha-mandioca,Farinha de mandioca,kg,João Pessoa,7.06,2026-09,dieese-precos-2026-09,7195,3,dieese-metodologia-cesta
-tomate,Tomate,kg,João Pessoa,5.53,2026-09,dieese-precos-2026-09,7212,12,dieese-metodologia-cesta
+tomate,Legumes (tomate),kg,João Pessoa,5.53,2026-09,dieese-precos-2026-09,7212,12,dieese-metodologia-cesta
 pao,Pão francês,kg,João Pessoa,16.11,2026-09,dieese-precos-2026-09,7375,6,dieese-metodologia-cesta
 cafe,Café em pó,kg,João Pessoa,55.62,2026-09,dieese-precos-2026-09,7392,0.3,dieese-metodologia-cesta
-banana,Banana,dúzia,João Pessoa,7.39,2026-09,dieese-precos-2026-09,7260,7.5,dieese-metodologia-cesta
+banana,Frutas (banana),dúzia,João Pessoa,7.39,2026-09,dieese-precos-2026-09,7260,7.5,dieese-metodologia-cesta
 acucar,Açúcar,kg,João Pessoa,3.50,2026-09,dieese-precos-2026-09,7221,3,dieese-metodologia-cesta
 oleo,Óleo de soja,750 g,João Pessoa,9.08,2026-09,dieese-precos-2026-09,7385,1,dieese-metodologia-cesta
 manteiga,Manteiga,kg,João Pessoa,68.64,2026-09,dieese-precos-2026-09,7367,0.75,dieese-metodologia-cesta
@@ -267,10 +267,10 @@ leite,Leite integral,litro,Maceió,7.23,2026-09,dieese-precos-2026-09,12393,6,di
 feijao,Feijão,kg,Maceió,9.21,2026-09,dieese-precos-2026-09,12222,4.5,dieese-metodologia-cesta
 arroz,Arroz,kg,Maceió,5.29,2026-09,dieese-precos-2026-09,7173,3.6,dieese-metodologia-cesta
 farinha-mandioca,Farinha de mandioca,kg,Maceió,6.15,2026-09,dieese-precos-2026-09,7195,3,dieese-metodologia-cesta
-tomate,Tomate,kg,Maceió,4.87,2026-09,dieese-precos-2026-09,7212,12,dieese-metodologia-cesta
+tomate,Legumes (tomate),kg,Maceió,4.87,2026-09,dieese-precos-2026-09,7212,12,dieese-metodologia-cesta
 pao,Pão francês,kg,Maceió,15.08,2026-09,dieese-precos-2026-09,7375,6,dieese-metodologia-cesta
 cafe,Café em pó,kg,Maceió,58.66,2026-09,dieese-precos-2026-09,7392,0.3,dieese-metodologia-cesta
-banana,Banana,dúzia,Maceió,7.63,2026-09,dieese-precos-2026-09,7260,7.5,dieese-metodologia-cesta
+banana,Frutas (banana),dúzia,Maceió,7.63,2026-09,dieese-precos-2026-09,7260,7.5,dieese-metodologia-cesta
 acucar,Açúcar,kg,Maceió,3.59,2026-09,dieese-precos-2026-09,7221,3,dieese-metodologia-cesta
 oleo,Óleo de soja,750 g,Maceió,8.61,2026-09,dieese-precos-2026-09,7385,1,dieese-metodologia-cesta
 manteiga,Manteiga,kg,Maceió,62.36,2026-09,dieese-precos-2026-09,7367,0.75,dieese-metodologia-cesta
@@ -279,10 +279,10 @@ leite,Leite integral,litro,Natal,7.61,2026-09,dieese-precos-2026-09,12393,6,diee
 feijao,Feijão,kg,Natal,9.65,2026-09,dieese-precos-2026-09,12222,4.5,dieese-metodologia-cesta
 arroz,Arroz,kg,Natal,4.66,2026-09,dieese-precos-2026-09,7173,3.6,dieese-metodologia-cesta
 farinha-mandioca,Farinha de mandioca,kg,Natal,6.77,2026-09,dieese-precos-2026-09,7195,3,dieese-metodologia-cesta
-tomate,Tomate,kg,Natal,5.75,2026-09,dieese-precos-2026-09,7212,12,dieese-metodologia-cesta
+tomate,Legumes (tomate),kg,Natal,5.75,2026-09,dieese-precos-2026-09,7212,12,dieese-metodologia-cesta
 pao,Pão francês,kg,Natal,14.89,2026-09,dieese-precos-2026-09,7375,6,dieese-metodologia-cesta
 cafe,Café em pó,kg,Natal,61.36,2026-09,dieese-precos-2026-09,7392,0.3,dieese-metodologia-cesta
-banana,Banana,dúzia,Natal,6.80,2026-09,dieese-precos-2026-09,7260,7.5,dieese-metodologia-cesta
+banana,Frutas (banana),dúzia,Natal,6.80,2026-09,dieese-precos-2026-09,7260,7.5,dieese-metodologia-cesta
 acucar,Açúcar,kg,Natal,3.72,2026-09,dieese-precos-2026-09,7221,3,dieese-metodologia-cesta
 oleo,Óleo de soja,750 g,Natal,8.67,2026-09,dieese-precos-2026-09,7385,1,dieese-metodologia-cesta
 manteiga,Manteiga,kg,Natal,62.85,2026-09,dieese-precos-2026-09,7367,0.75,dieese-metodologia-cesta
@@ -291,10 +291,10 @@ leite,Leite integral,litro,Recife,7.35,2026-09,dieese-precos-2026-09,12393,6,die
 feijao,Feijão,kg,Recife,9.75,2026-09,dieese-precos-2026-09,12222,4.5,dieese-metodologia-cesta
 arroz,Arroz,kg,Recife,6.00,2026-09,dieese-precos-2026-09,7173,3.6,dieese-metodologia-cesta
 farinha-mandioca,Farinha de mandioca,kg,Recife,6.35,2026-09,dieese-precos-2026-09,7195,3,dieese-metodologia-cesta
-tomate,Tomate,kg,Recife,5.76,2026-09,dieese-precos-2026-09,7212,12,dieese-metodologia-cesta
+tomate,Legumes (tomate),kg,Recife,5.76,2026-09,dieese-precos-2026-09,7212,12,dieese-metodologia-cesta
 pao,Pão francês,kg,Recife,14.73,2026-09,dieese-precos-2026-09,7375,6,dieese-metodologia-cesta
 cafe,Café em pó,kg,Recife,60.96,2026-09,dieese-precos-2026-09,7392,0.3,dieese-metodologia-cesta
-banana,Banana,dúzia,Recife,10.43,2026-09,dieese-precos-2026-09,7260,7.5,dieese-metodologia-cesta
+banana,Frutas (banana),dúzia,Recife,10.43,2026-09,dieese-precos-2026-09,7260,7.5,dieese-metodologia-cesta
 acucar,Açúcar,kg,Recife,3.87,2026-09,dieese-precos-2026-09,7221,3,dieese-metodologia-cesta
 oleo,Óleo de soja,750 g,Recife,9.28,2026-09,dieese-precos-2026-09,7385,1,dieese-metodologia-cesta
 manteiga,Manteiga,kg,Recife,62.55,2026-09,dieese-precos-2026-09,7367,0.75,dieese-metodologia-cesta
@@ -303,10 +303,10 @@ leite,Leite integral,litro,Salvador,7.93,2026-09,dieese-precos-2026-09,12393,6,d
 feijao,Feijão,kg,Salvador,9.23,2026-09,dieese-precos-2026-09,12222,4.5,dieese-metodologia-cesta
 arroz,Arroz,kg,Salvador,5.40,2026-09,dieese-precos-2026-09,7173,3.6,dieese-metodologia-cesta
 farinha-mandioca,Farinha de mandioca,kg,Salvador,7.17,2026-09,dieese-precos-2026-09,7195,3,dieese-metodologia-cesta
-tomate,Tomate,kg,Salvador,5.99,2026-09,dieese-precos-2026-09,7212,12,dieese-metodologia-cesta
+tomate,Legumes (tomate),kg,Salvador,5.99,2026-09,dieese-precos-2026-09,7212,12,dieese-metodologia-cesta
 pao,Pão francês,kg,Salvador,16.80,2026-09,dieese-precos-2026-09,7375,6,dieese-metodologia-cesta
 cafe,Café em pó,kg,Salvador,62.06,2026-09,dieese-precos-2026-09,7392,0.3,dieese-metodologia-cesta
-banana,Banana,dúzia,Salvador,6.84,2026-09,dieese-precos-2026-09,7260,7.5,dieese-metodologia-cesta
+banana,Frutas (banana),dúzia,Salvador,6.84,2026-09,dieese-precos-2026-09,7260,7.5,dieese-metodologia-cesta
 acucar,Açúcar,kg,Salvador,3.56,2026-09,dieese-precos-2026-09,7221,3,dieese-metodologia-cesta
 oleo,Óleo de soja,750 g,Salvador,8.42,2026-09,dieese-precos-2026-09,7385,1,dieese-metodologia-cesta
 manteiga,Manteiga,kg,Salvador,55.42,2026-09,dieese-precos-2026-09,7367,0.75,dieese-metodologia-cesta
@@ -315,10 +315,10 @@ leite,Leite integral,litro,São Luís,6.78,2026-09,dieese-precos-2026-09,12393,6
 feijao,Feijão,kg,São Luís,8.97,2026-09,dieese-precos-2026-09,12222,4.5,dieese-metodologia-cesta
 arroz,Arroz,kg,São Luís,5.10,2026-09,dieese-precos-2026-09,7173,3.6,dieese-metodologia-cesta
 farinha-mandioca,Farinha de mandioca,kg,São Luís,8.73,2026-09,dieese-precos-2026-09,7195,3,dieese-metodologia-cesta
-tomate,Tomate,kg,São Luís,8.24,2026-09,dieese-precos-2026-09,7212,12,dieese-metodologia-cesta
+tomate,Legumes (tomate),kg,São Luís,8.24,2026-09,dieese-precos-2026-09,7212,12,dieese-metodologia-cesta
 pao,Pão francês,kg,São Luís,19.45,2026-09,dieese-precos-2026-09,7375,6,dieese-metodologia-cesta
 cafe,Café em pó,kg,São Luís,54.37,2026-09,dieese-precos-2026-09,7392,0.3,dieese-metodologia-cesta
-banana,Banana,dúzia,São Luís,8.71,2026-09,dieese-precos-2026-09,7260,7.5,dieese-metodologia-cesta
+banana,Frutas (banana),dúzia,São Luís,8.71,2026-09,dieese-precos-2026-09,7260,7.5,dieese-metodologia-cesta
 acucar,Açúcar,kg,São Luís,3.62,2026-09,dieese-precos-2026-09,7221,3,dieese-metodologia-cesta
 oleo,Óleo de soja,750 g,São Luís,8.69,2026-09,dieese-precos-2026-09,7385,1,dieese-metodologia-cesta
 manteiga,Manteiga,kg,São Luís,61.93,2026-09,dieese-precos-2026-09,7367,0.75,dieese-metodologia-cesta
@@ -327,10 +327,10 @@ leite,Leite integral,litro,Teresina,7.30,2026-09,dieese-precos-2026-09,12393,6,d
 feijao,Feijão,kg,Teresina,9.54,2026-09,dieese-precos-2026-09,12222,4.5,dieese-metodologia-cesta
 arroz,Arroz,kg,Teresina,5.01,2026-09,dieese-precos-2026-09,7173,3.6,dieese-metodologia-cesta
 farinha-mandioca,Farinha de mandioca,kg,Teresina,8.20,2026-09,dieese-precos-2026-09,7195,3,dieese-metodologia-cesta
-tomate,Tomate,kg,Teresina,6.80,2026-09,dieese-precos-2026-09,7212,12,dieese-metodologia-cesta
+tomate,Legumes (tomate),kg,Teresina,6.80,2026-09,dieese-precos-2026-09,7212,12,dieese-metodologia-cesta
 pao,Pão francês,kg,Teresina,20.13,2026-09,dieese-precos-2026-09,7375,6,dieese-metodologia-cesta
 cafe,Café em pó,kg,Teresina,60.73,2026-09,dieese-precos-2026-09,7392,0.3,dieese-metodologia-cesta
-banana,Banana,dúzia,Teresina,9.35,2026-09,dieese-precos-2026-09,7260,7.5,dieese-metodologia-cesta
+banana,Frutas (banana),dúzia,Teresina,9.35,2026-09,dieese-precos-2026-09,7260,7.5,dieese-metodologia-cesta
 acucar,Açúcar,kg,Teresina,3.72,2026-09,dieese-precos-2026-09,7221,3,dieese-metodologia-cesta
 oleo,Óleo de soja,750 g,Teresina,8.62,2026-09,dieese-precos-2026-09,7385,1,dieese-metodologia-cesta
 manteiga,Manteiga,kg,Teresina,64.99,2026-09,dieese-precos-2026-09,7367,0.75,dieese-metodologia-cesta
