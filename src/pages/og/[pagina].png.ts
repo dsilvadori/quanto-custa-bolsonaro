@@ -45,7 +45,7 @@ const CONTEUDO: Record<string, Conteudo> = {
   },
   carrinho: {
     numero: car.diferenca,
-    texto: `na compra da quinzena de uma família de 4 pessoas se os preços subissem como no governo do Bolsonaro (${car.cenario}, e não ${car.hoje})`,
+    texto: `na compra da quinzena de uma família de 4 pessoas no governo do Bolsonaro (${car.cenario}, e não ${car.hoje})`,
     fonte: 'Fontes: DIEESE, ANP e IBGE',
   },
   combustivel: {
@@ -77,6 +77,9 @@ async function tokens() {
     verde: cor('--cp-green-500'),
   };
 }
+
+// Logo do topo (public/logo/topo.png, gerado por scripts/logo.mjs). PNG porque o resvg não desenha SVG dentro de SVG.
+const logoTopo = `data:image/png;base64,${(await readFile('public/logo/topo.png')).toString('base64')}`;
 
 export const GET: APIRoute = async ({ params }) => {
   const c = CONTEUDO[params.pagina!];
@@ -110,9 +113,9 @@ export const GET: APIRoute = async ({ params }) => {
           {
             type: 'div',
             props: {
-              style: { display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '64px 72px', width: 900 },
+              style: { display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '56px 72px', width: 820 },
               children: [
-                { type: 'div', props: { style: { fontSize: 30, fontWeight: 800, letterSpacing: 2 }, children: SITE.nomeCurto.toUpperCase() } },
+                { type: 'img', props: { src: logoTopo, width: 330, height: 96 } },
                 {
                   type: 'div',
                   props: {

@@ -324,3 +324,5 @@ header nav a, .marca { white-space: nowrap; }
 .atalhos { display: flex; flex-wrap: wrap; gap: var(--cp-space-2); }
 .conta__pico { margin-top: var(--cp-space-6); border-left: var(--cp-border-width-accent) solid var(--cp-color-primary); }
 .conta__pico strong { color: var(--cp-color-primary); }
+.marca-logo { display: block; height: 56px; width: auto; }
+@media (min-width: 1024px) and (max-width: 1279px) { .marca-logo { height: 44px; } }

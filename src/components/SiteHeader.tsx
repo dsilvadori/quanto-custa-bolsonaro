@@ -8,8 +8,8 @@ export function SiteHeader({ atual }: { atual?: PaginaId }) {
     <TopNavigation
       surface="red"
       links={MENU.map((id) => ({ label: PAGINAS[id].menu ?? PAGINAS[id].rotulo, href: PAGINAS[id].path, current: id === atual }))}
-      // TODO: confirmar a marca. O logo padrão do DS é o selo do Comitê Popular do Lula.
-      logo={<span className="marca">{SITE.nomeCurto}</span>}
+      // Logo próprio (scripts/logo.mjs): etiqueta de preço e "Quanto custa Bolsonaro no poder".
+      logo={<img className="marca-logo" src="/logo/topo.svg" width={193} height={56} alt={SITE.nome} />}
     />
   );
 }

@@ -13,7 +13,8 @@
     "test": "vitest run",
     "check-fontes": "node scripts/check-fontes.mjs",
     "orcamento": "node scripts/orcamento.mjs",
-    "lighthouse": "lhci autorun"
+    "lighthouse": "lhci autorun",
+    "logo": "node scripts/logo.mjs"
   },
   "dependencies": {
     "@astrojs/react": "^4.4.2",
