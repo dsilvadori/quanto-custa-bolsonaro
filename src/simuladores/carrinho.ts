@@ -123,7 +123,7 @@ export function decodificarItens(d: DadosCarrinho, base: EstadoCarrinho, texto: 
 /** Texto para compartilhar a compra de referência (quinzena da família de 4), usado quando o carrinho está vazio. */
 export function textoReferencia(d: DadosCarrinho, capital: string, url: string): string {
   const r = calcularCarrinho(d, estadoPadraoCarrinho(d, capital));
-  return `A compra da quinzena de uma família de 4 pessoas ${lugar(d, capital)} custa ${reais(r.hoje)} hoje. Como no governo do Bolsonaro, custaria ${reais(r.cenario)}. Monte o seu carrinho e veja as fontes: ${url}`;
+  return `A compra da quinzena de uma família de 4 pessoas ${lugar(d, capital)} custa ${reais(r.hoje)} hoje. No governo do Bolsonaro, custaria ${reais(r.cenario)}. Monte o seu carrinho e veja as fontes: ${url}`;
 }
 
 export function frasesCarrinho(d: DadosCarrinho, e: EstadoCarrinho) {
@@ -144,9 +144,9 @@ export function frasesCarrinho(d: DadosCarrinho, e: EstadoCarrinho) {
     resumo:
       r.itens === 0
         ? 'Seu carrinho está vazio. Toque em + para pôr produtos.'
-        : `${onde.charAt(0).toUpperCase()}${onde.slice(1)}, este carrinho custa ${reais(r.hoje)} hoje. Como no governo do Bolsonaro, custaria ${reais(r.cenario)}: ${reais(Math.abs(r.diferenca))} ${mais ? 'a mais' : 'a menos'}.`,
+        : `${onde.charAt(0).toUpperCase()}${onde.slice(1)}, este carrinho custa ${reais(r.hoje)} hoje. No governo do Bolsonaro, custaria ${reais(r.cenario)}: ${reais(Math.abs(r.diferenca))} ${mais ? 'a mais' : 'a menos'}.`,
     whatsapp: (url: string) =>
-      `Montei um carrinho de supermercado ${onde}: ${reais(r.hoje)} hoje, ${reais(r.cenario)} como no governo do Bolsonaro. Monte o seu e veja as fontes: ${url}`,
+      `Montei um carrinho de supermercado ${onde}: ${reais(r.hoje)} hoje, ${reais(r.cenario)} no governo do Bolsonaro. Monte o seu e veja as fontes: ${url}`,
     cartao: {
       numero: `${mais ? '+' : '−'}${reais(Math.abs(r.diferenca))}`,
       linha: `no carrinho de supermercado ${onde}`,
