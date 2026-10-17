@@ -2,9 +2,8 @@ import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 
-// SITE_URL é o domínio de produção (canonical, Open Graph e sitemap).
-// TODO: definir o domínio final antes do deploy.
-const site = process.env.SITE_URL ?? 'http://localhost:4321';
+// Domínio de produção (canonical, Open Graph e sitemap). SITE_URL troca, se precisar.
+const site = process.env.SITE_URL || 'https://quantocustabolsonaro.com.br';
 
 // BASE_PATH: subpasta do site (ex.: /quanto-custa-bolsonaro no GitHub Pages sem domínio próprio).
 export default defineConfig({
