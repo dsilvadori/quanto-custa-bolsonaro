@@ -1,0 +1,12 @@
+// Cloudflare Workers: só arquivos estáticos do build (dist), sem código no servidor.
+// Com este arquivo, a Cloudflare não tenta adicionar o adaptador do Astro sozinha.
+{
+  "name": "quanto-custa-bolsonaro",
+  "compatibility_date": "2026-05-01",
+  "assets": {
+    "directory": "./dist",
+    // /salario-minimo serve salario-minimo.html, sem barra no fim (trailingSlash: 'never').
+    "html_handling": "drop-trailing-slash",
+    "not_found_handling": "404-page"
+  }
+}
