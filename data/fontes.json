@@ -339,6 +339,18 @@
       ]
     },
     {
+      "id": "inmetro-pbev-2025",
+      "titulo": "Inmetro — Programa Brasileiro de Etiquetagem Veicular (PBEV), tabela de 11 de março de 2025",
+      "orgao": "Inmetro",
+      "url": "https://www.gov.br/inmetro/pt-br/assuntos/avaliacao-da-conformidade/programa-brasileiro-de-etiquetagem/tabelas-de-eficiencia-energetica/veiculos-automotivos-pbe-veicular",
+      "data_publicacao": "2025-03-11",
+      "data_coleta": "2026-10-16",
+      "valor_usado": "Consumo na cidade com gasolina de carros populares 1.0: Hyundai HB20 13,3 km/L, Chevrolet Onix 13,7 km/L, Fiat Mobi 14,0 km/L, Renault Kwid 14,6 km/L. Exemplo da página: 14 km/L",
+      "usado_em": [
+        "/combustivel"
+      ]
+    },
+    {
       "id": "ipca-pesos-2026-09",
       "titulo": "IPCA — peso da gasolina e do óleo diesel em setembro de 2026 (SIDRA, tabela 7060)",
       "orgao": "IBGE",

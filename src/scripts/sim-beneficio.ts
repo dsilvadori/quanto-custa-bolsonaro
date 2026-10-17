@@ -5,8 +5,10 @@ import {
   TIPOS,
   estadoPadraoBeneficio,
   frasesBeneficio,
+  graficoCestas,
   graficoProjecao,
   graficoRetro,
+  linhasCestas,
   linhasProjecao,
   linhasRetro,
   type DadosBeneficio,
@@ -41,11 +43,17 @@ function mostrar() {
     total: `−${f.total}`,
     perdaPct: `−${f.perdaPct}`,
     ganho: pct(estado.ganho, 1),
+    comida: f.comida,
+    cestasFinal: f.cestasFinal,
+    cestasPct: `−${f.cestasPct}`,
+    cestasPerdidas: `−${f.cestasPerdidas}`,
   });
   html('[data-grafico="retro"]', graficoRetro(dados, estado));
   html('[data-linhas="retro"]', linhasRetro(dados, estado));
   html('[data-grafico="projecao"]', graficoProjecao(dados, estado));
   html('[data-linhas="projecao"]', linhasProjecao(dados, estado));
+  html('[data-grafico="cestas"]', graficoCestas(dados, estado));
+  html('[data-linhas="cestas"]', linhasCestas(dados, estado));
   ganho.setAttribute('aria-valuetext', `${pct(estado.ganho, 1)} ao ano`);
 
   const url = atualizarUrl({

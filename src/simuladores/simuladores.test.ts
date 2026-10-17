@@ -52,17 +52,34 @@ describe('Simulador 4 com os dados de /data', () => {
     expect(frasesBeneficio(DADOS_BENEFICIO, { tipo: 'aposentadoria', ganho: 0.6 }).retroTotal).toBe('R$\u00a05.273,60');
   });
 
-  it('projeção em reais: valor parado e total perdido até 2030', () => {
+  const milhar = (v: number) => `R$\u00a0${v.toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.')}`;
+
+  it('inflação da projeção: média do INPC dos últimos anos', () => {
+    expect(DADOS_BENEFICIO.inflacao).toBe(4.6);
+  });
+
+  it('projeção com a inflação média: os dois sobem, o ligado ao mínimo sobe mais', () => {
     const f = frasesBeneficio(DADOS_BENEFICIO, { tipo: 'bpc', ganho: 2.5 });
-    const totalReais = [1, 2, 3, 4].reduce((s, n) => s + 12 * 1621 * (1.025 ** n - 1), 0);
-    expect(f.total).toBe(`R$\u00a0${totalReais.toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.')}`);
-    expect(f.futuro).toContain('o BPC ficaria parado em R$\u00a01.621 por mês');
+    const total = [1, 2, 3, 4].reduce((s, n) => s + 12 * 1621 * 1.046 ** n * (1.025 ** n - 1), 0);
+    expect(f.total).toBe(milhar(total));
+    expect(f.futuro).toContain(`o BPC sem aumento real só repõe a inflação: iria de R$\u00a01.621 para ${milhar(1621 * 1.046 ** 4)} em 2030`);
   });
 
   it('projeção com 2,5%: perda de 2030 e % batem com a fórmula', () => {
     const f = frasesBeneficio(DADOS_BENEFICIO, { tipo: 'bpc', ganho: 2.5 });
-    expect(f.porMesFinal).toBe(`R$\u00a0${(1621 * (1.025 ** 4 - 1)).toFixed(2).replace('.', ',')}`);
+    expect(f.porMesFinal).toBe(milhar(1621 * 1.046 ** 4 * (1.025 ** 4 - 1)));
     expect(f.perdaPct).toBe('9,4%');
+  });
+});
+
+describe('Simulador 4: cestas com a comida do governo Bolsonaro', () => {
+  it('ritmo anual da comida em cada governo e diferença de cestas em 2030', () => {
+    expect(DADOS_BENEFICIO.altaComidaBolsonaro).toBe(11.8);
+    expect(DADOS_BENEFICIO.altaComidaLula).toBe(3.6);
+    const f = frasesBeneficio(DADOS_BENEFICIO, { tipo: 'bpc', ganho: 2.5 });
+    const queda = (1 - (1.046 / 1.118) ** 4 / ((1.046 * 1.025) / 1.036) ** 4) * 100;
+    expect(f.cestasPct).toBe(`${queda.toFixed(1).replace('.', ',')}%`);
+    expect(f.comida).toMatch(/^Hoje, o BPC compra 2,15 cestas básicas por mês\. Com a regra do governo Lula/);
   });
 });
 
@@ -70,7 +87,6 @@ describe('Simulador 4: concordância', () => {
   it('aposentadoria no feminino, BPC no masculino', () => {
     const apos = frasesBeneficio(DADOS_BENEFICIO, { tipo: 'aposentadoria', ganho: 0.6 });
     expect(apos.retro).toMatch(/aposentadoria de 1 salário mínimo tivesse sido desvinculada/);
-    expect(apos.futuro).toMatch(/^Sem aumento real, a aposentadoria de 1 salário mínimo ficaria parada/);
-    expect(frasesBeneficio(DADOS_BENEFICIO, { tipo: 'bpc', ganho: 0.6 }).futuro).toMatch(/^Sem aumento real, o BPC ficaria parado/);
+    expect(apos.futuro).toContain('a aposentadoria de 1 salário mínimo sem aumento real');
   });
 });

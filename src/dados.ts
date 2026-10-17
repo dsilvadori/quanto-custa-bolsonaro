@@ -238,6 +238,8 @@ export const CARRINHO = {
   nomeSubitem,
 };
 
+const ritmoAnual = (g: { pct: number; meses: number }) => Math.round(((1 + g.pct / 100) ** (12 / g.meses) - 1) * 1000) / 10;
+
 export const DADOS_BENEFICIO: DadosBeneficio = {
   real: DADOS_SALARIO.real,
   anoBase: Math.min(...INPC_ANUAL.map((i) => i.aplicadoEm)) - 1,
@@ -247,5 +249,10 @@ export const DADOS_BENEFICIO: DadosBeneficio = {
   ateAno: parametro('ganho_real_ate_ano').valor,
   ganhoMin: parametro('ganho_real_min_pct').valor,
   ganhoMax: parametro('ganho_real_max_pct').valor,
+  // Média simples do INPC dos últimos anos, em uma casa decimal (é o número que a página mostra).
+  inflacao: Math.round((INPC_ANUAL.reduce((s, i) => s + i.pct, 0) / INPC_ANUAL.length) * 10) / 10,
   cesta: valorHoje(DADOS_CESTA, MEDIA),
+  // Alta acumulada da comida em cada governo levada a um ritmo anual, em uma casa decimal.
+  altaComidaBolsonaro: ritmoAnual(CESTA.bolsonaro),
+  altaComidaLula: ritmoAnual(CESTA.atual),
 };

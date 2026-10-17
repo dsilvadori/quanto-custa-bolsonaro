@@ -5,13 +5,15 @@ import LinksSimulador from '../components/LinksSimulador.astro';
 import { Fonte } from '../components/Fonte';
 import { Resultados } from '../components/Resultados';
 import { BarraCompartilhar } from '../components/BarraCompartilhar';
-import { DADOS_BENEFICIO, INPC_ANUAL, MINIMO_ATUAL, PARAMETROS, SALARIO_MINIMO } from '../dados';
+import { CESTA, DADOS_BENEFICIO, INPC_ANUAL, MINIMO_ATUAL, PARAMETROS, SALARIO_MINIMO } from '../dados';
 import { valorNoMes } from '../calc/salarioMinimo';
 import {
   estadoPadraoBeneficio,
   frasesBeneficio,
+  graficoCestas,
   graficoProjecao,
   graficoRetro,
+  linhasCestas,
   linhasProjecao,
   linhasRetro,
 } from '../simuladores/beneficio';
@@ -31,6 +33,10 @@ const fonteGanho = PARAMETROS.ganho_real_min_pct.fonte;
 const fontePeriodo = PARAMETROS.ganho_real_ate_ano.fonte;
 const periodo = `${d.anoBase + 1} a ${d.anoAtual}`;
 const futuro = `${d.anoAtual + 1} a ${d.ateAno}`;
+const fonteCesta = CESTA.fonteValores;
+const fontesComida = CESTA.bolsonaro.fontes;
+const fontesLula = CESTA.atual.fontes;
+const anosInpc = `${INPC_ANUAL[0].ano} a ${INPC_ANUAL.at(-1)!.ano}`;
 const ancora = new URL(link(`${PAGINAS.fontes.path}#${fonteInpc}`), Astro.site);
 const dados = JSON.stringify({ dados: d, urlFontes: ancora.host + ancora.pathname + ancora.hash }).replace(/</g, '\\u003c');
 ---
@@ -168,20 +174,61 @@ const dados = JSON.stringify({ dados: d, urlFontes: ancora.host + ancora.pathnam
         </ul>
         <div class="grafico-area" data-grafico="projecao" set:html={graficoProjecao(d, e)} />
         <p class="cp-text-body-small">
-          Valor por mês em dinheiro de hoje, já descontada a inflação. Piso de hoje <Fonte id={fonteHoje} /> e ganho real do mínimo
-          <span class="junto"><Fonte id={fonteGanho} />.</span>
+          Valor por mês em reais de cada ano, com inflação de {pct(d.inflacao, 1)} ao ano, a média do INPC de {anosInpc}
+          <Fonte id={fonteInpc} />. Piso de hoje <Fonte id={fonteHoje} /> e ganho real do mínimo <span class="junto"><Fonte id={fonteGanho} />.</span>
         </p>
         <details class="tabela-detalhes">
           <summary>Ver os números</summary>
           <div class="tabela-rolagem">
             <table class="tabela">
-              <caption class="cp-visually-hidden">Projeção do benefício em dinheiro de hoje e poder de compra</caption>
+              <caption class="cp-visually-hidden">Projeção do benefício com a inflação média e poder de compra</caption>
               <thead>
                 <tr>
                   <th scope="col">Ano</th><th scope="col">Ligado ao mínimo</th><th scope="col">Sem aumento real</th><th scope="col">Poder de compra</th><th scope="col">Perda no ano</th>
                 </tr>
               </thead>
               <tbody data-linhas="projecao" set:html={linhasProjecao(d, e)} />
+            </table>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="secao" aria-labelledby="cestas-basicas">
+    <div class="cp-container">
+      <div class="cartao" data-numero>
+        <h2 id="cestas-basicas" class="cp-text-h2">Em cestas básicas: com a inflação do governo Bolsonaro</h2>
+        <p class="cp-text-body-large resultado__frase" aria-live="polite" data-saida="comida">{f.comida}</p>
+        <Resultados
+          itens={[
+            { saida: 'cestasFinal', valor: f.cestasFinal, rotulo: `cestas por mês em ${d.ateAno} com a proposta do Flávio` },
+            { saida: 'cestasPct', valor: `−${f.cestasPct}`, rotulo: 'de cestas frente à regra do governo Lula' },
+            { saida: 'cestasPerdidas', valor: `−${f.cestasPerdidas}`, rotulo: `cestas de ${futuro}` },
+          ]}
+        />
+        <ul class="legenda" aria-hidden="true">
+          <li><span class="legenda__cor legenda__cor--lula"></span>Regra do governo Lula (aumento acima da inflação)</li>
+          <li><span class="legenda__cor legenda__cor--bolsonaro"></span>Proposta da equipe do Flávio</li>
+        </ul>
+        <div class="grafico-area" data-grafico="cestas" set:html={graficoCestas(d, e)} />
+        <p class="cp-text-body-small">
+          Cestas básicas por mês. A cesta parte da média das capitais <Fonte id={fonteCesta} /> e sobe no ritmo da comida no domicílio
+          de cada governo: {pct(d.altaComidaLula, 1)} ao ano no governo Lula <span class="junto">{fontesLula.map((id) => <Fonte id={id} />)}</span>
+          e {pct(d.altaComidaBolsonaro, 1)} no governo Bolsonaro <span class="junto">{fontesComida.map((id) => <Fonte id={id} />)}.</span> O
+          benefício sobe pela inflação média de {pct(d.inflacao, 1)} ao ano <span class="junto"><Fonte id={fonteInpc} />.</span>
+        </p>
+        <details class="tabela-detalhes">
+          <summary>Ver os números</summary>
+          <div class="tabela-rolagem">
+            <table class="tabela">
+              <caption class="cp-visually-hidden">Valor da cesta em cada cenário e cestas básicas por mês que o benefício compraria</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Ano</th><th scope="col">Cesta (ritmo Lula)</th><th scope="col">Cestas, regra do governo Lula</th><th scope="col">Cesta (ritmo Bolsonaro)</th><th scope="col">Cestas, proposta do Flávio</th>
+                </tr>
+              </thead>
+              <tbody data-linhas="cestas" set:html={linhasCestas(d, e)} />
             </table>
           </div>
         </details>

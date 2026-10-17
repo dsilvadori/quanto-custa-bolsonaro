@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { desvincularDesde, perdaPercentual, poderDeCompra, projetarDesvinculacao } from './beneficio';
+import { cestasComAlta, desvincularDesde, perdaPercentual, poderDeCompra, projetarDesvinculacao } from './beneficio';
 import { SALARIO_MINIMO } from '../dados';
 
 const inpcPorAno = { 2023: 5.93, 2024: 3.71, 2025: 4.77, 2026: 3.9 };
@@ -35,10 +35,18 @@ describe('perdaPercentual', () => {
 describe('poderDeCompra', () => {
   it('desvinculado compra sempre o mesmo; a perda % cresce com o ganho real do mínimo', () => {
     const p = projetarDesvinculacao({ piso: 1621, ganhoReal: 0.025, anoAtual: 2026, ateAno: 2030, pagamentos: 12 });
-    const c = poderDeCompra(p, 750);
+    const c = poderDeCompra(p, 750, { anoAtual: 2026, pagamentos: 12 });
     expect(new Set(c.anos.map((a) => a.cestasDesvinculado))).toEqual(new Set([1621 / 750]));
     c.anos.forEach((a, i) => expect(a.perdaPct).toBeCloseTo(perdaPercentual(0.025, i + 1) * 100, 9));
     expect(c.cestasPerdidas).toBeCloseTo(p.total / 750, 9);
+  });
+
+  it('com inflação, a cesta sobe junto e as cestas não mudam', () => {
+    const p = projetarDesvinculacao({ piso: 1621, ganhoReal: 0.025, inflacao: 0.046, anoAtual: 2026, ateAno: 2030, pagamentos: 12 });
+    const c = poderDeCompra(p, 750, { anoAtual: 2026, pagamentos: 12, inflacao: 0.046 });
+    c.anos.forEach((a) => expect(a.cestasDesvinculado).toBeCloseTo(1621 / 750, 9));
+    const semInflacao = projetarDesvinculacao({ piso: 1621, ganhoReal: 0.025, anoAtual: 2026, ateAno: 2030, pagamentos: 12 });
+    expect(c.cestasPerdidas).toBeCloseTo(semInflacao.total / 750, 9);
   });
 });
 
@@ -56,8 +64,33 @@ describe('projetarDesvinculacao', () => {
     expect(apos.total).toBeCloseTo((bpc.total * 13) / 12, 9);
   });
 
+  it('com inflação: desvinculado sobe só por ela, ligado ao mínimo por ela e pelo ganho real', () => {
+    const r = projetarDesvinculacao({ ...base, ganhoReal: 0.025, inflacao: 0.046, pagamentos: 12 });
+    r.anos.forEach((a, i) => {
+      expect(a.desvinculado).toBeCloseTo(1621 * 1.046 ** (i + 1), 9);
+      expect(a.vinculado).toBeCloseTo(1621 * (1.046 * 1.025) ** (i + 1), 9);
+      expect(a.vinculado).toBeGreaterThan(a.desvinculado);
+    });
+    expect(1 - r.anos[3].desvinculado / r.anos[3].vinculado).toBeCloseTo(perdaPercentual(0.025, 4), 12);
+  });
+
   it('a perda relativa bate com perdaPercentual', () => {
     const ultimo = projetarDesvinculacao({ ...base, ganhoReal: 0.012, pagamentos: 12 }).anos[3];
     expect(1 - ultimo.desvinculado / ultimo.vinculado).toBeCloseTo(perdaPercentual(0.012, 4), 12);
+  });
+});
+
+describe('cestasComAlta', () => {
+  it('cada cenário com sua alta da cesta; perdidas somam a diferença entre eles', () => {
+    const p = projetarDesvinculacao({ piso: 1621, ganhoReal: 0.025, inflacao: 0.046, anoAtual: 2026, ateAno: 2030, pagamentos: 13 });
+    const c = cestasComAlta(p, { piso: 1621, cesta: 750, altaVinculado: 0.036, altaDesvinculado: 0.118, anoAtual: 2026, pagamentos: 13 });
+    expect(c.hoje).toBeCloseTo(1621 / 750, 12);
+    c.anos.forEach((a, i) => {
+      expect(a.cestaVinculado).toBeCloseTo(750 * 1.036 ** (i + 1), 9);
+      expect(a.cestaDesvinculado).toBeCloseTo(750 * 1.118 ** (i + 1), 9);
+      expect(a.vinculado).toBeCloseTo(c.hoje * ((1.046 * 1.025) / 1.036) ** (i + 1), 9);
+      expect(a.desvinculado).toBeCloseTo(c.hoje * (1.046 / 1.118) ** (i + 1), 9);
+    });
+    expect(c.perdidas).toBeCloseTo(c.anos.reduce((s, a) => s + 13 * (a.vinculado - a.desvinculado), 0), 9);
   });
 });

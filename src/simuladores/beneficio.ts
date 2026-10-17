@@ -1,5 +1,5 @@
 // Simulador 4: o que a página mostra. Usado no build e no navegador.
-import { desvincularDesde, perdaPercentual, poderDeCompra, projetarDesvinculacao, type Pagamentos } from '../calc/beneficio';
+import { cestasComAlta, desvincularDesde, perdaPercentual, poderDeCompra, projetarDesvinculacao, type Pagamentos } from '../calc/beneficio';
 import type { Vigencia } from '../calc/salarioMinimo';
 import { barras } from '../graficos/barras';
 import { COR_BOLSONARO, COR_LULA } from '../graficos/cores';
@@ -18,9 +18,16 @@ export interface DadosBeneficio {
   /** Limites de ganho real do mínimo, em % ao ano (LC 200/2023 e Lei 15.077/2024). */
   ganhoMin: number;
   ganhoMax: number;
+  /** Inflação da projeção, em % ao ano: média do INPC dos anos em `inpcPorAno`. */
+  inflacao: number;
   /** Valor médio da cesta básica nas capitais (DIEESE), para medir o poder de compra. */
   cesta: number;
+  /** Alta da comida no domicílio (IPCA) por ano, em %, no governo Bolsonaro e no governo Lula. */
+  altaComidaBolsonaro: number;
+  altaComidaLula: number;
 }
+
+const cestas = (v: number) => v.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
 export type Tipo = 'bpc' | 'aposentadoria';
 export const TIPOS: Tipo[] = ['bpc', 'aposentadoria'];
@@ -28,7 +35,6 @@ const PAGAMENTOS: Record<Tipo, Pagamentos> = { bpc: 12, aposentadoria: 13 };
 const NOME: Record<Tipo, string> = { bpc: 'o BPC', aposentadoria: 'a aposentadoria de 1 salário mínimo' };
 /** Concordância: "o BPC … desvinculado", "a aposentadoria … desvinculada". */
 const DESVINCULADO: Record<Tipo, string> = { bpc: 'desvinculado', aposentadoria: 'desvinculada' };
-const PARADO: Record<Tipo, string> = { bpc: 'parado', aposentadoria: 'parada' };
 
 export interface EstadoBeneficio {
   tipo: Tipo;
@@ -44,11 +50,13 @@ export function estadoPadraoBeneficio(d: DadosBeneficio): EstadoBeneficio {
 export function calcularBeneficio(d: DadosBeneficio, e: EstadoBeneficio) {
   const pagamentos = PAGAMENTOS[e.tipo];
   const retro = desvincularDesde({ real: d.real, anoBase: d.anoBase, inpcPorAno: d.inpcPorAno, pagamentos });
-  const projecao = projetarDesvinculacao({ piso: d.piso, ganhoReal: e.ganho / 100, anoAtual: d.anoAtual, ateAno: d.ateAno, pagamentos });
+  const inflacao = d.inflacao / 100;
+  const projecao = projetarDesvinculacao({ piso: d.piso, ganhoReal: e.ganho / 100, inflacao, anoAtual: d.anoAtual, ateAno: d.ateAno, pagamentos });
   const ultimo = projecao.anos[projecao.anos.length - 1];
-  const poder = poderDeCompra(projecao, d.cesta);
+  const poder = poderDeCompra(projecao, d.cesta, { anoAtual: d.anoAtual, pagamentos, inflacao });
   const poderFinal = poder.anos[poder.anos.length - 1];
-  return { pagamentos, retro, projecao, ultimo, poder, poderFinal, perdaPctFinal: perdaPercentual(e.ganho / 100, d.ateAno - d.anoAtual) * 100 };
+  const comida = cestasComAlta(projecao, { piso: d.piso, cesta: d.cesta, altaVinculado: d.altaComidaLula / 100, altaDesvinculado: d.altaComidaBolsonaro / 100, anoAtual: d.anoAtual, pagamentos });
+  return { pagamentos, retro, projecao, ultimo, poder, poderFinal, comida, perdaPctFinal: perdaPercentual(e.ganho / 100, d.ateAno - d.anoAtual) * 100 };
 }
 
 export function graficoRetro(d: DadosBeneficio, e: EstadoBeneficio): string {
@@ -70,7 +78,7 @@ export function graficoProjecao(d: DadosBeneficio, e: EstadoBeneficio): string {
   const { projecao } = calcularBeneficio(d, e);
   return barras({
     id: 'grafico-projecao',
-    titulo: `Valor do benefício por mês, em dinheiro de hoje, de ${d.anoAtual + 1} a ${d.ateAno}: ligado ao mínimo e sem aumento real`,
+    titulo: `Valor do benefício por mês, com inflação de ${pct(d.inflacao, 1)} ao ano, de ${d.anoAtual + 1} a ${d.ateAno}: ligado ao mínimo e sem aumento real`,
     descricao:
       projecao.anos.map((a) => `${a.ano}: ligado ao mínimo ${reais(a.vinculado)}, sem aumento real ${reais(a.desvinculado)}`).join('; ') + '.',
     categorias: projecao.anos.map((a) => String(a.ano)),
@@ -79,6 +87,23 @@ export function graficoProjecao(d: DadosBeneficio, e: EstadoBeneficio): string {
       { nome: 'Proposta da equipe do Flávio', cor: COR_BOLSONARO, valores: projecao.anos.map((a) => a.desvinculado) },
     ],
     rotulo: numero,
+  });
+}
+
+export function graficoCestas(d: DadosBeneficio, e: EstadoBeneficio): string {
+  const { comida } = calcularBeneficio(d, e);
+  return barras({
+    id: 'grafico-cestas',
+    titulo: `Cestas básicas por mês que o benefício compraria de ${d.anoAtual} a ${d.ateAno}: regra do governo Lula com a comida no ritmo do governo Lula, e proposta do Flávio com a comida no ritmo do governo Bolsonaro`,
+    descricao:
+      `${d.anoAtual}: ${cestas(comida.hoje)} cestas; ` +
+      comida.anos.map((a) => `${a.ano}: regra do governo Lula ${cestas(a.vinculado)}, proposta do Flávio ${cestas(a.desvinculado)}`).join('; ') + '.',
+    categorias: [`${d.anoAtual}`, ...comida.anos.map((a) => String(a.ano))],
+    series: [
+      { nome: 'Regra do governo Lula (aumento acima da inflação)', cor: COR_LULA, valores: [comida.hoje, ...comida.anos.map((a) => a.vinculado)] },
+      { nome: 'Proposta da equipe do Flávio', cor: COR_BOLSONARO, valores: [comida.hoje, ...comida.anos.map((a) => a.desvinculado)] },
+    ],
+    rotulo: cestas,
   });
 }
 
@@ -102,6 +127,15 @@ export function linhasProjecao(d: DadosBeneficio, e: EstadoBeneficio): string {
     .join('');
 }
 
+export function linhasCestas(d: DadosBeneficio, e: EstadoBeneficio): string {
+  return calcularBeneficio(d, e)
+    .comida.anos.map(
+      (a) =>
+        `<tr><th scope="row">${a.ano}</th><td>${reais(a.cestaVinculado)}</td><td>${cestas(a.vinculado)}</td><td>${reais(a.cestaDesvinculado)}</td><td>${cestas(a.desvinculado)}</td></tr>`,
+    )
+    .join('');
+}
+
 export function frasesBeneficio(d: DadosBeneficio, e: EstadoBeneficio) {
   const r = calcularBeneficio(d, e);
   const ultimoRetro = r.retro.anos[r.retro.anos.length - 1];
@@ -118,7 +152,16 @@ export function frasesBeneficio(d: DadosBeneficio, e: EstadoBeneficio) {
     porMesFinal: reais(r.ultimo.perdaMensal),
     total: reais(r.projecao.total),
     perdaPct: pct(r.perdaPctFinal, 1),
-    futuro: `Sem aumento real, ${nome} ficaria ${PARADO[e.tipo]} em ${reais(r.ultimo.desvinculado)} por mês, em dinheiro de hoje. Ligado a um mínimo com ganho real de ${ganho} ao ano, chegaria a ${reais(r.ultimo.vinculado)} em ${d.ateAno}: ${reais(r.ultimo.perdaMensal)} a menos por mês. De ${d.anoAtual + 1} a ${d.ateAno}, a perda somaria ${reais(r.projecao.total)}.`,
+    futuro: `Com a inflação na média dos últimos anos (${pct(d.inflacao, 1)} ao ano), ${nome} sem aumento real só repõe a inflação: iria de ${reais(d.piso)} para ${reais(r.ultimo.desvinculado)} em ${d.ateAno}. Ligado a um mínimo com ganho real de ${ganho} ao ano, chegaria a ${reais(r.ultimo.vinculado)}: ${reais(r.ultimo.perdaMensal)} a menos por mês. De ${d.anoAtual + 1} a ${d.ateAno}, a perda somaria ${reais(r.projecao.total)}.`,
+    cestasHoje: cestas(r.comida.hoje),
+    cestasLula: cestas(r.comida.anos[r.comida.anos.length - 1].vinculado),
+    cestasFinal: cestas(r.comida.anos[r.comida.anos.length - 1].desvinculado),
+    cestasPct: pct((1 - r.comida.anos[r.comida.anos.length - 1].desvinculado / r.comida.anos[r.comida.anos.length - 1].vinculado) * 100, 1),
+    cestasPerdidas: cestas(r.comida.perdidas),
+    comida: (() => {
+      const fim = r.comida.anos[r.comida.anos.length - 1];
+      return `Hoje, ${nome} compra ${cestas(r.comida.hoje)} cestas básicas por mês. Com a regra do governo Lula (ganho real de ${ganho} ao ano) e a comida subindo no ritmo do governo Lula (${pct(d.altaComidaLula, 1)} ao ano), compraria ${cestas(fim.vinculado)} em ${d.ateAno}. Com a proposta da equipe do Flávio e a comida subindo como no governo Bolsonaro (${pct(d.altaComidaBolsonaro, 1)} ao ano), compraria ${cestas(fim.desvinculado)}: ${pct((1 - fim.desvinculado / fim.vinculado) * 100, 1)} a menos. De ${d.anoAtual + 1} a ${d.ateAno}, seriam ${cestas(r.comida.perdidas)} cestas a menos.`;
+    })(),
     whatsapp: (url: string) =>
       `Se ${nome} tivesse sido ${desv} do salário mínimo em ${d.anoBase + 1}, hoje seria ${reais(ultimoRetro.desvinculado)}, e não ${reais(ultimoRetro.real)}: ${reais(r.retro.porMes)} a menos por mês e ${reais(r.retro.total)} perdidos de ${periodo}. Veja a conta e as fontes: ${url}`,
     cartao: {

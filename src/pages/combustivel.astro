@@ -212,7 +212,7 @@ const compartilhar = JSON.stringify({
           inputMode="numeric"
           autoComplete="off"
           defaultValue={APLICATIVO.kmMesExemplo.toLocaleString('pt-BR')}
-          helperText={`Exemplo: ${APLICATIVO.kmMesExemplo.toLocaleString('pt-BR')} km (cerca de 200 km por dia, 25 dias). Mude para o seu.`}
+          helperText={`Exemplo: ${APLICATIVO.kmMesExemplo.toLocaleString('pt-BR')} km (cerca de 160 km por dia, 25 dias). Mude para o seu.`}
           className="so-com-js"
         />
         <TextField
@@ -221,7 +221,7 @@ const compartilhar = JSON.stringify({
           inputMode="decimal"
           autoComplete="off"
           defaultValue={String(APLICATIVO.kmPorLitroExemplo)}
-          helperText={`Exemplo: ${APLICATIVO.kmPorLitroExemplo} km por litro. Mude para o do seu carro.`}
+          helperText={`Exemplo: ${APLICATIVO.kmPorLitroExemplo} km por litro, o consumo de um carro popular 1.0 na cidade. Mude para o do seu carro.`}
           className="so-com-js"
         />
       </div>
@@ -248,7 +248,8 @@ const compartilhar = JSON.stringify({
         }
         <p class="cp-text-body-small">
           Preço da gasolina no governo Lula (hoje) <Fonte id={gasolina.fontes.preco} /> mais o aumento por litro com o PPI
-          <span class="junto"><Fonte id={gasolina.fontes.defasagem} />.</span>
+          <Fonte id={gasolina.fontes.defasagem} />. Consumo de carro popular 1.0 na cidade com gasolina
+          <span class="junto"><Fonte id={APLICATIVO.fonteConsumo} />.</span>
         </p>
       </div>
     </div>

@@ -20,7 +20,7 @@ const perguntas = [
   },
   {
     q: 'Como calculamos a perda da aposentadoria e do BPC?',
-    a: `Desvinculado, o benefício parte do mínimo de dezembro de ${d.anoBase} e, a cada janeiro, sobe só pelo INPC do ano anterior (${INPC_ANUAL.map((i) => pct(i.pct)).join(', ')}), arredondado ao centavo. A perda é a diferença para o mínimo pago de verdade. O BPC tem 12 pagamentos por ano; a aposentadoria tem também o 13º. Na projeção até ${d.ateAno}, o mínimo sobe pela inflação mais um ganho real entre ${pct(d.ganhoMin, 1)} e ${pct(d.ganhoMax, 1)} ao ano. Sem aumento real, o benefício compra sempre o mesmo; a perda de poder de compra, frente ao benefício ligado ao mínimo, é 1 − 1/(1 + ganho real)^anos, também medida em cestas básicas.`,
+    a: `Desvinculado, o benefício parte do mínimo de dezembro de ${d.anoBase} e, a cada janeiro, sobe só pelo INPC do ano anterior (${INPC_ANUAL.map((i) => pct(i.pct)).join(', ')}), arredondado ao centavo. A perda é a diferença para o mínimo pago de verdade. O BPC tem 12 pagamentos por ano; a aposentadoria tem também o 13º. Na projeção até ${d.ateAno}, a inflação é a média do INPC desses anos (${pct(d.inflacao, 1)} ao ano); o benefício desvinculado sobe só por ela, e o mínimo sobe por ela mais um ganho real entre ${pct(d.ganhoMin, 1)} e ${pct(d.ganhoMax, 1)} ao ano. Sem aumento real, o benefício compra sempre o mesmo; a perda de poder de compra, frente ao benefício ligado ao mínimo, é 1 − 1/(1 + ganho real)^anos. Em cestas básicas, a cesta sobe no ritmo da comida de cada governo: ${pct(d.altaComidaLula, 1)} ao ano com a regra do governo Lula e ${pct(d.altaComidaBolsonaro, 1)} com a proposta do Flávio.`,
   },
   {
     q: 'Como calculamos a cesta básica no governo do Bolsonaro?',
@@ -89,14 +89,18 @@ const jsonLd = [
             pagamentos por ano; a aposentadoria tem também o 13º, pelo valor de dezembro.
           </li>
           <li>
-            Projeção: o mínimo sobe pela inflação mais um ganho real entre {pct(d.ganhoMin, 1)} e {pct(d.ganhoMax, 1)} ao ano
+            Projeção: a inflação de cada ano é a média do INPC dos últimos anos ({pct(d.inflacao, 1)} ao ano). O benefício
+            desvinculado sobe só por ela; o mínimo sobe por ela mais um ganho real entre {pct(d.ganhoMin, 1)} e {pct(d.ganhoMax, 1)} ao ano
             <Fonte id="lc-200-2023-ganho-real" />, regra válida até {d.ateAno} <Fonte id="lei-15077-2024-ganho-real-sm" />. Sem
             aumento real, o benefício compra sempre o mesmo; o poder de compra perdido, frente ao benefício ligado ao mínimo, é
             1 − 1/(1 + ganho real)^anos.
           </li>
           <li>
-            Em cestas básicas: valor do benefício ÷ cesta média das {CESTA.capitais.length} capitais <Fonte id={CESTA.fonteValores} />,
-            supondo que a cesta sobe junto com a inflação.
+            Em cestas básicas: valor do benefício ÷ cesta média das {CESTA.capitais.length} capitais <Fonte id={CESTA.fonteValores} />.
+            Com a regra do governo Lula, a cesta sobe {pct(d.altaComidaLula, 1)} ao ano, o ritmo da comida no domicílio no governo Lula
+            ({pct(CESTA.atual.pct)} em {CESTA.atual.meses} meses). Com a proposta do Flávio, sobe {pct(d.altaComidaBolsonaro, 1)} ao ano,
+            o ritmo do governo Bolsonaro ({pct(CESTA.bolsonaro.pct)} em {CESTA.bolsonaro.meses} meses). As cestas perdidas somam a
+            diferença entre os dois cenários em todos os pagamentos do período.
           </li>
         </ol>
         <p><Link href={link(PAGINAS.aposentadoriaBpc.path)}>Abrir o simulador</Link></p>

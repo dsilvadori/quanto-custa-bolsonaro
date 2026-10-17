@@ -56,8 +56,11 @@ export function graficoBomba(linhas: LinhaCombustivel[]): string {
   });
 }
 
-/** Exemplo de motorista de aplicativo. Não há dado oficial de quilometragem: a pessoa muda na página. */
-export const APLICATIVO = { kmMesExemplo: 5000, kmPorLitroExemplo: 10 } as const;
+/**
+ * Exemplo de motorista de aplicativo. Não há dado oficial de quilometragem: a pessoa muda na página.
+ * O consumo é o de um carro popular 1.0 na cidade com gasolina (Inmetro, de 13,3 a 14,6 km/L).
+ */
+export const APLICATIVO = { kmMesExemplo: 4000, kmPorLitroExemplo: 14, fonteConsumo: 'inmetro-pbev-2025' } as const;
 
 /** Gasto com combustível por mês: litros = km ÷ km por litro; hoje e com o PPI. */
 export function gastoMensal(l: LinhaCombustivel, km: number, kmPorLitro: number) {
