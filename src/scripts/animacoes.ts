@@ -2,9 +2,9 @@
 // e os números sobem do zero até o valor. Só na primeira vez; depois, o que o simulador redesenha aparece direto.
 // Com movimento reduzido, nada anima.
 
-const DURACAO = 900;
-const PASSO = 70; // atraso entre uma barra e a seguinte (--passo no CSS)
-const ESCALONAMENTO = 700; // em listas longas (as 27 capitais), o passo encolhe para a última barra não demorar
+const DURACAO = 1600; // igual à duração no CSS
+const PASSO = 120; // atraso entre uma barra e a seguinte (--passo no CSS)
+const ESCALONAMENTO = 1200; // em listas longas (as 27 capitais), o passo encolhe para a última barra não demorar
 
 const reduzido = matchMedia('(prefers-reduced-motion: reduce)').matches;
 

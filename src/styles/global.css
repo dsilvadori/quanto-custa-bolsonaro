@@ -184,7 +184,7 @@ input[aria-invalid='true'] { outline: var(--cp-border-width-strong) solid var(--
    Ficam paradas no começo até o script marcar data-anim="vai"; com "feito", os redesenhos do simulador aparecem direto.
    Sem JS ou com movimento reduzido, nada anima e o gráfico aparece pronto. */
 .js .grafico :is(.barra, .barra-h, .valor) {
-  animation: 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) calc(var(--i, 0) * var(--passo, 70ms)) both paused;
+  animation: 1.6s cubic-bezier(0.2, 0.7, 0.2, 1) calc(var(--i, 0) * var(--passo, 120ms)) both paused;
 }
 .js .grafico .barra { animation-name: crescer-v; transform-box: fill-box; transform-origin: 50% 100%; }
 .js .grafico .barra-h { animation-name: crescer-h; transform-box: fill-box; transform-origin: 0 50%; }
