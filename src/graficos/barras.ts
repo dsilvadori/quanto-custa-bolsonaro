@@ -1,5 +1,6 @@
 // Gráfico de barras agrupadas em SVG, sem biblioteca. Roda no build e no navegador.
 // Cores e fonte vêm dos tokens do DS (var(--cp-...)), então o SVG precisa estar inline no HTML.
+// Cada barra e cada valor levam a classe "barra"/"valor" e a ordem (--i) para a animação de entrada (global.css).
 
 export interface Serie {
   nome: string;
@@ -34,6 +35,7 @@ export function barras({ id, titulo, descricao, categorias, series, rotulo }: Op
   const larguraGrupo = largura * series.length + vao * (series.length - 1);
 
   const partes: string[] = [];
+  let k = 0; // ordem da barra, para a animação entrar uma depois da outra
   categorias.forEach((cat, i) => {
     const x0 = M.lado + grupo * i + (grupo - larguraGrupo) / 2;
     series.forEach((s, j) => {
@@ -42,9 +44,10 @@ export function barras({ id, titulo, descricao, categorias, series, rotulo }: Op
       const h = (v / max) * alturaUtil;
       const x = x0 + j * (largura + vao);
       const y = A - M.base - h;
+      const anim = `style="--i:${k++};--h:${h.toFixed(1)}px"`;
       partes.push(
-        `<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${largura.toFixed(1)}" height="${h.toFixed(1)}" rx="2" fill="${s.cores?.[i] ?? s.cor}"/>`,
-        `<text x="${(x + largura / 2).toFixed(1)}" y="${(y - 6).toFixed(1)}" text-anchor="middle" font-size="11" font-weight="700" fill="var(--cp-color-on-surface)">${esc(rotulo(v))}</text>`,
+        `<rect class="barra" ${anim} x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${largura.toFixed(1)}" height="${h.toFixed(1)}" rx="2" fill="${s.cores?.[i] ?? s.cor}"/>`,
+        `<text class="valor" ${anim} x="${(x + largura / 2).toFixed(1)}" y="${(y - 6).toFixed(1)}" text-anchor="middle" font-size="11" font-weight="700" fill="var(--cp-color-on-surface)">${esc(rotulo(v))}</text>`,
       );
     });
     partes.push(

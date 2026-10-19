@@ -1,5 +1,6 @@
 // Barras horizontais em lista (estilo ranking), em SVG. Roda no build e no navegador.
 // Cada linha: nome à esquerda e valor à direita; embaixo, a barra sobre um trilho; e, se houver, um detalhe (ex.: os preços).
+// Cada barra e cada valor levam a classe "barra"/"valor" e a ordem (--i) para a animação de entrada (global.css).
 // Cores e fonte vêm dos tokens do DS.
 
 export interface LinhaH {
@@ -45,9 +46,9 @@ export function barrasH({ id, titulo, descricao, linhas, corNegativa = 'var(--cp
     const cor = l.valor < 0 ? corNegativa : (l.cor ?? (l.destaque === false ? 'var(--cp-color-on-surface-variant)' : 'var(--cp-color-primary)'));
     return (
       `<text x="0" y="${y + NOME - 2}" font-size="13" font-weight="800" fill="var(--cp-color-on-surface)">${esc(l.rotulo)}</text>` +
-      `<text x="${L}" y="${y + NOME - 2}" text-anchor="end" font-size="13" font-weight="800" fill="${cor}">${esc(l.texto)}</text>` +
+      `<text x="${L}" y="${y + NOME - 2}" text-anchor="end" font-size="13" font-weight="800" fill="${cor}" class="valor" style="--i:${i}">${esc(l.texto)}</text>` +
       `<rect x="0" y="${yBarra}" width="${L}" height="${BARRA}" rx="${BARRA / 2}" fill="var(--cp-color-surface-container)"/>` +
-      `<rect x="0" y="${yBarra}" width="${Math.max(w, BARRA).toFixed(1)}" height="${BARRA}" rx="${BARRA / 2}" fill="${cor}"/>` +
+      `<rect x="0" y="${yBarra}" width="${Math.max(w, BARRA).toFixed(1)}" height="${BARRA}" rx="${BARRA / 2}" fill="${cor}" class="barra-h" style="--i:${i}"/>` +
       (l.detalhe
         ? `<text x="0" y="${yBarra + BARRA + 13}" font-size="11" font-weight="700" fill="var(--cp-color-on-surface-variant)">${esc(l.detalhe)}</text>`
         : '')

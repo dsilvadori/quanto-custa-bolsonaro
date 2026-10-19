@@ -179,6 +179,21 @@ input[aria-invalid='true'] { outline: var(--cp-border-width-strong) solid var(--
 .grafico-cartao > p { margin: 0; max-width: 70ch; }
 .grafico-area { max-width: 640px; }
 .grafico { display: block; width: 100%; height: auto; }
+
+/* Animação dos gráficos (scripts/animacoes.ts): as barras crescem e o valor sobe junto quando o gráfico aparece na tela.
+   Ficam paradas no começo até o script marcar data-anim="vai"; com "feito", os redesenhos do simulador aparecem direto.
+   Sem JS ou com movimento reduzido, nada anima e o gráfico aparece pronto. */
+.js .grafico :is(.barra, .barra-h, .valor) {
+  animation: 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) calc(var(--i, 0) * var(--passo, 70ms)) both paused;
+}
+.js .grafico .barra { animation-name: crescer-v; transform-box: fill-box; transform-origin: 50% 100%; }
+.js .grafico .barra-h { animation-name: crescer-h; transform-box: fill-box; transform-origin: 0 50%; }
+.js .grafico .valor { animation-name: subir-valor; }
+.js [data-anim='vai'] > .grafico :is(.barra, .barra-h, .valor) { animation-play-state: running; }
+.js [data-anim='feito'] > .grafico :is(.barra, .barra-h, .valor) { animation: none; }
+@keyframes crescer-v { from { transform: scaleY(0); } }
+@keyframes crescer-h { from { transform: scaleX(0); } }
+@keyframes subir-valor { from { transform: translateY(var(--h, 0)); opacity: 0; } 30% { opacity: 1; } }
 .legenda { display: flex; flex-wrap: wrap; gap: var(--cp-space-2) var(--cp-space-6); margin: 0; padding: 0; list-style: none; font: 700 var(--cp-text-sm) / 1.4 var(--cp-font); }
 .legenda li { display: inline-flex; align-items: center; gap: var(--cp-space-2); }
 .legenda__cor { width: 14px; height: 14px; border-radius: 2px; }
