@@ -11,6 +11,7 @@ import { calcularCombustivel } from '../../simuladores/combustivel';
 import { ESTADO_PADRAO, calcularSalario } from '../../simuladores/salario';
 import { estadoPadraoBeneficio, frasesBeneficio } from '../../simuladores/beneficio';
 import { reais } from '../../formato';
+import { COVID } from '../../covid';
 import { PAGINAS, SITE } from '../../site';
 
 interface Conteudo {
@@ -57,6 +58,11 @@ const CONTEUDO: Record<string, Conteudo> = {
     numero: `−${b.retroPorMes}`,
     texto: `por mês no BPC se ele tivesse sido desvinculado do salário mínimo em ${DADOS_BENEFICIO.anoBase + 1}: ${b.hoje} hoje, e não ${reais(DADOS_BENEFICIO.piso)}`,
     fonte: 'Fontes: Diário Oficial e IBGE',
+  },
+  covid: {
+    numero: COVID.mortes.texto,
+    texto: `mortes por covid no governo do Bolsonaro. ${COVID.hallal.evitaveis} poderiam ter sido evitadas, segundo epidemiologistas`,
+    fonte: 'Fontes: Ministério da Saúde, Fiocruz e Senado',
   },
 };
 

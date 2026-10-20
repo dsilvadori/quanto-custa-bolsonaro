@@ -601,6 +601,126 @@
         "/carrinho",
         "/"
       ]
+    },
+    {
+      "id": "agenciabrasil-2022-12-29-covid-693-mil",
+      "titulo": "Agência Brasil: \"Covid-19: Brasil registra 37,6 mil novos casos em 24 horas\" (boletim do Ministério da Saúde de 29 de dezembro de 2022)",
+      "orgao": "Agência Brasil",
+      "url": "https://agenciabrasil.ebc.com.br/saude/noticia/2022-12/brasil-registra-376-mil-novos-casos-de-covid-19-em-24-horas",
+      "data_publicacao": "2022-12-29",
+      "data_coleta": "2026-10-20",
+      "valor_usado": "Desde o início da pandemia, o país acumula \"693,7 mil mortes registradas\" (último boletim do Ministério da Saúde divulgado pela Agência Brasil em dezembro de 2022)",
+      "usado_em": [
+        "/covid"
+      ]
+    },
+    {
+      "id": "fiocruz-2022-02-balanco-dois-anos",
+      "titulo": "Boletim Observatório Covid-19 Fiocruz, edição especial: \"Balanço de dois anos da pandemia Covid-19: janeiro de 2020 a janeiro de 2022\"",
+      "orgao": "Fiocruz",
+      "url": "https://www.arca.fiocruz.br/handle/icict/55828",
+      "data_publicacao": "2022-02-09",
+      "data_coleta": "2026-10-20",
+      "valor_usado": "Em 3 de fevereiro de 2022: \"Enquanto no mundo a mortalidade por milhão de habitantes foi de 720, no Brasil ela alcançou 2.932, ou seja, 4 vezes maior\". Casos: 6,7% do total mundial; óbitos: \"mais de 630 mil no Brasil, correspondendo a 11% do total\"",
+      "usado_em": [
+        "/covid"
+      ]
+    },
+    {
+      "id": "senado-2021-06-24-hallal-400-mil",
+      "titulo": "Agência Senado: \"Pesquisas apontam que 400 mil mortes poderiam ser evitadas; governistas questionam\" (depoimentos de Pedro Hallal e Jurema Werneck à CPI da Pandemia)",
+      "orgao": "Agência Senado",
+      "url": "https://www12.senado.leg.br/noticias/materias/2021/06/24/pesquisas-apontam-que-400-mil-mortes-poderiam-ser-evitadas-governistas-questionam",
+      "data_publicacao": "2021-06-24",
+      "data_coleta": "2026-10-20",
+      "valor_usado": "Pedro Hallal (UFPel): pelo menos 400 mil das mais de 500 mil mortes poderiam ter sido evitadas; \"Quatro de cada cinco mortes teriam sido evitadas se estivéssemos na média mundial\"; o Brasil tem 2,7% da população mundial e 13% das mortes; o atraso na compra das vacinas da Pfizer e da CoronaVac \"resultou em 95,5 mil mortes\"; pesquisadores que analisaram o ritmo da vacinação estimaram 145 mil. Jurema Werneck (Grupo Alerta): ao menos 120 mil vidas poderiam ter sido salvas no primeiro ano com medidas não farmacológicas, testagem e rastreamento",
+      "usado_em": [
+        "/covid"
+      ]
+    },
+    {
+      "id": "rbepid-2023-ufmg-mortes-evitaveis",
+      "titulo": "Revista Brasileira de Epidemiologia (UFMG): \"Casos e mortes evitáveis de COVID-19 por políticas de vacinação alternativas e intervenções não farmacológicas no Brasil\"",
+      "orgao": "Revista Brasileira de Epidemiologia",
+      "url": "https://www.scielo.br/j/rbepid/a/Csj3NQBSBj4rqDQ4qSdrNDM/abstract/?lang=pt",
+      "data_publicacao": null,
+      "data_coleta": "2026-10-20",
+      "valor_usado": "De 8 de março de 2020 a 5 de junho de 2022: 654.572 óbitos registrados. Vacinação antecipada para 8/12/2020: 86.639 óbitos evitados. Com doses adicionais: 266.953. Com doses adicionais e intervenções não farmacológicas eficazes: 391.647 óbitos evitados (59,83% das mortes)",
+      "usado_em": [
+        "/covid"
+      ]
+    },
+    {
+      "id": "senado-2021-05-13-pfizer-agosto-2020",
+      "titulo": "Agência Senado: \"Representante da Pfizer confirma: governo não respondeu ofertas feitas em agosto de 2020\" (depoimento de Carlos Murillo à CPI da Pandemia)",
+      "orgao": "Agência Senado",
+      "url": "https://www12.senado.leg.br/noticias/materias/2021/05/13/representante-da-pfizer-confirma-governo-nao-respondeu-ofertas-feitas-em-agosto-de-2020",
+      "data_publicacao": "2021-05-13",
+      "data_coleta": "2026-10-20",
+      "valor_usado": "Ofertas de 14, 18 e 26 de agosto de 2020: 30 ou 70 milhões de doses, com até 1,5 milhão de doses entregues ainda em 2020. \"Passados os 15 dias, o governo brasileiro não rejeitou, tampouco aceitou a oferta.\" Contrato de 100 milhões de doses assinado em 19 de março de 2021",
+      "usado_em": [
+        "/covid"
+      ]
+    },
+    {
+      "id": "senado-2021-05-27-dimas-covas-butantan",
+      "titulo": "Agência Senado: \"Brasil poderia ter sido primeiro do mundo a vacinar, afirma Dimas Covas à CPI\"",
+      "orgao": "Agência Senado",
+      "url": "https://www12.senado.leg.br/noticias/materias/2021/05/27/brasil-poderia-ter-sido-primeiro-do-mundo-a-vacinar-afirma-dimas-covas-a-cpi",
+      "data_publicacao": "2021-05-27",
+      "data_coleta": "2026-10-20",
+      "valor_usado": "Em 30 de julho de 2020, o Butantan ofereceu ao Ministério da Saúde 60 milhões de doses da CoronaVac para o último trimestre de 2020, sem resposta efetiva. Em 21 de outubro de 2020, Bolsonaro disse que não compraria a vacina. O mundo começou a vacinar em 8 de dezembro; o Brasil, em 17 de janeiro de 2021",
+      "usado_em": [
+        "/covid"
+      ]
+    },
+    {
+      "id": "agenciabrasil-2020-10-21-bolsonaro-coronavac",
+      "titulo": "Agência Brasil: \"Bolsonaro diz que governo federal não comprará vacina CoronaVac\"",
+      "orgao": "Agência Brasil",
+      "url": "https://agenciabrasil.ebc.com.br/politica/noticia/2020-10/bolsonaro-diz-que-governo-federal-nao-comprara-vacina-coronavac",
+      "data_publicacao": "2020-10-21",
+      "data_coleta": "2026-10-20",
+      "valor_usado": "Bolsonaro anunciou que o governo federal não compraria a CoronaVac, um dia depois de o ministro Eduardo Pazuello assinar protocolo de intenção para 46 milhões de doses",
+      "usado_em": [
+        "/covid"
+      ]
+    },
+    {
+      "id": "agenciabrasil-2026-01-17-cinco-anos-vacina",
+      "titulo": "Agência Brasil: \"Há 5 anos, Brasil aplicava primeiras doses de vacina contra a covid-19\"",
+      "orgao": "Agência Brasil",
+      "url": "https://agenciabrasil.ebc.com.br/saude/noticia/2026-01/ha-5-anos-brasil-aplicava-primeiras-doses-de-vacina-contra-covid-19",
+      "data_publicacao": "2026-01-17",
+      "data_coleta": "2026-10-20",
+      "valor_usado": "Primeira vacina aplicada no Brasil em 17 de janeiro de 2021. Em um ano, 339 milhões de doses e 84% da população vacinada; a vacinação evitou 82% das mortes esperadas, \"mais de 300 mil vidas salvas\"",
+      "usado_em": [
+        "/covid"
+      ]
+    },
+    {
+      "id": "senado-2021-10-26-cpi-relatorio-final",
+      "titulo": "Agência Senado: \"Após seis meses, CPI da Pandemia é encerrada com 80 pedidos de indiciamento\"",
+      "orgao": "Agência Senado",
+      "url": "https://www12.senado.leg.br/noticias/materias/2021/10/26/apos-seis-meses-cpi-da-pandemia-e-encerrada-com-80-pedidos-de-indiciamento",
+      "data_publicacao": "2021-10-26",
+      "data_coleta": "2026-10-20",
+      "valor_usado": "Relatório final aprovado por 7 votos a 4, com 80 pedidos de indiciamento, entre eles o presidente Jair Bolsonaro, \"pela prática de nove infrações\", e três filhos dele: Flávio, Eduardo e Carlos Bolsonaro",
+      "usado_em": [
+        "/covid"
+      ]
+    },
+    {
+      "id": "senado-2021-10-25-crimes-cpi",
+      "titulo": "Agência Senado: \"Saiba mais sobre os crimes listados pela CPI da Pandemia\"",
+      "orgao": "Agência Senado",
+      "url": "https://www12.senado.leg.br/noticias/materias/2021/10/25/saiba-mais-sobre-os-crimes-listados-pela-cpi-da-pandemia",
+      "data_publicacao": "2021-10-25",
+      "data_coleta": "2026-10-20",
+      "valor_usado": "Bolsonaro: crimes contra a humanidade (extermínio, perseguição e atos desumanos para causar sofrimento intencional, art. 7º do Estatuto de Roma) e crime de responsabilidade, entre nove tipos de crime",
+      "usado_em": [
+        "/covid"
+      ]
     }
   ]
 }

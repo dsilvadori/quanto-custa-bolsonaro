@@ -1,0 +1,35 @@
+---
+// Resumo das vidas perdidas na covid, no fim de todas as páginas menos a /covid (Base.astro).
+import { Link } from '@boralula/ui';
+import { HeartCrack } from 'lucide-react';
+import { Fonte } from './Fonte';
+import { Resultados } from './Resultados';
+import { Selo } from '../icones';
+import { COVID } from '../covid';
+import { PAGINAS, link } from '../site';
+
+const { mortes, porMilhao, hallal, vacina } = COVID;
+---
+
+<section class="secao resumo-covid" aria-labelledby="resumo-covid">
+  <div class="cp-container">
+    <div class="cartao resumo-covid__cartao" data-numero>
+      <h2 id="resumo-covid" class="cp-text-h2 card-titulo"><Selo icone={HeartCrack} />E quanto custou em vidas?</h2>
+      <p class="texto">
+        No governo do Bolsonaro, {mortes.texto} pessoas morreram de covid no Brasil <Fonte id={mortes.fonte} />. Por habitante,
+        foram 4 vezes mais mortes que a média do mundo <span class="junto"><Fonte id={porMilhao.fonte} />.</span>
+      </p>
+      <Resultados
+        itens={[
+          { saida: 'covid-mortes', valor: mortes.texto, rotulo: 'mortes por covid até o fim do governo do Bolsonaro' },
+          { saida: 'covid-evitaveis', valor: hallal.evitaveis, rotulo: 'poderiam ter sido evitadas, segundo epidemiologistas' },
+          { saida: 'covid-vacina', valor: vacina.atrasoPfizerCoronavac.texto, rotulo: 'mortes pelo atraso na compra das vacinas' },
+        ]}
+      />
+      <p class="cp-text-body-small">
+        Estimativas de Pedro Hallal (UFPel) à CPI da Pandemia <span class="junto"><Fonte id={hallal.fonte} />.</span>
+        <Link href={link(PAGINAS.covid.path)}>Veja quantas vidas a covid custou</Link>
+      </p>
+    </div>
+  </div>
+</section>

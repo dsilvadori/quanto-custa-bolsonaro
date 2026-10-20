@@ -13,6 +13,7 @@ import {
   Flame,
   Fuel,
   HandCoins,
+  HeartCrack,
   Milk,
   Salad,
   Sandwich,
@@ -52,6 +53,7 @@ export const ICONE_PAGINA: Partial<Record<PaginaId, LucideIcon>> = {
   carrinho: ShoppingCart,
   combustivel: Fuel,
   aposentadoriaBpc: HandCoins,
+  covid: HeartCrack,
 };
 
 export const ICONE_VEICULO: Record<string, LucideIcon> = { carro: Car, caminhao: Truck };

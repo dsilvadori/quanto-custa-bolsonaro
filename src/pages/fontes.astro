@@ -5,8 +5,8 @@ import { FiltroOrgaos } from '../components/FiltroOrgaos';
 import { FONTES } from '../fontes';
 import { PAGINAS, SIMULADORES, dataPorExtenso } from '../site';
 
-// Agrupado por simulador; uma fonte usada em dois simuladores aparece no primeiro.
-const grupos = SIMULADORES.map((id) => ({
+// Agrupado por simulador (e a página da covid); uma fonte usada em dois simuladores aparece no primeiro.
+const grupos = [...SIMULADORES, 'covid' as const].map((id) => ({
   id,
   pagina: PAGINAS[id],
   fontes: FONTES.filter((f) => f.usado_em[0] === PAGINAS[id].path),

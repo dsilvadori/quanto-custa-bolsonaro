@@ -1,0 +1,246 @@
+---
+import { Callout, Stat } from '@boralula/ui';
+import Base from '../layouts/Base.astro';
+import LinksSimulador from '../components/LinksSimulador.astro';
+import { Fonte } from '../components/Fonte';
+import { Resultados } from '../components/Resultados';
+import { BarraCompartilhar } from '../components/BarraCompartilhar';
+import { barrasH } from '../graficos/barrasH';
+import { COR_BOLSONARO } from '../graficos/cores';
+import { COVID } from '../covid';
+import { numero, pct } from '../formato';
+import { PAGINAS, link } from '../site';
+
+const url = new URL(link(PAGINAS.covid.path), Astro.site).href;
+const { mortes, porMilhao, fatia, hallal, evitaveis, vacina } = COVID;
+
+const graficoPorMilhao = barrasH({
+  id: 'covid-por-milhao',
+  titulo: 'Mortes por covid a cada milhão de habitantes, em fevereiro de 2022',
+  descricao: `Brasil: ${numero(porMilhao.brasil)}. Média do mundo: ${numero(porMilhao.mundo)}.`,
+  linhas: [
+    { rotulo: 'Brasil, no governo do Bolsonaro', valor: porMilhao.brasil, texto: numero(porMilhao.brasil), cor: COR_BOLSONARO },
+    { rotulo: 'Média do mundo', valor: porMilhao.mundo, texto: numero(porMilhao.mundo), destaque: false },
+  ],
+});
+const graficoFatia = barrasH({
+  id: 'covid-fatia',
+  titulo: 'O Brasil em % do mundo, em junho de 2021',
+  descricao: `População: ${pct(hallal.populacao, 1)} do mundo. Mortes por covid: ${pct(hallal.mortes, 0)} do mundo.`,
+  linhas: [
+    { rotulo: 'Mortes por covid', valor: hallal.mortes, texto: pct(hallal.mortes, 0), cor: COR_BOLSONARO },
+    { rotulo: 'População', valor: hallal.populacao, texto: pct(hallal.populacao, 1), destaque: false },
+  ],
+});
+const graficoEvitaveis = barrasH({
+  id: 'covid-evitaveis',
+  titulo: 'Mortes por covid que poderiam ter sido evitadas, segundo cada estudo',
+  descricao: evitaveis.map((e) => `${e.quem}: ${e.texto}`).join('. ') + '.',
+  linhas: [...evitaveis].reverse().map((e) => ({ rotulo: e.curto, valor: e.valor, texto: e.texto, cor: COR_BOLSONARO })),
+});
+
+const linhaDoTempo = [
+  {
+    data: '30 de julho de 2020',
+    texto: 'O Instituto Butantan oferece ao Ministério da Saúde 60 milhões de doses da CoronaVac para o fim de 2020. Fica sem resposta efetiva.',
+    fonte: 'senado-2021-05-27-dimas-covas-butantan',
+  },
+  {
+    data: '14, 18 e 26 de agosto de 2020',
+    texto: 'A Pfizer oferece até 70 milhões de doses, com até 1,5 milhão ainda em 2020. O governo não aceita nem recusa.',
+    fonte: 'senado-2021-05-13-pfizer-agosto-2020',
+  },
+  {
+    data: '21 de outubro de 2020',
+    texto:
+      'Um dia depois de o ministro da Saúde anunciar a compra de 46 milhões de doses da CoronaVac, Bolsonaro diz que o governo não vai comprar a vacina.',
+    fonte: 'agenciabrasil-2020-10-21-bolsonaro-coronavac',
+  },
+  { data: '8 de dezembro de 2020', texto: 'O mundo começa a vacinar.', fonte: 'senado-2021-05-27-dimas-covas-butantan' },
+  {
+    data: '17 de janeiro de 2021',
+    texto: 'O Brasil aplica a primeira vacina: a CoronaVac do Butantan, a mesma que Bolsonaro disse que não ia comprar.',
+    fonte: 'agenciabrasil-2026-01-17-cinco-anos-vacina',
+  },
+  {
+    data: '19 de março de 2021',
+    texto: 'O governo assina o contrato com a Pfizer, 7 meses depois da primeira oferta.',
+    fonte: 'senado-2021-05-13-pfizer-agosto-2020',
+  },
+];
+
+const ancora = new URL(link(`${PAGINAS.fontes.path}#${mortes.fonte}`), Astro.site);
+const texto = `${mortes.texto} pessoas morreram de covid no Brasil no governo do Bolsonaro. Segundo epidemiologistas, ${hallal.evitaveis} dessas mortes poderiam ter sido evitadas, e ${vacina.atrasoPfizerCoronavac.texto} vieram do atraso na compra das vacinas. Veja as fontes: ${url}`;
+const dados = JSON.stringify({
+  texto,
+  url,
+  titulo: PAGINAS.covid.titulo,
+  cartao: {
+    numero: mortes.texto,
+    linha: 'mortes por covid no Brasil no governo do Bolsonaro',
+    premissa: `Segundo Pedro Hallal (UFPel) à CPI, ${hallal.evitaveis} poderiam ter sido evitadas se o Brasil estivesse na média mundial.`,
+    fonte: 'Fontes: Ministério da Saúde, Fiocruz e Senado',
+    url: ancora.host + ancora.pathname + ancora.hash,
+  },
+}).replace(/</g, '\\u003c');
+---
+
+<Base id="covid" imagem={{ src: '/og/covid.png', alt: `${mortes.texto} mortes por covid no Brasil no governo do Bolsonaro` }}>
+  <Fragment slot="lead">
+    <p class="hero__lead cp-text-body-large">
+      Quantas pessoas morreram de covid no governo do Bolsonaro, quantas mortes poderiam ter sido evitadas e quanto custou a demora
+      para comprar vacinas. Cada número tem fonte.
+    </p>
+    <div class="hero__numero" data-numero>
+      <Stat surface="red" value={mortes.texto} label="mortes por covid no Brasil até o fim do governo do Bolsonaro" />
+      <p class="cp-text-body-small">
+        Segundo epidemiologistas, {hallal.evitaveis} poderiam ter sido evitadas <Fonte id={mortes.fonte} />
+        <span class="junto"><Fonte id={hallal.fonte} />.</span>
+      </p>
+    </div>
+  </Fragment>
+
+  <section class="secao secao--cinza" aria-labelledby="quatro-vezes">
+    <div class="cp-container">
+      <h2 id="quatro-vezes" class="cp-text-h2">O Brasil teve 4 vezes mais mortes que a média do mundo</h2>
+      <p class="texto" data-numero>
+        Em fevereiro de 2022, o Brasil tinha {pct(fatia.casos, 1)} dos casos de covid do mundo, mas {pct(fatia.mortes, 0)} das mortes
+        <span class="junto"><Fonte id={fatia.fonte} />.</span> Para cada milhão de habitantes, morreram {numero(porMilhao.brasil)} pessoas
+        aqui e {numero(porMilhao.mundo)} na média do mundo.
+      </p>
+      <div class="grade-combustivel">
+        <figure class="grafico-cartao cartao" data-numero>
+          <figcaption class="cp-text-title">Mortes a cada milhão de habitantes</figcaption>
+          <div class="grafico-area" set:html={graficoPorMilhao} />
+          <p class="cp-text-body-small">
+            Até 3 de fevereiro de 2022, no balanço de dois anos de pandemia da Fiocruz <span class="junto"><Fonte id={porMilhao.fonte} />.</span>
+          </p>
+        </figure>
+        <figure class="grafico-cartao cartao" data-numero>
+          <figcaption class="cp-text-title">A parte do Brasil no mundo</figcaption>
+          <div class="grafico-area" set:html={graficoFatia} />
+          <p class="cp-text-body-small">
+            Com {pct(hallal.populacao, 1)} da população do mundo, o Brasil tinha {pct(hallal.mortes, 0)} das mortes por covid em junho de
+            2021, segundo Pedro Hallal (UFPel) à CPI da Pandemia <span class="junto"><Fonte id={hallal.fonte} />.</span>
+          </p>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="secao" aria-labelledby="evitaveis">
+    <div class="cp-container">
+      <h2 id="evitaveis" class="cp-text-h2">Quantas mortes poderiam ter sido evitadas</h2>
+      <p class="texto">
+        Epidemiologistas calcularam quantas pessoas estariam vivas se o governo tivesse apoiado máscaras e distanciamento e comprado
+        vacinas a tempo. As três contas mais conhecidas:
+      </p>
+      <ul class="grade-cards estimativas">
+        {
+          [...evitaveis].reverse().map((e) => (
+            <li class="cartao">
+              <p class="card-numero">
+                <strong>{e.texto}</strong> <span>mortes evitáveis</span>
+              </p>
+              <h3 class="cp-text-title">{e.quem}</h3>
+              <p>
+                {e.cenario} <span class="junto"><Fonte id={e.fonte} /></span>
+              </p>
+            </li>
+          ))
+        }
+      </ul>
+      <figure class="grafico-cartao cartao estimativas__grafico" data-numero>
+        <figcaption class="cp-text-title">As três estimativas lado a lado</figcaption>
+        <div class="grafico-area" set:html={graficoEvitaveis} />
+        <p class="cp-text-body-small">
+          Hallal e Werneck à CPI <Fonte id={hallal.fonte} /> e o estudo da UFMG <span class="junto"><Fonte id={evitaveis[1].fonte} />.</span>
+        </p>
+      </figure>
+    </div>
+  </section>
+
+  <section class="secao secao--cinza" aria-labelledby="vacinas">
+    <div class="cp-container">
+      <h2 id="vacinas" class="cp-text-h2">O atraso das vacinas</h2>
+      <p class="texto">
+        O Brasil teve ofertas de vacina desde julho de 2020, mas só começou a vacinar 40 dias depois do mundo, e devagar.
+      </p>
+      <ol class="linha-tempo">
+        {
+          linhaDoTempo.map((l) => (
+            <li>
+              <p class="cp-text-title linha-tempo__data">{l.data}</p>
+              <p>
+                {l.texto} <span class="junto"><Fonte id={l.fonte} /></span>
+              </p>
+            </li>
+          ))
+        }
+      </ol>
+
+      <div class="cartao simulador__resultado vacinas__custo" data-numero>
+        <h3 class="cp-text-h3">Quanto custou a demora</h3>
+        <Resultados
+          itens={[
+            { saida: 'vacina-pfizer', valor: vacina.atrasoPfizerCoronavac.texto, rotulo: 'mortes pelo atraso na compra da Pfizer e da CoronaVac' },
+            { saida: 'vacina-reino-unido', valor: vacina.comoReinoUnido.texto, rotulo: 'mortes evitadas se a vacinação começasse junto com o Reino Unido' },
+            { saida: 'vacina-ritmo', valor: vacina.ritmo.texto, rotulo: 'mortes evitadas com um calendário de vacinação mais adiantado' },
+          ]}
+        />
+        <p class="cp-text-body-small">
+          Pedro Hallal (UFPel) calculou as mortes pelo atraso com as doses que a Pfizer e o Butantan disseram à CPI que poderiam ter
+          entregado <Fonte id={vacina.atrasoPfizerCoronavac.fonte} />. Os 145 mil são de pesquisadores da USP que analisaram o ritmo da
+          vacinação, citados por ele. O estudo da UFMG simulou a vacinação começando em 8 de dezembro de 2020
+          <span class="junto"><Fonte id={vacina.comoReinoUnido.fonte} />.</span>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="secao" aria-labelledby="vacina-salvou">
+    <div class="cp-container">
+      <h2 id="vacina-salvou" class="cp-text-h2">Quando a vacina chegou, salvou vidas</h2>
+      <p class="texto" data-numero>
+        Em um ano de vacinação, 84% da população tomou a vacina, e as mortes esperadas caíram 82%: mais de 300 mil vidas salvas
+        <span class="junto"><Fonte id="agenciabrasil-2026-01-17-cinco-anos-vacina" />.</span> Cada mês de atraso na compra das vacinas
+        foi um mês a mais de mortes que a vacina teria evitado.
+      </p>
+    </div>
+  </section>
+
+  <section class="secao secao--cinza" aria-labelledby="cpi">
+    <div class="cp-container">
+      <h2 id="cpi" class="cp-text-h2">A CPI pediu o indiciamento de Bolsonaro</h2>
+      <p class="texto">
+        Em 26 de outubro de 2021, a CPI da Pandemia do Senado aprovou o relatório final por 7 votos a 4, com 80 pedidos de
+        indiciamento. Jair Bolsonaro foi apontado por 9 crimes <Fonte id="senado-2021-10-26-cpi-relatorio-final" />, entre eles crimes
+        contra a humanidade: extermínio, perseguição e atos desumanos para causar sofrimento intencional
+        <span class="junto"><Fonte id="senado-2021-10-25-crimes-cpi" />.</span>
+      </p>
+      <div class="politicas__flavio">
+        <Callout title="Flávio Bolsonaro também estava na lista da CPI" headingLevel={3}>
+          Entre os 80 pedidos de indiciamento da CPI da Pandemia estavam três filhos de Jair Bolsonaro: Flávio, Eduardo e Carlos
+          <span class="junto"><Fonte id="senado-2021-10-26-cpi-relatorio-final" />.</span>
+        </Callout>
+      </div>
+    </div>
+  </section>
+
+  <div class="cp-container">
+    <BarraCompartilhar textoWhatsapp={texto} />
+  </div>
+
+  <div class="cp-container secao">
+    <LinksSimulador atual="covid" />
+  </div>
+
+  <script slot="fim" type="application/json" id="dados-covid" set:html={dados} />
+</Base>
+
+<script>
+  import { lerDados } from '../scripts/ui';
+  import { definirCompartilhamento, type Compartilhamento } from '../scripts/compartilhar';
+
+  definirCompartilhamento(lerDados<Compartilhamento>('dados-covid'));
+</script>

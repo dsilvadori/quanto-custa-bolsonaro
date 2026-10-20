@@ -21,6 +21,7 @@ export type PaginaId =
   | 'carrinho'
   | 'combustivel'
   | 'aposentadoriaBpc'
+  | 'covid'
   | 'comoCalculamos'
   | 'fontes';
 
@@ -87,6 +88,15 @@ export const PAGINAS: Record<PaginaId, Pagina> = {
       'Se o BPC tivesse sido desvinculado do salário mínimo em 2023, hoje seria R$ 1.449, e não R$ 1.621. Veja a conta ano a ano e a projeção até 2030.',
     atualizadoEm: '2026-10-15',
   },
+  covid: {
+    path: '/covid',
+    rotulo: 'Vidas perdidas na covid',
+    menu: 'Covid',
+    titulo: 'Quantas vidas a covid custou no governo do Bolsonaro?',
+    descricao:
+      'Quase 694 mil mortes por covid no governo do Bolsonaro. Veja quantas poderiam ter sido evitadas e quantas vidas custou o atraso das vacinas.',
+    atualizadoEm: '2026-10-20',
+  },
   comoCalculamos: {
     path: '/como-calculamos',
     rotulo: 'Como calculamos',
@@ -107,8 +117,8 @@ export const PAGINAS: Record<PaginaId, Pagina> = {
 
 export const SIMULADORES: PaginaId[] = ['salarioMinimo', 'cestaBasica', 'carrinho', 'combustivel', 'aposentadoriaBpc'];
 
-// Menu do topo: os simuladores e as fontes. "Como calculamos" fica no rodapé e em cada simulador.
-export const MENU: PaginaId[] = [...SIMULADORES, 'fontes'];
+// Menu do topo: os simuladores, as vidas perdidas na covid e as fontes. "Como calculamos" fica no rodapé e em cada simulador.
+export const MENU: PaginaId[] = [...SIMULADORES, 'covid', 'fontes'];
 
 export const RODAPE: PaginaId[] = ['comoCalculamos', 'fontes'];
 

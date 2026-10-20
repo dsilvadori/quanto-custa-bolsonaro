@@ -9,6 +9,7 @@ import { SiteHeader } from '../components/SiteHeader';
 import { SiteFooter } from '../components/SiteFooter';
 import { VoltarInicio } from '../components/VoltarInicio';
 import { PainelFonte } from '../components/PainelFonte';
+import ResumoCovid from '../components/ResumoCovid.astro';
 import { ICONE_PAGINA, Selo } from '../icones';
 import { PAGINAS, dataPorExtenso, type PaginaId, link } from '../site';
 
@@ -101,6 +102,7 @@ const breadcrumb = interna && {
         </div>
       </section>
       <slot />
+      {id !== 'covid' && <ResumoCovid />}
       {
         pagina && (
           <div class="cp-container">
