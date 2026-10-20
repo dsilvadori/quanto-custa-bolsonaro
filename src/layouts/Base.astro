@@ -80,6 +80,8 @@ const breadcrumb = interna && {
       jsonLd={breadcrumb ? [...jsonLd, breadcrumb] : jsonLd}
     />
     <link rel="icon" href={link('/favicon.svg')} type="image/svg+xml" />
+    <!-- Barra compartilhada dos Aplicativos da Virada: entra no início do body, numa Shadow DOM própria. -->
+    <script is:inline src="https://barra.comitedetecnologia.com.br/barra.js" defer></script>
   </head>
   <body class="cp-body">
     <a class="pular" href="#conteudo">Pular para o conteúdo</a>

@@ -1,7 +1,8 @@
 # Cabeçalhos da Cloudflare Pages (https://developers.cloudflare.com/pages/configuration/headers/).
-# Só scripts, estilos, imagens e fontes do próprio site; nada de terceiros.
+# Só scripts, estilos, imagens e fontes do próprio site, mais a barra dos Aplicativos da Virada
+# (barra.comitedetecnologia.com.br) e as estatísticas de acesso que ela carrega (Plausible, plausible.mtst.tec.br).
 /*
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://barra.comitedetecnologia.com.br https://plausible.mtst.tec.br; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://barra.comitedetecnologia.com.br; font-src 'self' https://barra.comitedetecnologia.com.br; connect-src 'self' https://barra.comitedetecnologia.com.br https://plausible.mtst.tec.br; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'
   Strict-Transport-Security: max-age=31536000
   X-Content-Type-Options: nosniff
   X-Frame-Options: DENY
