@@ -1,10 +1,11 @@
-// Número principal de cada simulador, para os cartões da Início e de "Veja também".
+// Número principal de cada simulador (e da página da covid), para os cartões da Início e de "Veja também".
 import { CARRINHO, CESTA, COMBUSTIVEIS, DADOS_BENEFICIO, DADOS_CARRINHO, DADOS_CESTA, DADOS_SALARIO, INPC_ANUAL, MINIMO_ATUAL } from './dados';
 import { ESTADO_PADRAO, calcularSalario } from './simuladores/salario';
 import { ESTADO_PADRAO_CESTA, calcularCesta } from './simuladores/cesta';
 import { calcularCarrinho, estadoPadraoCarrinho } from './simuladores/carrinho';
 import { calcularCombustivel } from './simuladores/combustivel';
 import { estadoPadraoBeneficio, calcularBeneficio } from './simuladores/beneficio';
+import { COVID } from './covid';
 import { preco, reais } from './formato';
 import type { PaginaId } from './site';
 
@@ -26,4 +27,5 @@ export const DESTAQUES: Partial<Record<PaginaId, Destaque>> = {
   carrinho: { numero: `+${reais(car.diferenca)}`, texto: 'na compra da quinzena de uma família de 4 pessoas', fonte: CARRINHO.fontesPreco[0] },
   combustivel: { numero: `+${preco(calcularCombustivel(diesel).aumento)}`, texto: 'no litro do diesel com o PPI', fonte: diesel.fontes.defasagem },
   aposentadoriaBpc: { numero: `−${reais(b.porMes)}`, texto: 'por mês no BPC desvinculado desde 2023', fonte: INPC_ANUAL[0].fonte },
+  covid: { numero: COVID.mortes.texto, texto: 'mortes por covid no governo do Bolsonaro', fonte: COVID.mortes.fonte },
 };

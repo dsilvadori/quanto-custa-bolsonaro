@@ -721,6 +721,18 @@
       "usado_em": [
         "/covid"
       ]
+    },
+    {
+      "id": "agenciabrasil-2023-03-28-covid-700-mil",
+      "titulo": "Agência Brasil: \"Brasil chega à marca de 700 mil mortes por covid-19\"",
+      "orgao": "Agência Brasil",
+      "url": "https://agenciabrasil.ebc.com.br/saude/noticia/2023-03/brasil-chega-marca-de-700-mil-mortes-por-covid-19",
+      "data_publicacao": "2023-03-28",
+      "data_coleta": "2026-10-20",
+      "valor_usado": "\"O Brasil alcançou nesta terça-feira (28) a marca de 700 mil mortes causadas pela covid-19, informou o Ministério da Saúde.\"",
+      "usado_em": [
+        "/covid"
+      ]
     }
   ]
 }
