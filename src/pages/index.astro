@@ -11,6 +11,7 @@ import { Fonte } from '../components/Fonte';
 import { CENARIO_SM, DADOS_SALARIO, MINIMO_ATUAL } from '../dados';
 import { ESTADO_PADRAO, calcularSalario } from '../simuladores/salario';
 import { reais } from '../formato';
+import { COVID } from '../covid';
 import { PAGINAS, SITE, link } from '../site';
 
 const url = new URL(link('/'), Astro.site).href;
@@ -32,7 +33,10 @@ const jsonLd = [
   <Fragment slot="lead">
     <p class="hero__lead cp-text-body-large">
       Salário mínimo, comida, gás, combustível e aposentadoria: veja em reais quanto custaria o seu mês se as regras e os preços
-      do governo do Bolsonaro voltassem. Cada número tem fonte oficial.
+      do governo do Bolsonaro voltassem. E veja <a href={link(PAGINAS.covid.path)}>quantas vidas a pandemia custou</a>:
+      {COVID.mortes.texto} mortes por covid no governo do Bolsonaro <Fonte id={COVID.mortes.fonte} />, e {COVID.hallal.evitaveis}
+      poderiam ter sido evitadas, segundo epidemiologistas <span class="junto"><Fonte id={COVID.hallal.fonte} />.</span> Cada número
+      tem fonte oficial.
     </p>
     <div class="hero__numero" data-numero>
       <Stat surface="red" value={reais(r.porMes)} label={`a menos por mês no salário mínimo de ${r.ultimo.ano}`} />
