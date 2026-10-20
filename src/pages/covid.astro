@@ -12,7 +12,7 @@ import { numero, pct } from '../formato';
 import { PAGINAS, link } from '../site';
 
 const url = new URL(link(PAGINAS.covid.path), Astro.site).href;
-const { mortes, porMilhao, fatia, hallal, evitaveis, vacina } = COVID;
+const { mortes, porMilhao, fatia, hallal, evitaveis, primeiroAno, vacina } = COVID;
 
 const graficoPorMilhao = barrasH({
   id: 'covid-por-milhao',
@@ -35,8 +35,8 @@ const graficoFatia = barrasH({
 const graficoEvitaveis = barrasH({
   id: 'covid-evitaveis',
   titulo: 'Mortes por covid que poderiam ter sido evitadas, segundo cada estudo',
-  descricao: evitaveis.map((e) => `${e.quem}: ${e.texto}`).join('. ') + '.',
-  linhas: [...evitaveis].reverse().map((e) => ({ rotulo: e.curto, valor: e.valor, texto: e.texto, cor: COR_BOLSONARO })),
+  descricao: evitaveis.map((e) => `${e.curto}: ${e.texto}`).join('. ') + '.',
+  linhas: evitaveis.map((e) => ({ rotulo: e.curto, valor: e.valor, texto: e.texto, cor: COR_BOLSONARO })),
 });
 
 const linhaDoTempo = [
@@ -97,6 +97,10 @@ const dados = JSON.stringify({
         Segundo epidemiologistas, {hallal.evitaveis} poderiam ter sido evitadas <Fonte id={mortes.fonte} />
         <span class="junto"><Fonte id={hallal.fonte} />.</span>
       </p>
+      <p class="cp-text-body-small">
+        Na pandemia inteira, contando também 2023, o Brasil passou de 700 mil mortes em março de 2023
+        <span class="junto"><Fonte id="agenciabrasil-2023-03-28-covid-700-mil" />.</span>
+      </p>
     </div>
   </Fragment>
 
@@ -133,11 +137,11 @@ const dados = JSON.stringify({
       <h2 id="evitaveis" class="cp-text-h2">Quantas mortes poderiam ter sido evitadas</h2>
       <p class="texto">
         Epidemiologistas calcularam quantas pessoas estariam vivas se o governo tivesse apoiado máscaras e distanciamento e comprado
-        vacinas a tempo. As três contas mais conhecidas:
+        vacinas a tempo. As duas contas mais conhecidas para a pandemia:
       </p>
       <ul class="grade-cards estimativas">
         {
-          [...evitaveis].reverse().map((e) => (
+          evitaveis.map((e) => (
             <li class="cartao">
               <p class="card-numero">
                 <strong>{e.texto}</strong> <span>mortes evitáveis</span>
@@ -151,12 +155,23 @@ const dados = JSON.stringify({
         }
       </ul>
       <figure class="grafico-cartao cartao estimativas__grafico" data-numero>
-        <figcaption class="cp-text-title">As três estimativas lado a lado</figcaption>
+        <figcaption class="cp-text-title">As duas estimativas lado a lado</figcaption>
         <div class="grafico-area" set:html={graficoEvitaveis} />
         <p class="cp-text-body-small">
-          Hallal e Werneck à CPI <Fonte id={hallal.fonte} /> e o estudo da UFMG <span class="junto"><Fonte id={evitaveis[1].fonte} />.</span>
+          Pedro Hallal à CPI <Fonte id={evitaveis[0].fonte} /> e o estudo da UFMG <span class="junto"><Fonte id={evitaveis[1].fonte} />.</span>
+          Cada conta cobre um período diferente.
         </p>
       </figure>
+      <div class="cartao primeiro-ano">
+        <h3 class="cp-text-h3">Só no primeiro ano, antes das vacinas</h3>
+        <p class="card-numero">
+          <strong>{primeiroAno.texto}</strong> <span>mortes evitáveis no primeiro ano da pandemia</span>
+        </p>
+        <p class="texto">
+          {primeiroAno.quem}. {primeiroAno.cenario} Essa conta não
+          inclui as vacinas nem os anos seguintes, por isso fica separada das outras <span class="junto"><Fonte id={primeiroAno.fonte} />.</span>
+        </p>
+      </div>
     </div>
   </section>
 

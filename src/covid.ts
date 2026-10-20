@@ -10,34 +10,33 @@ export const COVID = {
   fatia: { casos: 6.7, mortes: 11, fonte: 'fiocruz-2022-02-balanco-dois-anos' },
   /** Pedro Hallal (UFPel) à CPI, em junho de 2021: população e mortes, em % do mundo. */
   hallal: { populacao: 2.7, mortes: 13, evitaveis: '400 mil', fonte: 'senado-2021-06-24-hallal-400-mil' },
-  /** Estimativas de mortes evitáveis, da menor para a maior. */
+  /** Estimativas de mortes evitáveis ao longo da pandemia, da maior para a menor. Cada uma cobre um período. */
   evitaveis: [
     {
-      valor: 120_000,
-      texto: '120 mil',
-      quem: 'Jurema Werneck e Grupo Alerta, à CPI',
-      curto: 'Grupo Alerta',
-      cenario: 'No primeiro ano da pandemia, com distanciamento, máscaras, testes e rastreamento de contatos.',
+      valor: 400_000,
+      texto: '400 mil',
+      quem: 'Pedro Hallal (UFPel), à CPI',
+      curto: 'Pedro Hallal (UFPel), até junho de 2021',
+      cenario: 'Se o Brasil tivesse ficado na média mundial de mortes: 4 em cada 5 mortes de março de 2020 a junho de 2021.',
       fonte: 'senado-2021-06-24-hallal-400-mil',
     },
     {
       valor: 391_647,
       texto: '391.647',
       quem: 'UFMG, na Revista Brasileira de Epidemiologia',
-      curto: 'UFMG',
+      curto: 'UFMG, até junho de 2022',
       cenario:
         'De março de 2020 a junho de 2022, com a vacinação começando 40 dias antes, mais doses e medidas de proteção: 6 em cada 10 mortes.',
       fonte: 'rbepid-2023-ufmg-mortes-evitaveis',
     },
-    {
-      valor: 400_000,
-      texto: '400 mil',
-      quem: 'Pedro Hallal (UFPel), à CPI',
-      curto: 'Pedro Hallal (UFPel)',
-      cenario: 'Se o Brasil tivesse ficado na média mundial de mortes: 4 em cada 5 mortes até junho de 2021.',
-      fonte: 'senado-2021-06-24-hallal-400-mil',
-    },
   ],
+  /** Estimativa só do primeiro ano, antes das vacinas: não se compara com as outras. */
+  primeiroAno: {
+    texto: '120 mil',
+    quem: 'Jurema Werneck e Grupo Alerta, à CPI',
+    cenario: 'Com distanciamento, máscaras, testes e rastreamento de contatos, no primeiro ano da pandemia, antes das vacinas.',
+    fonte: 'senado-2021-06-24-hallal-400-mil',
+  },
   /** Mortes causadas pelo atraso das vacinas. */
   vacina: {
     atrasoPfizerCoronavac: { texto: '95,5 mil', fonte: 'senado-2021-06-24-hallal-400-mil' },

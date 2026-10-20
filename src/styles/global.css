@@ -362,10 +362,11 @@ header nav a, .marca { white-space: nowrap; }
 .resumo-covid__cartao h2 { margin: 0; }
 .estimativas > li { gap: var(--cp-space-2); }
 .estimativas h3 { margin: 0; }
-@media (min-width: 1024px) { .estimativas { grid-template-columns: repeat(3, 1fr); } }
 .estimativas__grafico { margin: var(--cp-space-6) 0 0; }
 .linha-tempo { display: grid; gap: var(--cp-space-4); max-width: 70ch; margin: 0 0 var(--cp-space-6); padding: 0; list-style: none; }
 .linha-tempo li { position: relative; padding-left: var(--cp-space-6); border-left: var(--cp-border-width-accent) solid var(--cp-color-tertiary); }
 .linha-tempo p { margin: 0; }
 .linha-tempo__data { color: var(--cp-color-tertiary); }
 .vacinas__custo h3 { margin: 0; }
+.primeiro-ano { margin-top: var(--cp-space-6); border-left: var(--cp-border-width-accent) solid var(--cp-color-tertiary); }
+.primeiro-ano h3 { margin: 0; }
