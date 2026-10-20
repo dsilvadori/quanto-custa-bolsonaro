@@ -92,7 +92,7 @@ export const PAGINAS: Record<PaginaId, Pagina> = {
     path: '/covid',
     rotulo: 'Vidas perdidas na covid',
     menu: 'Covid',
-    titulo: 'Quantas vidas a covid custou no governo do Bolsonaro?',
+    titulo: 'Quantas vidas o governo do Bolsonaro custou na pandemia?',
     descricao:
       'Quase 694 mil mortes por covid no governo do Bolsonaro. Veja quantas poderiam ter sido evitadas e quantas vidas custou o atraso das vacinas.',
     atualizadoEm: '2026-10-20',
