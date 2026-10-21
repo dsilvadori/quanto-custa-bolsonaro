@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { SALARIO_MINIMO_REAL } from '../dados';
-import { frasesHistorico, graficoAnoAAno, mesesDoGrafico, variacoesPorGoverno } from './historico';
+import { frasesHistorico, graficoAnoAAno, mesesDoGrafico, perdaBolsonaro, variacoesPorGoverno } from './historico';
 
 describe('Salário mínimo de FHC a Lula com a série do Ipea', () => {
   const v = variacoesPorGoverno(SALARIO_MINIMO_REAL);
@@ -28,5 +28,14 @@ describe('Salário mínimo de FHC a Lula com a série do Ipea', () => {
     expect(frasesHistorico(SALARIO_MINIMO_REAL)).toEqual({ bolsonaro: '−1,2%', lula1: '+62,4%', fhc: '+40,0%' });
     expect(mesesDoGrafico(SALARIO_MINIMO_REAL)).toHaveLength(33);
     expect(graficoAnoAAno(SALARIO_MINIMO_REAL)).toContain('>1.423<');
+  });
+
+  it('perda no governo Bolsonaro, em reais de hoje', () => {
+    const p = perdaBolsonaro(SALARIO_MINIMO_REAL);
+    expect(Math.round(p.perdaFim)).toBe(-17);
+    expect(p.pior.referencia).toBe('2021-12');
+    expect(Math.round(p.pior.perda)).toBe(-72);
+    expect(p.pior.pct).toBeCloseTo(-5.0, 1);
+    expect(p.dezembros.map((d) => d.ano)).toEqual([2019, 2020, 2021, 2022]);
   });
 });

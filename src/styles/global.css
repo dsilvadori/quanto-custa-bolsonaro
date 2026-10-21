@@ -371,3 +371,5 @@ header nav a, .marca { white-space: nowrap; }
 .vacinas__custo h3 { margin: 0; }
 .primeiro-ano { margin-top: var(--cp-space-6); border-left: var(--cp-border-width-accent) solid var(--cp-color-tertiary); }
 .primeiro-ano h3 { margin: 0; }
+.perda-bolsonaro { margin-bottom: var(--cp-space-6); border-top-color: var(--cp-color-tertiary); }
+.perda-bolsonaro h3 { margin: 0; }

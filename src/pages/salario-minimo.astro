@@ -6,7 +6,16 @@ import { Fonte } from '../components/Fonte';
 import { Resultados } from '../components/Resultados';
 import { BarraCompartilhar } from '../components/BarraCompartilhar';
 import { CENARIO_SM, DADOS_SALARIO, INPC, MINIMO_ATUAL, SALARIO_MINIMO, SALARIO_MINIMO_REAL } from '../dados';
-import { frasesHistorico, graficoAnoAAno, graficoGovernos, mesesDoGrafico } from '../simuladores/historico';
+import {
+  frasesHistorico,
+  graficoAnoAAno,
+  graficoGovernos,
+  graficoPerdaBolsonaro,
+  mesesDoGrafico,
+  pctComSinal,
+  perdaBolsonaro,
+  reaisComSinal,
+} from '../simuladores/historico';
 import { ESTADO_PADRAO, calcularSalario, frasesSalario, graficoSalario } from '../simuladores/salario';
 import { pct, reais } from '../formato';
 import { PAGINAS, link } from '../site';
@@ -18,11 +27,13 @@ const f = frasesSalario(DADOS_SALARIO, ESTADO_PADRAO);
 const { padrao } = CENARIO_SM.bases;
 const inpcFinal = CENARIO_SM.inpc[CENARIO_SM.inpc.length - 1];
 const h = frasesHistorico(SALARIO_MINIMO_REAL);
+const pb = perdaBolsonaro(SALARIO_MINIMO_REAL);
 const fonteHistorico = SALARIO_MINIMO_REAL[0].fonte;
 /** "2026-09" → "setembro de 2026" no texto e "set/2026" na tabela. */
 const MESES = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'];
 const ultimoMes = SALARIO_MINIMO_REAL.reduce((a, b) => (b.referencia > a.referencia ? b : a)).referencia;
-const mesFinal = `${MESES[Number(ultimoMes.slice(5)) - 1]} de ${ultimoMes.slice(0, 4)}`;
+const mesPorExtenso = (ref: string) => `${MESES[Number(ref.slice(5)) - 1]} de ${ref.slice(0, 4)}`;
+const mesFinal = mesPorExtenso(ultimoMes);
 const mesAno = (ref: string) => `${MESES[Number(ref.slice(5)) - 1].slice(0, 3)}/${ref.slice(0, 4)}`;
 
 /** Fonte do valor em vigor em dezembro do ano (o 13º usa esse valor). */
@@ -143,10 +154,32 @@ const dados = JSON.stringify({
     <div class="cp-container">
       <h2 id="historico" class="cp-text-h2">De FHC a Lula: só no governo do Bolsonaro o mínimo perdeu poder de compra</h2>
       <p class="texto" data-numero>
-        Descontada a inflação, o salário mínimo subiu em todos os governos desde o Plano Real, menos no do Bolsonaro: caiu
-        {h.bolsonaro} em 4 anos. No governo Lula, de 2003 a 2010, subiu {h.lula1}; no de FHC, {h.fhc}
+        Descontada a inflação, o salário mínimo subiu em todos os governos desde o Plano Real, menos no do Bolsonaro, em que perdeu
+        {h.bolsonaro.replace('−', '')} do poder de compra. No governo Lula, de 2003 a 2010, subiu {h.lula1}; no de FHC, {h.fhc}
         <span class="junto"><Fonte id={fonteHistorico} />.</span>
       </p>
+      <div class="cartao simulador__resultado perda-bolsonaro" data-numero>
+        <h3 class="cp-text-h3">Quanto o mínimo perdeu no governo do Bolsonaro</h3>
+        <p class="cp-text-body-large resultado__frase">
+          Em dinheiro de hoje, o mínimo valia {reais(Math.round(pb.inicio))} quando Bolsonaro assumiu e
+          {reais(Math.round(pb.fim))} quando ele saiu.
+        </p>
+        <Resultados
+          itens={[
+            { saida: 'bolsonaro-fim', valor: reaisComSinal(Math.round(pb.perdaFim)), rotulo: `por mês no fim do governo (${pctComSinal(pb.pctFim, 1)})` },
+            {
+              saida: 'bolsonaro-pior',
+              valor: reaisComSinal(Math.round(pb.pior.perda)),
+              rotulo: `por mês em ${mesPorExtenso(pb.pior.referencia)}, o pior momento (${pctComSinal(pb.pior.pct, 1)})`,
+            },
+          ]}
+        />
+        <div class="grafico-area" set:html={graficoPerdaBolsonaro(SALARIO_MINIMO_REAL)} />
+        <p class="cp-text-body-small">
+          Diferença para dezembro de 2018, o mês antes da posse, em reais de {mesFinal}. Em todos os outros governos desde o Plano
+          Real, o mínimo terminou valendo mais do que quando o governo começou <span class="junto"><Fonte id={fonteHistorico} />.</span>
+        </p>
+      </div>
       <figure class="grafico-cartao cartao" data-numero>
         <figcaption class="cp-text-title">Quanto o mínimo subiu além da inflação, por ano, em cada governo</figcaption>
         <div class="grafico-area" set:html={graficoGovernos(SALARIO_MINIMO_REAL)} />

@@ -108,3 +108,41 @@ export function frasesHistorico(serie: MesSalario[]) {
     fhc: sinal(v[0].total, 1),
   };
 }
+
+/** Governo Bolsonaro mês a mês: quanto o mínimo valia, em reais de hoje, frente ao mês em que ele assumiu. */
+export function perdaBolsonaro(serie: MesSalario[]) {
+  const g = variacoesPorGoverno(serie).find((x) => x.nome === 'Bolsonaro')!;
+  const meses = serie.filter((s) => s.referencia > g.inicio && s.referencia <= g.fim);
+  const pior = meses.reduce((a, b) => (b.real < a.real ? b : a));
+  const dezembros = meses.filter((s) => s.referencia.endsWith('-12'));
+  const diferenca = (m: MesSalario) => m.real - g.de;
+  return {
+    inicio: g.de,
+    fim: g.ate,
+    perdaFim: g.ate - g.de,
+    pctFim: g.total,
+    pior: { referencia: pior.referencia, valor: pior.real, perda: diferenca(pior), pct: (pior.real / g.de - 1) * 100 },
+    dezembros: dezembros.map((m) => ({ ano: Number(m.referencia.slice(0, 4)), valor: m.real, perda: diferenca(m) })),
+  };
+}
+
+/** R$ a mais ou a menos, com o sinal de menos tipográfico: −R$ 72. */
+export const reaisComSinal = (v: number) => (v < 0 ? `−${reais(-v)}` : `+${reais(v)}`);
+export const pctComSinal = sinal;
+
+export function graficoPerdaBolsonaro(serie: MesSalario[]): string {
+  const p = perdaBolsonaro(serie);
+  return barrasH({
+    id: 'sm-bolsonaro',
+    titulo: 'Poder de compra do mínimo no governo do Bolsonaro, frente a dezembro de 2018, em reais de hoje',
+    descricao: p.dezembros.map((d) => `Dezembro de ${d.ano}: ${reaisComSinal(d.perda)} por mês`).join('. ') + '.',
+    corNegativa: 'var(--cor-alerta)',
+    linhas: p.dezembros.map((d) => ({
+      rotulo: `Dezembro de ${d.ano}`,
+      valor: d.perda,
+      texto: `${reaisComSinal(Math.round(d.perda))} por mês`,
+      cor: COR_BOLSONARO,
+      detalhe: `mínimo de ${reais(d.valor)} em reais de hoje`,
+    })),
+  });
+}
