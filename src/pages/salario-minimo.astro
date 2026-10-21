@@ -5,7 +5,8 @@ import LinksSimulador from '../components/LinksSimulador.astro';
 import { Fonte } from '../components/Fonte';
 import { Resultados } from '../components/Resultados';
 import { BarraCompartilhar } from '../components/BarraCompartilhar';
-import { CENARIO_SM, DADOS_SALARIO, INPC, MINIMO_ATUAL, SALARIO_MINIMO } from '../dados';
+import { CENARIO_SM, DADOS_SALARIO, INPC, MINIMO_ATUAL, SALARIO_MINIMO, SALARIO_MINIMO_REAL } from '../dados';
+import { frasesHistorico, graficoAnoAAno, graficoGovernos, mesesDoGrafico } from '../simuladores/historico';
 import { ESTADO_PADRAO, calcularSalario, frasesSalario, graficoSalario } from '../simuladores/salario';
 import { pct, reais } from '../formato';
 import { PAGINAS, link } from '../site';
@@ -16,6 +17,13 @@ const r = calcularSalario(DADOS_SALARIO, ESTADO_PADRAO);
 const f = frasesSalario(DADOS_SALARIO, ESTADO_PADRAO);
 const { padrao } = CENARIO_SM.bases;
 const inpcFinal = CENARIO_SM.inpc[CENARIO_SM.inpc.length - 1];
+const h = frasesHistorico(SALARIO_MINIMO_REAL);
+const fonteHistorico = SALARIO_MINIMO_REAL[0].fonte;
+/** "2026-09" → "setembro de 2026" no texto e "set/2026" na tabela. */
+const MESES = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'];
+const ultimoMes = SALARIO_MINIMO_REAL.reduce((a, b) => (b.referencia > a.referencia ? b : a)).referencia;
+const mesFinal = `${MESES[Number(ultimoMes.slice(5)) - 1]} de ${ultimoMes.slice(0, 4)}`;
+const mesAno = (ref: string) => `${MESES[Number(ref.slice(5)) - 1].slice(0, 3)}/${ref.slice(0, 4)}`;
 
 /** Fonte do valor em vigor em dezembro do ano (o 13º usa esse valor). */
 const fonteDezembro = (ano: number) => SALARIO_MINIMO.filter((v) => v.inicio <= `${ano}-12-01`).at(-1)!.fonte;
@@ -131,6 +139,61 @@ const dados = JSON.stringify({
     </div>
   </section>
 
+  <section class="secao secao--cinza" aria-labelledby="historico">
+    <div class="cp-container">
+      <h2 id="historico" class="cp-text-h2">De FHC a Lula: só no governo do Bolsonaro o mínimo perdeu poder de compra</h2>
+      <p class="texto" data-numero>
+        Descontada a inflação, o salário mínimo subiu em todos os governos desde o Plano Real, menos no do Bolsonaro: caiu
+        {h.bolsonaro} em 4 anos. No governo Lula, de 2003 a 2010, subiu {h.lula1}; no de FHC, {h.fhc}
+        <span class="junto"><Fonte id={fonteHistorico} />.</span>
+      </p>
+      <figure class="grafico-cartao cartao" data-numero>
+        <figcaption class="cp-text-title">Quanto o mínimo subiu além da inflação, por ano, em cada governo</figcaption>
+        <div class="grafico-area" set:html={graficoGovernos(SALARIO_MINIMO_REAL)} />
+        <p class="cp-text-body-small">
+          Do último mês do governo anterior ao último mês de cada governo; o atual vai até {mesFinal}. Valores em reais de {mesFinal},
+          corrigidos pelo INPC <span class="junto"><Fonte id={fonteHistorico} />.</span>
+        </p>
+      </figure>
+      <figure class="grafico-cartao cartao" data-numero>
+        <figcaption>
+          <p class="cp-text-title">O mínimo em dezembro de cada ano, em reais de hoje</p>
+          <ul class="legenda" aria-hidden="true">
+            <li><span class="legenda__cor legenda__cor--lula"></span>Governo Lula</li>
+            <li><span class="legenda__cor legenda__cor--bolsonaro"></span>Governo do Bolsonaro</li>
+            <li><span class="legenda__cor legenda__cor--outros"></span>Outros governos</li>
+          </ul>
+        </figcaption>
+        <div class="grafico-area" set:html={graficoAnoAAno(SALARIO_MINIMO_REAL)} />
+        <p class="cp-text-body-small">
+          Começa em dezembro de 1994, o primeiro fim de ano do real. A última coluna é {mesFinal}
+          <span class="junto"><Fonte id={fonteHistorico} />.</span>
+        </p>
+        <details class="tabela-detalhes">
+          <summary>Ver os números</summary>
+          <div class="tabela-rolagem">
+            <table class="tabela">
+              <caption class="cp-visually-hidden">Salário mínimo em dezembro de cada ano: valor da época e valor em reais de hoje</caption>
+              <thead>
+                <tr><th scope="col">Mês</th><th scope="col">Valor na época</th><th scope="col">Em reais de {mesFinal}</th></tr>
+              </thead>
+              <tbody>
+                {
+                  mesesDoGrafico(SALARIO_MINIMO_REAL).map((m) => (
+                    <tr>
+                      <th scope="row">{mesAno(m.referencia)}</th>
+                      <td>{reais(m.nominal)}</td>
+                      <td>{reais(m.real)}</td>
+                    </tr>
+                  ))
+                }
+              </tbody>
+            </table>
+          </div>
+        </details>
+      </figure>
+    </div>
+  </section>
 
   <div class="cp-container">
     <BarraCompartilhar textoWhatsapp={f.whatsapp(url)} />

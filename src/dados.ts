@@ -1,5 +1,6 @@
 // Lê os CSVs de /data no build. As páginas recebem daqui os números e o id da fonte de cada um.
 import salarioMinimoCsv from '../data/salario-minimo.csv?raw';
+import salarioMinimoRealCsv from '../data/salario-minimo-real.csv?raw';
 import inpcCsv from '../data/inpc.csv?raw';
 import parametrosCsv from '../data/parametros.csv?raw';
 import inpcAnualCsv from '../data/inpc-anual.csv?raw';
@@ -26,6 +27,14 @@ export interface VigenciaComFonte extends Vigencia {
 export const SALARIO_MINIMO: VigenciaComFonte[] = lerCsv(salarioMinimoCsv).map((l) => ({
   inicio: l.vigencia_inicio!,
   valor: Number(l.valor),
+  fonte: l.fonte!,
+}));
+
+/** Salário mínimo de cada mês da série histórica (Ipea): o valor da época e o valor em reais de hoje. */
+export const SALARIO_MINIMO_REAL = lerCsv(salarioMinimoRealCsv).map((l) => ({
+  referencia: l.referencia!,
+  nominal: Number(l.valor_nominal),
+  real: Number(l.valor_real),
   fonte: l.fonte!,
 }));
 

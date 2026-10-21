@@ -733,6 +733,18 @@
       "usado_em": [
         "/covid"
       ]
+    },
+    {
+      "id": "ipeadata-salario-minimo-real",
+      "titulo": "Ipeadata: \"Salário mínimo real\" (série mensal GAC12_SALMINRE12, em reais do último mês, corrigida pelo INPC)",
+      "orgao": "Ipea",
+      "url": "https://www.ipeadata.gov.br/ExibeSerie.aspx?serid=37667",
+      "data_publicacao": "2026-10-09",
+      "data_coleta": "2026-10-21",
+      "valor_usado": "Salário mínimo em dezembro de cada ano, de 1994 a 2025, em agosto de 2016 e em setembro de 2026, em reais de setembro de 2026. Ex.: dez/1994 R$ 535,49; dez/2002 R$ 749,93; dez/2010 R$ 1.217,74; ago/2016 R$ 1.408,92; dez/2018 R$ 1.440,15; dez/2022 R$ 1.423,09; set/2026 R$ 1.621,00",
+      "usado_em": [
+        "/salario-minimo"
+      ]
     }
   ]
 }

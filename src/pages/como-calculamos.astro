@@ -2,7 +2,7 @@
 import { FaqItem, Link } from '@boralula/ui';
 import Base from '../layouts/Base.astro';
 import { Fonte } from '../components/Fonte';
-import { CARRINHO, CENARIO_SM, CESTA, COMBUSTIVEIS, DADOS_BENEFICIO, DADOS_CARRINHO, INPC_ANUAL, MINIMO_ATUAL } from '../dados';
+import { CARRINHO, CENARIO_SM, CESTA, COMBUSTIVEIS, DADOS_BENEFICIO, DADOS_CARRINHO, INPC_ANUAL, MINIMO_ATUAL, SALARIO_MINIMO_REAL } from '../dados';
 import { pct, reais } from '../formato';
 import { PAGINAS, link } from '../site';
 
@@ -33,6 +33,10 @@ const perguntas = [
   {
     q: 'Como calculamos o preço dos combustíveis com o PPI?',
     a: `Aumento na bomba = diferença para o preço de importação (Abicom) × parte de petróleo no litro. ICMS e PIS/Cofins são cobrados por litro e não mudam. O efeito direto na inflação é a alta de cada combustível vezes o peso dele no IPCA.`,
+  },
+  {
+    q: 'Como comparamos o salário mínimo de FHC a Lula?',
+    a: `Usamos a série do salário mínimo real do Ipea, que corrige o valor de cada mês pelo INPC e leva tudo a reais de hoje. Cada governo vai do último mês do governo anterior ao último mês dele: FHC de dezembro de 1994 a dezembro de 2002, Lula de 2002 a 2010, Dilma de dezembro de 2010 a agosto de 2016, Temer até dezembro de 2018, Bolsonaro até dezembro de 2022 e o governo atual até o último mês da série. Ganho real no governo = valor no fim ÷ valor no começo − 1; por ano = (valor no fim ÷ valor no começo)^(1/anos) − 1. A série começa em dezembro de 1994, o primeiro fim de ano do real.`,
   },
 ];
 const jsonLd = [
@@ -169,6 +173,23 @@ const jsonLd = [
           <li>Efeito direto na inflação = alta × peso no IPCA <Fonte id={diesel.fontes.peso} />.</li>
         </ol>
         <p><Link href={link(PAGINAS.combustivel.path)}>Abrir o simulador</Link></p>
+      </FaqItem>
+
+      <FaqItem question={perguntas[5].q}>
+        <ol class="passos" data-numero>
+          <li>
+            Salário mínimo real do Ipea: o valor de cada mês corrigido pelo INPC, em reais do último mês da série
+            <Fonte id={SALARIO_MINIMO_REAL[0].fonte} />.
+          </li>
+          <li>
+            Cada governo vai do último mês do governo anterior ao último mês dele: FHC de dezembro de 1994 a dezembro de 2002, Lula
+            de 2002 a 2010, Dilma de dezembro de 2010 a agosto de 2016, Temer até dezembro de 2018, Bolsonaro até dezembro de 2022 e o
+            governo atual até o último mês da série.
+          </li>
+          <li>Ganho real no governo = valor no fim ÷ valor no começo − 1. Por ano = (valor no fim ÷ valor no começo)^(1/anos) − 1.</li>
+          <li>A série começa em dezembro de 1994, o primeiro fim de ano do real.</li>
+        </ol>
+        <p><Link href={link(`${PAGINAS.salarioMinimo.path}#historico`)}>Ver o histórico</Link></p>
       </FaqItem>
     </div>
   </section>

@@ -200,6 +200,7 @@ input[aria-invalid='true'] { outline: var(--cp-border-width-strong) solid var(--
 .resultados [data-saida] { color: var(--cor-alerta); }
 .legenda__cor--lula { background: var(--cp-color-primary); }
 .legenda__cor--bolsonaro { background: var(--cp-color-tertiary); }
+.legenda__cor--outros { background: var(--cp-color-on-surface-variant); }
 
 /* Tabela dentro de <details> nativo: funciona sem JS */
 .tabela-detalhes summary {

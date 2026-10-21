@@ -5,3 +5,6 @@ dist/
 .env
 .lighthouseci/
 .wrangler/
+
+# Roteiros de vídeo (PDF e HTML de trabalho): ficam só na máquina.
+roteiros/
