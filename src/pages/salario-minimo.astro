@@ -243,11 +243,11 @@ const dados = JSON.stringify({
         <span class="junto"><Fonte id={fonteSalarioHist} /> <Fonte id={fonteCestaHist} />.</span>
       </p>
       <figure class="grafico-cartao cartao" data-numero>
-        <figcaption class="cp-text-title">Cestas a mais ou a menos do começo ao fim de cada governo</figcaption>
+        <figcaption class="cp-text-title">Cestas básicas por mês no fim de cada governo</figcaption>
         <div class="grafico-area" set:html={graficoCestasPorGoverno(CESTAS_SALARIO_MINIMO)} />
         <p class="cp-text-body-small">
-          Salário mínimo em vigor ÷ custo médio da cesta básica do DIEESE no mesmo mês, no primeiro e no último mês de cada governo;
-          o atual vai até {mesPorExtenso(ultimoMesCestas)} <Fonte id={fonteSalarioHist} /> <span class="junto"><Fonte id={fonteCestaHist} />.</span>
+          Salário mínimo em vigor ÷ custo médio da cesta básica do DIEESE no mesmo mês, no último mês de cada governo (e, embaixo de
+          cada barra, no primeiro); o atual vai até {mesPorExtenso(ultimoMesCestas)} <Fonte id={fonteSalarioHist} /> <span class="junto"><Fonte id={fonteCestaHist} />.</span>
         </p>
       </figure>
       <figure class="grafico-cartao cartao" data-numero>

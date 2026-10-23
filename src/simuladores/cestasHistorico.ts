@@ -23,7 +23,6 @@ export const GOVERNOS_CESTAS = [
 
 /** 2,49 (duas casas, vírgula). */
 export const cestas = (v: number) => v.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-const comSinal = (v: number) => (v < 0 ? `−${cestas(-v)}` : `+${cestas(v)}`);
 
 const razao = (m: MesCesta) => m.salario / m.cesta;
 
@@ -80,15 +79,14 @@ export function graficoCestasPorGoverno(serie: MesCesta[]): string {
   const g = cestasPorGoverno(serie);
   return barrasH({
     id: 'sm-cestas-governo',
-    titulo: 'Quantas cestas básicas a mais ou a menos o mínimo comprava no fim de cada governo, frente ao começo',
-    descricao: g.map((x) => `${x.nome} (${x.periodo}): de ${cestas(x.de)} para ${cestas(x.ate)} cestas, ${comSinal(x.variacao)}`).join('. ') + '.',
-    corNegativa: 'var(--cor-alerta)',
+    titulo: 'Quantas cestas básicas o mínimo comprava no fim de cada governo',
+    descricao: g.map((x) => `${x.nome} (${x.periodo}): ${cestas(x.ate)} cestas no fim, ${cestas(x.de)} no começo`).join('. ') + '.',
     linhas: g.map((x) => ({
       rotulo: `${x.nome} (${x.periodo})`,
-      valor: x.variacao,
-      texto: `${comSinal(x.variacao)} cesta`,
+      valor: x.ate,
+      texto: `${cestas(x.ate)} cestas`,
       cor: x.cor,
-      detalhe: `de ${cestas(x.de)} para ${cestas(x.ate)} cestas por mês`,
+      detalhe: `no começo do governo: ${cestas(x.de)} cestas`,
     })),
   });
 }
