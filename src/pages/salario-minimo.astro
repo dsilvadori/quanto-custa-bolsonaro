@@ -5,7 +5,8 @@ import LinksSimulador from '../components/LinksSimulador.astro';
 import { Fonte } from '../components/Fonte';
 import { Resultados } from '../components/Resultados';
 import { BarraCompartilhar } from '../components/BarraCompartilhar';
-import { CENARIO_SM, DADOS_SALARIO, INPC, MINIMO_ATUAL, SALARIO_MINIMO, SALARIO_MINIMO_REAL } from '../dados';
+import { CENARIO_SM, CESTAS_SALARIO_MINIMO, DADOS_SALARIO, INPC, MINIMO_ATUAL, SALARIO_MINIMO, SALARIO_MINIMO_REAL } from '../dados';
+import { cestas, cestasPorAno, frasesCestas, graficoCestasPorAno, graficoCestasPorGoverno } from '../simuladores/cestasHistorico';
 import {
   frasesHistorico,
   graficoAnoAAno,
@@ -28,6 +29,10 @@ const { padrao } = CENARIO_SM.bases;
 const inpcFinal = CENARIO_SM.inpc[CENARIO_SM.inpc.length - 1];
 const h = frasesHistorico(SALARIO_MINIMO_REAL);
 const pb = perdaBolsonaro(SALARIO_MINIMO_REAL);
+const fc = frasesCestas(CESTAS_SALARIO_MINIMO);
+const fonteCestaHist = CESTAS_SALARIO_MINIMO[0].fonteCesta;
+const fonteSalarioHist = CESTAS_SALARIO_MINIMO[0].fonteSalario;
+const ultimoMesCestas = CESTAS_SALARIO_MINIMO.at(-1)!.referencia;
 const fonteHistorico = SALARIO_MINIMO_REAL[0].fonte;
 /** "2026-09" → "setembro de 2026" no texto e "set/2026" na tabela. */
 const MESES = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'];
@@ -217,6 +222,62 @@ const dados = JSON.stringify({
                       <th scope="row">{mesAno(m.referencia)}</th>
                       <td>{reais(m.nominal)}</td>
                       <td>{reais(m.real)}</td>
+                    </tr>
+                  ))
+                }
+              </tbody>
+            </table>
+          </div>
+        </details>
+      </figure>
+    </div>
+  </section>
+
+  <section class="secao" aria-labelledby="cestas">
+    <div class="cp-container">
+      <h2 id="cestas" class="cp-text-h2">Quantas cestas básicas o mínimo comprava em cada governo</h2>
+      <p class="texto" data-numero>
+        Quando Bolsonaro assumiu, o salário mínimo comprava {fc.bolsonaroDe} cestas básicas por mês. Quando ele saiu, comprava
+        {fc.bolsonaroAte}: {fc.bolsonaroPerda} cesta a menos. No governo Lula, de 2003 a 2010, o mínimo passou de {fc.lula1De} para
+        {fc.lula1Ate} cestas; desde 2023, de {fc.atualDe} para {fc.atualAte}
+        <span class="junto"><Fonte id={fonteSalarioHist} /> <Fonte id={fonteCestaHist} />.</span>
+      </p>
+      <figure class="grafico-cartao cartao" data-numero>
+        <figcaption class="cp-text-title">Cestas a mais ou a menos do começo ao fim de cada governo</figcaption>
+        <div class="grafico-area" set:html={graficoCestasPorGoverno(CESTAS_SALARIO_MINIMO)} />
+        <p class="cp-text-body-small">
+          Salário mínimo em vigor ÷ custo médio da cesta básica do DIEESE no mesmo mês, no primeiro e no último mês de cada governo;
+          o atual vai até {mesPorExtenso(ultimoMesCestas)} <Fonte id={fonteSalarioHist} /> <span class="junto"><Fonte id={fonteCestaHist} />.</span>
+        </p>
+      </figure>
+      <figure class="grafico-cartao cartao" data-numero>
+        <figcaption>
+          <p class="cp-text-title">Cestas básicas por mês, ano a ano</p>
+          <ul class="legenda" aria-hidden="true">
+            <li><span class="legenda__cor legenda__cor--lula"></span>Governos do PT (Lula e Dilma)</li>
+            <li><span class="legenda__cor legenda__cor--bolsonaro"></span>Governos Temer e Bolsonaro</li>
+          </ul>
+        </figcaption>
+        <div class="grafico-area" set:html={graficoCestasPorAno(CESTAS_SALARIO_MINIMO)} />
+        <p class="cp-text-body-small">
+          Média dos meses de cada ano; {ultimoMesCestas.slice(0, 4)} vai até {mesPorExtenso(ultimoMesCestas)}. Dilma governou até agosto de
+          2016, por isso o ano fica com ela. Cesta: média das 16 capitais que o DIEESE pesquisa sem interrupção desde os anos 1990
+          <span class="junto"><Fonte id={fonteCestaHist} />.</span>
+        </p>
+        <details class="tabela-detalhes">
+          <summary>Ver os números</summary>
+          <div class="tabela-rolagem">
+            <table class="tabela">
+              <caption class="cp-visually-hidden">Cestas básicas que o salário mínimo comprava, média de cada ano</caption>
+              <thead>
+                <tr><th scope="col">Ano</th><th scope="col">Cestas por mês</th></tr>
+              </thead>
+              <tbody>
+                {
+                  cestasPorAno(CESTAS_SALARIO_MINIMO).map((a) => (
+                    <tr>
+                      <th scope="row">{a.ano}</th>
+                      <td>{cestas(a.cestas)}</td>
                     </tr>
                   ))
                 }

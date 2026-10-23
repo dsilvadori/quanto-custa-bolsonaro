@@ -1,6 +1,7 @@
 // Lê os CSVs de /data no build. As páginas recebem daqui os números e o id da fonte de cada um.
 import salarioMinimoCsv from '../data/salario-minimo.csv?raw';
 import salarioMinimoRealCsv from '../data/salario-minimo-real.csv?raw';
+import cestasSalarioCsv from '../data/cestas-salario-minimo.csv?raw';
 import inpcCsv from '../data/inpc.csv?raw';
 import parametrosCsv from '../data/parametros.csv?raw';
 import inpcAnualCsv from '../data/inpc-anual.csv?raw';
@@ -36,6 +37,15 @@ export const SALARIO_MINIMO_REAL = lerCsv(salarioMinimoRealCsv).map((l) => ({
   nominal: Number(l.valor_nominal),
   real: Number(l.valor_real),
   fonte: l.fonte!,
+}));
+
+/** Mês a mês desde 2003: salário mínimo em vigor e custo médio da cesta básica do DIEESE nas 16 capitais da série longa. */
+export const CESTAS_SALARIO_MINIMO = lerCsv(cestasSalarioCsv).map((l) => ({
+  referencia: l.referencia!,
+  salario: Number(l.salario_minimo),
+  cesta: Number(l.cesta_media),
+  fonteSalario: l.fonte_salario!,
+  fonteCesta: l.fonte_cesta!,
 }));
 
 export interface InpcComFonte {

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { FONTES, existeFonte } from './fontes';
-import { CESTA, COMBUSTIVEIS, INPC, INPC_ANUAL, PARAMETROS, PICO_COMBUSTIVEL, SALARIO_MINIMO, SALARIO_MINIMO_REAL } from './dados';
+import { CESTA, COMBUSTIVEIS, INPC, INPC_ANUAL, PARAMETROS, PICO_COMBUSTIVEL, SALARIO_MINIMO, SALARIO_MINIMO_REAL, CESTAS_SALARIO_MINIMO } from './dados';
 import { PAGINAS } from './site';
 
 const data = /^\d{4}-\d{2}-\d{2}$/;
@@ -29,6 +29,7 @@ describe('CSVs de /data', () => {
   it('toda linha aponta para uma fonte do registro', () => {
     const ids = [
       ...[...SALARIO_MINIMO, ...SALARIO_MINIMO_REAL, ...INPC, ...INPC_ANUAL, ...Object.values(PARAMETROS)].map((l) => l.fonte),
+      ...CESTAS_SALARIO_MINIMO.flatMap((c) => [c.fonteSalario, c.fonteCesta]),
       ...CESTA.bolsonaro.fontes,
       ...CESTA.atual.fontes,
       ...CESTA.capitais.map((c) => c.fonte),

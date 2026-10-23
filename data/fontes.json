@@ -745,6 +745,30 @@
       "usado_em": [
         "/salario-minimo"
       ]
+    },
+    {
+      "id": "ipeadata-salario-minimo-vigente",
+      "titulo": "Ipeadata: \"Salário mínimo vigente\" (série mensal MTE12_SALMIN12, valor nominal)",
+      "orgao": "Ipea",
+      "url": "https://www.ipeadata.gov.br/ExibeSerie.aspx?serid=1739471028",
+      "data_publicacao": "2025-06-30",
+      "data_coleta": "2026-10-23",
+      "valor_usado": "Salário mínimo em vigor em cada mês, de janeiro de 2003 a setembro de 2026. Ex.: jan/2003 R$ 200; jan/2019 R$ 998; dez/2022 R$ 1.212; set/2026 R$ 1.621",
+      "usado_em": [
+        "/salario-minimo"
+      ]
+    },
+    {
+      "id": "dieese-cesta-serie-historica",
+      "titulo": "DIEESE, Pesquisa Nacional da Cesta Básica de Alimentos: custo mensal da cesta por capital (série histórica; Ipeadata, série CESBTOTAL, atualizada em 19/10/2026)",
+      "orgao": "DIEESE",
+      "url": "https://www.dieese.org.br/cesta/",
+      "data_publicacao": "2026-10-19",
+      "data_coleta": "2026-10-23",
+      "valor_usado": "Custo mensal da cesta básica, de janeiro de 2003 a setembro de 2026, nas 16 capitais pesquisadas sem interrupção desde os anos 1990 (Aracaju, Belém, Belo Horizonte, Brasília, Curitiba, Florianópolis, Fortaleza, Goiânia, João Pessoa, Natal, Porto Alegre, Recife, Rio de Janeiro, Salvador, São Paulo e Vitória); em novembro de 2019, 15 capitais. Média simples em set/2026: R$ 774,37",
+      "usado_em": [
+        "/salario-minimo"
+      ]
     }
   ]
 }
